@@ -27,12 +27,55 @@ my::String::String(const char* string)
     *tempPtr = '\0';
 }
 
+// #### Copy constructor (maybe sometimes need to use move semantic??)
+// #### Here we are CREATING a new object (in assignment - new object already EXISTS)
+// #########
+my::String::String(const String& string)
+{
+    mb_length = string.mb_length;
+
+    mb_ptr = new char[mb_length];
+    for (int ii {0}; ii < mb_length; ++ii) {
+        mb_ptr[ii] = string.mb_ptr[ii];
+    }
+
+}
+
 
 // #### Destructor
 // #########
 my::String::~String()
 {
     delete[] mb_ptr;
+}
+
+
+
+// #### Overloading [operator=]
+// #### We don't need to create a new object. Just assign to the existing one.
+// #######
+my::String& my::String::operator=(const String& string)
+{
+    // ## Self-assignment checking
+    if (this == &string) {
+        return *this;
+    }
+    else { /* Nothing to do */ }
+
+    // ## Delete data in the l-string
+    if (mb_ptr != nullptr) {
+        delete[] mb_ptr;
+    }
+    else { /* Nothing to do */ }
+
+    // ## Assign data from r-string to l-string
+    mb_length = string.mb_length;
+    mb_ptr = new char[mb_length];
+    for (int ii {0}; ii < mb_length; ++ii) {
+        mb_ptr[ii] = string.mb_ptr[ii];
+    }
+
+    return *this;
 }
 
 // #### Overloaded [operator>>]

@@ -16,9 +16,8 @@ public:
     String(const char* string);
     ~String();
 
-    // тут посмотреть
-//    String(String&) = delete;
-//    String& operator=(String&) = delete;
+    String(const String& string);
+    String& operator=(const String& string);
 
     friend std::ostream& operator<<(std::ostream& out, const String& string);
     friend std::istream& operator>>(std::istream& in, String& string);

@@ -12,9 +12,6 @@
 #include "cls_gold.h"
 #include "cls_potion.h"
 
-// #1 Видимо, есть проблема в конструкторе класса Player. То есть где-то my::String удаляется лишняяю
-//    Попробовать либо добавить copy assignment (в String), либо изменить оператор>> в String
-
 
 int main()
 {

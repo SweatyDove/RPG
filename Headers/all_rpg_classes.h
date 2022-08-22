@@ -1,0 +1,6 @@
+#include "cls_CREATURE.h"
+#include "cls_creature_MONSTER.h"
+#include "cls_creature_PLAYER.h"
+#include "cls_item.h"
+#include "cls_item_gold.h"
+#include "cls_item_potion.h"

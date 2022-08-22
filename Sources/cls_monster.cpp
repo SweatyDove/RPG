@@ -1,0 +1,164 @@
+
+#include "header.h"
+#include "cls_monster.h"
+
+
+// #### Create a random monster
+// #######
+Monster::Monster(Type type) :
+    Creature(Creature::Type::MONSTER),
+    mb_type {type}
+{
+    mb_level = getRandomMonsterLevel();
+    mb_damage = this->setDamage(mb_type, mb_level);
+    mb_health = this->setHealth(mb_type, mb_level);
+}
+
+
+
+// #### (Static class function) Returns random monster's [level] depending on the it's [type] (not release yet)
+// ############
+int Monster::getRandomMonsterLevel()
+{
+    return getRandomNumber(1, 10);
+}
+
+
+
+
+// #### (Static class function) Generate random monster [type] according to the monster's [chance] to appeare
+// ############
+Monster::Type Monster::getRandomMonsterType()
+{
+    int roll {};
+    Type type {};
+
+    roll = getRandomNumber(1, 100);
+    if (roll <= 20) {
+        type = Type::GHOST;
+    }
+    else if (roll <= 50 ) {
+        type = Type::ZOMBIE;
+    }
+    else {
+        type = Type::SKELETON;
+    }
+
+    return type;
+}
+
+
+
+
+
+
+
+
+
+
+// #### Func sets the [damage] of the monster (depending on the monster's [type] and [level])
+// #########
+int Monster::setDamage(Type type, int level) const
+{
+    int damage {};
+
+    switch (type) {
+    case Type::SKELETON:
+        damage = SKELETON_BASE_DAMAGE + level;
+        break;
+    case Type::ZOMBIE:
+        damage = ZOMBIE_BASE_DAMAGE + level * 2;
+        break;
+    case Type::GHOST:
+        damage = GHOST_BASE_DAMAGE + level * 3;
+    case Type::MAX_TYPE:
+        assert("Invalid monster");
+        break;
+    //default:
+        //break;
+    }
+
+    return damage;
+}
+
+// #### Func sets the "health" of the monster (depending on the monster's "type" and "level")
+// #########
+int Monster::setHealth(Type type, int level) const
+{
+    int health {};
+
+    switch (type) {
+    case Type::SKELETON:
+        health = SKELETON_BASE_HEALTH + level * 2;
+        break;
+    case Type::ZOMBIE:
+        health = ZOMBIE_BASE_HEALTH + level * 10 ;
+        break;
+    case Type::GHOST:
+        health = GHOST_BASE_HEALTH + level * 5;
+    case Type::MAX_TYPE:
+        assert("Invalid monster");
+        break;
+    //default:
+        //break;
+    }
+
+    return health;
+}
+
+// #### Func returns "name" of the current monster
+// #########
+my::String Monster::getName() const
+{
+    switch(mb_type) {
+    case Type::SKELETON:
+        return "skeleton";
+    case Type::ZOMBIE:
+        return "zombie";
+    case Type::GHOST:
+        return "ghost";
+    case Type::MAX_TYPE:
+        return "";
+    //default:
+        //break;
+    }
+
+    return "";
+}
+
+
+// #### Func handle the montster's attack the "player"
+void Monster::attack(Player& player) const
+{
+    player.reduceHealth(mb_damage);
+    std::cout << "The " << this->getName() << " attacked player and dealt " << this->mb_damage << " points of damage. ";
+    std::cout << "At now, player has " << player.getCurrentHealth() << " hp. " << std::endl;
+    return;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//int getRandomLevel()
+//{
+//    // ## In the future, minLevel and maxLevel will depend on the monster's type
+//    int minLevel {0};
+//    int maxLevel {10};
+
+//    return getRandomNumber(minLevel, maxLevel);
+//}
+
+
+
+//Monster::Type getRandomType()
+//{
+//    return static_cast<Monster::Type>(getRandomNumber(0, static_cast<unsigned int>(Monster::Type::MAX_TYPE) - 1));
+//}

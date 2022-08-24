@@ -35,8 +35,8 @@ public:
     };
 private:
     int             mb_level {PlayerDefault::LEVEL};
-    int             mb_currentExp {};
-    int             mb_nextLevelExp {};
+    int             mb_currentExp {0};
+    int             mb_nextLevelExp {1000};             // Const for now
 
     my::String      mb_name {PlayerDefault::NAME};
     Race            mb_race {Player::Race::HUMAN};
@@ -45,6 +45,10 @@ private:
     int             mb_health {PlayerDefault::HEALTH};
     int             mb_stamina {PlayerDefault::STAMINA};
     int             mb_mana {PlayerDefault::MANA};
+
+    int             mb_strength {};
+    int             mb_intellect {};
+    int             mb_agility {};
 
     int             mb_damage {10};
     int             mb_timeLived {PlayerDefault::DAY_LIVED};
@@ -63,6 +67,10 @@ public:
     int                 getLevel() const;
     int                 getCurrentHealth() const;
 
+    //void                setHealth();
+    void                setStamina();
+    void                setMana();
+
 
     // ########  Public Interface  ########
     void                newDay();
@@ -75,6 +83,9 @@ public:
     void                addStrength(int strength);
     bool                isDead() const;
     void                reduceHealth(int health);
+
+    void                increaseExp(Monster& monster);
+    void                levelUp();
 
 
 };

@@ -92,6 +92,65 @@ int Player::getCurrentHealth() const
     return mb_health;
 }
 
+//void Player::setHealth()
+//{
+//    mb_health = PlayerDefault::HEALTH + mb_level * 20;
+//}
+
+// #### Handling player's level up.
+void Player::levelUp()
+{
+    bool inLoop {false};
+    char choice {'\0'};
+
+    mb_health = PlayerDefault::HEALTH + mb_level * 20;
+
+    std::cout << "Congratulation! You've reached " << mb_level << " level.\n";
+    std::cout << "What do you want to upgrade?:\n"
+              << " 1 - Strength (+1)\n"
+              << " 2 - Intellect (+1)\n"
+              << " 3 - Agility (+1)\n"
+              << std::flush;
+    while (inLoop) {
+        std::cin >> choice;
+        std::cout << "\033[F \b";
+        switch (choice) {
+        case '1':
+            mb_strength++;
+
+            break;
+        case '2':
+            mb_intellect++;
+            break;
+        case '3':
+            mb_agility++;
+            break;
+        default:
+            inLoop = true;
+            break;
+        }
+    }
+
+}
+
+// #### Increase the player's experience (and level up) depending on
+// #### the monster, that was killed by player.
+void Player::increaseExp(Monster& monster)
+{
+    int exp {monster.getLevel() * 100};
+
+    if (mb_currentExp + exp >= mb_nextLevelExp) {
+        mb_level++;
+        player.levelUp();
+        mb_currentExp = mb_currentExp + exp - mb_nextLevelExp;
+    }
+    else {
+        mb_currentExp += exp;
+    }
+
+    return;
+}
+
 
 
 
@@ -183,6 +242,7 @@ void Player::fightWith(Monster& monster)
             }
             else {
                 std::cout << "You killed monster!\n";
+                player.increaseExp();
             }
             break;
         case 'R': case 'r':

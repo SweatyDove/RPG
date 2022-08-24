@@ -6,16 +6,10 @@
 class Monster;
 
 
-Player::Player(my::String name = "Stranger",
-               Race race = Race::HUMAN,
-               Spec spec = Spec::WARRIOR
-        ) :
-    Creature(Creature::Type::PLAYER, 1, 100),
+Player::Player(const my::String& name, Race race, Spec spec) :
     mb_name {name},
     mb_race {race},
-    mb_spec {spec},
-    mb_damage {10},
-    mb_timeLived {0}
+    mb_spec {spec}
     {
         // Nothing to do;
     }
@@ -68,6 +62,36 @@ int Player::addGold(int gold)
     mb_gold += gold;
     return mb_gold;
 }
+
+// #### Function returns true if current Player is dead
+// #############
+bool Player::isDead() const
+{
+    return (mb_health <= 0);
+}
+
+// #### Function reduce health of the current Player by specified magnitude
+// #############
+void Player::reduceHealth(int health)
+{
+    mb_health -= health;
+    return;
+}
+
+// #### Function returns the level of the creature
+// ###############
+int Player::getLevel() const
+{
+    return mb_level;
+}
+
+// #### Function returns current health of the creature
+// #############
+int Player::getCurrentHealth() const
+{
+    return mb_health;
+}
+
 
 
 

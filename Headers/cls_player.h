@@ -7,7 +7,19 @@
 #include "cls_potion.h"
 
 
-class Player : public Creature {
+namespace PlayerDefault {
+    const int           LEVEL {1};
+    const my::String    NAME {"Stranger"};
+//    const Player::Race  RACE {Player::Race::HUMAN};
+//    const Player::Spec  SPEC {Player::Spec::WARRIOR};
+    const int           HEALTH {100};
+    const int           MANA {50};
+    const int           STAMINA {50};
+    const int           DAY_LIVED {0};
+}
+
+
+class Player {
 public:
     enum class Race {
         ORC,
@@ -22,24 +34,34 @@ public:
         HUNTER,
     };
 private:
-    my::String     mb_name {};
-    Race            mb_race {};
-    Spec            mb_spec {};
+    int             mb_level {PlayerDefault::LEVEL};
+    int             mb_currentExp {};
+    int             mb_nextLevelExp {};
 
-    int             mb_damage {};
-    int             mb_timeLived {};
+    my::String      mb_name {PlayerDefault::NAME};
+    Race            mb_race {Player::Race::HUMAN};
+    Spec            mb_spec {Player::Spec::WARRIOR};
+
+    int             mb_health {PlayerDefault::HEALTH};
+    int             mb_stamina {PlayerDefault::STAMINA};
+    int             mb_mana {PlayerDefault::MANA};
+
+    int             mb_damage {10};
+    int             mb_timeLived {PlayerDefault::DAY_LIVED};
     int             mb_gold {};
 public:
 
     // ########  Constructors and Destructors  ########
-    Player(my::String name, Race race, Spec spec);
+    Player(const my::String& name, Race race, Spec spec);
     ~Player() = default;
 
 
     // ########  Setters and Getters  ########
-    const my::String&  getName() const;
+    const my::String&   getName() const;
     int                 getDamage() const;
     int                 getTimeLived() const;
+    int                 getLevel() const;
+    int                 getCurrentHealth() const;
 
 
     // ########  Public Interface  ########
@@ -51,6 +73,8 @@ public:
     void                getLootFrom(Monster& monster);
     void                addHealth(int health);
     void                addStrength(int strength);
+    bool                isDead() const;
+    void                reduceHealth(int health);
 
 
 };

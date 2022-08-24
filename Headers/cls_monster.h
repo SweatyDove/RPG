@@ -7,7 +7,7 @@
 #include "cls_player.h"
 
 
-class Monster : public Creature {
+class Monster {
 public:
     enum class Type {        
         SKELETON,
@@ -17,41 +17,70 @@ public:
         MAX_TYPE
     };
 
+    struct MonsterBase {
+        Type    type;
+        int     health;
+        int     damage;
+    };
+
+    static constexpr std::array<MonsterBase, static_cast<std::size_t>(Type::MAX_TYPE)> base {
+        {
+            {Type::SKELETON, 10, 10},
+            {Type::ZOMBIE, 5, 30},
+            {Type::GHOST, 10, 20},
+        }
+    };
+
     //Monster::Type getRandomType();
 
 private:
 
     // ## SKELETON
     //static const int SKELETON_CHANCE_APPEAR { 50 };
-    static const int SKELETON_BASE_HEALTH   { 10 };
-    static const int SKELETON_BASE_DAMAGE   { 10 };
+//    static const int SKELETON_BASE_HEALTH   { 10 };
+//    static const int SKELETON_BASE_DAMAGE   { 10 };
 
-    // ## ZOMBIE
-    //static const int ZOMBIE_CHANCE_APPEAR   { 30 };
-    static const int ZOMBIE_BASE_HEALTH     { 30 };
-    static const int ZOMBIE_BASE_DAMAGE     { 5 };
+//    // ## ZOMBIE
+//    //static const int ZOMBIE_CHANCE_APPEAR   { 30 };
+//    static const int ZOMBIE_BASE_HEALTH     { 30 };
+//    static const int ZOMBIE_BASE_DAMAGE     { 5 };
 
-    // ## GHOST
-    //static const int GHOST_CHANCE_APPEAR   { 20 };
-    static const int GHOST_BASE_HEALTH     { 10 };
-    static const int GHOST_BASE_DAMAGE     { 20 };
+//    // ## GHOST
+//    //static const int GHOST_CHANCE_APPEAR   { 20 };
+//    static const int GHOST_BASE_HEALTH     { 10 };
+//    static const int GHOST_BASE_DAMAGE     { 20 };
 
 
 private:
-    Type mb_type {};
-
-protected:
-    int mb_damage {};
-
+    Type    mb_type {Type::SKELETON};
+    int     mb_level {1};
+    int     mb_health {};
+    int     mb_damage {};
 public:
-    Monster(Type type = getRandomMonsterType());
+    // #########  Constructors and Destructors  #############
+
+    // #### Create random monster
+    // #########
+    Monster();
+
+    // #### Create monster of the specific type;
+    // #######
+    //Monster(Type type = getRandomMonsterType());
 
     ~Monster() = default;
 
+    // ##########  Setters and Getters  #####################
+
     int             setDamage(Type type, int level) const;
     int             setHealth(Type type, int level) const;
-    my::String     getName() const;
+    my::String      getName() const;
+    int             getLevel() const;
+    int             getCurrentHealth() const;
+
+    // ##########  Other Functions  ##########################
+    bool            isDead() const;
     void            attack(Player& player) const;
+    void            reduceHealth(int health);
 
 
     static int getRandomMonsterLevel();

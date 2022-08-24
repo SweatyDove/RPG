@@ -5,11 +5,10 @@
 
 // #### Create a random monster
 // #######
-Monster::Monster(Type type) :
-    Creature(Creature::Type::MONSTER),
-    mb_type {type}
+Monster::Monster() :
+    mb_type {getRandomMonsterType()},
+    mb_level {getRandomMonsterLevel()}
 {
-    mb_level = getRandomMonsterLevel();
     mb_damage = this->setDamage(mb_type, mb_level);
     mb_health = this->setHealth(mb_type, mb_level);
 }
@@ -52,6 +51,36 @@ Monster::Type Monster::getRandomMonsterType()
 
 
 
+// #### Function returns true if current Monster is dead
+// #############
+bool Monster::isDead() const
+{
+    return (mb_health <= 0);
+}
+
+// #### Function reduce health of the current Monster by specified magnitude
+// #############
+void Monster::reduceHealth(int health)
+{
+    mb_health -= health;
+    return;
+}
+
+// #### Function returns the level of the creature
+// ###############
+int Monster::getLevel() const
+{
+    return mb_level;
+}
+
+// #### Function returns current health of the creature
+// #############
+int Monster::getCurrentHealth() const
+{
+    return mb_health;
+}
+
+
 
 
 
@@ -64,13 +93,13 @@ int Monster::setDamage(Type type, int level) const
 
     switch (type) {
     case Type::SKELETON:
-        damage = SKELETON_BASE_DAMAGE + level;
+        damage = base[static_cast<std::size_t>(type)].damage + level;
         break;
     case Type::ZOMBIE:
-        damage = ZOMBIE_BASE_DAMAGE + level * 2;
+        damage = base[static_cast<std::size_t>(type)].damage + level * 2;
         break;
     case Type::GHOST:
-        damage = GHOST_BASE_DAMAGE + level * 3;
+        damage = base[static_cast<std::size_t>(type)].damage + level * 3;
     case Type::MAX_TYPE:
         assert("Invalid monster");
         break;
@@ -89,13 +118,13 @@ int Monster::setHealth(Type type, int level) const
 
     switch (type) {
     case Type::SKELETON:
-        health = SKELETON_BASE_HEALTH + level * 2;
+        health = base[static_cast<std::size_t>(type)].health + level * 2;
         break;
     case Type::ZOMBIE:
-        health = ZOMBIE_BASE_HEALTH + level * 10 ;
+        health = base[static_cast<std::size_t>(type)].health + level * 10 ;
         break;
     case Type::GHOST:
-        health = GHOST_BASE_HEALTH + level * 5;
+        health = base[static_cast<std::size_t>(type)].health + level * 5;
     case Type::MAX_TYPE:
         assert("Invalid monster");
         break;

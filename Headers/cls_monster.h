@@ -3,7 +3,6 @@
 #define CLS_MONSTER_H
 
 #include "header.h"
-#include "cls_creature.h"
 #include "cls_player.h"
 
 
@@ -54,7 +53,7 @@ private:
 private:
     Type    mb_type {Type::SKELETON};
     int     mb_level {1};
-    int     mb_health {};
+    int     mb_currentHealth {};
     int     mb_damage {};
 public:
     // #########  Constructors and Destructors  #############

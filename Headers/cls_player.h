@@ -3,11 +3,9 @@
 
 
 #include "header.h"
-#include "cls_creature.h"
 #include "cls_potion.h"
 
-
-namespace PlayerDefault {
+namespace player_default {
     const int           LEVEL {1};
     const my::String    NAME {"Stranger"};
 //    const Player::Race  RACE {Player::Race::HUMAN};
@@ -34,24 +32,36 @@ public:
         HUNTER,
     };
 private:
-    int             mb_level {PlayerDefault::LEVEL};
+    int             mb_level {player_default::LEVEL};
     int             mb_currentExp {0};
     int             mb_nextLevelExp {1000};             // Const for now
 
-    my::String      mb_name {PlayerDefault::NAME};
+    my::String      mb_name {player_default::NAME};
     Race            mb_race {Player::Race::HUMAN};
     Spec            mb_spec {Player::Spec::WARRIOR};
 
-    int             mb_health {PlayerDefault::HEALTH};
-    int             mb_stamina {PlayerDefault::STAMINA};
-    int             mb_mana {PlayerDefault::MANA};
+    // #### Player's resourses
+
+    int             mb_currentHealth {player_default::HEALTH};
+    int             mb_maxHealth{};
+    int             mb_currentStamina {player_default::STAMINA};
+    int             mb_maxStamina {};
+    int             mb_currentMana {player_default::MANA};
+    int             mb_maxMana {};
+
+    // #### General characteristics
 
     int             mb_strength {};
     int             mb_intellect {};
     int             mb_agility {};
 
-    int             mb_damage {10};
-    int             mb_timeLived {PlayerDefault::DAY_LIVED};
+    // #### Raintings (chances to do smth)
+
+    int          mb_dodgeChance;
+    int          mb_critChance;
+
+    //int             mb_damage {10};
+    int             mb_timeLived {player_default::DAY_LIVED};
     int             mb_gold {};
 public:
 
@@ -70,11 +80,14 @@ public:
     //void                setHealth();
     void                setStamina();
     void                setMana();
+    virtual void        setDamage() = 0;
+
 
 
     // ########  Public Interface  ########
     void                newDay();
-    void                attack(Monster& monster) const;
+    virtual void        attack(Monster& monster) const = 0;
+    virtual void        superAttack(Monster& monster) const = 0;
     void                fightWith(Monster& monster);
     int                 addGold(int gold);
     void                drink(Potion& potion);

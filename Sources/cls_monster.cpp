@@ -10,7 +10,7 @@ Monster::Monster() :
     mb_level {getRandomMonsterLevel()}
 {
     mb_damage = this->setDamage(mb_type, mb_level);
-    mb_health = this->setHealth(mb_type, mb_level);
+    mb_currentHealth = this->setHealth(mb_type, mb_level);
 }
 
 
@@ -55,14 +55,14 @@ Monster::Type Monster::getRandomMonsterType()
 // #############
 bool Monster::isDead() const
 {
-    return (mb_health <= 0);
+    return (mb_currentHealth <= 0);
 }
 
 // #### Function reduce health of the current Monster by specified magnitude
 // #############
 void Monster::reduceHealth(int health)
 {
-    mb_health -= health;
+    mb_currentHealth -= health;
     return;
 }
 
@@ -77,7 +77,7 @@ int Monster::getLevel() const
 // #############
 int Monster::getCurrentHealth() const
 {
-    return mb_health;
+    return mb_currentHealth;
 }
 
 

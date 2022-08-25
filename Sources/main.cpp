@@ -8,15 +8,17 @@
 // #1 Add class Mage, Warrior and Hunter, derived from player class with different
 //    attack-type and damage. And with different skillset.
 //
-// #2
+// #2 Console GUI
+//
+// #3
 
 
 
 #include "header.h"
 
-#include "cls_creature.h"
 #include "cls_monster.h"
 #include "cls_player.h"
+#include "cls_warrior.h"
 
 #include "cls_item.h"
 #include "cls_gold.h"
@@ -79,12 +81,15 @@ int main()
         switch (choice) {
         case '1':
             playerSpec = Player::Spec::WARRIOR;
+            //Warrior player {playerName, playerRace};
             break;
         case '2':
             playerSpec = Player::Spec::MAGE;
+            //Mage player {playerName, playerRace};
             break;
         case '3':
             playerSpec = Player::Spec::HUNTER;
+            //Hunter player {playerName, playerRace};
             break;
         default:
             inLoop = true;
@@ -92,7 +97,7 @@ int main()
         }
     }
 
-    Player player {playerName, playerRace, playerSpec};
+    Warrior player {playerName, playerRace};
     std::cout << "Hello " << player.getName() << "! Welcome to the HELL...\n";
 
 

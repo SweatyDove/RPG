@@ -33,7 +33,7 @@ const my::String& Player::getName() const
 
 void Player::addHealth(int health)
 {
-    mb_health += health;
+    mb_currentHealth += health;
     return;
 
 }
@@ -41,14 +41,6 @@ void Player::addHealth(int health)
 void Player::addStrength(int strength)
 {
     mb_damage += strength;
-    return;
-}
-
-void Player::attack(Monster& monster) const
-{
-    monster.reduceHealth(mb_damage);
-    std::cout << "You've dealed " << mb_damage << " damage to the " << monster.getName()
-              << ". (It had " << monster.getCurrentHealth() << " hp left)." << std::endl;
     return;
 }
 
@@ -67,14 +59,14 @@ int Player::addGold(int gold)
 // #############
 bool Player::isDead() const
 {
-    return (mb_health <= 0);
+    return (mb_currentHealth <= 0);
 }
 
 // #### Function reduce health of the current Player by specified magnitude
 // #############
 void Player::reduceHealth(int health)
 {
-    mb_health -= health;
+    mb_currentHealth -= health;
     return;
 }
 
@@ -89,21 +81,23 @@ int Player::getLevel() const
 // #############
 int Player::getCurrentHealth() const
 {
-    return mb_health;
+    return mb_currentHealth;
 }
 
 //void Player::setHealth()
 //{
-//    mb_health = PlayerDefault::HEALTH + mb_level * 20;
+//    mb_currentHealth = player_default::HEALTH + mb_level * 20;
 //}
 
-// #### Handling player's level up.
+// #### Handling player's leveling up.
+// #########
 void Player::levelUp()
 {
     bool inLoop {false};
     char choice {'\0'};
 
-    mb_health = PlayerDefault::HEALTH + mb_level * 20;
+    // Set the new max health and restore current health
+    mb_currentHealth = mb_maxHealth = PlayerDefault::HEALTH + mb_level * 20;
 
     std::cout << "Congratulation! You've reached " << mb_level << " level.\n";
     std::cout << "What do you want to upgrade?:\n"
@@ -117,19 +111,25 @@ void Player::levelUp()
         switch (choice) {
         case '1':
             mb_strength++;
-
+            mb_currentStamina = mb_maxStamina = PlayerDefault::STAMINA + mb_level * 5;
             break;
         case '2':
             mb_intellect++;
+            mb_currentMana = mb_maxMana = PlayerDefault::MANA + mb_level * 5;
             break;
         case '3':
             mb_agility++;
+            mb_dodgeChance += 1;
+            mb_critChance += 1;
             break;
         default:
             inLoop = true;
             break;
         }
     }
+
+    // Set new damage after the leveling up and changes in the player's parameters
+    this->setDamage();
 
 }
 
@@ -232,17 +232,23 @@ void Player::fightWith(Monster& monster)
     bool isFled {false};
 
     while (!(this->isDead()) && !(monster.isDead()) && !isFled) {
-        std::cout << "(F)ight or (R)un? ";
+        std::cout << "What are you going to do? (Press a key)."
+                  << "\n A - attack monster."
+                  << "\n S - super atack monster (required 30 stamina points)."
+                  << "\n R - run (50%% chance)"
+                  << std::endl;
+
         std::cin >> choice;
         switch (choice) {
-        case 'F': case 'f':
-            this->attack(monster);
+        case 'A': case 'a':     this->attack(monster);
+        case 'S' : case 's':    this->superAttack(monster);
+
             if (!monster.isDead()) {
                 monster.attack(*this);
             }
             else {
                 std::cout << "You killed monster!\n";
-                player.increaseExp();
+                this->increaseExp(monster);
             }
             break;
         case 'R': case 'r':

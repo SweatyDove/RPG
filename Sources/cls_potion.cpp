@@ -24,8 +24,10 @@ my::String Potion::getName() const
     switch(mb_type) {
     case Type::EXHAUSTED:   return "exhausted potion";
     case Type::HEALTH:      return "health potion";
+    case Type::STAMINA:     return "stamina potion";
     case Type::STRENGTH:    return "strength potion";
     case Type::POISON:      return "poison";
+
     case Type::MAX_TYPE:    return "";
     //default:
         //break;
@@ -47,6 +49,9 @@ void Potion::createRandomPotion(int lvl)
     // ## Generate random potion effect depending on the potion type and... (monster lvl?)
     switch (mb_type) {
     case Type::HEALTH:
+        mb_effect = getRandomNumber(1, lvl);
+        break;
+    case Type::STAMINA:
         mb_effect = getRandomNumber(1, lvl);
         break;
     case Type::STRENGTH:

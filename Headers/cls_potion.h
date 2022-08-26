@@ -10,6 +10,7 @@ class Potion : public Item {
 public:
     enum class Type {
         HEALTH,
+        STAMINA,
         STRENGTH,
         EXHAUSTED,
         POISON,

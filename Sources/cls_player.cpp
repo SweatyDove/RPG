@@ -33,21 +33,38 @@ const my::String& Player::getName() const
 
 void Player::addHealth(int health)
 {
-    mb_currentHealth += health;
+    if (mb_currentHealth + health >= mb_maxHealth) {
+        mb_currentHealth = mb_maxHealth;
+    }
+    else {
+        mb_currentHealth += health;
+    }
+
     return;
 
+}
+
+void Player::addStamina(int stamina)
+{
+    if (mb_currentStamina + stamina >= mb_maxStamina) {
+        mb_currentStamina = mb_maxStamina;
+    }
+    else {
+        mb_currentStamina += stamina;
+    }
+    return;
 }
 
 void Player::addStrength(int strength)
 {
-    mb_damage += strength;
+    mb_strength += strength;
     return;
 }
 
-int Player::getDamage() const
-{
-    return mb_damage;
-}
+//int Player::getDamage() const
+//{
+//    return mb_damage;
+//}
 
 int Player::addGold(int gold)
 {
@@ -66,8 +83,26 @@ bool Player::isDead() const
 // #############
 void Player::reduceHealth(int health)
 {
-    mb_currentHealth -= health;
+    if (mb_currentHealth - health <= 0) {
+        mb_currentHealth = 0;
+    }
+    else {
+        mb_currentHealth -= health;
+    }
     return;
+}
+
+void Player::reduceStamina(int stamina)
+{
+    if (mb_currentStamina - stamina <= 0) {
+        mb_currentStamina = 0;
+    }
+    else {
+        mb_currentStamina -= stamina;
+    }
+
+    return;
+
 }
 
 // #### Function returns the level of the creature
@@ -84,6 +119,11 @@ int Player::getCurrentHealth() const
     return mb_currentHealth;
 }
 
+int Player::getCurrentStamina() const
+{
+    return mb_currentStamina;
+}
+
 //void Player::setHealth()
 //{
 //    mb_currentHealth = player_default::HEALTH + mb_level * 20;
@@ -97,7 +137,7 @@ void Player::levelUp()
     char choice {'\0'};
 
     // Set the new max health and restore current health
-    mb_currentHealth = mb_maxHealth = PlayerDefault::HEALTH + mb_level * 20;
+    mb_currentHealth = mb_maxHealth = player_default::HEALTH + mb_level * 20;
 
     std::cout << "Congratulation! You've reached " << mb_level << " level.\n";
     std::cout << "What do you want to upgrade?:\n"
@@ -111,11 +151,11 @@ void Player::levelUp()
         switch (choice) {
         case '1':
             mb_strength++;
-            mb_currentStamina = mb_maxStamina = PlayerDefault::STAMINA + mb_level * 5;
+            mb_currentStamina = mb_maxStamina = player_default::STAMINA + mb_level * 5;
             break;
         case '2':
             mb_intellect++;
-            mb_currentMana = mb_maxMana = PlayerDefault::MANA + mb_level * 5;
+            mb_currentMana = mb_maxMana = player_default::MANA + mb_level * 5;
             break;
         case '3':
             mb_agility++;
@@ -141,7 +181,7 @@ void Player::increaseExp(Monster& monster)
 
     if (mb_currentExp + exp >= mb_nextLevelExp) {
         mb_level++;
-        player.levelUp();
+        this->levelUp();
         mb_currentExp = mb_currentExp + exp - mb_nextLevelExp;
     }
     else {
@@ -157,7 +197,7 @@ void Player::increaseExp(Monster& monster)
 void Player::getLootFrom(Monster& monster)
 {
     char            choice {};
-    constexpr char  potionChance {100};
+    constexpr char  potionChance {30};
 
 
     // #### Generate gold
@@ -206,6 +246,11 @@ void Player::drink(Potion& potion)
         std::cout << "You had drunk a " << potion.getName() << ", that restored "
                   << potion.getEffect() << " hp.\n";
         break;
+    case Potion::Type::STAMINA:
+        this->addStamina(potion.getEffect());
+        std::cout << "You had drunk a " << potion.getName() << ", that restored "
+                  << potion.getEffect() << " stamina.\n";
+        break;
     case Potion::Type::STRENGTH:
         this->addStrength(potion.getEffect());
         std::cout << "You had drunk a " << potion.getName() << ", that increased your damage by "
@@ -232,7 +277,7 @@ void Player::fightWith(Monster& monster)
     bool isFled {false};
 
     while (!(this->isDead()) && !(monster.isDead()) && !isFled) {
-        std::cout << "What are you going to do? (Press a key)."
+        std::cout << "\nWhat are you going to do? (Press a key)."
                   << "\n A - attack monster."
                   << "\n S - super atack monster (required 30 stamina points)."
                   << "\n R - run (50%% chance)"
@@ -241,7 +286,8 @@ void Player::fightWith(Monster& monster)
         std::cin >> choice;
         switch (choice) {
         case 'A': case 'a':     this->attack(monster);
-        case 'S' : case 's':    this->superAttack(monster);
+        // ## If can't use super attack -> back to choice
+        case 'S' : case 's':    if (!(this->superAttack(monster))) { break; }
 
             if (!monster.isDead()) {
                 monster.attack(*this);

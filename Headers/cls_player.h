@@ -51,7 +51,6 @@ private:
 
     // #### General characteristics
 
-    int             mb_strength {};
     int             mb_intellect {};
     int             mb_agility {};
 
@@ -60,9 +59,12 @@ private:
     int          mb_dodgeChance;
     int          mb_critChance;
 
-    //int             mb_damage {10};
     int             mb_timeLived {player_default::DAY_LIVED};
     int             mb_gold {};
+
+protected:
+    int             mb_strength {};
+
 public:
 
     // ########  Constructors and Destructors  ########
@@ -72,10 +74,11 @@ public:
 
     // ########  Setters and Getters  ########
     const my::String&   getName() const;
-    int                 getDamage() const;
+ //   int                 getDamage() const;
     int                 getTimeLived() const;
     int                 getLevel() const;
     int                 getCurrentHealth() const;
+    int                 getCurrentStamina() const;
 
     //void                setHealth();
     void                setStamina();
@@ -87,18 +90,21 @@ public:
     // ########  Public Interface  ########
     void                newDay();
     virtual void        attack(Monster& monster) const = 0;
-    virtual void        superAttack(Monster& monster) const = 0;
+    virtual bool        superAttack(Monster& monster) = 0;
     void                fightWith(Monster& monster);
     int                 addGold(int gold);
     void                drink(Potion& potion);
     void                getLootFrom(Monster& monster);
     void                addHealth(int health);
+    void                addStamina(int stamina);
     void                addStrength(int strength);
     bool                isDead() const;
     void                reduceHealth(int health);
 
     void                increaseExp(Monster& monster);
     void                levelUp();
+
+    void                reduceStamina(int stamina);
 
 
 };

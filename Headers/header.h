@@ -1,3 +1,12 @@
+#if defined(unix) || defined(__unix__) || defined(__unix)
+    #define PREDEF_PLATFORM_UNIX
+#elif defined(_WIN32) || defined(_WIN64) || defined(__CYGWIN__)
+    #define PREDEF_PLATFORM_WINDOWS
+#else
+    // Nothing to do
+#endif
+
+
 #include <cstdlib>              // For std::rand(), std::srand()
 #include <iostream>
 //#include <string>             // Replaced with "my_string.h"
@@ -7,6 +16,22 @@
 #include <array>
 
 #include "my_string.h"
+
+#ifdef PREDEF_PLATFORM_UNIX
+    #include <unistd.h>
+    #include <sys/time.h>
+    #include <sys/select.h>
+    #include <termios.h>                // Describe a general terminal interface that
+                                        // is provided to control asynchronous communications ports.
+
+    #define     CANONICAL   true
+    #define     MOVE_CURSOR_ONE_LINE_UP  "\033[F"
+
+    void    linuxTerminalMode(bool mode);
+    int     linux_kbhit(void);
+
+#endif // PREDEF_PLATFORM_UNIX
+
 
 
 class Item;

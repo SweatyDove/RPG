@@ -25,14 +25,17 @@
 #include "cls_potion.h"
 
 
+void displayRaceMenu(int state);
+
 int main()
 {
     my::String playerName {"Stranger"};
     Player::Race playerRace {Player::Race::HUMAN};
     Player::Spec playerSpec {Player::Spec::WARRIOR};
-    char choice {'\0'};
+    char ch {'\0'};
 
     bool inLoop {true};
+    int keystroke {0};
 
     // ## Set seed for rand() and discard first value from it
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
@@ -43,30 +46,41 @@ int main()
 
     std::cout << "Who are you, stranger: ";
     std::cin >> playerName;
-    std::cout << "Choose your race:\n"
-              << " 1 - Human\n"
-              << " 2 - Orc\n"
-              << " 3 - Elf\n"
-              << std::flush;
+
+    // ## Choosing player's race
+    linuxTerminalMode(!CANONICAL);
+    int state {0};
+    int lastState {1};
+
+    inLoop = true;
     while (inLoop) {
-        std::cin >> choice;
-        std::cout << "\033[F \b";
-        inLoop = false;
-        switch (choice) {
-        case '1':
-            playerRace = Player::Race::HUMAN;
-            break;
-        case '2':
-            playerRace = Player::Race::ORC;
-            break;
-        case '3':
-            playerRace = Player::Race::ELF;
-            break;
-        default:
-            inLoop = true;
-            break;
+        if (state != lastState) {
+            displayRaceMenu(state);
+        }
+        else { /* Nothing to do */ }
+
+        lastState = state;
+        keystroke = linux_kbhit();
+        if (keystroke) {
+            ch = std::cin.get();
+
+            switch (ch) {
+            case 'e': case 'E':
+                playerRace = static_cast<Player::Race>(state);
+                inLoop = false;
+                break;
+            case 's': case 'S':
+                state = (state == static_cast<int>(Player::Race::MAX_RACE) - 1) ? 0 : state + 1;
+                break;
+            case 'w': case 'W':
+                state = (state == 0) ? static_cast<int>(Player::Race::MAX_RACE) - 1 : state - 1;
+                break;
+            default:
+                break;
+            }
         }
     }
+    linuxTerminalMode(CANONICAL);
 
     std::cout << "Choose your specialization:\n"
               << " 1 - Warrior\n"
@@ -75,10 +89,10 @@ int main()
               << std::flush;
     inLoop = true;
     while (inLoop) {
-        std::cin >> choice;
+        std::cin >> ch;
         std::cout << "\033[F \b";
         inLoop = false;
-        switch (choice) {
+        switch (ch) {
         case '1':
             playerSpec = Player::Spec::WARRIOR;
             //Warrior player {playerName, playerRace};
@@ -127,39 +141,43 @@ int main()
 }
 
 
-/*
-void chooseRace(Player::Race& race)
+
+void displayRaceMenu(int state)
 {
-    int state {0};
+    int raceMenuSize {6};
+    Player::Race race {static_cast<Player::Race>(state)};
+
     std::cout << "Choose your race:\n\n";
 
-
-    while(true) {
-
-        // ## Display states
-        switch(state) {
-        case 0:
-            std::cout << "\n########  ORC  ########";
-            std::cout << "\n          HUMAN        ";
-            std::cout << "\n          ELF          ";
-            break;
-        case 1:
-            std::cout << "\n          ORC          ";
-            std::cout << "\n########  HUMAN  ######";
-            std::cout << "\n          ELF          ";
-            break;
-        case 2:
-            std::cout << "\n          ORC          ";
-            std::cout << "\n          HUMAN        ";
-            std::cout << "\n########  ELF  ########";
-            break;
-        default:
-            break;
-        }
-
-
+    // ## Display race menu
+    switch(race) {
+    case Player::Race::ORC:
+        std::cout << "\n########## Orc ##########"
+                  << "\n           Human         "
+                  << "\n           Elf           "
+                  << std::endl;
+        break;
+    case Player::Race::HUMAN:
+        std::cout << "\n           Orc           "
+                  << "\n########## Human ########"
+                  << "\n           Elf           "
+                  << std::endl;
+        break;
+    case Player::Race::ELF:
+        std::cout << "\n           Orc           "
+                  << "\n           Human         "
+                  << "\n########## Elf ##########"
+                  << std::endl;
+        break;
+    case Player::Race::MAX_RACE:
+        break;
+    //default:
+        //break;
     }
 
+    while (raceMenuSize-- > 0) {
+        std::cout << MOVE_CURSOR_ONE_LINE_UP;
+    }
 
+    return;
 }
-*/

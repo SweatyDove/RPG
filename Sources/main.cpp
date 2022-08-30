@@ -8,7 +8,7 @@
 // #1 Add class Mage, Warrior and Hunter, derived from player class with different
 //    attack-type and damage. And with different skillset.
 //
-// #2 Console GUI
+// #2 Maybe should realize the choosing player's race/spec like two separate threads.
 //
 // #3
 
@@ -24,92 +24,40 @@
 #include "cls_gold.h"
 #include "cls_potion.h"
 
-
+void displayThread(int state);
 void displayRaceMenu(int state);
+Player::Race choosePlayerRace();
+Player::Spec choosePlayerSpec();
 
 int main()
 {
     my::String playerName {"Stranger"};
     Player::Race playerRace {Player::Race::HUMAN};
     Player::Spec playerSpec {Player::Spec::WARRIOR};
-    char ch {'\0'};
 
-    bool inLoop {true};
-    int keystroke {0};
 
     // ## Set seed for rand() and discard first value from it
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     std::rand();
 
-    std::cout << "########  My RPG  ########\n\n";
 
-
-    std::cout << "Who are you, stranger: ";
-    std::cin >> playerName;
+    std::cout << "\n################################################################################"
+              << "\n###########################      Role Play Game      ###########################"
+              << "\n################################################################################"
+              << std::endl;
+    clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
 
     // ## Choosing player's race
-    linuxTerminalMode(!CANONICAL);
-    int state {0};
-    int lastState {1};
+    playerRace = choosePlayerRace();
 
-    inLoop = true;
-    while (inLoop) {
-        if (state != lastState) {
-            displayRaceMenu(state);
-        }
-        else { /* Nothing to do */ }
+    // ## Choosing player's specialization
+    playerSpec = choosePlayerSpec();
 
-        lastState = state;
-        keystroke = linux_kbhit();
-        if (keystroke) {
-            ch = std::cin.get();
+    clearWorkScreen(16, 80);
+    std::cout << "#### What is your name: ";
+    std::cin >> playerName;
 
-            switch (ch) {
-            case 'e': case 'E':
-                playerRace = static_cast<Player::Race>(state);
-                inLoop = false;
-                break;
-            case 's': case 'S':
-                state = (state == static_cast<int>(Player::Race::MAX_RACE) - 1) ? 0 : state + 1;
-                break;
-            case 'w': case 'W':
-                state = (state == 0) ? static_cast<int>(Player::Race::MAX_RACE) - 1 : state - 1;
-                break;
-            default:
-                break;
-            }
-        }
-    }
-    linuxTerminalMode(CANONICAL);
 
-    std::cout << "Choose your specialization:\n"
-              << " 1 - Warrior\n"
-              << " 2 - Mage\n"
-              << " 3 - Hunter\n"
-              << std::flush;
-    inLoop = true;
-    while (inLoop) {
-        std::cin >> ch;
-        std::cout << "\033[F \b";
-        inLoop = false;
-        switch (ch) {
-        case '1':
-            playerSpec = Player::Spec::WARRIOR;
-            //Warrior player {playerName, playerRace};
-            break;
-        case '2':
-            playerSpec = Player::Spec::MAGE;
-            //Mage player {playerName, playerRace};
-            break;
-        case '3':
-            playerSpec = Player::Spec::HUNTER;
-            //Hunter player {playerName, playerRace};
-            break;
-        default:
-            inLoop = true;
-            break;
-        }
-    }
 
     Warrior player {playerName, playerRace};
     std::cout << "Hello " << player.getName() << "! Welcome to the HELL...\n";
@@ -142,42 +90,171 @@ int main()
 
 
 
-void displayRaceMenu(int state)
+Player::Race choosePlayerRace()
 {
-    int raceMenuSize {6};
-    Player::Race race {static_cast<Player::Race>(state)};
+    bool inLoop {true};
+    int  state {0};
+    int  lastState {0};
+    bool firstIn {true};
+    Player::Race playerRace{};
+    int keystroke {};
+    char ch {'\0'};
 
-    std::cout << "Choose your race:\n\n";
+    linuxTerminalMode(!CANONICAL);
 
-    // ## Display race menu
-    switch(race) {
-    case Player::Race::ORC:
-        std::cout << "\n########## Orc ##########"
-                  << "\n           Human         "
-                  << "\n           Elf           "
-                  << std::endl;
-        break;
-    case Player::Race::HUMAN:
-        std::cout << "\n           Orc           "
-                  << "\n########## Human ########"
-                  << "\n           Elf           "
-                  << std::endl;
-        break;
-    case Player::Race::ELF:
-        std::cout << "\n           Orc           "
-                  << "\n           Human         "
-                  << "\n########## Elf ##########"
-                  << std::endl;
-        break;
-    case Player::Race::MAX_RACE:
-        break;
-    //default:
-        //break;
+    inLoop = true;
+    while (inLoop) {
+        if (state != lastState || firstIn) {
+            displayRaceMenu(state);
+            firstIn = false;
+        }
+        else {} // Nothing to do
+
+        lastState = state;
+        keystroke = linux_kbhit();
+        if (keystroke) {
+            ch = std::cin.get();
+            switch (ch) {
+            case 'e': case 'E':
+                playerRace = static_cast<Player::Race>(state);
+                inLoop = false;
+                break;
+            case 's': case 'S':
+                state = (state == static_cast<int>(Player::Race::MAX_RACE) - 1) ? 0 : state + 1;
+                break;
+            case 'w': case 'W':
+                state = (state == 0) ? static_cast<int>(Player::Race::MAX_RACE) - 1 : state - 1;
+                break;
+            default:
+                break;
+            }
+        }
     }
+    linuxTerminalMode(CANONICAL);
 
-    while (raceMenuSize-- > 0) {
-        std::cout << MOVE_CURSOR_ONE_LINE_UP;
-    }
-
-    return;
+    return playerRace;
 }
+
+
+
+Player::Spec choosePlayerSpec()
+{
+    bool inLoop {true};
+    int  state {0};
+    int  lastState {0};
+    bool firstIn {true};
+    Player::Spec playerSpec{};
+    int keystroke {};
+    char ch {'\0'};
+
+    linuxTerminalMode(!CANONICAL);
+    while (inLoop) {
+        if (state != lastState || firstIn) {
+            displaySpecMenu(state);
+            firstIn = false;
+        }
+        else {} // Nothing to do
+
+        lastState = state;
+        keystroke = linux_kbhit();
+        if (keystroke) {
+            ch = std::cin.get();
+            switch (ch) {
+            case 'e': case 'E':
+                playerSpec = static_cast<Player::Spec>(state);
+                inLoop = false;
+                break;
+            case 's': case 'S':
+                state = (state == static_cast<int>(Player::Spec::MAX_SPEC) - 1) ? 0 : state + 1;
+                break;
+            case 'w': case 'W':
+                state = (state == 0) ? static_cast<int>(Player::Spec::MAX_SPEC) - 1 : state - 1;
+                break;
+            default:
+                break;
+            }
+        }
+    }
+    linuxTerminalMode(CANONICAL);
+
+    return playerSpec;
+}
+
+
+
+
+
+
+
+/*
+    linuxTerminalMode(!CANONICAL);
+    bool inLoop {true};
+    int  state {0};
+    int  lastState {0};
+    bool firstIn {true};
+
+    inLoop = true;
+    while (inLoop) {
+        if (state != lastState || firstIn) {
+            displayRaceMenu(state);
+            firstIn = false;
+        }
+        else {} // Nothing to do
+
+        lastState = state;
+        keystroke = linux_kbhit();
+        if (keystroke) {
+            ch = std::cin.get();
+            switch (ch) {
+            case 'e': case 'E':
+                playerRace = static_cast<Player::Race>(state);
+                inLoop = false;
+                break;
+            case 's': case 'S':
+                state = (state == static_cast<int>(Player::Race::MAX_RACE) - 1) ? 0 : state + 1;
+                break;
+            case 'w': case 'W':
+                state = (state == 0) ? static_cast<int>(Player::Race::MAX_RACE) - 1 : state - 1;
+                break;
+            default:
+                break;
+            }
+        }
+    }
+    linuxTerminalMode(CANONICAL);
+
+
+    linuxTerminalMode(!CANONICAL);
+    state = lastState = 0;
+    firstIn = inLoop = true;
+
+    while (inLoop) {
+        if (state != lastState || firstIn) {
+            displaySpecMenu(state);
+            firstIn = false;
+        }
+        else {} // Nothing to do
+
+        lastState = state;
+        keystroke = linux_kbhit();
+        if (keystroke) {
+            ch = std::cin.get();
+            switch (ch) {
+            case 'e': case 'E':
+                playerSpec = static_cast<Player::Spec>(state);
+                inLoop = false;
+                break;
+            case 's': case 'S':
+                state = (state == static_cast<int>(Player::Spec::MAX_SPEC) - 1) ? 0 : state + 1;
+                break;
+            case 'w': case 'W':
+                state = (state == 0) ? static_cast<int>(Player::Spec::MAX_SPEC) - 1 : state - 1;
+                break;
+            default:
+                break;
+            }
+        }
+    }
+    linuxTerminalMode(CANONICAL);
+
+ */

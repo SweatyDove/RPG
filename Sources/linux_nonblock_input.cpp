@@ -25,35 +25,52 @@ int linux_kbhit()
 }
 
 
+
+
 // #### Set (or unset) CANONICAL mode of input via linux terminal.
 // #### It means, that we don't need to press "Enter" after each keystroke.
 // ####
 void linuxTerminalMode(bool mode)
 {
     struct termios settings;
+    static bool firstIn {true};
     static struct termios canonicalSettings;
 
 
     // ## Get the parameters, associated with the object [STDIN_FILENO] (standart input, fd = 0).
-    // ## Then write these parameters into the [settings].
+    // ## Then write these parameters into the [settings]. (I "suppose", that, by-default, CANONICAL
+    // ## mode is active - and I have to save it's settings.)
     tcgetattr(STDIN_FILENO, &settings);
-    canonicalSettings = settings;               // Save the canonical mode settings for STDIN_FILENO
+
+    // ## Save the canonical mode settings for STDIN_FILENO.
+    // ## If [(mask ^ (a & mask)) != 0] then [mask] isn't set in [a].
+    if (firstIn && (ICANON ^ (settings.c_cflag & ICANON))) {
+        assert("Default state is non-CANONICAL");
+    }
+    // ## CANONICAL is active by default
+    else if (firstIn) {
+        canonicalSettings = settings;
+        firstIn = false;
+    }
+    else {} // Nothing to do ##
 
 
     // ## Turn on/off CANONICAL mode
     if (mode == CANONICAL) {
         tcsetattr(STDIN_FILENO, TCSANOW, &canonicalSettings);
+        //settings.c_lflag |= ECHO;
     }
     else {
         settings.c_lflag &= ~ICANON;
         settings.c_lflag &= ~ECHO;          // Make input invisible
         settings.c_cc[VTIME] = 0;           // Set time for waiting non-canonical input
         settings.c_cc[VMIN] = 1;            // Set num of chars for !CANONICAL read
+
+        // ## Set the [STDIN_FILENO] attributes, specified in [settings].
+        // ## [TCSANOW] means that the changes occur immediately.
+        tcsetattr(STDIN_FILENO, TCSANOW, &settings);
     }
 
-    // ## Set the [STDIN_FILENO] attributes, specified in [settings].
-    // ## [TCSANOW] means that the changes occur immediately.
-    tcsetattr(STDIN_FILENO, TCSANOW, &settings);
 
     return;
 }

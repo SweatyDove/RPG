@@ -30,6 +30,8 @@ public:
         WARRIOR,
         MAGE,
         HUNTER,
+
+        MAX_SPEC
     };
 private:
     int             mb_level {player_default::LEVEL};

@@ -14,9 +14,12 @@
 #include <utility>              // For std::move
 #include <cassert>
 #include <array>
+#include <thread>
+#include <atomic>
 
 #include "my_string.h"
 
+// #### Define non-blocking input in Linux
 #ifdef PREDEF_PLATFORM_UNIX
     #include <unistd.h>
     #include <sys/time.h>
@@ -32,6 +35,9 @@
 
 #endif // PREDEF_PLATFORM_UNIX
 
+#define     WORK_SCREEN_LINES       20
+#define     WORK_SCREEN_COLUMNS     80
+
 
 
 class Item;
@@ -44,4 +50,9 @@ class Monster;
 
 
 int getRandomNumber(int min, int max);
+void displayRaceMenu(int state);
+void displaySpecMenu(int state);
+void clearWorkScreen(int lines, int columns);
+
+
 

@@ -80,6 +80,11 @@ int Monster::getCurrentHealth() const
     return mb_currentHealth;
 }
 
+int Monster::getDamage() const
+{
+    return mb_damage;
+}
+
 
 
 

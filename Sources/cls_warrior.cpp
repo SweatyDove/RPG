@@ -20,6 +20,17 @@ void Warrior::setDamage()
     mb_heavyBlowDamage  = warrior_default::heavyBlowDamage  + mb_strength * 5;
 }
 
+int Warrior::getAttackDamage() const
+{
+    return mb_autoAttackDamage;
+}
+
+int Warrior::getSuperAttackDamage() const
+{
+    return mb_heavyBlowDamage;
+}
+
+
 void Warrior::attack(Monster& monster) const
 {
     monster.reduceHealth(mb_autoAttackDamage);

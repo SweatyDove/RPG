@@ -24,6 +24,9 @@ public:
     void attack(Monster& monster) const override;
     bool superAttack(Monster& monster) override;
 
+    int getAttackDamage() const override;
+    int getSuperAttackDamage() const override;
+
 
 
 

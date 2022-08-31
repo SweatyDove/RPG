@@ -81,6 +81,8 @@ public:
     int                 getLevel() const;
     int                 getCurrentHealth() const;
     int                 getCurrentStamina() const;
+    virtual int         getAttackDamage() const = 0;
+    virtual int         getSuperAttackDamage() const = 0;
 
     //void                setHealth();
     void                setStamina();
@@ -90,9 +92,10 @@ public:
 
 
     // ########  Public Interface  ########
-    void                newDay();
     virtual void        attack(Monster& monster) const = 0;
     virtual bool        superAttack(Monster& monster) = 0;
+
+    void                newDay();
     void                fightWith(Monster& monster);
     int                 addGold(int gold);
     void                drink(Potion& potion);
@@ -107,6 +110,8 @@ public:
     void                levelUp();
 
     void                reduceStamina(int stamina);
+
+    void                displayFightMenu(int state, Monster& monster);
 
 
 };

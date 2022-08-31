@@ -273,42 +273,152 @@ void Player::drink(Potion& potion)
 // ########################
 void Player::fightWith(Monster& monster)
 {
-    char choice {};
+    char ch {};
     bool isFled {false};
+    int keystroke {0};
+    int state {0};
 
+    enum class FightState {
+        ATTACK,
+        SUPER_ATTACK,
+        RUN,
+
+        MAX_STATE
+    };
+
+
+
+    linuxTerminalMode(!CANONICAL);
     while (!(this->isDead()) && !(monster.isDead()) && !isFled) {
-        std::cout << "\nWhat are you going to do? (Press a key)."
-                  << "\n A - attack monster."
-                  << "\n S - super atack monster (required 30 stamina points)."
-                  << "\n R - run (50%% chance)"
+        player.displayFightMenu(state, monster);
+
+        keystroke = linux_kbhit();
+        if (keystroke) {
+            ch = std::cin.get();
+            switch (state) {
+            case static_cast<int>(FightState::ATTACK):
+                if (MOVE_UP(ch)) {
+                    state = (state == 0) ? static_cast<int>(FightState::MAX_STATE) - 1 : state - 1;
+                }
+                else if (MOVE_DOWN(ch)) {
+                    state = (state == static_cast<int>(FightState::MAX_STATE) - 1) ? 0 : state + 1;
+                }
+                else if (ACCEPT(ch)) {
+                    this->attack(monster);
+                    if (!monster.isDead()) {
+                        monster.attack(*this);
+                    }
+                    else {} // Nothing to do;
+                }
+                else {} // Nothing to do;
+                break;
+            case static_cast<int>(FightState::SUPER_ATTACK):
+                if (MOVE_UP(ch)) {
+                    state = (state == 0) ? static_cast<int>(FightState::MAX_STATE) - 1 : state - 1;
+                }
+                else if (MOVE_DOWN(ch)) {
+                    state = (state == static_cast<int>(FightState::MAX_STATE) - 1) ? 0 : state + 1;
+                }
+                else if (ACCEPT(ch)) {
+                    // ## If can't make super attack -> just break;
+                    if (!this->superAttack(monster)) {
+                        break;
+                    }
+                    else if (!monster.isDead()) {
+                        monster.attack(*this);
+                    }
+                    else {} // Nothing to do;
+                }
+                else {} // Nothing to do;
+                break;
+            case static_cast<int>(FightState::RUN):
+                if (MOVE_UP(ch)) {
+                    state = (state == 0) ? static_cast<int>(FightState::MAX_STATE) - 1 : state - 1;
+                }
+                else if (MOVE_DOWN(ch)) {
+                    state = (state == static_cast<int>(FightState::MAX_STATE) - 1) ? 0 : state + 1;
+                }
+                else if (ACCEPT(ch)) {
+                    if (0 == getRandomNumber(0, 2)) {
+                        isFled = true;
+                    }
+                    else {
+                        std::cout << "You couldn't flee...\n";
+                        monster.attack(*this);
+                    }
+                }
+                else {} // Nothing to do;
+            case static_cast<int>(FightState::MAX_STATE):
+                break;
+            //default:
+                //break;
+
+            } // End of switch()
+        }
+        else {} // End of if(keystroke)
+
+    } // End of while()
+
+
+    if (this->isDead()) {
+
+    }
+    else if (monster.isDead()) {
+        std::cout << "You killed monster!\n";
+        this->increaseExp(monster);
+    }
+    else if (isFled) {
+        std::cout << "You have successfully fled from monster!\n";
+    }
+    else {} // Nothing to do
+
+}
+
+
+
+
+
+void Player::displayFightMenu(int state, Monster& monster)
+{
+    std::cout << "\nWhat are you going to do?" << std::endl;
+
+    switch(state) {
+    case 0:
+        std::cout << "\n########  Attack monster  #########"
+                  << "\n          Super atack monster      "
+                  << "\n          Run                      "
+                  << "\n                                   "
+                  << "\n                                   "
+                  << "\n                                   "
+                  << "\n[NOTE]: You'll deal " << this->getAttackDamage() << "points of damage."
+                  << "\n                                                                      "
                   << std::endl;
+        break;
+    case 1:
+        std::cout << "\n          Attack monster           "
+                  << "\n########  Super atack monster  ####"
+                  << "\n          Run                      "
+                  << "\n                                   "
+                  << "\n                                   "
+                  << "\n                                   "
+                  << "\n[NOTE]: You'll deal " << this->getSuperAttackDamage() << "points of damage."
+                  << "\n        Attack requires 30 stamina points.                                 "
+                  << std::endl;
+        break;
+    case 2:
+        std::cout << "\n          Attack monster           "
+                  << "\n          Super atack monster      "
+                  << "\n########  Run  ####################"
+                  << "\n                                   "
+                  << "\n                                   "
+                  << "\n                                   "
+                  << "\n[NOTE]: You have 33% chance to escape from monster. If you could't, it     "
+                  << "\n        would deal " << monster.getDamage() << " points of damage          "
+                  << std::endl;
+        break;
+    default:
+        break;
+    }
 
-        std::cin >> choice;
-        switch (choice) {
-        case 'A': case 'a':     this->attack(monster);
-        // ## If can't use super attack -> back to choice
-        case 'S' : case 's':    if (!(this->superAttack(monster))) { break; }
-
-            if (!monster.isDead()) {
-                monster.attack(*this);
-            }
-            else {
-                std::cout << "You killed monster!\n";
-                this->increaseExp(monster);
-            }
-            break;
-        case 'R': case 'r':
-            if (getRandomNumber(0, 1)) {
-                isFled = true;
-                std::cout << "You have successfully fled from monster!\n";
-            }
-            else {
-                std::cout << "You couldn't flee...\n";
-                monster.attack(*this);
-            }
-            break;
-        default:
-            break;
-        } // end-of-switch
-    } // end-of-while
-} // end-of-func
+    return;
+}

@@ -72,6 +72,7 @@ public:
 
     int             setDamage(Type type, int level) const;
     int             setHealth(Type type, int level) const;
+    int             getDamage() const;
     my::String      getName() const;
     int             getLevel() const;
     int             getCurrentHealth() const;

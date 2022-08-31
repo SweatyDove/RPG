@@ -8,7 +8,7 @@
 // #1 Add class Mage, Warrior and Hunter, derived from player class with different
 //    attack-type and damage. And with different skillset.
 //
-// #2 Maybe should realize the choosing player's race/spec like two separate threads.
+// #2 Add a thread to exit the game when press exit
 //
 // #3
 
@@ -44,18 +44,19 @@ int main()
     std::cout << "\n################################################################################"
               << "\n###########################      Role Play Game      ###########################"
               << "\n################################################################################"
+              << "\n[CONTROL]:'W' - move up; 'S' - move down; 'E' - accept; 'ESC' - exit game.\n"
               << std::endl;
+
+
     clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
 
-    // ## Choosing player's race
     playerRace = choosePlayerRace();
-
-    // ## Choosing player's specialization
     playerSpec = choosePlayerSpec();
 
-    clearWorkScreen(16, 80);
     std::cout << "#### What is your name: ";
     std::cin >> playerName;
+    std::cout << MOVE_CURSOR_ONE_LINE_UP;
+    clearWorkScreen(1, WORK_SCREEN_COLUMNS);
 
 
 
@@ -66,7 +67,7 @@ int main()
 
     while (!player.isDead()) {
         player.newDay();
-        std::cout << "\n#### Day " << player.getTimeLived() << " ####\n\n";
+        std::cout << "\n######## Day " << player.getTimeLived() << " ########\n\n";
 
         // Create random monster
         Monster monster {};
@@ -131,6 +132,7 @@ Player::Race choosePlayerRace()
         }
     }
     linuxTerminalMode(CANONICAL);
+    clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
 
     return playerRace;
 }
@@ -176,6 +178,8 @@ Player::Spec choosePlayerSpec()
         }
     }
     linuxTerminalMode(CANONICAL);
+    clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
+
 
     return playerSpec;
 }

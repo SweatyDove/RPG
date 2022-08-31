@@ -38,6 +38,10 @@
 #define     WORK_SCREEN_LINES       20
 #define     WORK_SCREEN_COLUMNS     80
 
+#define     MOVE_UP(ch)             (ch == 'W' || ch == 'w')
+#define     MOVE_DOWN(ch)           (ch == 'S' || ch == 's')
+#define     ACCEPT(ch)              (ch == 'E' || ch == 'e')
+
 
 
 class Item;

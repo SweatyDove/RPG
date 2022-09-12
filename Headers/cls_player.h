@@ -20,6 +20,8 @@ namespace player_default {
 class Player {
 public:
     enum class Race {
+        NO_RACE,
+
         ORC,
         HUMAN,
         ELF,
@@ -27,6 +29,8 @@ public:
         MAX_RACE
     };
     enum class Spec {
+        NO_SPEC,
+
         WARRIOR,
         MAGE,
         HUNTER,
@@ -39,8 +43,8 @@ private:
     int             mb_nextLevelExp {1000};             // Const for now
 
     my::String      mb_name {player_default::NAME};
-    Race            mb_race {Player::Race::HUMAN};
-    Spec            mb_spec {Player::Spec::WARRIOR};
+    Race            mb_race {Player::Race::NO_RACE};
+    Spec            mb_spec {Player::Spec::NO_SPEC};
 
     // #### Player's resourses
 
@@ -70,13 +74,19 @@ protected:
 public:
 
     // ########  Constructors and Destructors  ########
+    Player() = default;
     Player(const my::String& name, Race race, Spec spec);
+
+//    // #### Copy constructor
+//    // ####
+//    Player(Player& player) = default;
+
     ~Player() = default;
 
 
     // ########  Setters and Getters  ########
     const my::String&   getName() const;
- //   int                 getDamage() const;
+    //int                 getDamage() const;
     int                 getTimeLived() const;
     int                 getLevel() const;
     int                 getCurrentHealth() const;
@@ -111,7 +121,17 @@ public:
 
     void                reduceStamina(int stamina);
 
+
+    void                chooseRace();
+    void                chooseSpec();
+    void                chooseName();
+
+
+private:
     void                displayFightMenu(int state, Monster& monster);
+    void                displayRaceMenu(int state);
+    void                displaySpecMenu(int state);
+
 
 
 };

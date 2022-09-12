@@ -29,6 +29,7 @@
 
     #define     CANONICAL   true
     #define     MOVE_CURSOR_ONE_LINE_UP  "\033[F"
+    #define     NEW_LINE                 "\n"
 
     void    linuxTerminalMode(bool mode);
     int     linux_kbhit(void);
@@ -57,6 +58,8 @@ int getRandomNumber(int min, int max);
 void displayRaceMenu(int state);
 void displaySpecMenu(int state);
 void clearWorkScreen(int lines, int columns);
+void moveCursor(int relativeLine, unsigned int column);
+
 
 
 

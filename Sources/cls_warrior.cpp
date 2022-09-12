@@ -1,13 +1,13 @@
 
 
-#include "header.h"
-#include "cls_warrior.h"
-#include "cls_monster.h"
+#include "Headers/header.h"
+#include "Headers/cls_warrior.h"
+#include "Headers/cls_monster.h"
 
 // #### Constructor
 // #########
-Warrior::Warrior(my::String& playerName, Player::Race playerRace) :
-    Player(playerName, playerRace, Player::Spec::WARRIOR)
+Warrior::Warrior(Player& player) :
+    Player {player}
 {
     // Nothing to do;
 }
@@ -42,6 +42,7 @@ void Warrior::attack(Monster& monster) const
 bool Warrior::superAttack(Monster& monster)
 {
     int staminaCost {30};
+    bool retValue {};
 
     if (this->getCurrentStamina() >= staminaCost) {
         monster.reduceHealth(mb_heavyBlowDamage);
@@ -49,15 +50,21 @@ bool Warrior::superAttack(Monster& monster)
         std::cout << "You've dealed " << mb_heavyBlowDamage << " damage to the " << monster.getName()
                   << ". (It had " << monster.getCurrentHealth() << " hp left)." << std::endl;
 
-        return true;
+        retValue = true;
     }
     else {
+        clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
         std::cout << "\nNot enough stamina for the super attack. "
                   << "You have only " << this->getCurrentStamina()
-                  << "stamina points (need " << staminaCost << ")";
+                  << "stamina points (need " << staminaCost << ")"
+                  << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        moveCursor(-2, 0);
+        clearWorkScreen(2, WORK_SCREEN_COLUMNS);
 
-        return false;
-
+        retValue = false;
     }
+
+    return retValue;
 }
 

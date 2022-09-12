@@ -1,6 +1,6 @@
 
-#include "header.h"
-#include "cls_potion.h"
+#include "Headers/header.h"
+#include "Headers/cls_potion.h"
 
 Potion::Potion() :
     Item(Item::Type::POTION, 1, defaultWeight),

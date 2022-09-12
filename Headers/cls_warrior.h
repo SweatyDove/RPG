@@ -16,7 +16,7 @@ private:
 
 public:
     // #############  Constructors and Destructors  ##############
-    Warrior(my::String& playerName, Player::Race playerRace);
+    Warrior(Player& player);
 
 
     // ##############  Setters and Getters  ################

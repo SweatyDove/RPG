@@ -1,6 +1,6 @@
 
-#include "header.h"
-#include "cls_monster.h"
+#include "Headers/header.h"
+#include "Headers/cls_monster.h"
 
 
 // #### Create a random monster

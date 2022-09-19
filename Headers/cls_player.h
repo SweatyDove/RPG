@@ -20,8 +20,6 @@ namespace player_default {
 class Player {
 public:
     enum class Race {
-        NO_RACE,
-
         ORC,
         HUMAN,
         ELF,
@@ -29,8 +27,6 @@ public:
         MAX_RACE
     };
     enum class Spec {
-        NO_SPEC,
-
         WARRIOR,
         MAGE,
         HUNTER,
@@ -43,8 +39,8 @@ private:
     int             mb_nextLevelExp {1000};             // Const for now
 
     my::String      mb_name {player_default::NAME};
-    Race            mb_race {Player::Race::NO_RACE};
-    Spec            mb_spec {Player::Spec::NO_SPEC};
+    Race            mb_race {Player::Race::ORC};
+    Spec            mb_spec {Player::Spec::WARRIOR};
 
     // #### Player's resourses
 
@@ -77,33 +73,36 @@ public:
     Player() = default;
     Player(const my::String& name, Race race, Spec spec);
 
-//    // #### Copy constructor
-//    // ####
-//    Player(Player& player) = default;
+    // #### Copy constructor
+    // ####
+//    Player(Player* player);
 
     ~Player() = default;
 
 
     // ########  Setters and Getters  ########
     const my::String&   getName() const;
-    //int                 getDamage() const;
+    Spec                getSpec() const;
     int                 getTimeLived() const;
     int                 getLevel() const;
     int                 getCurrentHealth() const;
     int                 getCurrentStamina() const;
-    virtual int         getAttackDamage() const = 0;
-    virtual int         getSuperAttackDamage() const = 0;
 
     //void                setHealth();
     void                setStamina();
     void                setMana();
-    virtual void        setDamage() = 0;
+
+
+    // ########  Virtual methods  #########
+    virtual int         getAttackDamage() const         { return 0; }
+    virtual int         getSuperAttackDamage() const    { return 0; }
+    virtual void        setDamage()                     { return; }
+    virtual void        attack(Monster& monster) const  { return; }
+    virtual bool        superAttack(Monster& monster)   { return false; }
 
 
 
     // ########  Public Interface  ########
-    virtual void        attack(Monster& monster) const = 0;
-    virtual bool        superAttack(Monster& monster) = 0;
 
     void                newDay();
     void                fightWith(Monster& monster);

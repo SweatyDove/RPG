@@ -16,9 +16,15 @@ Player::Player(const my::String& name, Race race, Spec spec) :
 
 // #### Copy constructor
 // ####
-//Player::Player(Player& player) :
-//    mb_name {player.mb_name},
-//    mb_race {}
+//Player::Player(Player* player)
+//{
+//    this = player;
+//}
+
+Player::Spec Player::getSpec() const
+{
+    return mb_spec;
+}
 
 
 int Player::getTimeLived() const

@@ -12,7 +12,9 @@
 //
 // #3 Add funny race/spec descriptions
 //
-// #4 Try to emplement abstract class player via pointer
+// #4 Нужно как-то реализовать НЕ копирование, а ПЕРЕМЕЩЕНИЕ базовой части класса Warrior (то есть Player&)
+//    из player. То есть имеем объект класса Player. И в зависимости от выбранной специализации,
+//    делаем этот объект частью наследуемого объекта. (Просто прсивоить адрес объекта player адресу базовой части warrior?)
 
 
 
@@ -25,15 +27,17 @@
 #include "Headers/cls_gold.h"
 #include "Headers/cls_potion.h"
 
-void displayThread(int state);
-void displayRaceMenu(int state);
-Player::Race choosePlayerRace();
-Player::Spec choosePlayerSpec();
+//void displayThread(int state);
+//void displayRaceMenu(int state);
+//Player::Race choosePlayerRace();
+//Player::Spec choosePlayerSpec();
 
 int main()
 {
-    my::String playerName {"Stranger"};
+    //my::String playerName {"Stranger"};
     Player player {};
+    Player* pl {&player};
+
 //    Player::Race playerRace {Player::Race::HUMAN};
 //    Player::Spec playerSpec {Player::Spec::WARRIOR};
 
@@ -52,15 +56,41 @@ int main()
 
     clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
 
+
+    // У меня есть базовый класс Player. На его основе я хочу создать наследуемый класс Warrior/Mage/Hunter.
+    // То есть идея такая, что я использую, по возможнотсти, объект базового класса Player. И в случае необходимости
+    // уже использую методы интерфейсных классов Warrior/Mage/...
+
+    // Но я не могу создать базовую сущность абстрактного класса...
+
+    // Инициализирую базовую часть
     player.chooseRace();
     player.chooseSpec();
     player.chooseName();
 
+    // Далее хочу, в зависимости от выбора игрока, инициализировать наследуемую часть,
+    // но с использованием уже доступной базовой части.
+    Warrior* warrior {nullptr};
 
-    //Warrior warrior {player};
+    switch (player.getSpec()) {
+    case Player::Spec::WARRIOR:
+        warrior = new Warrior {player};
+        break;
+//    case Player::Spec::MAGE:
+//        //Mage mage {player};
+//        break;
+//    case Player::Spec::HUNTER:
+//        //Hunter hunter {player};
+//        break;
+    default:
+        std::cout << "Error, incorrect specialization";
+        return 0;
+        break;
+    }
 
 
-    std::cout << "Hello " << player.getName() << "! Welcome to the HELL...\n";
+
+    std::cout << "Hello " << warrior->getName() << "! Welcome to the HELL...\n";
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     std::cout << MOVE_CURSOR_ONE_LINE_UP;
     clearWorkScreen(1, WORK_SCREEN_COLUMNS);

@@ -6,20 +6,17 @@
 class Monster;
 
 
-Player::Player(const my::String& name, Race race, Spec spec) :
-    mb_name {name},
-    mb_race {race},
-    mb_spec {spec}
-    {
-        // Nothing to do;
-    }
+Player::~Player()
+{
+    // Nothing to do
+}
 
-// #### Copy constructor
-// ####
-//Player::Player(Player* player)
-//{
-//    this = player;
-//}
+
+void Player::setRace(Player::Race race)
+{
+    mb_race = race;
+}
+
 
 Player::Spec Player::getSpec() const
 {
@@ -38,11 +35,17 @@ void Player::newDay()
     return;
 }
 
-// #########################
+
 const my::String& Player::getName() const
 {
     return mb_name;
 }
+
+void Player::setName(my::String& name)
+{
+    mb_name = name;
+}
+
 
 void Player::addHealth(int health)
 {
@@ -291,6 +294,8 @@ void Player::fightWith(Monster& monster)
     bool isFled {false};
     int keystroke {0};
     int state {0};
+    int lastState {0};
+    bool firstIn {true};
 
     enum class FightState {
         ATTACK,
@@ -303,9 +308,16 @@ void Player::fightWith(Monster& monster)
 
 
     linuxTerminalMode(!CANONICAL);
-    while (!(this->isDead()) && !(monster.isDead()) && !isFled) {
-        this->displayFightMenu(state, monster);
 
+    while (!(this->isDead()) && !(monster.isDead()) && !isFled) {
+        // ## Have to display menu only if (in the first time) or (last state != current state)
+        if (state != lastState || firstIn) {
+            displayFightMenu(state, monster);
+            firstIn = false;
+        }
+        else {} // Nothing to do
+
+        lastState = state;
         keystroke = linux_kbhit();
         if (keystroke) {
             ch = std::cin.get();
@@ -318,6 +330,7 @@ void Player::fightWith(Monster& monster)
             }
             else if (ACCEPT(ch)) {
                 switch (state) {
+
                 case static_cast<int>(FightState::ATTACK):
                     this->attack(monster);
                     if (!monster.isDead()) {
@@ -325,6 +338,7 @@ void Player::fightWith(Monster& monster)
                     }
                     else {} // Nothing to do;
                 break;
+
                 case static_cast<int>(FightState::SUPER_ATTACK):
                     // ## If can't make super attack -> just break without doing smth
                     if (!this->superAttack(monster)) {
@@ -335,6 +349,7 @@ void Player::fightWith(Monster& monster)
                     }
                     else {} // Nothing to do;
                 break;
+
                 case static_cast<int>(FightState::RUN):
                     if (0 == getRandomNumber(0, 2)) {
                         isFled = true;
@@ -346,6 +361,7 @@ void Player::fightWith(Monster& monster)
                         std::this_thread::sleep_for(std::chrono::milliseconds(1500));
                     }
                     break;
+
                 case static_cast<int>(FightState::MAX_STATE):
                 break;
                 //default: break;
@@ -379,6 +395,8 @@ void Player::fightWith(Monster& monster)
 void Player::displayFightMenu(int state, Monster& monster)
 {
     int menuSize {11};
+    clearWorkScreen(menuSize, WORK_SCREEN_COLUMNS);
+
     std::cout << "       What are you going to do?\n\n";
 
     switch(state) {
@@ -426,229 +444,3 @@ void Player::displayFightMenu(int state, Monster& monster)
 
     return;
 }
-
-
-
-// #### Choose the player's race
-// ####
-void Player::chooseRace()
-{
-    bool inLoop {true};
-    int  state {0};
-    int  lastState {0};
-    bool firstIn {true};
-    int  keystroke {};
-    char ch {'\0'};
-
-    linuxTerminalMode(!CANONICAL);
-
-    inLoop = true;
-    while (inLoop) {
-        // ## Have to display menu only if in the first time or last state is not equal to the current
-        if (state != lastState || firstIn) {
-            displayRaceMenu(state);
-            firstIn = false;
-        }
-        else {} // Nothing to do
-
-        lastState = state;
-        keystroke = linux_kbhit();
-        if (keystroke) {
-            ch = std::cin.get();
-            switch (ch) {
-            case 'e': case 'E':
-                mb_race = static_cast<Player::Race>(state);
-                inLoop = false;
-                break;
-            case 's': case 'S':
-                state = (state == static_cast<int>(Player::Race::MAX_RACE) - 1) ? 0 : state + 1;
-                break;
-            case 'w': case 'W':
-                state = (state == 0) ? static_cast<int>(Player::Race::MAX_RACE) - 1 : state - 1;
-                break;
-            default:
-                break;
-            }
-        }
-    }
-    linuxTerminalMode(CANONICAL);
-    clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
-
-    return;
-}
-
-
-// #### Choose the player's specialization
-// ####
-void Player::chooseSpec()
-{
-    bool inLoop {true};
-    int  state {0};
-    int  lastState {0};
-    bool firstIn {true};
-    int keystroke {};
-    char ch {'\0'};
-
-    linuxTerminalMode(!CANONICAL);
-    while (inLoop) {
-        if (state != lastState || firstIn) {
-            displaySpecMenu(state);
-            firstIn = false;
-        }
-        else {} // Nothing to do
-
-        lastState = state;
-        keystroke = linux_kbhit();
-        if (keystroke) {
-            ch = std::cin.get();
-            switch (ch) {
-            case 'e': case 'E':
-                mb_spec = static_cast<Player::Spec>(state);
-                inLoop = false;
-                break;
-            case 's': case 'S':
-                state = (state == static_cast<int>(Player::Spec::MAX_SPEC) - 1) ? 0 : state + 1;
-                break;
-            case 'w': case 'W':
-                state = (state == 0) ? static_cast<int>(Player::Spec::MAX_SPEC) - 1 : state - 1;
-                break;
-            default:
-                break;
-            }
-        }
-    }
-    linuxTerminalMode(CANONICAL);
-    clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
-
-
-    return;
-}
-
-void Player::chooseName()
-{
-    std::cout << "#### What is your name: ";
-    std::cin >> mb_name;
-
-    std::cout << MOVE_CURSOR_ONE_LINE_UP;
-    clearWorkScreen(1, WORK_SCREEN_COLUMNS);
-
-    return;
-}
-
-
-
-// #### Display the race menu
-// ####
-void Player::displayRaceMenu(int currentState)
-{
-    int raceMenuSize {11};
-    Player::Race race {static_cast<Player::Race>(currentState)};
-
-    std::cout << "#### Choose your race:\n\n";
-
-    // ## Display race menu
-    switch(race) {
-    case Player::Race::ORC:
-        std::cout << "\n########## Orc ##########"
-                  << "\n           Human         "
-                  << "\n           Elf           "
-                  << "\n                         "
-                  << "\n                         "
-                  << "\n                         "
-                  << "\n[NOTE]: Orc race didn't release yet                "
-                  << "\n                                                   "
-                  << std::endl;
-        break;
-    case Player::Race::HUMAN:
-        std::cout << "\n           Orc           "
-                  << "\n########## Human ########"
-                  << "\n           Elf           "
-                  << "\n                         "
-                  << "\n                         "
-                  << "\n                         "
-                  << "\n[NOTE]: Just a simple human being                  "
-                  << "\n                                                   "
-                  << std::endl;
-        break;
-    case Player::Race::ELF:
-        std::cout << "\n           Orc           "
-                  << "\n           Human         "
-                  << "\n########## Elf ##########"
-                  << "\n                         "
-                  << "\n                         "
-                  << "\n                         "
-                  << "\n[NOTE]:  Elf race didn't release yet                  "
-                  << "\n                                                      "
-                  << std::endl;
-        break;
-    case Player::Race::MAX_RACE:
-        break;
-    //default:
-        //break;
-    }
-
-    while (raceMenuSize-- > 0) {
-        std::cout << MOVE_CURSOR_ONE_LINE_UP;
-    }
-
-    return;
-}
-
-
-// #### Display the specialization menu
-// ####
-void Player::displaySpecMenu(int state)
-{
-    int specMenuSize {11};
-    Player::Spec spec {static_cast<Player::Spec>(state)};
-
-    std::cout << "#### Choose your specialization:\n\n";
-
-    // ## Display spec menu
-    switch(spec) {
-    case Player::Spec::WARRIOR:
-        std::cout << "\n########## Warrior ##########"
-                  << "\n           Mage              "
-                  << "\n           Hunter            "
-                  << "\n                             "
-                  << "\n                             "
-                  << "\n                             "
-                  << "\n[NOTE]: Strong melee fighter, who is not distinguished"
-                  << "\n        neither intelligence nor dexterity.           "
-                  << std::endl;
-        break;
-    case Player::Spec::MAGE:
-        std::cout << "\n           Warrior           "
-                  << "\n########## Mage #############"
-                  << "\n           Hunter            "
-                  << "\n                             "
-                  << "\n                             "
-                  << "\n                             "
-                  << "\n[NOTE]: Do not release yet!                           "
-                  << "\n                                                      "
-                  << std::endl;
-        break;
-    case Player::Spec::HUNTER:
-        std::cout << "\n           Warrior           "
-                  << "\n           Mage              "
-                  << "\n########## Hunter ###########"
-                  << "\n                             "
-                  << "\n                             "
-                  << "\n                             "
-                  << "\n[NOTE]: Do not release yet!                           "
-                  << "\n                                                      "
-                  << std::endl;
-        break;
-    case Player::Spec::MAX_SPEC:
-        break;
-    //default:
-        //break;
-    }
-
-    while (specMenuSize-- > 0) {
-        std::cout << MOVE_CURSOR_ONE_LINE_UP;
-    }
-
-    return;
-}
-

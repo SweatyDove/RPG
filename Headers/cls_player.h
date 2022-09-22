@@ -8,8 +8,6 @@
 namespace player_default {
     const int           LEVEL {1};
     const my::String    NAME {"Stranger"};
-//    const Player::Race  RACE {Player::Race::HUMAN};
-//    const Player::Spec  SPEC {Player::Spec::WARRIOR};
     const int           HEALTH {100};
     const int           MANA {50};
     const int           STAMINA {50};
@@ -34,35 +32,35 @@ public:
         MAX_SPEC
     };
 private:
-    int             mb_level {player_default::LEVEL};
-    int             mb_currentExp {0};
+    int             mb_level        {player_default::LEVEL};
+    int             mb_currentExp   {0};
     int             mb_nextLevelExp {1000};             // Const for now
 
-    my::String      mb_name {player_default::NAME};
-    Race            mb_race {Player::Race::ORC};
-    Spec            mb_spec {Player::Spec::WARRIOR};
+    my::String      mb_name         {player_default::NAME};
+    Race            mb_race         {Player::Race::ORC};
+    Spec            mb_spec         {Player::Spec::WARRIOR};
 
     // #### Player's resourses
 
-    int             mb_currentHealth {player_default::HEALTH};
-    int             mb_maxHealth{};
-    int             mb_currentStamina {player_default::STAMINA};
-    int             mb_maxStamina {};
-    int             mb_currentMana {player_default::MANA};
-    int             mb_maxMana {};
+    int             mb_currentHealth    {player_default::HEALTH};
+    int             mb_maxHealth        {};
+    int             mb_currentStamina   {player_default::STAMINA};
+    int             mb_maxStamina       {};
+    int             mb_currentMana      {player_default::MANA};
+    int             mb_maxMana          {};
 
     // #### General characteristics
 
-    int             mb_intellect {};
-    int             mb_agility {};
+    int             mb_intellect    {};
+    int             mb_agility      {};
 
     // #### Raintings (chances to do smth)
 
-    int          mb_dodgeChance;
-    int          mb_critChance;
+    int             mb_dodgeChance  {};
+    int             mb_critChance   {};
 
-    int             mb_timeLived {player_default::DAY_LIVED};
-    int             mb_gold {};
+    int             mb_timeLived    {player_default::DAY_LIVED};
+    int             mb_gold         {};
 
 protected:
     int             mb_strength {};
@@ -71,13 +69,7 @@ public:
 
     // ########  Constructors and Destructors  ########
     Player() = default;
-    Player(const my::String& name, Race race, Spec spec);
-
-    // #### Copy constructor
-    // ####
-//    Player(Player* player);
-
-    ~Player() = default;
+    virtual ~Player();
 
 
     // ########  Setters and Getters  ########
@@ -92,14 +84,16 @@ public:
     void                setStamina();
     void                setMana();
 
+    void                setName(my::String& name);
+    void                setRace(Player::Race race);
+
 
     // ########  Virtual methods  #########
-    virtual int         getAttackDamage() const         { return 0; }
-    virtual int         getSuperAttackDamage() const    { return 0; }
-    virtual void        setDamage()                     { return; }
-    virtual void        attack(Monster& monster) const  { return; }
-    virtual bool        superAttack(Monster& monster)   { return false; }
-
+    virtual int         getAttackDamage() const = 0;
+    virtual int         getSuperAttackDamage() const = 0;
+    virtual void        setDamage() = 0;
+    virtual void        attack(Monster& monster) const = 0;
+    virtual bool        superAttack(Monster& monster) = 0;
 
 
     // ########  Public Interface  ########
@@ -121,17 +115,9 @@ public:
     void                reduceStamina(int stamina);
 
 
-    void                chooseRace();
-    void                chooseSpec();
-    void                chooseName();
-
 
 private:
     void                displayFightMenu(int state, Monster& monster);
-    void                displayRaceMenu(int state);
-    void                displaySpecMenu(int state);
-
-
 
 };
 

@@ -98,13 +98,13 @@ std::istream& my::operator>>(std::istream& in, String& string)
         if (skipLeadingSpaces && (ch == ' ' || ch == '\t')) {
             continue;
         }
-        else { /* Nothing to do */ }
+        else {} // Nothing to do
         skipLeadingSpaces = false;
 
         *bufPtr = ch;
         ++length;
 
-        // ## Resize buffer
+        // ## Dynamiclly resize buffer if it is not fit for std::istream object
         if (length < bufSize) {
             ++bufPtr;
         }

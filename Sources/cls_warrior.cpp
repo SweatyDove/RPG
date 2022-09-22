@@ -4,10 +4,8 @@
 #include "Headers/cls_warrior.h"
 #include "Headers/cls_monster.h"
 
-// #### Constructor
-// #########
-Warrior::Warrior(Player& player) :
-    Player {player}
+
+Warrior::~Warrior()
 {
     // Nothing to do;
 }

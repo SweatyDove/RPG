@@ -55,8 +55,6 @@ class Monster;
 
 
 int getRandomNumber(int min, int max);
-void displayRaceMenu(int state);
-void displaySpecMenu(int state);
 void clearWorkScreen(int lines, int columns);
 void moveCursor(int relativeLine, unsigned int column);
 

@@ -16,7 +16,8 @@ private:
 
 public:
     // #############  Constructors and Destructors  ##############
-    Warrior(Player& player);
+    Warrior() = default;
+    ~Warrior() override;
 
 
     // ##############  Setters and Getters  ################

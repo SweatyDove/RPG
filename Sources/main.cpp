@@ -12,9 +12,10 @@
 //
 // #3 Add funny race/spec descriptions
 //
-// #4 Нужно как-то реализовать НЕ копирование, а ПЕРЕМЕЩЕНИЕ базовой части класса Warrior (то есть Player&)
-//    из player. То есть имеем объект класса Player. И в зависимости от выбранной специализации,
-//    делаем этот объект частью наследуемого объекта. (Просто прсивоить адрес объекта player адресу базовой части warrior?)
+//
+// Тогда просто определить специализацию/расу отдельно. А потом в зависимости от
+// Выбора игрока инициализировать соответствующий класс, а работать с ним в дальней
+// шем через указатель на его базовую чатсь. А базовая часть будет просто интерфейсом
 
 
 
@@ -27,21 +28,13 @@
 #include "Headers/cls_gold.h"
 #include "Headers/cls_potion.h"
 
-//void displayThread(int state);
-//void displayRaceMenu(int state);
-//Player::Race choosePlayerRace();
-//Player::Spec choosePlayerSpec();
+
+Player::Race choosePlayerRace();
+Player::Spec choosePlayerSpec();
+my::String   choosePlayerName();
 
 int main()
 {
-    //my::String playerName {"Stranger"};
-    Player player {};
-    Player* pl {&player};
-
-//    Player::Race playerRace {Player::Race::HUMAN};
-//    Player::Spec playerSpec {Player::Spec::WARRIOR};
-
-
     // ## Set seed for rand() and discard first value from it
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     std::rand();
@@ -56,25 +49,18 @@ int main()
 
     clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
 
+    Player::Race    playerRace  {choosePlayerRace()};
+    Player::Spec    playerSpec  {choosePlayerSpec()};
+    my::String      playerName  {choosePlayerName()};
 
-    // У меня есть базовый класс Player. На его основе я хочу создать наследуемый класс Warrior/Mage/Hunter.
-    // То есть идея такая, что я использую, по возможнотсти, объект базового класса Player. И в случае необходимости
-    // уже использую методы интерфейсных классов Warrior/Mage/...
-
-    // Но я не могу создать базовую сущность абстрактного класса...
-
-    // Инициализирую базовую часть
-    player.chooseRace();
-    player.chooseSpec();
-    player.chooseName();
-
-    // Далее хочу, в зависимости от выбора игрока, инициализировать наследуемую часть,
-    // но с использованием уже доступной базовой части.
     Warrior* warrior {nullptr};
+    Player*  player {nullptr};
 
-    switch (player.getSpec()) {
+
+    switch (playerSpec) {
     case Player::Spec::WARRIOR:
-        warrior = new Warrior {player};
+        warrior = new Warrior;
+        player = warrior;
         break;
 //    case Player::Spec::MAGE:
 //        //Mage mage {player};
@@ -88,6 +74,9 @@ int main()
         break;
     }
 
+    player->setRace(playerRace);
+    player->setName(playerName);
+
 
 
     std::cout << "Hello " << warrior->getName() << "! Welcome to the HELL...\n";
@@ -97,23 +86,23 @@ int main()
 
 
 
-    while (!player.isDead()) {
-        player.newDay();
+    while (!player->isDead()) {
+        player->newDay();
 
         // Create random monster
         Monster monster {};
-        std::cout << "\nDay " << player.getTimeLived() << ": "
+        std::cout << "\nDay " << player->getTimeLived() << ": "
                   << "you have encountered a " << monster.getName() << " of level "
                   << monster.getLevel() << ".\n";
 
-        player.fightWith(monster);
+        player->fightWith(monster);
         if (monster.isDead()) {
-            player.getLootFrom(monster);
+            player->getLootFrom(monster);
         }
         else { /* Nothing to do */ }
     }
 
-    std::cout << "You died at level " << player.getLevel() << ".\n\n";
+    std::cout << "You died at level " << player->getLevel() << ".\n\n";
     std::cout << "########  Game Over ########\n\n" << std::endl;
 
 

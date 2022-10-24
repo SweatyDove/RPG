@@ -1,7 +1,7 @@
-#include "Headers/header.h"
-#include "Headers/cls_player.h"
-#include "Headers/cls_monster.h"
-#include "Headers/cls_potion.h"
+#include "header.h"
+#include "cls_player.h"
+#include "cls_monster.h"
+#include "cls_potion.h"
 
 class Monster;
 

@@ -1,8 +1,8 @@
 
 
-#include "Headers/header.h"
-#include "Headers/cls_warrior.h"
-#include "Headers/cls_monster.h"
+#include "header.h"
+#include "cls_warrior.h"
+#include "cls_monster.h"
 
 
 Warrior::~Warrior()

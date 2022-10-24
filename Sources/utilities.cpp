@@ -1,4 +1,4 @@
-#include "Headers/header.h"
+#include "header.h"
 
 
 int getRandomNumber(int min, int max)

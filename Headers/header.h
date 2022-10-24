@@ -1,3 +1,7 @@
+
+/*******************************************************************************
+ ********  Defining the platform
+ ******************************************************************************/
 #if defined(unix) || defined(__unix__) || defined(__unix)
     #define PREDEF_PLATFORM_UNIX
 #elif defined(_WIN32) || defined(_WIN64) || defined(__CYGWIN__)
@@ -9,7 +13,6 @@
 
 #include <cstdlib>              // For std::rand(), std::srand()
 #include <iostream>
-//#include <string>             // Replaced with "my_string.h"
 #include <ctime>                // For std::time()
 #include <utility>              // For std::move
 #include <cassert>
@@ -18,6 +21,9 @@
 #include <atomic>
 
 #include "my_string.h"
+#include "my_log.h"
+#include "my_utilities.h"
+#include "my_queue.hpp"
 
 // #### Define non-blocking input in Linux
 #ifdef PREDEF_PLATFORM_UNIX

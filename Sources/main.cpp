@@ -19,14 +19,14 @@
 
 
 
-#include "Headers/header.h"
-#include "Headers/cls_monster.h"
-#include "Headers/cls_player.h"
-#include "Headers/cls_warrior.h"
+#include "header.h"
+#include "cls_monster.h"
+#include "cls_player.h"
+#include "cls_warrior.h"
 
-#include "Headers/cls_item.h"
-#include "Headers/cls_gold.h"
-#include "Headers/cls_potion.h"
+#include "cls_item.h"
+#include "cls_gold.h"
+#include "cls_potion.h"
 
 
 Player::Race choosePlayerRace();

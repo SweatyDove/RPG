@@ -1,6 +1,6 @@
 
-#include "Headers/header.h"
-#include "Headers/cls_potion.h"
+#include "header.h"
+#include "cls_potion.h"
 
 Potion::Potion() :
     Item(Item::Type::POTION, 1, defaultWeight),
@@ -21,6 +21,8 @@ Potion::Potion(Potion::Type type = Type::EXHAUSTED, int effect = 0) :
 
 my::String Potion::getName() const
 {
+    my::String retString {""};
+
     switch(mb_type) {
     case Type::EXHAUSTED:   return "exhausted potion";
     case Type::HEALTH:      return "health potion";

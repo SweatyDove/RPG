@@ -459,7 +459,7 @@ void my::String::setCapacity(int newCapacity)
         *newPtr++ = (ii < mb_length && thisPtr != nullptr) ? *thisPtr++ : '\0';
     }
 
-    // #### Delete old data
+    // #### Delete old data (QQQ double free here!)
     delete[] mb_firstElementAdress;
     mb_firstElementAdress = newAdress;
 }

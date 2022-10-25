@@ -10,9 +10,8 @@ namespace warrior_default {
 
 class Warrior : public Player {
 private:
-    int     mb_autoAttackDamage {};
-
-    int     mb_heavyBlowDamage {};
+    int     mb_autoAttackDamage {warrior_default::autoAttackDamage};
+    int     mb_heavyBlowDamage  {warrior_default::heavyBlowDamage};
 
 public:
     // #############  Constructors and Destructors  ##############

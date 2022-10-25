@@ -29,8 +29,6 @@ Player::Race choosePlayerRace();
 Player::Spec choosePlayerSpec();
 my::String   choosePlayerName();
 
-my::String   gl_battleLogBuffer {""};
-
 int main()
 {
     // #### Set a seed for rand() and discard first value from it.

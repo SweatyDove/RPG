@@ -12,11 +12,7 @@
 //
 // #3 Add funny race/spec descriptions
 //
-//
-// Тогда просто определить специализацию/расу отдельно. А потом в зависимости от
-// Выбора игрока инициализировать соответствующий класс, а работать с ним в дальней
-// шем через указатель на его базовую чатсь. А базовая часть будет просто интерфейсом
-
+// #4 Log-class that will receive log-information and write it in a file when ready
 
 
 #include "Headers/header.h"
@@ -32,6 +28,8 @@
 Player::Race choosePlayerRace();
 Player::Spec choosePlayerSpec();
 my::String   choosePlayerName();
+
+my::String   gl_battleLogBuffer {""};
 
 int main()
 {

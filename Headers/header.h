@@ -10,14 +10,17 @@
 #include <cstdlib>              // For std::rand(), std::srand()
 #include <iostream>
 //#include <string>             // Replaced with "my_string.h"
+#include "my_string.h"
 #include <ctime>                // For std::time()
 #include <utility>              // For std::move
 #include <cassert>
 #include <array>
+
+// #### For multi-threading
+#include <mutex>
 #include <thread>
 #include <atomic>
 
-#include "my_string.h"
 
 // #### Define non-blocking input in Linux
 #ifdef PREDEF_PLATFORM_UNIX
@@ -36,7 +39,9 @@
 
 #endif // PREDEF_PLATFORM_UNIX
 
-#define     WORK_SCREEN_LINES       20
+
+// #### Macro
+#define     WORK_SCREEN_LINES       24
 #define     WORK_SCREEN_COLUMNS     80
 
 #define     MOVE_UP(ch)             (ch == 'W' || ch == 'w')

@@ -33,39 +33,43 @@ public:
     };
 private:
     int             mb_level        {player_default::LEVEL};
+
     int             mb_currentExp   {0};
     int             mb_nextLevelExp {1000};             // Const for now
-
     my::String      mb_name         {player_default::NAME};
+
     Race            mb_race         {Player::Race::ORC};
     Spec            mb_spec         {Player::Spec::WARRIOR};
-
     // #### Player's resourses
 
     int             mb_currentHealth    {player_default::HEALTH};
+
     int             mb_maxHealth        {};
     int             mb_currentStamina   {player_default::STAMINA};
     int             mb_maxStamina       {};
     int             mb_currentMana      {player_default::MANA};
     int             mb_maxMana          {};
-
     // #### General characteristics
 
     int             mb_intellect    {};
-    int             mb_agility      {};
 
+    int             mb_agility      {};
     // #### Raintings (chances to do smth)
 
     int             mb_dodgeChance  {};
-    int             mb_critChance   {};
 
+    int             mb_critChance   {};
     int             mb_timeLived    {player_default::DAY_LIVED};
+
     int             mb_gold         {};
 
 protected:
     int             mb_strength {};
 
 public:
+    my::Log         mb_log      {"battle_log.txt"};
+
+
 
     // ########  Constructors and Destructors  ########
     Player() = default;
@@ -92,7 +96,7 @@ public:
     virtual int         getAttackDamage() const = 0;
     virtual int         getSuperAttackDamage() const = 0;
     virtual void        setDamage() = 0;
-    virtual void        attack(Monster& monster) const = 0;
+    virtual void        attack(Monster& monster) = 0;
     virtual bool        superAttack(Monster& monster) = 0;
 
 

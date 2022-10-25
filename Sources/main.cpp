@@ -15,14 +15,14 @@
 // #4 Log-class that will receive log-information and write it in a file when ready
 
 
-#include "Headers/header.h"
-#include "Headers/cls_monster.h"
-#include "Headers/cls_player.h"
-#include "Headers/cls_warrior.h"
+#include "header.h"
+#include "cls_monster.h"
+#include "cls_player.h"
+#include "cls_warrior.h"
 
-#include "Headers/cls_item.h"
-#include "Headers/cls_gold.h"
-#include "Headers/cls_potion.h"
+#include "cls_item.h"
+#include "cls_gold.h"
+#include "cls_potion.h"
 
 
 Player::Race choosePlayerRace();
@@ -33,7 +33,7 @@ my::String   gl_battleLogBuffer {""};
 
 int main()
 {
-    // ## Set seed for rand() and discard first value from it
+    // #### Set a seed for rand() and discard first value from it.
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     std::rand();
 
@@ -78,26 +78,27 @@ int main()
 
 
     std::cout << "Hello " << warrior->getName() << "! Welcome to the HELL...\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << MOVE_CURSOR_ONE_LINE_UP;
     clearWorkScreen(1, WORK_SCREEN_COLUMNS);
 
 
-
+    // #### Main cycle
     while (!player->isDead()) {
         player->newDay();
 
-        // Create random monster
-        Monster monster {};
+        // ## Create random monster
+        Monster monster{};
         std::cout << "\nDay " << player->getTimeLived() << ": "
-                  << "you have encountered a " << monster.getName() << " of level "
+                  << "you have encountered a " << monster.getName()
+                  << " of level "
                   << monster.getLevel() << ".\n";
 
         player->fightWith(monster);
         if (monster.isDead()) {
             player->getLootFrom(monster);
         }
-        else { /* Nothing to do */ }
+        else {} // Nothing to do
     }
 
     std::cout << "You died at level " << player->getLevel() << ".\n\n";

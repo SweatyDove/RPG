@@ -1,7 +1,7 @@
-#include "Headers/header.h"
-#include "Headers/cls_player.h"
-#include "Headers/cls_monster.h"
-#include "Headers/cls_potion.h"
+#include "header.h"
+#include "cls_player.h"
+#include "cls_monster.h"
+#include "cls_potion.h"
 
 class Monster;
 
@@ -189,8 +189,11 @@ void Player::levelUp()
 
 }
 
-// #### Increase the player's experience (and level up) depending on
-// #### the monster, that was killed by player.
+//==============================================================================
+// WHAT: Member function
+//  WHY: Increase the player's experience (and level up) depending on
+//       the monster, that was killed by player.
+//==============================================================================
 void Player::increaseExp(Monster& monster)
 {
     int exp {monster.getLevel() * 100};
@@ -209,7 +212,10 @@ void Player::increaseExp(Monster& monster)
 
 
 
-
+//==============================================================================
+// WHAT: Member function
+//  WHY: It handles the player's looting monster's corpse.
+//==============================================================================
 void Player::getLootFrom(Monster& monster)
 {
     char            choice {};
@@ -219,11 +225,13 @@ void Player::getLootFrom(Monster& monster)
     // #### Generate gold
     int gold {getRandomNumber(0, monster.getLevel() * 10)};
     if (gold > 0) {
-        std::cout << "You found " << gold << " gold and now has "
-                  << this->addGold(gold) << " golden coins." << std::endl;
+
+        mb_log << "You found " << gold << " gold and now has "
+               << this->addGold(gold) << " golden coins."
+               << my::endRecord;
     }
     else {
-        std::cout << "You didn't find any gold...\n";
+        mb_log << "You didn't find any gold...\n" << my::endRecord;
     }
 
     // #### Generate potion
@@ -245,12 +253,16 @@ void Player::getLootFrom(Monster& monster)
             break;
         }
     }
+    else {} // Nothing to do
 
     // #### Generate other loot
 }
 
 
-
+//==============================================================================
+// WHAT: Member function
+//  WHY: It handles the case when player is going to drink smth.
+//==============================================================================
 void Player::drink(Potion& potion)
 {
     switch(potion.mb_type) {
@@ -285,14 +297,16 @@ void Player::drink(Potion& potion)
 }
 
 
-
-// #### Realize player's fight with specified @monster
-// ####
+//==============================================================================
+// WHAT: Member function
+//  WHY: Realize player's fight with specified [monster].
+//==============================================================================
 void Player::fightWith(Monster& monster)
 {
     char ch {};
     bool isFled {false};
     int keystroke {0};
+
     int state {0};
     int lastState {0};
     bool firstIn {true};
@@ -310,8 +324,9 @@ void Player::fightWith(Monster& monster)
     linuxTerminalMode(!CANONICAL);
 
     while (!(this->isDead()) && !(monster.isDead()) && !isFled) {
-        // ## Have to display menu only if (in the first time) or (last state != current state)
-        if (state != lastState || firstIn) {
+
+        // ## Conditions for the displaying fight menu
+        if (state != lastState || firstIn){
             displayFightMenu(state, monster);
             firstIn = false;
         }
@@ -331,6 +346,7 @@ void Player::fightWith(Monster& monster)
             else if (ACCEPT(ch)) {
                 switch (state) {
 
+                // # Player attacks monster
                 case static_cast<int>(FightState::ATTACK):
                     this->attack(monster);
                     if (!monster.isDead()) {
@@ -339,8 +355,9 @@ void Player::fightWith(Monster& monster)
                     else {} // Nothing to do;
                 break;
 
+                // # Player super-attacks monster
                 case static_cast<int>(FightState::SUPER_ATTACK):
-                    // ## If can't make super attack -> just break without doing smth
+                    // If can't make super attack -> just break without doing smth
                     if (!this->superAttack(monster)) {
                         break;
                     }
@@ -350,6 +367,7 @@ void Player::fightWith(Monster& monster)
                     else {} // Nothing to do;
                 break;
 
+                // # Player is trying to escape from the monster
                 case static_cast<int>(FightState::RUN):
                     if (0 == getRandomNumber(0, 2)) {
                         isFled = true;
@@ -364,8 +382,7 @@ void Player::fightWith(Monster& monster)
 
                 case static_cast<int>(FightState::MAX_STATE):
                 break;
-                //default: break;
-                } // End of switch()
+                }
             }
             else {} // Nothing to do
         }
@@ -375,14 +392,14 @@ void Player::fightWith(Monster& monster)
 
 
     if (this->isDead()) {
-
+        ;// Nothing to do
     }
     else if (monster.isDead()) {
-        std::cout << "You killed monster!\n";
+        mb_log << "You killed monster!\n" << my::endRecord;
         this->increaseExp(monster);
     }
     else if (isFled) {
-        std::cout << "You have successfully fled from monster!\n";
+        mb_log << "You have successfully fled from monster!\n" << my::endRecord;
     }
     else {} // Nothing to do
 

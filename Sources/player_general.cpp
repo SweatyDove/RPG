@@ -1,14 +1,15 @@
-#include "Headers/header.h"
-#include "Headers/cls_player.h"
+#include "header.h"
+#include "cls_player.h"
 
 static void displayRaceMenu(int state);
 static void displaySpecMenu(int state);
 
 
 
-
-// #### Choose the player's race
-// ####
+//==============================================================================
+// WHAT: Global function
+//  WHY: Choose the player's race.
+//==============================================================================
 Player::Race choosePlayerRace()
 {
     bool inLoop {true};
@@ -59,9 +60,10 @@ Player::Race choosePlayerRace()
     return race;
 }
 
-
-// #### Choose the player's specialization
-// ####
+//==============================================================================
+// WHAT: Global function
+//  WHY: Choose the player's specialization
+//==============================================================================
 Player::Spec choosePlayerSpec()
 {
     bool inLoop {true};

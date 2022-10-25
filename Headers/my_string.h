@@ -77,19 +77,22 @@ public:
     friend my::String& operator<<(my::String& string, int intNumber);
     friend my::String& operator<<(my::String& string, const char* charDataBuffer);
     friend my::String& operator<<(my::String& string, char symbol);
+    friend my::String& operator<<(my::String& string, const my::String& inputString);
 
     friend my::String& operator+(const my::String& leftString, const my::String& rightString);
 
 
 
-    friend std::ostream& operator<<(std::ostream& out, const String& string);
-    friend std::istream& operator>>(std::istream& in, String& string);
+    friend std::ostream& operator<<(std::ostream& out, const my::String& string);
+    friend std::istream& operator>>(std::istream& in, my::String& string);
 
 };
 
 my::String& operator<<(my::String& string, int intNumber);
 my::String& operator<<(my::String& string, const char* charDataBuffer);
 my::String& operator<<(my::String& string, char symbol);
+my::String& operator<<(my::String& string, const my::String& inputString);
+
 
 my::String& operator+(const my::String& leftString, const my::String& rightString);
 

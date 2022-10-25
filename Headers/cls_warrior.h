@@ -22,7 +22,7 @@ public:
 
     // ##############  Setters and Getters  ################
     void setDamage() override;
-    void attack(Monster& monster) const override;
+    void attack(Monster& monster) override;
     bool superAttack(Monster& monster) override;
 
     int getAttackDamage() const override;

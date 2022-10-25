@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.23)
+
 project(ConsoleRPG)
 
 set(CMAKE_CXX_STANDARD 17)
+
+set(CMAKE_CXX_FLAGS -pthread)
 
 include_directories(Headers)
 
@@ -14,6 +17,10 @@ add_executable(ConsoleRPG
         Headers/cls_player.h
         Headers/cls_potion.h
         Headers/cls_warrior.h
+        Headers/my_string.h
+        Headers/my_log.h
+        Headers/my_queue.hpp
+        Headers/my_utilities.h
 
         Sources/main.cpp
         Sources/cls_gold.cpp
@@ -24,4 +31,8 @@ add_executable(ConsoleRPG
         Sources/cls_warrior.cpp
         Sources/linux_nonblock_input.cpp
         Sources/player_general.cpp
-        Sources/utilities.cpp)
+        Sources/utilities.cpp
+        Sources/my_string.cpp
+        Sources/my_log.cpp
+        Sources/my_utilities.cpp
+        )

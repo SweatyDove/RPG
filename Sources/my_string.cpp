@@ -221,6 +221,20 @@ my::String& my::operator<<(my::String& string, const char symbol)
 }
 
 
+
+//==============================================================================
+// NAME: Overloaded [operator<<] for <const my::String&> type.
+// GOAL:
+//==============================================================================
+my::String& my::operator<<(my::String& string, const my::String& inputString)
+{
+    string << inputString.getFirstElementAdress();
+
+    return string;
+}
+
+
+
 //==============================================================================
 // NAME: Copy assignment via overloaded [operator=].
 // GOAL: We don't need to create a new object. Just assign to the existing one

@@ -160,13 +160,19 @@ my::String Monster::getName() const
     return "";
 }
 
-
-// #### Func handle the montster's attack the "player"
+//==============================================================================
+// WHAT: Virtual override member function
+//  WHY: It is handling the case when montster attacks the [player].
+//==============================================================================
 void Monster::attack(Player& player) const
 {
     player.reduceHealth(mb_damage);
-    std::cout << "The " << this->getName() << " attacked player and dealt " << this->mb_damage << " points of damage. ";
-    std::cout << "At now, player has " << player.getCurrentHealth() << " hp. " << std::endl;
+
+    player.mb_log << "The " << this->getName() << " attacked player and dealt "
+                  << this->mb_damage << " points of damage. At now, player has "
+                  << player.getCurrentHealth() << " hp. "
+                  << my::endRecord;
+
     return;
 }
 

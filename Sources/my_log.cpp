@@ -135,10 +135,10 @@ void my::endRecord(my::Log& log)
         log.mb_lastRecordMutex.unlock();
     }
 
-    log.mb_recordTitle.softClear();
+    log.mb_recordTitle.clear();
     log.mb_recordTitle << "\n#" << log.mb_recordNumber++ << '\n';
 
-    log.mb_recordContent.softClear();
+    log.mb_recordContent.clear();
 
 }
 

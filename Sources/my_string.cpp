@@ -95,9 +95,10 @@ void my::String::clear()
 {
     char*   tempPtr {mb_firstElementAdress};
 
-    while (mb_length-- > 0) {
+    for (int ii {0}; ii < mb_length; ++ii) {
         *tempPtr++ = '\0';
     }
+    mb_length = 0;
 }
 
 
@@ -424,22 +425,24 @@ int my::String::getCapacity() const
 
 //==============================================================================
 // WHAT: Member function
-// WHY:  Allocates new <my::String> object with specified capacity and copies
-//       primary string into the new one.
+// WHY:  Allocates new raw char buffer with new capacity, copy original data
+//       into the new buffer and delete[] original buffer.
 //==============================================================================
 void my::String::setCapacity(int newCapacity)
 {
     //assert((newCapacity < (mb_length + 1)) && "Haven't implemented yet.");
 
-    char* newAdress {nullptr};                   // Pointer to start of new area
-    char* newPtr    {nullptr};                   // Dynamic pointer of new area
-    char* thisPtr   {mb_firstElementAdress};     // Dynamic pointer to old area
-
+    // ###1 Set new capacity to [*this] object.
     mb_capacity = newCapacity;
 
-    // #### Allocate new portion of memory in the heap
+
+    // ###2 Allocate new portion of memory in the heap
+    char* newAdress {nullptr};                   // Pointer to the start of a new area
+    char* newPtr    {nullptr};                   // Dynamic pointer of the new area
+
     try {
-        newPtr = newAdress = new char[mb_capacity];
+        newAdress = new char[mb_capacity];
+        newPtr = newAdress;
     }
     catch (std::bad_alloc&) {
         std::cerr << "\n[ERROR]::[my::String::setCapacity]:"
@@ -454,7 +457,10 @@ void my::String::setCapacity(int newCapacity)
         exit(1);
     }
 
-    // #### Copy original string in the new location.
+
+    // ###3 Copy original data into the new area
+    char* thisPtr   {mb_firstElementAdress};     // Dynamic pointer to the old area
+
     for (int ii {0}; ii < mb_capacity; ++ii) {
         *newPtr++ = (ii < mb_length && thisPtr != nullptr) ? *thisPtr++ : '\0';
     }

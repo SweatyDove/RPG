@@ -12,7 +12,16 @@
 //
 // #3 Add funny race/spec descriptions
 //
-// #4 Log-class that will receive log-information and write it in a file when ready
+
+// ######## Problems:
+//
+// #1 Didn't write battle_log
+//
+// #2 How the problem in [my::String::clear()], where [mb_length] set in -1 in while(),
+//    causes the problem in [my::String::setCapacity()] (in delete[] mb_firstElementAdress)
+
+//
+
 
 
 #include "header.h"

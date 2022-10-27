@@ -430,7 +430,7 @@ int my::String::getCapacity() const
 //==============================================================================
 void my::String::setCapacity(int newCapacity)
 {
-    //assert((newCapacity < (mb_length + 1)) && "Haven't implemented yet.");
+    //assert(newCapacity < mb_length + 1 && "Haven't implemented yet.");
 
     // ###1 Set new capacity to [*this] object.
     mb_capacity = newCapacity;
@@ -465,7 +465,7 @@ void my::String::setCapacity(int newCapacity)
         *newPtr++ = (ii < mb_length && thisPtr != nullptr) ? *thisPtr++ : '\0';
     }
 
-    // #### Delete old data (QQQ double free here!)
+    // ###4 Delete old data
     delete[] mb_firstElementAdress;
     mb_firstElementAdress = newAdress;
 }

@@ -56,8 +56,10 @@ void my::Log::writeRecordToFile()
 {
     my::String* record {mb_recordQueue.getFrontContent()};
 
-    mb_logFile.write(record->getFirstElementAdress(),
-                     record->getLength());
+//    mb_logFile.write(record->getFirstElementAdress(),
+//                     record->getLength());
+
+    mb_logFile << record->getFirstElementAdress();
     mb_recordQueue.removeFront();
 }
 

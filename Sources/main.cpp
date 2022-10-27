@@ -15,11 +15,7 @@
 
 // ######## Problems:
 //
-// #1 Didn't write battle_log
-//
-// #2 How the problem in [my::String::clear()], where [mb_length] set in -1 in while(),
-//    causes the problem in [my::String::setCapacity()] (in delete[] mb_firstElementAdress)
-
+// #1 Didn't write battle_log (need to check my::Log::writeRecordToFile())
 //
 
 

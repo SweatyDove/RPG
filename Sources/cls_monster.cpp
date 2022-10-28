@@ -2,9 +2,10 @@
 #include "header.h"
 #include "cls_monster.h"
 
-
-// #### Create a random monster
-// #######
+//==============================================================================
+// WHAT: Constructor.
+//  WHY: Create a random monster.
+//==============================================================================
 Monster::Monster() :
     mb_type {getRandomMonsterType()},
     mb_level {getRandomMonsterLevel()}
@@ -14,9 +15,10 @@ Monster::Monster() :
 }
 
 
-
-// #### (Static class function) Returns random monster's [level] depending on the it's [type] (not release yet)
-// ############
+//==============================================================================
+// WHAT: Static member function
+//  WHY: Returns random monster's [level].
+//==============================================================================
 int Monster::getRandomMonsterLevel()
 {
     return getRandomNumber(1, 10);
@@ -24,9 +26,11 @@ int Monster::getRandomMonsterLevel()
 
 
 
-
-// #### (Static class function) Generate random monster [type] according to the monster's [chance] to appeare
-// ############
+//==============================================================================
+// WHAT: Static member function.
+//  WHY: Generate random monster [type] according to the monster's [chance]
+//       to appeare.
+//==============================================================================
 Monster::Type Monster::getRandomMonsterType()
 {
     int roll {};
@@ -50,36 +54,50 @@ Monster::Type Monster::getRandomMonsterType()
 
 
 
-
-// #### Function returns true if current Monster is dead
-// #############
+//==============================================================================
+// WHAT: Member function.
+//  WHY: Function returns true if the current Monster is dead.
+//==============================================================================
 bool Monster::isDead() const
 {
     return (mb_currentHealth <= 0);
 }
 
-// #### Function reduce health of the current Monster by specified magnitude
-// #############
+
+//==============================================================================
+// WHAT: Member function.
+//  WHY: Function reduce health of the current Monster by specified magnitude
+//==============================================================================
 void Monster::reduceHealth(int health)
 {
-    mb_currentHealth -= health;
-    return;
+    mb_currentHealth = ((mb_currentHealth - health) < 0) ? (0) : (mb_currentHealth - health);
 }
 
-// #### Function returns the level of the creature
-// ###############
+
+//==============================================================================
+// WHAT: Getter.
+//  WHY: Function returns the level of the creature.
+//==============================================================================
 int Monster::getLevel() const
 {
     return mb_level;
 }
 
-// #### Function returns current health of the creature
-// #############
+
+//==============================================================================
+// WHAT: Getter.
+//  WHY: Returns current health of the [*this] monster.
+//==============================================================================
 int Monster::getCurrentHealth() const
 {
     return mb_currentHealth;
 }
 
+
+//==============================================================================
+// WHAT: Getter.
+//  WHY: Returns the amount of damage of the [*this] monster.
+//==============================================================================
 int Monster::getDamage() const
 {
     return mb_damage;
@@ -89,9 +107,11 @@ int Monster::getDamage() const
 
 
 
-
-// #### Func sets the [damage] of the monster (depending on the monster's [type] and [level])
-// #########
+//==============================================================================
+// WHAT: Public member function.
+//  WHY: It sets the [mb_damage] of the monster (depending on the monster's [type]
+//       and [level]).
+//==============================================================================
 int Monster::setDamage(Type type, int level) const
 {
     int damage {};
@@ -108,15 +128,18 @@ int Monster::setDamage(Type type, int level) const
     case Type::MAX_TYPE:
         assert("Invalid monster");
         break;
-    //default:
-        //break;
     }
 
     return damage;
 }
 
-// #### Func sets the "health" of the monster (depending on the monster's "type" and "level")
-// #########
+
+
+//==============================================================================
+// WHAT: Public member function.
+//  WHY: It sets the [mb_health] of the monster (depending on the monster's
+//       [type] and [level])
+//==============================================================================
 int Monster::setHealth(Type type, int level) const
 {
     int health {};
@@ -160,9 +183,10 @@ my::String Monster::getName() const
     return "";
 }
 
+
 //==============================================================================
-// WHAT: Virtual override member function
-//  WHY: It is handling the case when montster attacks the [player].
+// WHAT: Virtual override member function.
+//  WHY: It is handling the case when [*this] monster attacks the [player].
 //==============================================================================
 void Monster::attack(Player& player) const
 {

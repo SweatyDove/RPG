@@ -8,6 +8,7 @@ class Monster;
 
 Player::~Player()
 {
+    //std::cerr << "\n[DEBUG]: Player's destructor has called...";
     // Nothing to do
 }
 
@@ -301,7 +302,7 @@ void Player::drink(Potion& potion)
 // WHAT: Member function
 //  WHY: Realize player's fight with specified [monster].
 //==============================================================================
-void Player::fightWith(Monster& monster)
+void Player::meetWith(Monster& monster)
 {
     char ch {};
     bool isFled {false};
@@ -411,43 +412,70 @@ void Player::fightWith(Monster& monster)
 
 void Player::displayFightMenu(int state, Monster& monster)
 {
-    int menuSize {11};
+    int menuSize {18};
     clearWorkScreen(menuSize, WORK_SCREEN_COLUMNS);
 
-    std::cout << "       What are you going to do?\n\n";
+    //std::cout << "       What are you going to do?\n\n";
 
     switch(state) {
     case 0:
-        std::cout << "\n########  Attack monster  #########"
-                  << "\n          Super atack monster      "
-                  << "\n          Run                      "
-                  << "\n                                   "
-                  << "\n                                   "
-                  << "\n                                   "
-                  << "\n[NOTE]: You'll deal " << this->getAttackDamage() << "points of damage."
-                  << "\n                                                                      "
+        std::cout << "\n"
+                  << "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+                  << "\n                                          "
+                  << "\n############  Attack monster  ############"
+                  << "\n              Super atack monster         "
+                  << "\n              Run away                    "
+                  << "\n                                          "
+                  << "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+                  << "\n"
+                  << "\n"
+                  << "\n"
+                  << "\n********************************************************************************"
+                  << "\nMonster's health/damage: " << monster.getCurrentHealth() << "/" << monster.getDamage()
+                  << "\nPlayer's health/damage: " << this->getCurrentHealth() << "/" << this->getAttackDamage()
+                  << "\n"
+                  << "\n"
+                  << "\n********************************************************************************"
                   << std::endl;
         break;
     case 1:
-        std::cout << "\n          Attack monster           "
-                  << "\n########  Super atack monster  ####"
-                  << "\n          Run                      "
-                  << "\n                                   "
-                  << "\n                                   "
-                  << "\n                                   "
-                  << "\n[NOTE]: You'll deal " << this->getSuperAttackDamage() << "points of damage."
-                  << "\n        Attack requires 30 stamina points.                                 "
+        std::cout << "\n"
+                  << "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+                  << "\n                                          "
+                  << "\n              Attack monster              "
+                  << "\n############  Super atack monster  #######"
+                  << "\n              Run away                    "
+                  << "\n                                          "
+                  << "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+                  << "\n"
+                  << "\n"
+                  << "\n"
+                  << "\n********************************************************************************"
+                  << "\nMonster's health/damage: " << monster.getCurrentHealth() << "/" << monster.getDamage()
+                  << "\n Player's health/damage: " << this->getCurrentHealth() << "/" << this->getSuperAttackDamage()
+                  << "\n-------------------------"
+                  << "\nAttack requires (30) stamina points."
+                  << "\n********************************************************************************"
                   << std::endl;
         break;
     case 2:
-        std::cout << "\n          Attack monster           "
-                  << "\n          Super atack monster      "
-                  << "\n########  Run  ####################"
-                  << "\n                                   "
-                  << "\n                                   "
-                  << "\n                                   "
-                  << "\n[NOTE]: You have 33% chance to escape from monster. If you could't, it     "
-                  << "\n        would deal " << monster.getDamage() << " points of damage          "
+        std::cout << "\n"
+                  << "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+                  << "\n                                          "
+                  << "\n              Attack monster              "
+                  << "\n              Super atack monster         "
+                  << "\n############  Run away  ##################"
+                  << "\n                                          "
+                  << "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+                  << "\n"
+                  << "\n"
+                  << "\n"
+                  << "\n********************************************************************************"
+                  << "\nMonster's health/damage: " << monster.getCurrentHealth() << "/" << monster.getDamage()
+                  << "\n-------------------------"
+                  << "\nYou have (33%) chance to escape from monster."
+                  << "\nIf you could't, monster would deal (" << monster.getDamage() << ") points of damage."
+                  << "\n********************************************************************************"
                   << std::endl;
         break;
     default:

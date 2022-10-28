@@ -7,6 +7,7 @@
 
 Warrior::~Warrior()
 {
+    //std::cerr << "\n[DEBUG]: Warrior destructor has called...";
     // Nothing to do;
 }
 

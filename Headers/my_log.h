@@ -33,10 +33,12 @@ private:
     my::Queue<my::String*>      mb_recordQueue {};          // <my::String*> object will be formed from the [mb_recordTitle]
                                                             // and [mb_recordContent] and pushed into this [mb_recordQueue]
 
-    std::mutex                  mb_lastRecordMutex {};       // It manages access to the last record
-    std::atomic<bool>           mb_allowFileWriting {};     // Variable for the tread synchronization
+    std::mutex                  mb_lastRecordMutex {};      // It manages access to the last record.
+    std::atomic<bool>           mb_allowFileWriting {};     // Variable for the tread synchronization.
 
-    std::thread                 mb_writeToFileThread {};    // Off-thread that is writing records to the file
+    std::thread                 mb_writeToFileThread {};    // Off-thread that is writing records to the file.
+
+    std::chrono::milliseconds   mb_sleepTimeMSec {};        // Time of sleep for [mb_writeToFileThread].
 
 
 

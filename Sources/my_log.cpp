@@ -4,15 +4,18 @@
 
 
 //==============================================================================
-// Конструктор класса. Открывает указанный файл [fileName] для работы в режиме
-// [fileMode]. По-умолчанию, режим "только для записи".
+// WHAT: Constructor.
+//  WHY: Opens specified [fileName] for work in [fileMode].
 //==============================================================================
 my::Log::Log(const char* fileName, std::ios_base::openmode fileMode) :
     mb_logFile              {fileName, fileMode},
     mb_recordNumber         {1},
-    mb_allowFileWriting     {true}
+    mb_allowFileWriting     {true},
+    mb_sleepTimeMSec        {1000}
 {
 
+    // #### Flush data into the file after each writing operation
+    std::unitbuf(mb_logFile);
 
     mb_recordTitle << "\n#" << mb_recordNumber++ << '\n';
 
@@ -40,6 +43,8 @@ my::Log::Log(const char* fileName, std::ios_base::openmode fileMode) :
 //==============================================================================
 my::Log::~Log()
 {
+    //std::cerr << "\n[DEBUG]: Log's destructor has called...";
+
     if (mb_allowFileWriting) {
         this->endLog();
     }
@@ -56,10 +61,8 @@ void my::Log::writeRecordToFile()
 {
     my::String* record {mb_recordQueue.getFrontContent()};
 
-//    mb_logFile.write(record->getFirstElementAdress(),
-//                     record->getLength());
-
-    mb_logFile << record->getFirstElementAdress();
+    mb_logFile.write(record->getFirstElementAdress(),
+                     record->getLength());
     mb_recordQueue.removeFront();
 }
 
@@ -96,7 +99,7 @@ void my::Log::writeLogToFile()
         else {} // Nothing to do
 
         // ## Sleep
-        std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+        std::this_thread::sleep_for(mb_sleepTimeMSec);
     }
 
 }

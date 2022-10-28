@@ -67,6 +67,7 @@ protected:
     int             mb_strength {};
 
 public:
+    // System resources
     my::Log         mb_log      {"battle_log.txt"};
 
 
@@ -103,7 +104,7 @@ public:
     // ########  Public Interface  ########
 
     void                newDay();
-    void                fightWith(Monster& monster);
+    void                meetWith(Monster& monster);
     int                 addGold(int gold);
     void                drink(Potion& potion);
     void                getLootFrom(Monster& monster);

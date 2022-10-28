@@ -12,11 +12,12 @@
 //
 // #3 Add funny race/spec descriptions
 //
+// #4 Initialize a RANDOM monster explicitly.
+//
 
 // ######## Problems:
 //
-// #1 Didn't write battle_log (need to check my::Log::writeRecordToFile())
-//
+// #1
 
 
 
@@ -50,9 +51,14 @@ int main()
 
     clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
 
-    Player::Race    playerRace  {choosePlayerRace()};
-    Player::Spec    playerSpec  {choosePlayerSpec()};
-    my::String      playerName  {choosePlayerName()};
+//    Player::Race    playerRace  {choosePlayerRace()};
+//    Player::Spec    playerSpec  {choosePlayerSpec()};
+//    my::String      playerName  {choosePlayerName()};
+
+    // #### DEBUG
+    Player::Race    playerRace  {Player::Race::HUMAN};
+    Player::Spec    playerSpec  {Player::Spec::WARRIOR};
+    my::String      playerName  {"Alex"};
 
     Warrior* warrior {nullptr};
     Player*  player {nullptr};
@@ -87,17 +93,21 @@ int main()
 
 
     // #### Main cycle
+    my::String day {""};
     while (!player->isDead()) {
         player->newDay();
+        (day = "Day ") << player->getTimeLived();
+        std::printf("\n%8s:", day.getFirstElementAdress());
 
         // ## Create random monster
         Monster monster{};
-        std::cout << "\nDay " << player->getTimeLived() << ": "
-                  << "you have encountered a " << monster.getName()
-                  << " of level "
-                  << monster.getLevel() << ".\n";
 
-        player->fightWith(monster);
+        // ## What happened at this day?
+        std::cout << " You have encountered a ("<< monster.getName() << ") of ("<< monster.getLevel() << ") level."
+                  << "\n          What are you going to do?"
+                  << std::endl;
+
+        player->meetWith(monster);
         if (monster.isDead()) {
             player->getLootFrom(monster);
         }
@@ -105,6 +115,10 @@ int main()
     }
 
     std::cout << "You died at level " << player->getLevel() << ".\n\n";
+
+    delete warrior;
+    player = warrior = nullptr;
+
     std::cout << "########  Game Over ########\n\n" << std::endl;
 
 

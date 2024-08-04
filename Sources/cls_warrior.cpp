@@ -60,14 +60,14 @@ bool Warrior::superAttack(Monster& monster)
         retValue = true;
     }
     else {
-        clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
+        //clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
         std::cout << "\nNot enough stamina for the super attack. "
                   << "You have only " << this->getCurrentStamina()
                   << "stamina points (need " << staminaCost << ")."
                   << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-        moveCursor(-2, 0);
-        clearWorkScreen(2, WORK_SCREEN_COLUMNS);
+        //moveCursor(-2, 0);
+        //clearWorkScreen(2, WORK_SCREEN_COLUMNS);
 
         retValue = false;
     }

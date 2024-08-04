@@ -20,7 +20,7 @@ Player::Race choosePlayerRace()
     char ch {'\0'};
     Player::Race race {};
 
-    linuxTerminalMode(!CANONICAL);
+    //linuxTerminalMode(!CANONICAL);
 
     inLoop = true;
     while (inLoop) {
@@ -32,7 +32,7 @@ Player::Race choosePlayerRace()
         else {} // Nothing to do
 
         lastState = state;
-        keystroke = linux_kbhit();
+        //keystroke = linux_kbhit();
         if (keystroke) {
             ch = std::cin.get();
 
@@ -54,8 +54,8 @@ Player::Race choosePlayerRace()
         else {} // Nothing to do
     }
 
-    linuxTerminalMode(CANONICAL);
-    clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
+    //linuxTerminalMode(CANONICAL);
+    //clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
 
     return race;
 }
@@ -74,7 +74,7 @@ Player::Spec choosePlayerSpec()
     char ch {'\0'};
     Player::Spec spec {};
 
-    linuxTerminalMode(!CANONICAL);
+    //linuxTerminalMode(!CANONICAL);
     while (inLoop) {
         if (state != lastState || firstIn) {
             displaySpecMenu(state);
@@ -83,7 +83,7 @@ Player::Spec choosePlayerSpec()
         else {} // Nothing to do
 
         lastState = state;
-        keystroke = linux_kbhit();
+        //keystroke = linux_kbhit();
         if (keystroke) {
             ch = std::cin.get();
             switch (ch) {
@@ -104,8 +104,8 @@ Player::Spec choosePlayerSpec()
         else {} // Nothing to do
 
     }
-    linuxTerminalMode(CANONICAL);
-    clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
+    //linuxTerminalMode(CANONICAL);
+    //clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
 
 
     return spec;
@@ -118,8 +118,8 @@ my::String choosePlayerName()
     std::cout << "#### What is your name: ";
     std::cin >> name;
 
-    std::cout << MOVE_CURSOR_ONE_LINE_UP;
-    clearWorkScreen(1, WORK_SCREEN_COLUMNS);
+    //std::cout << MOVE_CURSOR_ONE_LINE_UP;
+    //clearWorkScreen(1, WORK_SCREEN_COLUMNS);
 
     return name;
 }
@@ -176,9 +176,9 @@ void displayRaceMenu(int currentState)
         //break;
     }
 
-    while (raceMenuSize-- > 0) {
-        std::cout << MOVE_CURSOR_ONE_LINE_UP;
-    }
+//    while (raceMenuSize-- > 0) {
+//        std::cout << MOVE_CURSOR_ONE_LINE_UP;
+//    }
 
     return;
 }
@@ -234,9 +234,9 @@ void displaySpecMenu(int state)
         //break;
     }
 
-    while (specMenuSize-- > 0) {
-        std::cout << MOVE_CURSOR_ONE_LINE_UP;
-    }
+//    while (specMenuSize-- > 0) {
+//        std::cout << MOVE_CURSOR_ONE_LINE_UP;
+//    }
 
     return;
 }

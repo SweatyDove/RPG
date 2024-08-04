@@ -31,12 +31,21 @@
 #include "cls_potion.h"
 
 
+#include <string>
+
 Player::Race choosePlayerRace();
 Player::Spec choosePlayerSpec();
 my::String   choosePlayerName();
 
 int main()
 {
+
+    std::string name;
+    std::cin >> name;
+    std::cout << "Hello, " << name << '!' << std::endl;
+    return 0;
+
+
     // #### Set a seed for rand() and discard first value from it.
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     std::rand();
@@ -49,7 +58,7 @@ int main()
               << std::endl;
 
 
-    clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
+    //clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
 
 //    Player::Race    playerRace  {choosePlayerRace()};
 //    Player::Spec    playerSpec  {choosePlayerSpec()};
@@ -88,8 +97,8 @@ int main()
 
     std::cout << "Hello " << warrior->getName() << "! Welcome to the HELL...\n";
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    std::cout << MOVE_CURSOR_ONE_LINE_UP;
-    clearWorkScreen(1, WORK_SCREEN_COLUMNS);
+//    std::cout << MOVE_CURSOR_ONE_LINE_UP;
+//    clearWorkScreen(1, WORK_SCREEN_COLUMNS);
 
 
     // #### Main cycle

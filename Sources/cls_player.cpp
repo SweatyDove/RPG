@@ -322,7 +322,7 @@ void Player::meetWith(Monster& monster)
 
 
 
-    linuxTerminalMode(!CANONICAL);
+//linuxTerminalMode(!CANONICAL);
 
     while (!(this->isDead()) && !(monster.isDead()) && !isFled) {
 
@@ -334,7 +334,7 @@ void Player::meetWith(Monster& monster)
         else {} // Nothing to do
 
         lastState = state;
-        keystroke = linux_kbhit();
+        //keystroke = linux_kbhit();
         if (keystroke) {
             ch = std::cin.get();
 
@@ -374,7 +374,7 @@ void Player::meetWith(Monster& monster)
                         isFled = true;
                     }
                     else {
-                        clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
+                        //clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
                         std::cout << "You couldn't flee...\n";
                         monster.attack(*this);
                         std::this_thread::sleep_for(std::chrono::milliseconds(1500));
@@ -413,7 +413,7 @@ void Player::meetWith(Monster& monster)
 void Player::displayFightMenu(int state, Monster& monster)
 {
     int menuSize {18};
-    clearWorkScreen(menuSize, WORK_SCREEN_COLUMNS);
+    //clearWorkScreen(menuSize, WORK_SCREEN_COLUMNS);
 
     //std::cout << "       What are you going to do?\n\n";
 
@@ -482,9 +482,9 @@ void Player::displayFightMenu(int state, Monster& monster)
         break;
     }
 
-    while (menuSize-- > 0) {
-        std::cout << MOVE_CURSOR_ONE_LINE_UP;
-    }
+//    while (menuSize-- > 0) {
+//        std::cout << MOVE_CURSOR_ONE_LINE_UP;
+//    }
 
 
     return;

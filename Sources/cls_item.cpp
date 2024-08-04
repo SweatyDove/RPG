@@ -41,7 +41,7 @@ my::String Item::getTypeName() const
     case Item::Type::SCROLL:
         retString = "scroll";
         break;
-    case Item::Type::MAX_TYPE:
+    case Item::Type::TOTAL:
         break;
     // ## Do not need 'default' in order to get 'warning' if we add a new Item::Type, but
     // ## forget to use it.

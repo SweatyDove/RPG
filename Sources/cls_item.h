@@ -16,7 +16,7 @@ public:
         POTION,
         SCROLL,
 
-        MAX_TYPE
+        TOTAL
     };
 private:
     Type    mb_type;

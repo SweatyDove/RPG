@@ -191,11 +191,12 @@ my::String Monster::getName() const
 void Monster::attack(Player& player) const
 {
     player.reduceHealth(mb_damage);
-    // QQQ - съедает первую букву в "The " и из-за этого ошибка delete[] так как не с первого символа удаление
-    player.mb_log << "The " << this->getName() << " attacked player and dealt "
-                  << this->mb_damage << " points of damage. At now, player has "
-                  << player.getCurrentHealth() << " hp. "
-                  << my::endRecord;
+
+    SetConsoleTextAttribute(hConsole, CLR_FLAMINGO);
+    std::cout << "The " << this->getName() << " attacked player and dealt (" << this->mb_damage
+              << ") points of damage. At now, player has (" << player.getCurrentHealth() << ") hp. "
+              << std::endl;
+    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
     return;
 }

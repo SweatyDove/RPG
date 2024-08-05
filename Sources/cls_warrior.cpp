@@ -38,9 +38,11 @@ void Warrior::attack(Monster& monster)
 {
     monster.reduceHealth(mb_autoAttackDamage);
 
-    mb_log << "You've dealed " << mb_autoAttackDamage << " damage to the " << monster.getName()
-           << ". (It had " << monster.getCurrentHealth() << " hp left)."
-           << my::endRecord;
+    SetConsoleTextAttribute(hConsole, CLR_DARK_PASTEL_GREEN);
+    std::cout << "You've dealed " << mb_autoAttackDamage << " damage to the " << monster.getName()
+           << ". It had (" << monster.getCurrentHealth() << ") hp left." << std::endl;
+    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+
     return;
 }
 
@@ -53,25 +55,38 @@ bool Warrior::superAttack(Monster& monster)
         monster.reduceHealth(mb_heavyBlowDamage);
         this->reduceStamina(staminaCost);
 
-        mb_log << "You've dealed " << mb_heavyBlowDamage << " damage to the " << monster.getName()
-               << ". (It had " << monster.getCurrentHealth() << " hp left)."
-               << my::endRecord;
+        SetConsoleTextAttribute(hConsole, CLR_DARK_PASTEL_GREEN);
+        std::cout << "You've dealed (" << mb_heavyBlowDamage << ") damage to the " << monster.getName()
+               << ". It had (" << monster.getCurrentHealth() << ") hp left." << std::endl;
+        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+
 
         retValue = true;
     }
     else {
-        //clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
         std::cout << "\nNot enough stamina for the super attack. "
                   << "You have only " << this->getCurrentStamina()
                   << "stamina points (need " << staminaCost << ")."
                   << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-        //moveCursor(-2, 0);
-        //clearWorkScreen(2, WORK_SCREEN_COLUMNS);
-
+        //std::this_thread::sleep_for(std::chrono::milliseconds(2000));
         retValue = false;
     }
 
     return retValue;
 }
 
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Warrior::commitSuicide()
+{
+    std::cout << "\nThe warrior threw his sword into the air, spread his arms and arched his chest to the sky... "
+              << "\n...and the sword pierced his chest, thereby taking his life..." << std::endl;
+    this->mb_currentHealth = 0;
+}

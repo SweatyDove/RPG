@@ -1,23 +1,31 @@
-// #########################################################################################
-// ############################  My Role-play Game  ########################################
-// #########################################################################################
+// #################################################################################################
+// ############################  My Role-play Game  ################################################
+// #################################################################################################
 
 
-// ######## Comments:
-//
-// #1 Add class Mage, Warrior and Hunter, derived from player class with different
-//    attack-type and damage. And with different skillset.
-//
-// #2 Add a thread to exit the game when press exit
-//
-// #3 Add funny race/spec descriptions
-//
-// #4 Initialize a RANDOM monster explicitly.
-//
-
-// ######## Problems:
-//
-// #1
+/***************************************************************************************************
+ * COMMENTS:
+ * 1 - Add classes Mage, Warrior and Hunter, derived from player class with different
+ *     attack-type and damage. And with different skillset.
+ *
+ * 2 - Add a thread to exit the game when press exit
+ *
+ * 3 - Add funny race/spec descriptions
+ *
+ * 4 - Initialize a RANDOM monster explicitly
+ *
+ * 5 - Add a separate function for displaying information (with dif colors and etc)
+ *
+ * 6 - Add an opportunity to meet not only a monster, but also a TRADER or smb else...
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ **************************************************************************************************/
 
 
 
@@ -37,13 +45,22 @@ Player::Race choosePlayerRace();
 Player::Spec choosePlayerSpec();
 my::String   choosePlayerName();
 
+HANDLE hConsole;
+
 int main()
 {
 
-    std::string name;
-    std::cin >> name;
-    std::cout << "Hello, " << name << '!' << std::endl;
-    return 0;
+    //    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    //    // you can loop k higher to see more color choices
+    //    for(int k = 1; k < 16; k++) {
+    //        // pick the colorattribute k you want
+    //        SetConsoleTextAttribute(hConsole, k);
+    //        std::cout << k << " I want to be nice today!" << std::endl;
+    //    }
+    //    return 0;
+
+//    SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
+//    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
 
     // #### Set a seed for rand() and discard first value from it.
@@ -54,9 +71,9 @@ int main()
     std::cout << "\n################################################################################"
               << "\n###########################      Role Play Game      ###########################"
               << "\n################################################################################"
-              << "\n[CONTROL]:'W' - move up; 'S' - move down; 'E' - accept;\n"
               << std::endl;
 
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     //clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
 
@@ -95,28 +112,28 @@ int main()
 
 
 
-    std::cout << "Hello " << warrior->getName() << "! Welcome to the HELL...\n";
+    std::cout << "Hello " << warrior->getName() << "! Welcome to the game...\n";
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-//    std::cout << MOVE_CURSOR_ONE_LINE_UP;
-//    clearWorkScreen(1, WORK_SCREEN_COLUMNS);
-
 
     // #### Main cycle
-    my::String day {""};
     while (!player->isDead()) {
         player->newDay();
-        (day = "Day ") << player->getTimeLived();
-        std::printf("\n%8s:", day.getFirstElementAdress());
 
-        // ## Create random monster
+        SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
+        std::cout << "\n\n[Day " << player->getTimeLived() << "]\n"
+                  << "********************************************************************************"
+                  << std::endl;
+        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+
+        // ## Create random monster (or NPC)
+        //Creature creature {};         - create a creature (monster/trader or nobody
         Monster monster{};
 
         // ## What happened at this day?
-        std::cout << " You have encountered a ("<< monster.getName() << ") of ("<< monster.getLevel() << ") level."
-                  << "\n          What are you going to do?"
-                  << std::endl;
+        std::cout << "You have encountered a ("<< monster.getName() << ") of ("<< monster.getLevel()
+                  << ") level." << std::endl;
 
-        player->meetWith(monster);
+        player->fightWith(monster);
         if (monster.isDead()) {
             player->getLootFrom(monster);
         }

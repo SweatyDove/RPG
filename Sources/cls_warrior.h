@@ -27,6 +27,9 @@ public:
     int getAttackDamage() const override;
     int getSuperAttackDamage() const override;
 
+    void commitSuicide() override;
+
+
 
 
 

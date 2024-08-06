@@ -5,13 +5,17 @@
 #include "header.h"
 #include "cls_potion.h"
 
+
+// ######## Why am I defining player's default values outside of class player? I don't remember...
 namespace player_default {
     const int           LEVEL {1};
     const my::String    NAME {"Stranger"};
     const int           HEALTH {100};
     const int           MANA {50};
     const int           STAMINA {50};
+    const int           CONCENTRATION {50};
     const int           DAY_LIVED {0};
+    const int           ESCAPE_CHANCE {66};
 }
 
 
@@ -64,16 +68,19 @@ private:
 
 
     // #### RESOURCES
-    int             mb_maxHealth        {};
-    int             mb_currentStamina   {player_default::STAMINA};
-    int             mb_maxStamina       {};
-    int             mb_currentMana      {player_default::MANA};
-    int             mb_maxMana          {};
+    int             mb_maxHealth            {};
+    int             mb_currentStamina       {player_default::STAMINA};
+    int             mb_maxStamina           {player_default::STAMINA};
+    int             mb_currentMana          {player_default::MANA};
+    int             mb_maxMana              {player_default::MANA};
+    int             mb_currentConcentration {player_default::CONCENTRATION};
+    int             mb_maxConcentration     {player_default::CONCENTRATION};
 
 
     // ######## RAITINGS (CHANCE TO DO SMTH)
     int             mb_dodgeChance  {};
     int             mb_critChance   {};
+    int             mb_escapeChance {player_default::ESCAPE_CHANCE};
 
 
     // ######## SKILLS
@@ -93,7 +100,7 @@ protected:
     // #### General characteristics
     int             mb_intellect    {};
     int             mb_agility      {};
-    int             mb_strength {};
+    int             mb_strength     {};
 
 public:
     // System resources
@@ -125,6 +132,7 @@ public:
     // ########  Virtual methods  #########
     virtual int         getAttackDamage() const = 0;
     virtual int         getSuperAttackDamage() const = 0;
+    virtual int         getSuperAttackCost() const = 0;
     virtual void        setDamage() = 0;
     virtual void        attack(Monster& monster) = 0;
     virtual bool        superAttack(Monster& monster) = 0;

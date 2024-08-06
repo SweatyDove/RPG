@@ -344,7 +344,7 @@ void Player::fightWith(Monster& monster)
             else {} // Nothing to do;
         break;
         case FightOption::FLEE:
-            if (0 == getRandomNumber(0, 2)) {
+            if (getRandomNumber(1, 100) <= mb_escapeChance) {
                 isFled = true;
             }
             else {
@@ -380,9 +380,9 @@ void Player::fightWith(Monster& monster)
 
 //==================================================================================================
 //         NAME:    --------
-//  DESCRIPTION:    --------
+//  DESCRIPTION:    Function displays player's option while fighting with monster.
 //   PARAMETERS:    --------
-// RETURN VALUE:    --------
+// RETURN VALUE:    Returns player's choice.
 //     COMMENTS:    --------
 //==================================================================================================
 Player::FightOption Player::chooseFightOption(Monster& monster)
@@ -390,25 +390,39 @@ Player::FightOption Player::chooseFightOption(Monster& monster)
     int playerStamina {this->getCurrentStamina()};
 
 
+    // ######## Intro message title
     std::cout << "Monster has (" << monster.getCurrentHealth() << ") hp and deals (" << monster.getDamage()
               << ") points of damage per attack."
               << "\nYours current health: " << this->getCurrentHealth() << std::endl;
 
     std::cout << "What are you going to do? Press an appropriate button:\n";
+
+    // ######## 1-st option
     std::cout << "\n[1] - Attack monster: deal (" << this->getAttackDamage() << ") damage to the monster";
-    if (playerStamina >= 30) {
+
+    // ######## 2-nd option
+    /* Maybe it is better to replace Stamina on structure (or array) of player resources. Or add function
+     * to get main resources...
+     */
+    if (playerStamina >= this->getSuperAttackCost()) {
         std::cout << "\n[2] - Super atack monster: deal (" << this->getSuperAttackDamage() << ") damage to the monster (costs 30 stamina points)";
     }
     else {
         HANDLE hConsole {GetStdHandle(STD_OUTPUT_HANDLE)};
-        SetConsoleTextAttribute(hConsole, 4);
+        SetConsoleTextAttribute(hConsole, CLR_PALE_PRIM);
         std::cout << "\n[2] - Super atack monster: not enough stamina points!";
-        SetConsoleTextAttribute(hConsole, 8);
+        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
     }
-    std::cout << "\n[3] - Commit suicide...";
-    std::cout << "\n[0] - Run away: You have (33%) chance to escape from monster. If you could't, monster would deal ("
-              << monster.getDamage() << ") damage."<< std::endl;
 
+    // ######## 3-rd option
+    std::cout << "\n[3] - Commit suicide...";
+
+    // ######## 4-th option
+    std::cout << "\n[0] - Run away: You have (" << mb_escapeChance << ") chance to escape from monster."
+              << " If you could't, monster would deal (" << monster.getDamage() << ") damage."<< std::endl;
+
+
+    // ######## Choice loop
     int choice {};
     bool choiceLoop {true};
     do {
@@ -426,6 +440,7 @@ Player::FightOption Player::chooseFightOption(Monster& monster)
     while (choiceLoop);
     std::cout << '\n';
 
+    // ######## Returning player's choice
     return static_cast<Player::FightOption>(choice);
 }
 

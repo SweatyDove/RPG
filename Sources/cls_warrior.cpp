@@ -5,35 +5,72 @@
 #include "cls_monster.h"
 
 
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Destructor
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 Warrior::~Warrior()
 {
     //std::cerr << "\n[DEBUG]: Warrior destructor has called...";
     // Nothing to do;
 }
 
-// #### Set damage for all warrior's skills
-// ########
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Set damage for all warrior's skills
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 void Warrior::setDamage()
 {
     mb_autoAttackDamage = warrior_default::autoAttackDamage + mb_strength * 2;
     mb_heavyBlowDamage  = warrior_default::heavyBlowDamage  + mb_strength * 5;
 }
 
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 int Warrior::getAttackDamage() const
 {
     return mb_autoAttackDamage;
 }
 
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 int Warrior::getSuperAttackDamage() const
 {
     return mb_heavyBlowDamage;
 }
 
 
-//==============================================================================
-// WHAT: Member function
-//  WHY: Realizes the main (simple) player's attack.
-//==============================================================================
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Member function that realizes the warrior's base attack.
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 void Warrior::attack(Monster& monster)
 {
     monster.reduceHealth(mb_autoAttackDamage);
@@ -46,6 +83,15 @@ void Warrior::attack(Monster& monster)
     return;
 }
 
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Member function that realizes the warrior's special attack.
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 bool Warrior::superAttack(Monster& monster)
 {
     int staminaCost {30};
@@ -73,6 +119,21 @@ bool Warrior::superAttack(Monster& monster)
     }
 
     return retValue;
+}
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    Return the cost of warrior's special attack in points of his main resource.
+//                  Or I can add cost in all available resources (0 in mana, 30 in stamina and 10 in
+//                  concentration, for example).
+//==================================================================================================
+int Warrior::getSuperAttackCost() const
+{
+    return mb_heavyBlowStaminaCost;
 }
 
 

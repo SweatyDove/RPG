@@ -4,6 +4,9 @@
 
 #include "header.h"
 #include "cls_player.h"
+#include "cls_item.h"
+#include "cls_potion.h"
+#include "cls_gold.h"
 
 
 class Monster {
@@ -51,10 +54,14 @@ private:
 
 
 private:
-    Type    mb_type {Type::SKELETON};
-    int     mb_level {1};
-    int     mb_currentHealth {};
-    int     mb_damage {};
+    Type                        mb_type {Type::SKELETON};
+    int                         mb_level {1};
+    int                         mb_currentHealth {};
+    int                         mb_damage {};
+
+    // I generate several things of different types, but all things have the same BASE type..
+    // Can't use reference 'casue componets of std::vector (and other containers) must be ASSIGNABLE
+    std::vector<Item*>     mb_loot;
 public:
     // #########  Constructors and Destructors  #############
 
@@ -75,13 +82,16 @@ public:
     int             getDamage() const;
     my::String      getName() const;
     int             getLevel() const;
+    Type            getType() const;
     int             getCurrentHealth() const;
 
-    // ##########  Other Functions  ##########################
-    bool            isDead() const;
-    void            attack(Player& player) const;
-    void            reduceHealth(int health);
 
+    // ##########  Other Functions  ##########################
+    bool                    isDead() const;
+    void                    attack(Player& player) const;
+    void                    reduceHealth(int health);
+    void                    commitSuicide();
+    void                    generateLoot(const Player& player);
 
     static int getRandomMonsterLevel();
     static Type getRandomMonsterType();

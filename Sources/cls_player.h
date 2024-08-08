@@ -48,6 +48,7 @@ public:
     enum Skills {
         ALCHEMY,
         CHARISMA,
+        LUCK,
 
         TOTAL
     };
@@ -68,7 +69,7 @@ private:
 
 
     // #### RESOURCES
-    int             mb_maxHealth            {};
+    int             mb_maxHealth            {player_default::HEALTH};
     int             mb_currentStamina       {player_default::STAMINA};
     int             mb_maxStamina           {player_default::STAMINA};
     int             mb_currentMana          {player_default::MANA};
@@ -143,7 +144,7 @@ public:
 
     void                newDay();
     void                fightWith(Monster& monster);
-    int                 addGold(int gold);
+    void                 addGold(int gold);
     void                drink(Potion& potion);
     void                getLootFrom(Monster& monster);
     void                addHealth(int health);
@@ -156,6 +157,7 @@ public:
     void                levelUp();
 
     void                reduceStamina(int stamina);
+    void                getPotion(int potionChance);
 
 
 

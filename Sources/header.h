@@ -16,6 +16,7 @@
 #include <ctime>                // For std::time()
 #include <utility>              // For std::move
 #include <cassert>
+#include <memory>
 
 
 // ######## STL containers

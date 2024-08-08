@@ -18,7 +18,9 @@
  *
  * 6 - Add an opportunity to meet not only a monster, but also a TRADER or smb else...
  *
+ * 7 - Add a <Creature> class and derive player/monster/friendly-npc
  *
+ * 8 - Good potion effect depends on lucky
  *
  *
  *
@@ -126,14 +128,15 @@ int main()
         SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
         // ## Create random monster (or NPC)
-        //Creature creature {};         - create a creature (monster/trader or nobody
+        //Creature creature {};         - create a creature (monster/trader or smb else)
         Monster monster{};
 
         // ## What happened at this day?
         std::cout << "You have encountered a ("<< monster.getName() << ") of ("<< monster.getLevel()
                   << ") level." << std::endl;
 
-        player->fightWith(monster);
+        //player->fightWith(monster);
+
         if (monster.isDead()) {
             player->getLootFrom(monster);
         }

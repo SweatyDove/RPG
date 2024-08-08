@@ -11,10 +11,10 @@
 class Item {
 public:
     enum class Type {
-        TRASH,
+//        TRASH,
         GOLD,
         POTION,
-        SCROLL,
+//        SCROLL,
 
         TOTAL
     };

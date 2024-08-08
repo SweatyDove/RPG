@@ -202,12 +202,71 @@ void Monster::attack(Player& player) const
 }
 
 
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Function returns type of the monster
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+Monster::Type Monster::getType() const
+{
+    return mb_type;
+}
 
 
 
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Function returns type of the monster
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Monster::commitSuicide()
+{
+    mb_currentHealth = 0;
+    std::cout << "Monster was scared to death of you and commited suicide" << std::endl;
+}
 
 
 
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Function generate loot, that remains after monster's death. Loot depends on the
+//                  monster @level and player's @type.
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Monster::generateLoot(const Player& player)
+{
+    // ######## Now i define this chance here, but later need to think about place, where is correct
+    // ######## to do it
+    const int potionChance {33};
+
+    // ######## Iterate each type of <Item>
+    for (int ii {0}; ii < static_cast<int>(Item::Type::TOTAL); ++ii) {
+
+        switch (static_cast<Item::Type>(ii)) {
+        case Item::Type::GOLD:
+            // Can't create Gold object in stack, 'cause it will be destroyed after exiting current
+            // function - that's why should use dynamic allocated memory (in such case GOLD - is
+            // resource and therewhy it is a good idea to use smart poiner for it)
+            std::unique_ptr<Gold> gold {new Gold(getRandomNumber(0, mb_level * 10))};
+            mb_loot.push_back(&gold);
+            break;
+        case Item::Type::POTION:
+            if (getRandomNumber(0, 100) <= potionChance) {
+
+                // # Create a <Potion> element
+                mb_loot.emplace_back(Potion());
+                mb_loot[static_cast<int>(Item::Type::POTION)].createRandomPotion(mb_level);
+            break;
+        }
+    }
+
+}
 
 
 

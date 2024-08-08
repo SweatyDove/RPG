@@ -83,10 +83,16 @@ void Player::addStrength(int strength)
 //    return mb_damage;
 //}
 
-int Player::addGold(int gold)
+void Player::addGold(int gold)
 {
     mb_gold += gold;
-    return mb_gold;
+
+    if (gold > 0) {
+        std::cout << "You found " << gold << " gold and now has " << mb_gold << " golden coins." << std::endl;
+    }
+    else {
+        std::cout << "You didn't find any gold..." << std::endl;
+    }
 }
 
 // #### Function returns true if current Player is dead
@@ -219,46 +225,14 @@ void Player::increaseExp(Monster& monster)
 //==============================================================================
 void Player::getLootFrom(Monster& monster)
 {
-    char            choice {};
-    constexpr char  potionChance {30};
-
+    monster.generateLoot();
 
     // #### Generate gold
-    int gold {getRandomNumber(0, monster.getLevel() * 10)};
-    if (gold > 0) {
-
-        std::cout << "You found " << gold << " gold and now has "
-               << this->addGold(gold) << " golden coins."
-               << std::endl;
-    }
-    else {
-        std::cout << "You didn't find any gold..." << std::endl;
-    }
+    this->addGold();
 
     // #### Generate potion
-    if (getRandomNumber(0, 100) <= potionChance) {
+    this->getPotion(getRandomNumber(0, 100));
 
-        Potion potion {};
-        potion.createRandomPotion(monster.getLevel());
-
-        /*
-         * Check players knowleges in alchemy - if less then [alchemy-level] - then player couldn't define
-         * potion before he drinks it.
-         */
-        std::cout << "You found a mythical potion. Do you want to drink it? [y/n]: ";
-        std::cin >> choice;
-        switch(choice) {
-        case 'y': case 'Y':
-            this->drink(potion);
-            break;
-        case 'n': case 'N':
-            std::cout << "You've decided not to drink it.\n";
-            break;
-        default:
-            break;
-        }
-    }
-    else {} // Nothing to do
 
     // #### Generate other loot
 }
@@ -460,5 +434,35 @@ void Player::commitSuicide()
 }
 
 
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Get potion
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Player::getPotion(int potionChance)
+{
+    char            choice {};
 
 
+        /*
+         *  Check players knowleges in alchemy - if less then [alchemy-level] - then player couldn't define
+         * potion before he drinks it.
+         */
+        std::cout << "You found a mythical potion. Do you want to drink it? [y/n]: ";
+        std::cin >> choice;
+        switch(choice) {
+        case 'y': case 'Y':
+            this->drink(potion);
+            break;
+        case 'n': case 'N':
+            std::cout << "You've decided not to drink it.\n";
+            break;
+        default:
+            break;
+        }
+    }
+    else {} // Nothing to do
+
+}

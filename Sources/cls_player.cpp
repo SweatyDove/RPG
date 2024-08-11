@@ -219,22 +219,32 @@ void Player::increaseExp(Monster& monster)
 
 
 
-//==============================================================================
-// WHAT: Member function
-//  WHY: It handles the player's looting monster's corpse.
-//==============================================================================
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Function handles the player's looting monster's corpse.
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    At this moment we just use items, that monster "generates" after its death.
+//                  In the future, I'll plan to transfer loot from monster's corpse to player's bag.
+//==================================================================================================
 void Player::getLootFrom(Monster& monster)
 {
-    monster.generateLoot();
+    for (auto& itemPtr: monster.mb_loot) {
+        Item::Type type {itemPtr->getType()};
+        switch (type) {
+        case Item::Type::GOLD:
+            this->addGold(itemPtr->getCount());
+            break;
 
-    // #### Generate gold
-    this->addGold();
+        // FINISHED HERE: need to cast <Item> itemPtr to <Potion> itemPtr
+        case Item::Type::POTION:
+            //this->drink(itemPtr)
+            break;
+        }
+    }
 
-    // #### Generate potion
-    this->getPotion(getRandomNumber(0, 100));
 
-
-    // #### Generate other loot
 }
 
 
@@ -268,7 +278,7 @@ void Player::drink(Potion& potion)
         std::cout << "You had drunk a " << potion.getName() << ". You got poisoned and lost "
                   << potion.getEffect() << " hp.\n";
         break;
-    case Potion::Type::MAX_TYPE:
+    case Potion::Type::TOTAL:
         break;
     //default:
         //break;
@@ -446,23 +456,22 @@ void Player::getPotion(int potionChance)
     char            choice {};
 
 
-        /*
-         *  Check players knowleges in alchemy - if less then [alchemy-level] - then player couldn't define
-         * potion before he drinks it.
-         */
-        std::cout << "You found a mythical potion. Do you want to drink it? [y/n]: ";
-        std::cin >> choice;
-        switch(choice) {
-        case 'y': case 'Y':
-            this->drink(potion);
-            break;
-        case 'n': case 'N':
-            std::cout << "You've decided not to drink it.\n";
-            break;
-        default:
-            break;
-        }
+    /*
+     *  Check players knowleges in alchemy - if less then [alchemy-level] - then player couldn't define
+     * potion before he drinks it.
+     */
+    std::cout << "You found a mythical potion. Do you want to drink it? [y/n]: ";
+    std::cin >> choice;
+    switch(choice) {
+    case 'y': case 'Y':
+        //this->drink(potion);
+        break;
+    case 'n': case 'N':
+        std::cout << "You've decided not to drink it.\n";
+        break;
+    default:
+        break;
+
     }
-    else {} // Nothing to do
 
 }

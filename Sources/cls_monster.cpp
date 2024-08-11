@@ -66,11 +66,23 @@ bool Monster::isDead() const
 
 //==============================================================================
 // WHAT: Member function.
-//  WHY: Function reduce health of the current Monster by specified magnitude
+//  WHY:
 //==============================================================================
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Function reduce health of the current Monster by specified magnitude. If monster
+//                  has 0 hp - it generate loot on its dead body.
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 void Monster::reduceHealth(int health)
 {
-    mb_currentHealth = ((mb_currentHealth - health) < 0) ? (0) : (mb_currentHealth - health);
+    mb_currentHealth = ((mb_currentHealth - health) <= 0) ? (0) : (mb_currentHealth - health);
+    if (mb_currentHealth <= 0) {
+        this->generateLoot();
+    }
+    else {} // Nothing to do
 }
 
 
@@ -225,7 +237,7 @@ Monster::Type Monster::getType() const
 //==================================================================================================
 void Monster::commitSuicide()
 {
-    mb_currentHealth = 0;
+    this->reduceHealth(mb_currentHealth);
     std::cout << "Monster was scared to death of you and commited suicide" << std::endl;
 }
 
@@ -239,7 +251,7 @@ void Monster::commitSuicide()
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Monster::generateLoot(const Player& player)
+void Monster::generateLoot()
 {
     // ######## Now i define this chance here, but later need to think about place, where is correct
     // ######## to do it
@@ -248,20 +260,26 @@ void Monster::generateLoot(const Player& player)
     // ######## Iterate each type of <Item>
     for (int ii {0}; ii < static_cast<int>(Item::Type::TOTAL); ++ii) {
 
-        switch (static_cast<Item::Type>(ii)) {
+        // #### For convinience purpose added @type variable
+        Item::Type type {static_cast<Item::Type>(ii)};
+        switch (type) {
         case Item::Type::GOLD:
+        {
             // Can't create Gold object in stack, 'cause it will be destroyed after exiting current
             // function - that's why should use dynamic allocated memory (in such case GOLD - is
             // resource and therewhy it is a good idea to use smart poiner for it)
-            std::unique_ptr<Gold> gold {new Gold(getRandomNumber(0, mb_level * 10))};
-            mb_loot.push_back(&gold);
+            std::unique_ptr<Item> gold {new Gold(getRandomNumber(0, mb_level * 10))};
+            mb_loot.push_back(std::move(gold));
+        }
             break;
         case Item::Type::POTION:
-            if (getRandomNumber(0, 100) <= potionChance) {
-
-                // # Create a <Potion> element
-                mb_loot.emplace_back(Potion());
-                mb_loot[static_cast<int>(Item::Type::POTION)].createRandomPotion(mb_level);
+            if (getRandomNumber(0, 100) <= Potion::mb_defaultPotionChance) {
+                std::unique_ptr<Item> potion {new Potion(mb_level)};
+                mb_loot.push_back(std::move(potion));
+            }
+            else {}
+            break;
+        case Item::Type::TOTAL:
             break;
         }
     }

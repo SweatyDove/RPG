@@ -126,6 +126,7 @@ int main()
                   << "********************************************************************************"
                   << std::endl;
         SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+        std::this_thread::sleep_for(std::chrono::milliseconds(2000));       // Just a time gap for convinience
 
         // ## Create random monster (or NPC)
         //Creature creature {};         - create a creature (monster/trader or smb else)
@@ -136,6 +137,7 @@ int main()
                   << ") level." << std::endl;
 
         //player->fightWith(monster);
+        monster.commitSuicide();
 
         if (monster.isDead()) {
             player->getLootFrom(monster);

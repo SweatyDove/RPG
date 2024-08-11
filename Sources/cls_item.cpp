@@ -14,8 +14,9 @@ Item::Item(Item::Type type = Item::Type::TRASH, int count = 1, int weight = 1) :
 
 // ****************************  Setters and Getters  **************************** //
 
-int Item::getCount() const      { return mb_count; }
-int Item::getWeight() const     { return mb_weight; }
+int Item::getCount() const              { return mb_count; }
+int Item::getWeight() const             { return mb_weight; }
+Item::Type Item::getType() const        { return mb_type; }
 
 
 // ******************************  Other Functions  ******************************* //
@@ -38,9 +39,9 @@ my::String Item::getTypeName() const
     case Item::Type::POTION:
         retString = "potion";
         break;
-    case Item::Type::SCROLL:
-        retString = "scroll";
-        break;
+//    case Item::Type::SCROLL:
+//        retString = "scroll";
+//        break;
     case Item::Type::TOTAL:
         break;
     // ## Do not need 'default' in order to get 'warning' if we add a new Item::Type, but

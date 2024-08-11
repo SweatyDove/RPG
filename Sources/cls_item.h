@@ -11,7 +11,7 @@
 class Item {
 public:
     enum class Type {
-//        TRASH,
+        TRASH,
         GOLD,
         POTION,
 //        SCROLL,
@@ -23,12 +23,16 @@ private:
 protected:
     int     mb_count;
     int     mb_weight;
+
+    // ######## Made it protected 'cause I don't want smb to explicitly construct <Item> object.
+    Item(Type type, int count, int weight);
+
 public:
 
     // ##########################  Constructors and Destructors  #######################
     // #################################################################################
 
-    Item(Type type, int count, int weight);
+    //Item(Type type, int count, int weight);
 
     ~Item() = default;
 
@@ -38,7 +42,8 @@ public:
     int getCount() const;
     int getWeight() const;
 
-    my::String getTypeName() const;
+    Type        getType() const;
+    my::String  getTypeName() const;
 
 
 };

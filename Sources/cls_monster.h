@@ -59,10 +59,12 @@ private:
     int                         mb_currentHealth {};
     int                         mb_damage {};
 
+public:
     // I generate several things of different types, but all things have the same BASE type..
     // Can't use reference 'casue componets of std::vector (and other containers) must be ASSIGNABLE
-    std::vector<Item*>     mb_loot;
-public:
+    std::vector<std::unique_ptr<Item>>     mb_loot;
+
+
     // #########  Constructors and Destructors  #############
 
     // #### Create random monster
@@ -91,7 +93,7 @@ public:
     void                    attack(Player& player) const;
     void                    reduceHealth(int health);
     void                    commitSuicide();
-    void                    generateLoot(const Player& player);
+    void                    generateLoot();
 
     static int getRandomMonsterLevel();
     static Type getRandomMonsterType();

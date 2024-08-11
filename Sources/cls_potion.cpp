@@ -2,15 +2,29 @@
 #include "header.h"
 #include "cls_potion.h"
 
-Potion::Potion() :
-    Item(Item::Type::POTION, 1, defaultWeight),
-    mb_type {Potion::Type::EXHAUSTED},
-    mb_effect {0}
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Generate RANDOM potion according to @level
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+Potion::Potion(int level) :
+    Item(Item::Type::POTION, 1, defaultWeight)
 {
-    // Nothing to do;
+    this->generateRandomPotion(level);
 }
 
-Potion::Potion(Potion::Type type = Type::EXHAUSTED, int effect = 0) :
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Generate with the given @type and @effect
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+Potion::Potion(Potion::Type type, int effect) :
     Item(Item::Type::POTION, 1, defaultWeight),
     mb_type {type},
     mb_effect {effect}
@@ -30,7 +44,7 @@ my::String Potion::getName() const
     case Type::STRENGTH:    return "strength potion";
     case Type::POISON:      return "poison";
 
-    case Type::MAX_TYPE:    return "";
+    case Type::TOTAL:    return "";
     //default:
         //break;
     }
@@ -39,22 +53,27 @@ my::String Potion::getName() const
 
 
 
-// ## Create random potion
-void Potion::createRandomPotion(int lvl)
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Generate random potion
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Potion::generateRandomPotion(int lvl)
 {
 
-    // ## Generate random potion type
-    mb_type = static_cast<Type>(getRandomNumber(0, static_cast<unsigned int>(Type::MAX_TYPE) - 1));
+    // ######## Generate random potion type
+    mb_type = static_cast<Type>(getRandomNumber(0, static_cast<unsigned int>(Type::TOTAL) - 1));
 
 
-
-    // ## Generate random potion effect depending on the potion type and... (monster lvl?)
+    // ######## Generate random potion effect depending on the potion type and... (monster lvl?)
     switch (mb_type) {
     case Type::HEALTH:
-        mb_effect = getRandomNumber(1, lvl);
+        mb_effect = getRandomNumber(10, lvl * 10);
         break;
     case Type::STAMINA:
-        mb_effect = getRandomNumber(1, lvl);
+        mb_effect = getRandomNumber(10, lvl * 10);
         break;
     case Type::STRENGTH:
         mb_effect = getRandomNumber(1, (lvl + 1) / 2);
@@ -65,7 +84,7 @@ void Potion::createRandomPotion(int lvl)
     case Type::EXHAUSTED:
         mb_effect = 0;
         break;
-    case Type::MAX_TYPE:
+    case Type::TOTAL:
         mb_effect = 0;
         break;
     //default:

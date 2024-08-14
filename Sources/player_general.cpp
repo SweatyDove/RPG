@@ -1,5 +1,5 @@
-#include "header.h"
-#include "cls_player.h"
+#include "main.h"
+#include "player.h"
 
 static void displayRaceMenu(int state);
 static void displaySpecMenu(int state);

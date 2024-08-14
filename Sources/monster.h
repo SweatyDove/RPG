@@ -1,12 +1,12 @@
 
-#ifndef CLS_MONSTER_H
-#define CLS_MONSTER_H
+#ifndef MONSTER_H
+#define MONSTER_H
 
-#include "header.h"
-#include "cls_player.h"
-#include "cls_item.h"
-#include "cls_potion.h"
-#include "cls_gold.h"
+#include "main.h"
+#include "player.h"
+#include "item.h"
+#include "potion.h"
+#include "gold.h"
 
 
 class Monster {

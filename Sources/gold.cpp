@@ -1,7 +1,7 @@
 
-#include "header.h"
-#include "cls_item.h"
-#include "cls_gold.h"
+#include "main.h"
+#include "item.h"
+#include "gold.h"
 
 
 // #### Constructor of the object of type Gold

@@ -1,7 +1,7 @@
 
 
-#include "header.h"
-#include "cls_player.h"
+#include "main.h"
+#include "player.h"
 
 namespace warrior_default {
     const int autoAttackDamage  {10};

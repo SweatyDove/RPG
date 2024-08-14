@@ -1,8 +1,8 @@
 
 
-#include "header.h"
-#include "cls_warrior.h"
-#include "cls_monster.h"
+#include "main.h"
+#include "warrior.h"
+#include "monster.h"
 
 
 

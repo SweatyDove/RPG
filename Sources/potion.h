@@ -1,9 +1,9 @@
 
-#ifndef CLS_POTION_H
-#define CLS_POTION_H
+#ifndef POTION_H
+#define POTION_H
 
-#include "header.h"
-#include "cls_item.h"
+#include "main.h"
+#include "item.h"
 
 
 class Potion : public Item {
@@ -20,7 +20,7 @@ public:
     };
 
     Type    mb_type {};
-    static const int mb_defaultPotionChance {33};
+    static const int mb_defaultPotionChance {100};
 
 private:
 

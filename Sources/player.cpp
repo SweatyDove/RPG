@@ -1,7 +1,7 @@
-#include "header.h"
-#include "cls_player.h"
-#include "cls_monster.h"
-#include "cls_potion.h"
+#include "main.h"
+#include "player.h"
+#include "monster.h"
+#include "potion.h"
 
 class Monster;
 
@@ -227,21 +227,37 @@ void Player::increaseExp(Monster& monster)
 // RETURN VALUE:    --------
 //     COMMENTS:    At this moment we just use items, that monster "generates" after its death.
 //                  In the future, I'll plan to transfer loot from monster's corpse to player's bag.
+//
+//                  Another issue is that I need to downcast object under std::unique_ptr<Item> to
+//                  <Gold*> (or <Potion*>). I'm not sure, that my current solution correct, but
+//                  I going to left it as is 'cause don't want to making a mess.
 //==================================================================================================
 void Player::getLootFrom(Monster& monster)
 {
     for (auto& itemPtr: monster.mb_loot) {
-        Item::Type type {itemPtr->getType()};
-        switch (type) {
-        case Item::Type::GOLD:
-            this->addGold(itemPtr->getCount());
-            break;
 
-        // FINISHED HERE: need to cast <Item> itemPtr to <Potion> itemPtr
-        case Item::Type::POTION:
-            //this->drink(itemPtr)
-            break;
+        if (itemPtr) {
+            Item::Type type {itemPtr->getType()};
+
+            switch (type) {
+            case Item::Type::GOLD: {
+                Gold* gold = static_cast<Gold*>(itemPtr.release());         // HERE dangerous place!
+                this->addGold(gold->getCount());
+
+                delete gold;
+                break;
+            }
+            case Item::Type::POTION: {
+                Potion* potion = static_cast<Potion*>(itemPtr.release());
+                this->drink(*potion);
+
+                delete potion;
+                break;
+            }
+            }
         }
+        else {} // Nothing to do
+
     }
 
 

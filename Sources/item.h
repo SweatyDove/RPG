@@ -2,10 +2,10 @@
 // #### Item is a base class for any item in the game (e.g. gold, armor, weapon, potion and etc.)
 // #########
 
-#ifndef CLS_ITEM_H
-#define CLS_ITEM_H
+#ifndef ITEM_H
+#define ITEM_H
 
-#include "header.h"
+#include "main.h"
 
 
 class Item {
@@ -48,4 +48,4 @@ public:
 
 };
 
-#endif  // CLS_ITEM_H
+#endif  // ITEM_H

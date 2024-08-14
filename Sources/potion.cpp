@@ -1,6 +1,6 @@
 
-#include "header.h"
-#include "cls_potion.h"
+#include "main.h"
+#include "potion.h"
 
 
 

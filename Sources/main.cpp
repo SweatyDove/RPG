@@ -31,14 +31,14 @@
 
 
 
-#include "header.h"
-#include "cls_monster.h"
-#include "cls_player.h"
-#include "cls_warrior.h"
+#include "main.h"
+#include "monster.h"
+#include "player.h"
+#include "warrior.h"
 
-#include "cls_item.h"
-#include "cls_gold.h"
-#include "cls_potion.h"
+#include "item.h"
+#include "gold.h"
+#include "potion.h"
 
 
 #include <string>

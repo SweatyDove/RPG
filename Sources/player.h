@@ -1,9 +1,9 @@
-#ifndef CLS_PLAYER_H
-#define CLS_PLAYER_H
+#ifndef PLAYER_H
+#define PLAYER_H
 
 
-#include "header.h"
-#include "cls_potion.h"
+#include "main.h"
+#include "potion.h"
 
 
 // ######## Why am I defining player's default values outside of class player? I don't remember...

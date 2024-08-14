@@ -1,6 +1,6 @@
 
-#include "header.h"
-#include "cls_monster.h"
+#include "main.h"
+#include "monster.h"
 
 //==============================================================================
 // WHAT: Constructor.
@@ -253,9 +253,6 @@ void Monster::commitSuicide()
 //==================================================================================================
 void Monster::generateLoot()
 {
-    // ######## Now i define this chance here, but later need to think about place, where is correct
-    // ######## to do it
-    const int potionChance {33};
 
     // ######## Iterate each type of <Item>
     for (int ii {0}; ii < static_cast<int>(Item::Type::TOTAL); ++ii) {

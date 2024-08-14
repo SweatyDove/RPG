@@ -1,8 +1,8 @@
 
-#ifndef CLS_GOLD_H
-#define CLS_GOLD_H
+#ifndef GOLD_H
+#define GOLD_H
 
-#include "header.h"
+#include "main.h"
 
 class Gold : public Item {
 public:

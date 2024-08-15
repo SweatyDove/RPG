@@ -158,6 +158,7 @@ public:
 
     void                reduceStamina(int stamina);
     void                getPotion(int potionChance);
+    void                getRest();
 
 
 

@@ -491,3 +491,32 @@ void Player::getPotion(int potionChance)
     }
 
 }
+
+
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Player getting a rest and restores some part of his characteristics during this
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Player::getRest()
+{
+    this->addHealth(mb_maxHealth / 10);                     // Restore 10% hp
+    this->addStamina(mb_maxStamina / 2);                    // Restore 50% stamina points
+
+    std::cout << "Player had a rest and now he has (" << mb_currentHealth << ") hp and ("
+              << mb_currentStamina << ") stamina points" << std::endl;
+}
+
+
+
+
+
+
+
+
+
+

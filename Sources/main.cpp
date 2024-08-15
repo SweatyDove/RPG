@@ -25,7 +25,10 @@
  *
  *
  *
+ * QUESTIONS:
  *
+ * 1 - Do I need to use list-initialization of class member variables if I initialize them in
+ * constructor?
  *
  **************************************************************************************************/
 
@@ -143,6 +146,9 @@ int main()
             player->getLootFrom(monster);
         }
         else {} // Nothing to do
+
+        // #### Player getting rest
+        player->getRest();
     }
 
     std::cout << "You died at level " << player->getLevel() << ".\n\n";

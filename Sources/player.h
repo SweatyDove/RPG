@@ -4,6 +4,7 @@
 
 #include "main.h"
 #include "potion.h"
+#include "creature.h"
 
 
 // ######## Why am I defining player's default values outside of class player? I don't remember...
@@ -19,7 +20,7 @@ namespace player_default {
 }
 
 
-class Player {
+class Player: public Creature {
 private:
     enum class FightOption {
         FLEE,
@@ -54,7 +55,7 @@ public:
     };
 
 protected:
-    int             mb_currentHealth    {player_default::HEALTH};
+    //int             mb_currentHealth    {player_default::HEALTH};
 
 
 private:
@@ -62,20 +63,20 @@ private:
     my::String      mb_name         {player_default::NAME};
     Race            mb_race         {Player::Race::ORC};
     Spec            mb_spec         {Player::Spec::WARRIOR};
-    int             mb_level        {player_default::LEVEL};
+    //int             mb_level        {player_default::LEVEL};
     int             mb_currentExp   {0};
     int             mb_nextLevelExp {1000};             // Const for now
     int             mb_timeLived    {player_default::DAY_LIVED};
 
 
     // #### RESOURCES
-    int             mb_maxHealth            {player_default::HEALTH};
-    int             mb_currentStamina       {player_default::STAMINA};
-    int             mb_maxStamina           {player_default::STAMINA};
-    int             mb_currentMana          {player_default::MANA};
-    int             mb_maxMana              {player_default::MANA};
-    int             mb_currentConcentration {player_default::CONCENTRATION};
-    int             mb_maxConcentration     {player_default::CONCENTRATION};
+//    int             mb_maxHealth            {player_default::HEALTH};
+//    int             mb_currentStamina       {player_default::STAMINA};
+//    int             mb_maxStamina           {player_default::STAMINA};
+//    int             mb_currentMana          {player_default::MANA};
+//    int             mb_maxMana              {player_default::MANA};
+//    int             mb_currentConcentration {player_default::CONCENTRATION};
+//    int             mb_maxConcentration     {player_default::CONCENTRATION};
 
 
     // ######## RAITINGS (CHANCE TO DO SMTH)
@@ -118,9 +119,9 @@ public:
     const my::String&   getName() const;
     Spec                getSpec() const;
     int                 getTimeLived() const;
-    int                 getLevel() const;
-    int                 getCurrentHealth() const;
-    int                 getCurrentStamina() const;
+//    int                 getLevel() const;
+//    int                 getCurrentHealth() const;
+//    int                 getCurrentStamina() const;
 
     //void                setHealth();
     void                setStamina();

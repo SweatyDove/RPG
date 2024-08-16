@@ -22,7 +22,8 @@
  *
  * 8 - Good potion effect depends on lucky
  *
- *
+ * 9 - Work with inheritance more accurately (including class and member inheritance) - you have to
+ * know why each member is not private
  *
  *
  * QUESTIONS:

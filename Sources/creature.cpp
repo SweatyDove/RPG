@@ -37,7 +37,7 @@ int Creature::getLevel() const
 //==================================================================================================
 int Creature::getCurrentHealth() const
 {
-    return mb_currentHealth;
+    return mb_curHealth;
 }
 
 
@@ -50,28 +50,109 @@ int Creature::getCurrentHealth() const
 //==================================================================================================
 int Creature::getCurrentStamina() const
 {
-    return mb_currentStamina;
+    return mb_curStamina;
 }
 
 
 //==================================================================================================
 //         NAME:    --------
-//  DESCRIPTION:    --------
+//  DESCRIPTION:    Function changes health of creature by specified value @health. This value can
+//                  be negative!
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
-//     COMMENTS:    --------
+//     COMMENTS:    Virtual function - it has a little more options in derived classes
 //==================================================================================================
 void Creature::changeHealth(int health)
 {
-    assert(mb_currentHealth >= 0 && "Creature can't have negative health");
+    assert(mb_curHealth >= 0 && "Negative health means inactive characteristic, but creatures always have hp!");
 
-    int newHealth = mb_currentHealth + health;
+    int newHealth = mb_curHealth + health;
     if (newHealth > mb_maxHealth) {
-        mb_currentHealth = mb_maxHealth;
+        mb_curHealth = mb_maxHealth;
     }
     else if (newHealth < 0) {
+        mb_curHealth = 0;
+    }
+    else {
+        mb_curHealth = newHealth;
     }
 
+}
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Function changes stamina of creature by specified value @stamina. If creature's
+//                  @mb_curStamina == -1, it means that this characteristic is inactive for
+//                  instance of the class, derived from <Creature>
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Creature::changeStamina(int stamina)
+{
+    if (mb_curStamina == -1) {
+        std::cout << "Stamina is inactive for this creature. Nothing to do" << std::endl;
+        return;
+    }
+    else {} // Nothing to do
+
+
+    int newStamina = mb_curStamina + stamina;
+    if (newStamina > mb_maxStamina) {
+        mb_curStamina = mb_maxStamina;
+    }
+    else if (newStamina < 0) {
+        mb_curStamina = 0;
+    }
+    else {
+        mb_curStamina = newStamina;
+    }
+}
+
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Creature::changeStrength(int strength)
+{
+    if (mb_curStrength == -1) {
+        std::cout << "Strength is inactive for this creature. Nothing to do" << std::endl;
+        return;
+    }
+    else {} // Nothing to do
+
+
+    int newStrength = mb_curStrength + strength;
+    if (newStrength > mb_maxStrength) {
+        mb_curStrength = mb_maxStrength;
+    }
+    else if (newStrength < 0) {
+        mb_curStrength = 0;
+    }
+    else {
+        mb_curStrength = newStrength;
+    }
+}
+
+
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+bool Creature::isDead() const
+{
+    return (mb_curHealth == 0);
 }
 
 
@@ -82,24 +163,6 @@ void Creature::changeHealth(int health)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void                changeStamina(int stamina);
+void Creature::commitSuicide() {
 
-
-//==================================================================================================
-//         NAME:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
-//==================================================================================================
-bool                isDead() const;
-
-
-//==================================================================================================
-//         NAME:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
-//==================================================================================================
-void                commitSuicide();
+}

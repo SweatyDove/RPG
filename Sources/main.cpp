@@ -25,6 +25,13 @@
  * 9 - Work with inheritance more accurately (including class and member inheritance) - you have to
  * know why each member is not private
  *
+ * 10 - Add static unsigned long variable to store id. Maybe it is worth to create vector, that
+ * stores ALL instances addresses and iterate them by id...
+ *
+ * 11 - Realize situations, when characteristics could be higher, than it's max value
+ *
+ * 12 - Maybe need to add template for functions (changeHealth(), changeMana() and etc)
+ *
  *
  * QUESTIONS:
  *
@@ -81,7 +88,6 @@ int main()
 
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    //clearWorkScreen(WORK_SCREEN_LINES, WORK_SCREEN_COLUMNS);
 
 //    Player::Race    playerRace  {choosePlayerRace()};
 //    Player::Spec    playerSpec  {choosePlayerSpec()};
@@ -92,14 +98,13 @@ int main()
     Player::Spec    playerSpec  {Player::Spec::WARRIOR};
     my::String      playerName  {"Alex"};
 
-    Warrior* warrior {nullptr};
-    Player*  player {nullptr};
+    //Warrior* warrior {nullptr};
 
 
+    Player* player {nullptr};
     switch (playerSpec) {
     case Player::Spec::WARRIOR:
-        warrior = new Warrior;
-        player = warrior;
+        player = new Warrior;
         break;
 //    case Player::Spec::MAGE:
 //        //Mage mage {player};
@@ -118,7 +123,7 @@ int main()
 
 
 
-    std::cout << "Hello " << warrior->getName() << "! Welcome to the game...\n";
+    std::cout << "Hello " << player->getName() << "! Welcome to the game...\n";
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     // #### Main cycle

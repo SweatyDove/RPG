@@ -10,7 +10,7 @@
 // ######## Why am I defining player's default values outside of class player? I don't remember...
 namespace player_default {
     const int           LEVEL {1};
-    const my::String    NAME {"Stranger"};
+    const std::string   NAME {"Stranger"};
     const int           HEALTH {100};
     const int           MANA {50};
     const int           STAMINA {50};
@@ -54,29 +54,17 @@ public:
         TOTAL
     };
 
-protected:
-    //int             mb_currentHealth    {player_default::HEALTH};
-
 
 private:
     // ######## GENERAL
-    my::String      mb_name         {player_default::NAME};
     Race            mb_race         {Player::Race::ORC};
+    std::string     mb_name         {player_default::NAME};
+
     Spec            mb_spec         {Player::Spec::WARRIOR};
-    //int             mb_level        {player_default::LEVEL};
-    int             mb_currentExp   {0};
+    int             mb_curExp       {0};
     int             mb_nextLevelExp {1000};             // Const for now
     int             mb_timeLived    {player_default::DAY_LIVED};
 
-
-    // #### RESOURCES
-//    int             mb_maxHealth            {player_default::HEALTH};
-//    int             mb_currentStamina       {player_default::STAMINA};
-//    int             mb_maxStamina           {player_default::STAMINA};
-//    int             mb_currentMana          {player_default::MANA};
-//    int             mb_maxMana              {player_default::MANA};
-//    int             mb_currentConcentration {player_default::CONCENTRATION};
-//    int             mb_maxConcentration     {player_default::CONCENTRATION};
 
 
     // ######## RAITINGS (CHANCE TO DO SMTH)
@@ -98,36 +86,25 @@ private:
 
 
 
-protected:
-    // #### General characteristics
-    int             mb_intellect    {};
-    int             mb_agility      {};
-    int             mb_strength     {};
+
 
 public:
-    // System resources
-    my::Log         mb_log      {"battle_log.txt"};
-
-
 
     // ########  Constructors and Destructors  ########
-    Player() = default;
-    virtual ~Player();
+    Player(Race race, std::string name);
 
 
     // ########  Setters and Getters  ########
-    const my::String&   getName() const;
+    const std::string&   getName() const;
     Spec                getSpec() const;
     int                 getTimeLived() const;
-//    int                 getLevel() const;
-//    int                 getCurrentHealth() const;
-//    int                 getCurrentStamina() const;
 
-    //void                setHealth();
+
+    //void              setHealth();
     void                setStamina();
     void                setMana();
 
-    void                setName(my::String& name);
+    void                setName(std::string& name);
     void                setRace(Player::Race race);
 
 
@@ -135,33 +112,37 @@ public:
     virtual int         getAttackDamage() const = 0;
     virtual int         getSuperAttackDamage() const = 0;
     virtual int         getSuperAttackCost() const = 0;
-    virtual void        setDamage() = 0;
+    //virtual void        setDamage() = 0;
     virtual void        attack(Monster& monster) = 0;
     virtual bool        superAttack(Monster& monster) = 0;
-    virtual void        commitSuicide();
+
+    void                commitSuicide() override;
 
 
     // ########  Public Interface  ########
 
     void                newDay();
     void                fightWith(Monster& monster);
-    void                 addGold(int gold);
+    void                addGold(int gold);
     void                drink(Potion& potion);
     void                getLootFrom(Monster& monster);
-    void                addHealth(int health);
-    void                addStamina(int stamina);
     void                addStrength(int strength);
-    bool                isDead() const;
-    void                reduceHealth(int health);
+
+
+    void                changeHealth(int health) override;
+    void                changeStamina(int stamina) override;
+    void                changeStrength(int strength) override;
+
 
     void                increaseExp(Monster& monster);
     void                levelUp();
 
-    void                reduceStamina(int stamina);
     void                getPotion(int potionChance);
     void                getRest();
 
 
+// System resources
+//    my::Log         mb_log      {"battle_log.txt"};
 
 private:
     FightOption                chooseFightOption(Monster& monster);

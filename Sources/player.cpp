@@ -3,33 +3,82 @@
 #include "monster.h"
 #include "potion.h"
 
-class Monster;
+//class Monster;
 
 
-Player::~Player()
+//Player::~Player()
+//{
+//    //std::cerr << "\n[DEBUG]: Player's destructor has called...";
+//    // Nothing to do
+//}
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+Player::Player(Player::Race race, std::string name) :
+    Creature {Creature::Type::PLAYER, 1},
+    mb_race {race},
+    mb_name {name}
 {
-    //std::cerr << "\n[DEBUG]: Player's destructor has called...";
-    // Nothing to do
+
 }
 
 
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 void Player::setRace(Player::Race race)
 {
     mb_race = race;
 }
 
 
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 Player::Spec Player::getSpec() const
 {
     return mb_spec;
 }
 
 
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 int Player::getTimeLived() const
 {
     return mb_timeLived;
 }
 
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 void Player::newDay()
 {
     mb_timeLived += 1;
@@ -37,45 +86,75 @@ void Player::newDay()
 }
 
 
-const my::String& Player::getName() const
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+const std::string& Player::getName() const
 {
     return mb_name;
 }
 
-void Player::setName(my::String& name)
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Player::setName(std::string& name)
 {
     mb_name = name;
 }
 
 
-void Player::addHealth(int health)
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Player::changeHealth(int health)
 {
-    if (mb_currentHealth + health >= mb_maxHealth) {
-        mb_currentHealth = mb_maxHealth;
-    }
-    else {
-        mb_currentHealth += health;
-    }
-
-    return;
-
+    Creature::changeHealth(health);
 }
 
-void Player::addStamina(int stamina)
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Player::changeStamina(int stamina)
 {
-    if (mb_currentStamina + stamina >= mb_maxStamina) {
-        mb_currentStamina = mb_maxStamina;
-    }
-    else {
-        mb_currentStamina += stamina;
-    }
-    return;
+    Creature::changeStamina(stamina);
 }
 
-void Player::addStrength(int strength)
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Player::changeStrength(int strength)
 {
-    mb_strength += strength;
-    return;
+    Creature::changeStrength(strength);
 }
 
 //int Player::getDamage() const
@@ -95,62 +174,7 @@ void Player::addGold(int gold)
     }
 }
 
-// #### Function returns true if current Player is dead
-// #############
-bool Player::isDead() const
-{
-    return (mb_currentHealth <= 0);
-}
 
-// #### Function reduce health of the current Player by specified magnitude
-// #############
-void Player::reduceHealth(int health)
-{
-    if (mb_currentHealth - health <= 0) {
-        mb_currentHealth = 0;
-    }
-    else {
-        mb_currentHealth -= health;
-    }
-    return;
-}
-
-void Player::reduceStamina(int stamina)
-{
-    if (mb_currentStamina - stamina <= 0) {
-        mb_currentStamina = 0;
-    }
-    else {
-        mb_currentStamina -= stamina;
-    }
-
-    return;
-
-}
-
-// #### Function returns the level of the creature
-// ###############
-int Player::getLevel() const
-{
-    return mb_level;
-}
-
-// #### Function returns current health of the creature
-// #############
-int Player::getCurrentHealth() const
-{
-    return mb_currentHealth;
-}
-
-int Player::getCurrentStamina() const
-{
-    return mb_currentStamina;
-}
-
-//void Player::setHealth()
-//{
-//    mb_currentHealth = player_default::HEALTH + mb_level * 20;
-//}
 
 // #### Handling player's leveling up.
 // #########
@@ -159,34 +183,38 @@ void Player::levelUp()
     bool inLoop {false};
     char choice {'\0'};
 
-    // Set the new max health and restore current health
-    mb_currentHealth = mb_maxHealth = player_default::HEALTH + mb_level * 20;
+    mb_level++;
+
+    // Set the new max health and restore cur health
+    mb_curHealth = mb_maxHealth = player_default::HEALTH + mb_level * 20;
 
     std::cout << "Congratulation! You've reached " << mb_level << " level.\n";
-    std::cout << "What do you want to upgrade?:\n"
-              << " 1 - Strength (+1)\n"
-              << " 2 - Intellect (+1)\n"
-              << " 3 - Agility (+1)\n"
+    std::cout << "What do you want to upgrade?\n"
+              << "[1] - Strength (+" << mb_level << ")\n"
+              << "[2] - Intellect (+" << mb_level << ")\n"
+              << "[3] - Agility (+" << mb_level << ")\n"
+              << "\nYour choice: "
               << std::flush;
     while (inLoop) {
         std::cin >> choice;
-        std::cout << "\033[F \b";
         switch (choice) {
         case '1':
-            mb_strength++;
-            mb_currentStamina = mb_maxStamina = player_default::STAMINA + mb_level * 5;
+            mb_maxStrength += mb_level;
+            mb_curStamina = mb_maxStamina = player_default::STAMINA + mb_level * 10;
             break;
         case '2':
-            mb_intellect++;
-            mb_currentMana = mb_maxMana = player_default::MANA + mb_level * 5;
-            break;
+//            mb_maxIntellect += mb_level;
+//            mb_curMana = mb_maxMana = player_default::MANA + mb_level * 10;
+//            break;
         case '3':
-            mb_agility++;
-            mb_dodgeChance += 1;
-            mb_critChance += 1;
-            break;
+//            mb_agility++;
+//            mb_dodgeChance += 1;
+//            mb_critChance += 1;
+//            break;
         default:
             inLoop = true;
+            std::cout << "Incorrect choice, please - try again:"
+                      << "\nYour choice: " << std::endl;
             break;
         }
     }
@@ -205,13 +233,12 @@ void Player::increaseExp(Monster& monster)
 {
     int exp {monster.getLevel() * 100};
 
-    if (mb_currentExp + exp >= mb_nextLevelExp) {
-        mb_level++;
+    if (mb_curExp + exp >= mb_nextLevelExp) {
         this->levelUp();
-        mb_currentExp = mb_currentExp + exp - mb_nextLevelExp;
+        mb_curExp = mb_curExp + exp - mb_nextLevelExp;
     }
     else {
-        mb_currentExp += exp;
+        mb_curExp += exp;
     }
 
     return;
@@ -456,7 +483,7 @@ Player::FightOption Player::chooseFightOption(Monster& monster)
 void Player::commitSuicide()
 {
     std::cout << "\nPlayer commited suicide!" << std::endl;
-    this->mb_currentHealth = 0;
+    this->mb_curHealth = 0;
 }
 
 
@@ -507,8 +534,8 @@ void Player::getRest()
     this->addHealth(mb_maxHealth / 10);                     // Restore 10% hp
     this->addStamina(mb_maxStamina / 2);                    // Restore 50% stamina points
 
-    std::cout << "Player had a rest and now he has (" << mb_currentHealth << ") hp and ("
-              << mb_currentStamina << ") stamina points" << std::endl;
+    std::cout << "Player had a rest and now he has (" << mb_curHealth << ") hp and ("
+              << mb_curStamina << ") stamina points" << std::endl;
 }
 
 

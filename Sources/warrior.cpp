@@ -6,8 +6,25 @@
 
 
 
+
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    Constructor
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+Warrior::Warrior(Player::Race race, std::string name):
+    Player {race, name}
+{
+    // STAYED HERE! Need to set values to all warrior active characteristics
+    mb_autoAttackDamage = warrior_default::autoAttackDamage + mb_maxStrength * 2;
+    mb_heavyBlowDamage  = warrior_default::heavyBlowDamage  + mb_maxStrength * 5;
+}
+
+
+//==================================================================================================
+//         TYPE:    --------
 //  DESCRIPTION:    Destructor
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -28,11 +45,11 @@ Warrior::~Warrior()
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Warrior::setDamage()
-{
-    mb_autoAttackDamage = warrior_default::autoAttackDamage + mb_strength * 2;
-    mb_heavyBlowDamage  = warrior_default::heavyBlowDamage  + mb_strength * 5;
-}
+//void Warrior::setDamage()
+//{
+//    mb_autoAttackDamage = warrior_default::autoAttackDamage + mb_strength * 2;
+//    mb_heavyBlowDamage  = warrior_default::heavyBlowDamage  + mb_strength * 5;
+//}
 
 
 

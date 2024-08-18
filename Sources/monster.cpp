@@ -196,13 +196,17 @@ my::String Monster::getName() const
 }
 
 
-//==============================================================================
-// WHAT: Virtual override member function.
-//  WHY: It is handling the case when [*this] monster attacks the [player].
-//==============================================================================
+
+//==================================================================================================
+//         TYPE:    Virtual override member function.
+//  DESCRIPTION:    It handles the case when @this monster attacks the @player.
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 void Monster::attack(Player& player) const
 {
-    player.reduceHealth(mb_damage);
+    player.changeHealth(-mb_damage);
 
     SetConsoleTextAttribute(hConsole, CLR_FLAMINGO);
     std::cout << "The " << this->getName() << " attacked player and dealt (" << this->mb_damage

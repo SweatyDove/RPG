@@ -12,12 +12,13 @@ namespace warrior_default {
 class Warrior : public Player {
 private:
     int     mb_autoAttackDamage         {warrior_default::autoAttackDamage};
+    //int     mb_specialAttackDamage      {warrior_default::heavyBlowDamage};
     int     mb_heavyBlowDamage          {warrior_default::heavyBlowDamage};
     int     mb_heavyBlowStaminaCost     {warrior_default::heavyBlowStaminaCost};
 
 public:
     // #############  Constructors and Destructors  ##############
-    Warrior() = default;
+    Warrior(Player::Race race, std::string name);
     ~Warrior() override;
 
 

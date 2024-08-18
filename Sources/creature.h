@@ -17,36 +17,56 @@ public:
     };
 
 private:
-    // ######## GENERAL
-    Type    mb_type {};
-    int     mb_level {1};
-
-    // #### RESOURCES
-    int     mb_currentHealth        {100};
-    int     mb_maxHealth            {100};
-    int     mb_currentStamina       {-1};
-    int     mb_maxStamina           {-1};
-//    int     mb_currentMana          {-1};
-//    int     mb_maxMana              {-1};
-//    int     mb_currentConcentration {-1};
-//    int     mb_maxConcentration     {-1};
 
     std::vector<std::unique_ptr<Item>> mb_inventory;
 
 protected:
+    // ######## GENERAL
+    Type    mb_type {};
+    int     mb_level {1};
 
-    explicit Creature(Type type, int level = 1);                        // Protected 'cause I don't want smb to create <Creature> explicitly
+    // #### CHARACTERISTICS
+        int             mb_curStrength    {-1};
+        int             mb_maxStrength    {-1};
+    //    int             mb_intellect    {-1};
+    //    int             mb_agility      {-1};
+
+
+
+    // #### RESOURCES
+    int     mb_curHealth        {100};
+    int     mb_maxHealth        {100};
+    int     mb_curStamina       {-1};
+    int     mb_maxStamina       {-1};
+//    int     mb_curMana          {-1};
+//    int     mb_maxMana              {-1};
+//    int     mb_curConcentration {-1};
+//    int     mb_maxConcentration     {-1};
+
+
+
+    /*
+     * Creature constructor is protected 'cause I don't want smb to create <Creature> explicitly,
+     * but at the same time this class is abstract ('cause contains pure virtual function) and can't
+     * be created explicitly in any case.
+     */
+    explicit Creature(Type type, int level = 1);
 
 public:
+
+    virtual             ~Creature();
+
     int                 getLevel() const;
     int                 getCurrentHealth() const;
     int                 getCurrentStamina() const;
 
     virtual void        changeHealth(int health);
-    void                changeStamina(int stamina);
+    virtual void        changeStamina(int stamina);
+
+    virtual void        changeStrength(int strength);
 
     virtual bool        isDead() const;
-    virtual void        commitSuicide();
+    virtual void        commitSuicide() = 0;
 
 };
 

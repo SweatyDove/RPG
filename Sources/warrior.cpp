@@ -40,16 +40,39 @@ Warrior::~Warrior()
 
 //==================================================================================================
 //         NAME:    --------
-//  DESCRIPTION:    Set damage for all warrior's skills
+//  DESCRIPTION:    Set settings for warriors skills. Another option is to calculate settings of one
+//                  or another skill in place.
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
 //void Warrior::setDamage()
 //{
+//    this->setAutoAttackSettings();
+//    this->setHeavyBlowSettings();
 //    mb_autoAttackDamage = warrior_default::autoAttackDamage + mb_strength * 2;
 //    mb_heavyBlowDamage  = warrior_default::heavyBlowDamage  + mb_strength * 5;
 //}
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void cast(Spell& spell, Creature& target)
+{
+
+
+}
+
+
+
+
+
+
 
 
 

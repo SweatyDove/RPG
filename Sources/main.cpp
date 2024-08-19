@@ -33,6 +33,8 @@
  * 12 - Maybe need to add template for functions (changeHealth(), changeMana() and etc)
  *
  *
+ *
+ *
  * QUESTIONS:
  *
  * 1 - Do I need to use list-initialization of class member variables if I initialize them in

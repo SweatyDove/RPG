@@ -9,6 +9,8 @@ public:
     enum class School {
         UNDEF,
         PHYSICAL,
+        PHYSICAL_NATURE,                    // Temporary for several spell schools
+        PHYSICAL_DARKNESS,
         MAGIC,
 
         TOTAL
@@ -24,14 +26,12 @@ private:
 
 
 public:
+    Spell() = default;
     Spell(std::string name, School school);
 
-    /*
-     * If cost and effect changes dinamically, maybe I need only getCost()/getEffect() functions,
-     * that calculates values in place?
-     */
-    void setCost();
-    void setEffect();
+    const std::string_view getName() const;
+    int getCost();
+    int getEffect();
 };
 
 #endif // SPELL_H

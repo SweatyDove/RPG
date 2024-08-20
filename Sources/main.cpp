@@ -147,7 +147,7 @@ int main()
         std::cout << "You have encountered a ("<< monster.getName() << ") of ("<< monster.getLevel()
                   << ") level." << std::endl;
 
-        //player->fightWith(monster);
+        player->fightWith(monster);
         monster.commitSuicide();
 
         if (monster.isDead()) {

@@ -412,64 +412,64 @@ void Player::fightWith(Monster& monster)
 // RETURN VALUE:    Returns player's choice.
 //     COMMENTS:    --------
 //==================================================================================================
-Player::FightOption Player::chooseFightOption(Monster& monster)
-{
-    int playerStamina {this->getCurrentStamina()};
+//Player::FightOption Player::chooseFightOption(Monster& monster)
+//{
+//    int playerStamina {this->getCurrentStamina()};
 
 
-    // ######## Intro message title
-    std::cout << "Monster has (" << monster.getCurrentHealth() << ") hp and deals (" << monster.getDamage()
-              << ") points of damage per attack."
-              << "\nYours current health: " << this->getCurrentHealth() << std::endl;
+//    // ######## Intro message title
+//    std::cout << "Monster has (" << monster.getCurrentHealth() << ") hp and deals (" << monster.getDamage()
+//              << ") points of damage per attack."
+//              << "\nYours current health: " << this->getCurrentHealth() << std::endl;
 
-    std::cout << "What are you going to do? Press an appropriate button:\n";
+//    std::cout << "What are you going to do? Press an appropriate button:\n";
 
-    // ######## 1-st option
-    std::cout << "\n[1] - Attack monster: deal (" << this->getAttackDamage() << ") damage to the monster";
+//    // ######## 1-st option
+//    std::cout << "\n[1] - Attack monster: deal (" << this->getAttackDamage() << ") damage to the monster";
 
-    // ######## 2-nd option
-    /* Maybe it is better to replace Stamina on structure (or array) of player resources. Or add function
-     * to get main resources...
-     */
-    if (playerStamina >= this->getSuperAttackCost()) {
-        std::cout << "\n[2] - Super atack monster: deal (" << this->getSuperAttackDamage() << ") damage to the monster (costs 30 stamina points)";
-    }
-    else {
-        HANDLE hConsole {GetStdHandle(STD_OUTPUT_HANDLE)};
-        SetConsoleTextAttribute(hConsole, CLR_PALE_PRIM);
-        std::cout << "\n[2] - Super atack monster: not enough stamina points!";
-        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
-    }
+//    // ######## 2-nd option
+//    /* Maybe it is better to replace Stamina on structure (or array) of player resources. Or add function
+//     * to get main resources...
+//     */
+//    if (playerStamina >= this->getSuperAttackCost()) {
+//        std::cout << "\n[2] - Super atack monster: deal (" << this->getSuperAttackDamage() << ") damage to the monster (costs 30 stamina points)";
+//    }
+//    else {
+//        HANDLE hConsole {GetStdHandle(STD_OUTPUT_HANDLE)};
+//        SetConsoleTextAttribute(hConsole, CLR_PALE_PRIM);
+//        std::cout << "\n[2] - Super atack monster: not enough stamina points!";
+//        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+//    }
 
-    // ######## 3-rd option
-    std::cout << "\n[3] - Commit suicide...";
+//    // ######## 3-rd option
+//    std::cout << "\n[3] - Commit suicide...";
 
-    // ######## 4-th option
-    std::cout << "\n[0] - Run away: You have (" << mb_escapeChance << ") chance to escape from monster."
-              << " If you could't, monster would deal (" << monster.getDamage() << ") damage."<< std::endl;
+//    // ######## 4-th option
+//    std::cout << "\n[0] - Run away: You have (" << mb_escapeChance << ") chance to escape from monster."
+//              << " If you could't, monster would deal (" << monster.getDamage() << ") damage."<< std::endl;
 
 
-    // ######## Choice loop
-    int choice {};
-    bool choiceLoop {true};
-    do {
-        std::cout << "Your choice: ";
-        std::cin >> choice;
+//    // ######## Choice loop
+//    int choice {};
+//    bool choiceLoop {true};
+//    do {
+//        std::cout << "Your choice: ";
+//        std::cin >> choice;
 
-        if ((choice >= 0 && choice <= 2) || choice == 3) {
-            choiceLoop = false;
-        }
-        else {
-            std::cout << "Incorrect choice. Please, try again." << std::endl;
-        }
+//        if ((choice >= 0 && choice <= 2) || choice == 3) {
+//            choiceLoop = false;
+//        }
+//        else {
+//            std::cout << "Incorrect choice. Please, try again." << std::endl;
+//        }
 
-    }
-    while (choiceLoop);
-    std::cout << '\n';
+//    }
+//    while (choiceLoop);
+//    std::cout << '\n';
 
-    // ######## Returning player's choice
-    return static_cast<Player::FightOption>(choice);
-}
+//    // ######## Returning player's choice
+//    return static_cast<Player::FightOption>(choice);
+//}
 
 
 

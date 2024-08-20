@@ -1,28 +1,48 @@
-
-#include "main.h"
 #include "monster.h"
 
-//==============================================================================
-// WHAT: Constructor.
-//  WHY: Create a random monster.
-//==============================================================================
-Monster::Monster() :
-    mb_type {getRandomMonsterType()},
-    mb_level {getRandomMonsterLevel()}
+//==================================================================================================
+//         TYPE:    Constructor
+//  DESCRIPTION:    Create random monster
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+Monster::Monster():
+    Creature {Creature::Type::MONSTER, getRandomNumber(1, 10)},
+    mb_type {getRandomMonsterType()}
 {
-    mb_damage = this->setDamage(mb_type, mb_level);
-    mb_currentHealth = this->setHealth(mb_type, mb_level);
+    //mb_damage = this->setDamage(mb_type, mb_level);
+    mb_curHealth = this->setHealth(mb_type, mb_level);
+
+    // ######## Set spell type depending on the monster's type
+    switch(mb_type) {
+    case Type::SKELETON:
+        mb_baseAttack = Spell("STRIKE", Spell::School::PHYSICAL);
+        break;
+    case Type::ZOMBIE:
+        mb_baseAttack = Spell("INFECTED BLOW", Spell::School::PHYSICAL_NATURE);
+        break;
+    case Type::GHOST:
+        mb_baseAttack = Spell("SHADOW STRIKE", Spell::School::PHYSICAL_DARKNESS);
+        break;
+    case Type::TOTAL:
+        assert("Incorrect monster type!");
+        break;
+    }
 }
+
+
+
 
 
 //==============================================================================
 // WHAT: Static member function
 //  WHY: Returns random monster's [level].
 //==============================================================================
-int Monster::getRandomMonsterLevel()
-{
-    return getRandomNumber(1, 10);
-}
+//int Monster::getRandomMonsterLevel()
+//{
+//    return getRandomNumber(1, 10);
+//}
 
 
 
@@ -58,10 +78,10 @@ Monster::Type Monster::getRandomMonsterType()
 // WHAT: Member function.
 //  WHY: Function returns true if the current Monster is dead.
 //==============================================================================
-bool Monster::isDead() const
-{
-    return (mb_currentHealth <= 0);
-}
+//bool Monster::isDead() const
+//{
+//    return (mb_currentHealth <= 0);
+//}
 
 
 //==============================================================================
@@ -69,41 +89,41 @@ bool Monster::isDead() const
 //  WHY:
 //==============================================================================
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Function reduce health of the current Monster by specified magnitude. If monster
 //                  has 0 hp - it generate loot on its dead body.
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Monster::reduceHealth(int health)
-{
-    mb_currentHealth = ((mb_currentHealth - health) <= 0) ? (0) : (mb_currentHealth - health);
-    if (mb_currentHealth <= 0) {
-        this->generateLoot();
-    }
-    else {} // Nothing to do
-}
+//void Monster::reduceHealth(int health)
+//{
+//    mb_currentHealth = ((mb_currentHealth - health) <= 0) ? (0) : (mb_currentHealth - health);
+//    if (mb_currentHealth <= 0) {
+//        this->generateLoot();
+//    }
+//    else {} // Nothing to do
+//}
 
 
 //==============================================================================
 // WHAT: Getter.
 //  WHY: Function returns the level of the creature.
 //==============================================================================
-int Monster::getLevel() const
-{
-    return mb_level;
-}
+//int Monster::getLevel() const
+//{
+//    return mb_level;
+//}
 
 
 //==============================================================================
 // WHAT: Getter.
 //  WHY: Returns current health of the [*this] monster.
 //==============================================================================
-int Monster::getCurrentHealth() const
-{
-    return mb_currentHealth;
-}
+//int Monster::getCurrentHealth() const
+//{
+//    return mb_currentHealth;
+//}
 
 
 //==============================================================================
@@ -175,24 +195,16 @@ int Monster::setHealth(Type type, int level) const
     return health;
 }
 
-// #### Func returns "name" of the current monster
-// #########
-my::String Monster::getName() const
+//==================================================================================================
+//         TYPE:    Virtual override member function.
+//  DESCRIPTION:    Returns the name of the monster depending on it's type.
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+const std::string& Monster::getName() const
 {
-    switch(mb_type) {
-    case Type::SKELETON:
-        return "skeleton";
-    case Type::ZOMBIE:
-        return "zombie";
-    case Type::GHOST:
-        return "ghost";
-    case Type::MAX_TYPE:
-        return "";
-    //default:
-        //break;
-    }
-
-    return "";
+    return mb_name[static_cast<unsigned int>(mb_type)];
 }
 
 
@@ -219,7 +231,7 @@ void Monster::attack(Player& player) const
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Function returns type of the monster
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -233,7 +245,7 @@ Monster::Type Monster::getType() const
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Function returns type of the monster
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -248,7 +260,7 @@ void Monster::commitSuicide()
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Function generate loot, that remains after monster's death. Loot depends on the
 //                  monster @level and player's @type.
 //   PARAMETERS:    --------

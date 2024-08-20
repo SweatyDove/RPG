@@ -22,14 +22,14 @@ namespace player_default {
 
 class Player: public Creature {
 private:
-    enum class FightOption {
-        FLEE,
-        ATTACK,
-        SUPER_ATTACK,
-        COMMIT_SUICIDE,
+//    enum class FightOption {
+//        FLEE,
+//        ATTACK,
+//        SUPER_ATTACK,
+//        COMMIT_SUICIDE,
 
-        TOTAL
-    };
+//        TOTAL
+//    };
 public:
     enum class Race {
         ORC,
@@ -95,7 +95,7 @@ public:
 
 
     // ########  Setters and Getters  ########
-    const std::string&   getName() const;
+    const std::string&  getName() const override;
     Spec                getSpec() const;
     int                 getTimeLived() const;
 
@@ -110,16 +110,19 @@ public:
 
     // ########  Virtual methods  #########
     virtual int         getAttackDamage() const = 0;
+
+
     virtual int         getSuperAttackDamage() const = 0;
     virtual int         getSuperAttackCost() const = 0;
     //virtual void        setDamage() = 0;
     virtual void        attack(Monster& monster) = 0;
     virtual bool        superAttack(Monster& monster) = 0;
+    virtual int         chooseFightOption(Creature& creature) = 0;
 
-    void                commitSuicide() override;
 
 
     // ########  Public Interface  ########
+    void                commitSuicide() override;
 
     void                newDay();
     void                fightWith(Monster& monster);
@@ -145,7 +148,6 @@ public:
 //    my::Log         mb_log      {"battle_log.txt"};
 
 private:
-    FightOption                chooseFightOption(Monster& monster);
 
 };
 

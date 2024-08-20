@@ -55,25 +55,6 @@ Warrior::~Warrior()
 //}
 
 
-//==================================================================================================
-//         NAME:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
-//==================================================================================================
-void cast(Spell& spell, Creature& target)
-{
-
-
-}
-
-
-
-
-
-
-
 
 
 //==================================================================================================
@@ -83,10 +64,92 @@ void cast(Spell& spell, Creature& target)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-int Warrior::getAttackDamage() const
+void Warrior::cast(Spell& spell, Creature& creature)
 {
-    return mb_autoAttackDamage;
+    int spellEffect {spell.getEffect()};
+
+    creature.changeHealth(-spellEffect);
+    this->changeStamina(-spell.getCost());
+
+    SetConsoleTextAttribute(hConsole, CLR_DARK_PASTEL_GREEN);
+    std::cout << "You've dealed (" << spellEffect << ") damage to the " << creature.getName()
+           << ". It had (" << creature.getCurrentHealth() << ") hp left." << std::endl;
+    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+
 }
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+int Warrior::chooseFightOption(Creature& creature)
+{
+    int playerStamina {this->getCurrentStamina()};
+
+    /*
+     * STAYED HERE
+     */
+//    // ######## Intro message title
+//    std::cout << "Monster has (" << monster.getCurrentHealth() << ") hp and deals (" << monster.getDamage()
+//              << ") points of damage per attack."
+//              << "\nYours current health: " << this->getCurrentHealth() << std::endl;
+
+//    std::cout << "What are you going to do? Press an appropriate button:\n";
+
+    // ######## 1-st option
+    std::cout << "\n[1] - attack monster with " << mb_baseAttack.getName() << "and deal ("
+              << mb_baseAttack.getEffect() << ") damage to the monster";
+
+    // ######## 2-nd option
+    /* Maybe it is better to replace Stamina on structure (or array) of player resources. Or add function
+     * to get main resources...
+     */
+    if (playerStamina >= this->getSuperAttackCost()) {
+        std::cout << "\n[2] - attack monster: deal (" << this->getSuperAttackDamage() << ") damage to the monster (costs 30 stamina points)";
+    }
+    else {
+        HANDLE hConsole {GetStdHandle(STD_OUTPUT_HANDLE)};
+        SetConsoleTextAttribute(hConsole, CLR_PALE_PRIM);
+        std::cout << "\n[2] - Super atack monster: not enough stamina points!";
+        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+    }
+
+    // ######## 3-rd option
+    std::cout << "\n[3] - Commit suicide...";
+
+    // ######## 4-th option
+    std::cout << "\n[0] - Run away: You have (" << mb_escapeChance << ") chance to escape from monster."
+              << " If you could't, monster would deal (" << monster.getDamage() << ") damage."<< std::endl;
+
+
+    // ######## Choice loop
+    int choice {};
+    bool choiceLoop {true};
+    do {
+        std::cout << "Your choice: ";
+        std::cin >> choice;
+
+        if ((choice >= 0 && choice <= 2) || choice == 3) {
+            choiceLoop = false;
+        }
+        else {
+            std::cout << "Incorrect choice. Please, try again." << std::endl;
+        }
+
+    }
+    while (choiceLoop);
+    std::cout << '\n';
+
+    // ######## Returning player's choice
+    return static_cast<Player::FightOption>(choice);
+}
+
+
+
 
 
 
@@ -97,10 +160,24 @@ int Warrior::getAttackDamage() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-int Warrior::getSuperAttackDamage() const
-{
-    return mb_heavyBlowDamage;
-}
+//int Warrior::getAttackDamage() const
+//{
+//    return mb_autoAttackDamage;
+//}
+
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+//int Warrior::getSuperAttackDamage() const
+//{
+//    return mb_heavyBlowDamage;
+//}
 
 
 
@@ -111,17 +188,17 @@ int Warrior::getSuperAttackDamage() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Warrior::attack(Monster& monster)
-{
-    monster.reduceHealth(mb_autoAttackDamage);
+//void Warrior::attack(Monster& monster)
+//{
+//    monster.reduceHealth(mb_autoAttackDamage);
 
-    SetConsoleTextAttribute(hConsole, CLR_DARK_PASTEL_GREEN);
-    std::cout << "You've dealed " << mb_autoAttackDamage << " damage to the " << monster.getName()
-           << ". It had (" << monster.getCurrentHealth() << ") hp left." << std::endl;
-    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+//    SetConsoleTextAttribute(hConsole, CLR_DARK_PASTEL_GREEN);
+//    std::cout << "You've dealed " << mb_autoAttackDamage << " damage to the " << monster.getName()
+//           << ". It had (" << monster.getCurrentHealth() << ") hp left." << std::endl;
+//    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
-    return;
-}
+//    return;
+//}
 
 
 
@@ -132,34 +209,34 @@ void Warrior::attack(Monster& monster)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-bool Warrior::superAttack(Monster& monster)
-{
-    int staminaCost {30};
-    bool retValue {};
+//bool Warrior::superAttack(Monster& monster)
+//{
+//    int staminaCost {30};
+//    bool retValue {};
 
-    if (this->getCurrentStamina() >= staminaCost) {
-        monster.reduceHealth(mb_heavyBlowDamage);
-        this->reduceStamina(staminaCost);
+//    if (this->getCurrentStamina() >= staminaCost) {
+//        monster.reduceHealth(mb_heavyBlowDamage);
+//        this->reduceStamina(staminaCost);
 
-        SetConsoleTextAttribute(hConsole, CLR_DARK_PASTEL_GREEN);
-        std::cout << "You've dealed (" << mb_heavyBlowDamage << ") damage to the " << monster.getName()
-               << ". It had (" << monster.getCurrentHealth() << ") hp left." << std::endl;
-        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+//        SetConsoleTextAttribute(hConsole, CLR_DARK_PASTEL_GREEN);
+//        std::cout << "You've dealed (" << mb_heavyBlowDamage << ") damage to the " << monster.getName()
+//               << ". It had (" << monster.getCurrentHealth() << ") hp left." << std::endl;
+//        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
 
-        retValue = true;
-    }
-    else {
-        std::cout << "\nNot enough stamina for the super attack. "
-                  << "You have only " << this->getCurrentStamina()
-                  << "stamina points (need " << staminaCost << ")."
-                  << std::endl;
-        //std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-        retValue = false;
-    }
+//        retValue = true;
+//    }
+//    else {
+//        std::cout << "\nNot enough stamina for the super attack. "
+//                  << "You have only " << this->getCurrentStamina()
+//                  << "stamina points (need " << staminaCost << ")."
+//                  << std::endl;
+//        //std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+//        retValue = false;
+//    }
 
-    return retValue;
-}
+//    return retValue;
+//}
 
 
 //==================================================================================================
@@ -171,10 +248,10 @@ bool Warrior::superAttack(Monster& monster)
 //                  Or I can add cost in all available resources (0 in mana, 30 in stamina and 10 in
 //                  concentration, for example).
 //==================================================================================================
-int Warrior::getSuperAttackCost() const
-{
-    return mb_heavyBlowStaminaCost;
-}
+//int Warrior::getSuperAttackCost() const
+//{
+//    return mb_heavyBlowStaminaCost;
+//}
 
 
 
@@ -189,5 +266,5 @@ void Warrior::commitSuicide()
 {
     std::cout << "\nThe warrior threw his sword into the air, spread his arms and arched his chest to the sky... "
               << "\n...and the sword pierced his chest, thereby taking his life..." << std::endl;
-    this->mb_currentHealth = 0;
+    this->mb_curHealth = 0;
 }

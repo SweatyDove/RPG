@@ -15,7 +15,7 @@ namespace warrior_default {
 class Warrior : public Player {
 private:
 
-    Spell       mb_baseAttack       {"fastBlow", Spell::School::PHYSICAL};
+    Spell       mb_baseAttack       {"blow", Spell::School::PHYSICAL};
     Spell       mb_specialAttack    {"heavyBlow", Spell::School::PHYSICAL};
 
 
@@ -41,18 +41,14 @@ public:
 //    int getSuperAttackDamage() const override;
 //    int getSuperAttackCost() const override;
 
-    void commitSuicide() override;
+    void        commitSuicide() override;
+    int         chooseFightOption(Creature& creature) override;
 
 
 
 
 
     // ##############  Other functions  ####################
-
-
-
-
-
 
 
 };

@@ -5,18 +5,28 @@
 #include "main.h"
 #include "player.h"
 #include "item.h"
-#include "potion.h"
-#include "gold.h"
+//#include "potion.h"
+//#include "gold.h"
+#include "creature.h"
+#include "spell.h"
 
 
-class Monster {
+class Monster: public Creature {
 public:
-    enum class Type {        
+    enum class Type {
         SKELETON,
         ZOMBIE,
         GHOST,
 
-        MAX_TYPE
+        TOTAL
+    };
+
+    std::array<std::string, static_cast<unsigned int>(Type::TOTAL)> mb_name {
+        {
+            {"SKELETON"},
+            {"ZOMBIE"},
+            {"GHOST"}
+        }
     };
 
     struct MonsterBase {
@@ -25,7 +35,7 @@ public:
         int     damage;
     };
 
-    static constexpr std::array<MonsterBase, static_cast<std::size_t>(Type::MAX_TYPE)> base {
+    static constexpr std::array<MonsterBase, static_cast<std::size_t>(Type::TOTAL)> base {
         {
             {Type::SKELETON, 10, 10},
             {Type::ZOMBIE, 5, 30},
@@ -54,45 +64,48 @@ private:
 
 
 private:
-    Type                        mb_type {Type::SKELETON};
-    int                         mb_level {1};
-    int                         mb_currentHealth {};
-    int                         mb_damage {};
+    Type                        mb_type {};
+//    int                         mb_level {1};
+//    int                         mb_currentHealth {};
+//    int                         mb_damage {};
+    Spell                       mb_baseAttack;
 
 public:
     // I generate several things of different types, but all things have the same BASE type..
     // Can't use reference 'casue componets of std::vector (and other containers) must be ASSIGNABLE
     std::vector<std::unique_ptr<Item>>     mb_loot;
 
-
     // #########  Constructors and Destructors  #############
 
-    // #### Create random monster
-    // #########
+    // ######## Create random monster
     Monster();
 
-    // #### Create monster of the specific type;
-    // #######
-    //Monster(Type type = getRandomMonsterType());
 
-    ~Monster() = default;
+
+    // ######## Create monster of the specific @type and @level
+    //Monster(Type type, int level);
+
+
+    //~Monster() = default;
 
     // ##########  Setters and Getters  #####################
 
     int             setDamage(Type type, int level) const;
     int             setHealth(Type type, int level) const;
     int             getDamage() const;
-    my::String      getName() const;
+
+    const std::string&     getName() const override;
+
     int             getLevel() const;
     Type            getType() const;
     int             getCurrentHealth() const;
 
 
     // ##########  Other Functions  ##########################
-    bool                    isDead() const;
+    bool                    isDead() const override;
     void                    attack(Player& player) const;
     void                    reduceHealth(int health);
-    void                    commitSuicide();
+    void                    commitSuicide() override;
     void                    generateLoot();
 
     static int getRandomMonsterLevel();

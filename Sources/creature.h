@@ -54,19 +54,21 @@ protected:
 
 public:
 
-    virtual             ~Creature();
+    virtual                     ~Creature();
 
-    int                 getLevel() const;
-    int                 getCurrentHealth() const;
-    int                 getCurrentStamina() const;
+    int                         getLevel() const;
+    int                         getCurrentHealth() const;
+    int                         getCurrentStamina() const;
 
-    virtual void        changeHealth(int health);
-    virtual void        changeStamina(int stamina);
+    virtual void                changeHealth(int health);
+    virtual void                changeStamina(int stamina);
 
-    virtual void        changeStrength(int strength);
+    virtual void                changeStrength(int strength);
 
-    virtual bool        isDead() const;
-    virtual void        commitSuicide() = 0;
+    virtual bool                isDead() const;
+    virtual void                commitSuicide() = 0;
+
+    virtual const std::string&  getName() const = 0;
 
 };
 

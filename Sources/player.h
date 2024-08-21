@@ -21,15 +21,15 @@ namespace player_default {
 
 
 class Player: public Creature {
-private:
-//    enum class FightOption {
-//        FLEE,
-//        ATTACK,
-//        SUPER_ATTACK,
-//        COMMIT_SUICIDE,
+protected:
+    enum class FightOption {
+        FLEE,
+        ATTACK,
+        SUPER_ATTACK,
+        COMMIT_SUICIDE,
 
-//        TOTAL
-//    };
+        TOTAL
+    };
 public:
     enum class Race {
         ORC,
@@ -54,6 +54,12 @@ public:
         TOTAL
     };
 
+protected:
+
+    // ######## RAITINGS (CHANCE TO DO SMTH)
+    int             mb_dodgeChance  {};
+    int             mb_critChance   {};
+    int             mb_escapeChance {player_default::ESCAPE_CHANCE};
 
 private:
     // ######## GENERAL
@@ -67,10 +73,6 @@ private:
 
 
 
-    // ######## RAITINGS (CHANCE TO DO SMTH)
-    int             mb_dodgeChance  {};
-    int             mb_critChance   {};
-    int             mb_escapeChance {player_default::ESCAPE_CHANCE};
 
 
     // ######## SKILLS
@@ -117,7 +119,8 @@ public:
     //virtual void        setDamage() = 0;
     virtual void        attack(Monster& monster) = 0;
     virtual bool        superAttack(Monster& monster) = 0;
-    virtual int         chooseFightOption(Creature& creature) = 0;
+
+    virtual FightOption         chooseFightOption(Monster& monster) = 0;
 
 
 

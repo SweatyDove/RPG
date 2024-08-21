@@ -18,6 +18,7 @@ Warrior::Warrior(Player::Race race, std::string name):
     Player {race, name}
 {
     // STAYED HERE! Need to set values to all warrior active characteristics
+    mb_baseAttack.setEffect();
     mb_autoAttackDamage = warrior_default::autoAttackDamage + mb_maxStrength * 2;
     mb_heavyBlowDamage  = warrior_default::heavyBlowDamage  + mb_maxStrength * 5;
 }
@@ -68,8 +69,8 @@ void Warrior::cast(Spell& spell, Creature& creature)
 {
     int spellEffect {spell.getEffect()};
 
-    creature.changeHealth(-spellEffect);
     this->changeStamina(-spell.getCost());
+    creature.changeHealth(-spellEffect);
 
     SetConsoleTextAttribute(hConsole, CLR_DARK_PASTEL_GREEN);
     std::cout << "You've dealed (" << spellEffect << ") damage to the " << creature.getName()
@@ -86,13 +87,11 @@ void Warrior::cast(Spell& spell, Creature& creature)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-int Warrior::chooseFightOption(Creature& creature)
+Player::FightOption Warrior::chooseFightOption(Monster& monster)
 {
     int playerStamina {this->getCurrentStamina()};
 
-    /*
-     * STAYED HERE
-     */
+
 //    // ######## Intro message title
 //    std::cout << "Monster has (" << monster.getCurrentHealth() << ") hp and deals (" << monster.getDamage()
 //              << ") points of damage per attack."
@@ -108,15 +107,9 @@ int Warrior::chooseFightOption(Creature& creature)
     /* Maybe it is better to replace Stamina on structure (or array) of player resources. Or add function
      * to get main resources...
      */
-    if (playerStamina >= this->getSuperAttackCost()) {
-        std::cout << "\n[2] - attack monster: deal (" << this->getSuperAttackDamage() << ") damage to the monster (costs 30 stamina points)";
-    }
-    else {
-        HANDLE hConsole {GetStdHandle(STD_OUTPUT_HANDLE)};
-        SetConsoleTextAttribute(hConsole, CLR_PALE_PRIM);
-        std::cout << "\n[2] - Super atack monster: not enough stamina points!";
-        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
-    }
+    std::cout << "\n[2] - attack monster with " << mb_specialAttack.getName() << "and deal ("
+              << mb_specialAttack.getEffect() << ") to the monster. " << "This attack costs ("
+              << mb_specialAttack.getCost() <<") stamina points." << std::endl;
 
     // ######## 3-rd option
     std::cout << "\n[3] - Commit suicide...";
@@ -133,15 +126,31 @@ int Warrior::chooseFightOption(Creature& creature)
         std::cout << "Your choice: ";
         std::cin >> choice;
 
-        if ((choice >= 0 && choice <= 2) || choice == 3) {
+        switch(choice) {
+        case static_cast<int>(Warrior::FightOption::SUPER_ATTACK):
+            if (playerStamina >= mb_specialAttack.getCost()) {
+                choiceLoop = false;
+            }
+            else {
+                HANDLE hConsole {GetStdHandle(STD_OUTPUT_HANDLE)};
+                SetConsoleTextAttribute(hConsole, CLR_PALE_PRIM);
+                std::cout << "Not enough stamina points!";
+                SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+            }
+            break;
+        case static_cast<int>(Warrior::FightOption::FLEE):
+        case static_cast<int>(Warrior::FightOption::ATTACK):
+        case static_cast<int>(Warrior::FightOption::COMMIT_SUICIDE):
             choiceLoop = false;
-        }
-        else {
+            break;
+        default:
             std::cout << "Incorrect choice. Please, try again." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
-
     }
     while (choiceLoop);
+
     std::cout << '\n';
 
     // ######## Returning player's choice

@@ -19,10 +19,10 @@ private:
     Spell       mb_specialAttack    {"heavyBlow", Spell::School::PHYSICAL};
 
 
-    int     mb_autoAttackDamage         {warrior_default::autoAttackDamage};
+//    int     mb_autoAttackDamage         {warrior_default::autoAttackDamage};
     //int     mb_specialAttackDamage      {warrior_default::heavyBlowDamage};
-    int     mb_heavyBlowDamage          {warrior_default::heavyBlowDamage};
-    int     mb_heavyBlowStaminaCost     {warrior_default::heavyBlowStaminaCost};
+//    int     mb_heavyBlowDamage          {warrior_default::heavyBlowDamage};
+//    int     mb_heavyBlowStaminaCost     {warrior_default::heavyBlowStaminaCost};
 
 public:
     // #############  Constructors and Destructors  ##############
@@ -41,8 +41,8 @@ public:
 //    int getSuperAttackDamage() const override;
 //    int getSuperAttackCost() const override;
 
-    void        commitSuicide() override;
-    int         chooseFightOption(Creature& creature) override;
+    void                        commitSuicide() override;
+    Player::FightOption         chooseFightOption(Monster& monster) override;
 
 
 

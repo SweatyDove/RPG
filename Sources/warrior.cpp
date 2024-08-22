@@ -17,10 +17,7 @@
 Warrior::Warrior(Player::Race race, std::string name):
     Player {race, name}
 {
-    // STAYED HERE! Need to set values to all warrior active characteristics
-    mb_baseAttack.setEffect();
-    mb_autoAttackDamage = warrior_default::autoAttackDamage + mb_maxStrength * 2;
-    mb_heavyBlowDamage  = warrior_default::heavyBlowDamage  + mb_maxStrength * 5;
+
 }
 
 
@@ -67,9 +64,9 @@ Warrior::~Warrior()
 //==================================================================================================
 void Warrior::cast(Spell& spell, Creature& creature)
 {
-    int spellEffect {spell.getEffect()};
+    int spellEffect {spell.getEffect(mb_level)};
 
-    this->changeStamina(-spell.getCost());
+    creature.changeStamina(-spell.getCost(mb_level));
     creature.changeHealth(-spellEffect);
 
     SetConsoleTextAttribute(hConsole, CLR_DARK_PASTEL_GREEN);

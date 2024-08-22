@@ -46,20 +46,29 @@ public:
         MAX_SPEC
     };
 
-    enum Skills {
+
+protected:
+
+    // ######## RAITINGS (CHANCE TO DO SMTH)
+    enum class Ratings {
+        DODGE_CHANCE,
+        CRIT_CHANCE,
+        ESCAPE_CHANCE,
+
+        TOTAL
+    };
+    std::array<int, static_cast<int>(Ratings::TOTAL)> mb_rating {0, 0, player_default::ESCAPE_CHANCE};
+
+    // ######## SKILLS
+    enum class Skills {
         ALCHEMY,
         CHARISMA,
         LUCK,
 
         TOTAL
     };
+    std::array<int, static_cast<int>(Skills::TOTAL)> mb_skill {0, 0, 0};
 
-protected:
-
-    // ######## RAITINGS (CHANCE TO DO SMTH)
-    int             mb_dodgeChance  {};
-    int             mb_critChance   {};
-    int             mb_escapeChance {player_default::ESCAPE_CHANCE};
 
 private:
     // ######## GENERAL

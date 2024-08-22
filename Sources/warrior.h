@@ -15,14 +15,23 @@ namespace warrior_default {
 class Warrior : public Player {
 private:
 
-    Spell       mb_baseAttack       {"blow", Spell::School::PHYSICAL};
-    Spell       mb_specialAttack    {"heavyBlow", Spell::School::PHYSICAL};
+    // ######## BASE attack
+    inline const static std::array<float, static_cast<int>(Creature::Characteristics::TOTAL)> mb_baseAttackMultiplier {
+        2.0,    // STRENGTH
+        0.0,    // INTELLECT
+        0.0     // AGILITY
+    };
+    Spell       mb_baseAttack       {"BASE STRIKE", Spell::School::PHYSICAL, 10, 0, mb_curCharacteristic, mb_baseAttackMultiplier};
+
+    // ######## SPECIAL attack
+    inline const static std::array<float, static_cast<int>(Creature::Characteristics::TOTAL)> mb_specialAttackMultiplier {
+        5.0,    // STRENGTH
+        0.0,    // INTELLECT
+        0.0     // AGILITY
+    };
+    Spell       mb_specialAttack    {"HEAVY BLOW", Spell::School::PHYSICAL, 30, 30, mb_curCharacteristic, mb_specialAttackMultiplier};
 
 
-//    int     mb_autoAttackDamage         {warrior_default::autoAttackDamage};
-    //int     mb_specialAttackDamage      {warrior_default::heavyBlowDamage};
-//    int     mb_heavyBlowDamage          {warrior_default::heavyBlowDamage};
-//    int     mb_heavyBlowStaminaCost     {warrior_default::heavyBlowStaminaCost};
 
 public:
     // #############  Constructors and Destructors  ##############

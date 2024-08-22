@@ -16,6 +16,15 @@ public:
 
     };
 
+    // #### CHARACTERISTICS of the creature
+    enum class Characteristics {
+        STRENGTH,
+        INTELLECT,
+        AGILITY,
+
+        TOTAL
+    };
+
 private:
 
     std::vector<std::unique_ptr<Item>> mb_inventory;
@@ -25,23 +34,22 @@ protected:
     Type    mb_type {};
     int     mb_level {1};
 
-    // #### CHARACTERISTICS
-        int             mb_curStrength    {-1};
-        int             mb_maxStrength    {-1};
-    //    int             mb_intellect    {-1};
-    //    int             mb_agility      {-1};
 
+    std::array<int, static_cast<unsigned int>(Characteristics::TOTAL)> mb_curCharacteristic {-1, -1, -1};
+    std::array<int, static_cast<unsigned int>(Characteristics::TOTAL)> mb_maxCharacteristic {-1, -1, -1};
 
 
     // #### RESOURCES
-    int     mb_curHealth        {100};
-    int     mb_maxHealth        {100};
-    int     mb_curStamina       {-1};
-    int     mb_maxStamina       {-1};
-//    int     mb_curMana          {-1};
-//    int     mb_maxMana              {-1};
-//    int     mb_curConcentration {-1};
-//    int     mb_maxConcentration     {-1};
+    enum class Resources {
+        HEALTH,
+        STAMINA,
+        MANA,
+        CONCENTRATION,
+
+        TOTAL
+    };
+    std::array<int, static_cast<unsigned int>(Resources::TOTAL)> mb_curResource {100, -1, -1, -1};
+    std::array<int, static_cast<unsigned int>(Resources::TOTAL)> mb_maxResource {100, -1, -1, -1};
 
 
 

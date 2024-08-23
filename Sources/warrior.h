@@ -3,6 +3,7 @@
 #include "main.h"
 #include "player.h"
 #include "spell.h"
+#include "monster.h"
 
 namespace warrior_default {
     const int autoAttackDamage  {10};

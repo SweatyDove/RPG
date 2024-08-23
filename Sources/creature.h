@@ -7,6 +7,14 @@
 
 class Creature {
 public:
+
+    enum class AttributeType {
+        CURRENT,
+        MAX,
+
+        TOTAL
+    };
+
     enum class Type {
         PLAYER,
         MONSTER,                // Non-friendly NPC
@@ -40,7 +48,7 @@ protected:
 
 
     // #### RESOURCES
-    enum class Resources {
+    enum class Resource {
         HEALTH,
         STAMINA,
         MANA,
@@ -48,8 +56,8 @@ protected:
 
         TOTAL
     };
-    std::array<int, static_cast<unsigned int>(Resources::TOTAL)> mb_curResource {100, -1, -1, -1};
-    std::array<int, static_cast<unsigned int>(Resources::TOTAL)> mb_maxResource {100, -1, -1, -1};
+    std::array<int, static_cast<unsigned int>(Resource::TOTAL)> mb_curResource {100, -1, -1, -1};
+    std::array<int, static_cast<unsigned int>(Resource::TOTAL)> mb_maxResource {100, -1, -1, -1};
 
 
 
@@ -65,13 +73,18 @@ public:
     virtual                     ~Creature();
 
     int                         getLevel() const;
-    int                         getCurrentHealth() const;
-    int                         getCurrentStamina() const;
 
-    virtual void                changeHealth(int health);
-    virtual void                changeStamina(int stamina);
+    int                         getResource(AttributeType type, Resource name);
+    void                        changeResource(int value, AttributeType type, Resource name);
 
-    virtual void                changeStrength(int strength);
+    template <typename AttributeName>
+    void getAttribute(AttributeType type, AttributeName name);
+
+//    int                         getCurrentHealth() const;
+//    int                         getCurrentStamina() const;
+//    virtual void                changeHealth(int health);
+//    virtual void                changeStamina(int stamina);
+//    virtual void                changeStrength(int strength);
 
     virtual bool                isDead() const;
     virtual void                commitSuicide() = 0;

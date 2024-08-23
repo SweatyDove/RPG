@@ -85,7 +85,7 @@ private:
 
 
     // ######## SKILLS
-    std::array<int, Skills::TOTAL> mb_skillLevel;
+    std::array<int, static_cast<int>(Skills::TOTAL)> mb_skillLevel;
 
 
 

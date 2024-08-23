@@ -17,6 +17,7 @@
 #include <utility>              // For std::move
 #include <cassert>
 #include <memory>
+#include <type_traits>          // For std::is_same
 
 
 // ######## STL containers

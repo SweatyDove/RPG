@@ -1,8 +1,4 @@
-
-
-#include "main.h"
 #include "warrior.h"
-#include "monster.h"
 
 
 
@@ -84,7 +80,7 @@ void Warrior::cast(Spell& spell, Creature& creature)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-Player::FightOption Warrior::chooseFightOption(Monster& monster)
+Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 {
     int playerStamina {this->getCurrentStamina()};
 

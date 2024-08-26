@@ -3,17 +3,18 @@
 
 #include "main.h"
 #include "item.h"
+#include "attribute.h"
 
 
 class Creature {
 public:
 
-    enum class AttributeType {
-        CURRENT,
-        MAX,
+//    enum class AttributeType {
+//        CURRENT,
+//        MAX,
 
-        TOTAL
-    };
+//        TOTAL
+//    };
 
     enum class Type {
         PLAYER,
@@ -25,7 +26,7 @@ public:
     };
 
     // #### CHARACTERISTICS of the creature
-    enum class Characteristics {
+    enum class Characteristic {
         STRENGTH,
         INTELLECT,
         AGILITY,
@@ -43,8 +44,8 @@ protected:
     int     mb_level {1};
 
 
-    std::array<int, static_cast<unsigned int>(Characteristics::TOTAL)> mb_curCharacteristic {-1, -1, -1};
-    std::array<int, static_cast<unsigned int>(Characteristics::TOTAL)> mb_maxCharacteristic {-1, -1, -1};
+    std::array<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_curCharacteristic {-1, -1, -1};
+    std::array<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_maxCharacteristic {-1, -1, -1};
 
 
     // #### RESOURCES
@@ -60,6 +61,21 @@ protected:
     std::array<int, static_cast<unsigned int>(Resource::TOTAL)> mb_maxResource {100, -1, -1, -1};
 
 
+    std::vector<Attribute> mb_attribute = {
+        {"HEALTH", Attribute::Type::RESOURCE, 100, 100},
+        {"STAMINA", Attribute::Type::RESOURCE, -1, -1},
+        {"MANA", Attribute::Type::RESOURCE, -1, -1},
+        {"CONCENTRATION", Attribute::Type::RESOURCE, -1, -1},
+
+        {"STRENGTH", Attribute::Type::CHARACTERISTIC, -1, -1},
+        {"INTELLECT", Attribute::Type::CHARACTERISTIC, -1, -1},
+        {"AGILITY", Attribute::Type::CHARACTERISTIC, -1, -1},
+    };
+
+
+
+    int getAttribute(std::string name, Attribute::ValueType valueType) const;
+    void changeAttribute(std::string name, Attribute::ValueType valueType, int delta);
 
     /*
      * Creature constructor is protected 'cause I don't want smb to create <Creature> explicitly,
@@ -74,12 +90,20 @@ public:
 
     int                         getLevel() const;
 
-    int                         getResource(AttributeType type, Resource name);
-    void                        changeResource(int value, AttributeType type, Resource name);
+
+
+
 
     template <typename AttributeName>
-    void getAttribute(AttributeType type, AttributeName name);
+    void changeResource(int value, AttributeType type, AttributeName name);
 
+    template <typename AttributeName>
+    int getAttribute(AttributeType type, AttributeName name);
+
+
+
+
+//    int                         getResource(AttributeType type, Resource name);
 //    int                         getCurrentHealth() const;
 //    int                         getCurrentStamina() const;
 //    virtual void                changeHealth(int health);

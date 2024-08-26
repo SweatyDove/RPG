@@ -29,6 +29,7 @@ int Creature::getLevel() const
 
 
 
+
 //==================================================================================================
 //         NAME:    --------
 //  DESCRIPTION:    --------
@@ -36,35 +37,108 @@ int Creature::getLevel() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-int Creature::getResource(AttributeType type, Resource name)
+int Creature::getAttribute(std::string name, Attribute::ValueType valueType)
 {
-    int resName {static_cast<int>(name)};
-
-    switch(type) {
-    case AttributeType::MAX:
-        return mb_maxResource[resName];
-    case AttributeType::CURRENT:
-        return mb_curResource[resName];
-    case AttributeType::TOTAL:
-        assert("Invalid resource type!");
-        return -1;
-    }
-}
-
-template <typename AttributeName>
-void Creature::getAttribute(AttributeType type, AttributeName name)
-{
-    int attributeName {static_cast<int>(name)};
-
-    /*
-     * STAND HERE - need to compare two (or more) types
-     */
-    switch(type) {
-    case AttributeType::MAX:
-        if (AttributeName)
+    for (auto attr: mb_attribute) {
+        if (attr.getName() == name) {
+           return attr.getValue(valueType);
+        }
+        else {} // Nothing to do
     }
 
+    std::cout << "WARNING: there isn't attribute with name '" << name << "'." << std::endl;
+    return -1;
 }
+
+
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Creature::changeAttribute(std::string name, Attribute::ValueType valueType, int delta)
+{
+    for (auto attr: mb_attribute) {
+        if (attr.getName() == name) {
+           attr.changeValue(valueType, delta);
+        }
+        else {} // Nothing to do
+    }
+
+    std::cout << "WARNING: there isn't attribute with name '" << name << "'. Abort." << std::endl;
+}
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+//int Creature::getResource(AttributeType type, Resource name)
+//{
+//    int resName {static_cast<int>(name)};
+
+//    switch(type) {
+//    case AttributeType::MAX:
+//        return mb_maxResource[resName];
+//    case AttributeType::CURRENT:
+//        return mb_curResource[resName];
+//    case AttributeType::TOTAL:
+//        assert("Invalid resource type!");
+//        return -1;
+//    }
+//}
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    Function returns attribute value (resource/characteristic and etc)
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+//template <typename AttributeName>
+//int Creature::getAttribute(AttributeType type, AttributeName name)
+//{
+//    // ######## Name of attribute (just a handy iterator)
+//    int attributeName {static_cast<int>(name)};
+
+//    // ######## Here we act with different arrays (Resources or Characteristics) depending on the
+//    // ######## "type" of <AttributeName>
+//    if (std::is_same<AttributeName, Resource>::value == true) {
+//        switch(type) {
+//        case AttributeType::MAX:
+//            return mb_maxResource[attributeName];
+//        case AttributeType::CURRENT:
+//            return mb_curResource[attributeName];
+//        case AttributeType::TOTAL:
+//            assert(false && "Invalid attribute type!");
+//            return -1;
+//        }
+//    }
+//    else if (std::is_same<AttributeName, Characteristic>::value == true) {
+//        switch(type) {
+//        case AttributeType::MAX:
+//            return mb_maxCharacteristic[attributeName];
+//        case AttributeType::CURRENT:
+//            return mb_curCharacteristic[attributeName];
+//        case AttributeType::TOTAL:
+//            assert(false && "Invalid attribute type!");
+//            return -1;
+//        }
+//    }
+//    else {
+//        assert(false && "Invalid attribute!");
+//        return -1;
+//    }
+
+//}
 
 
 
@@ -77,60 +151,61 @@ void Creature::getAttribute(AttributeType type, AttributeName name)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Creature::changeResource(int value, Creature::AttributeType type, Creature::Resource name)
-{
-    int resName {static_cast<int>(name)};
-    int resValue {-1};
+//template <typename AttributeName>
+//void Creature::changeResource(int value, AttributeType type, AttributeName name)
+//{
+//    int resName {static_cast<int>(name)};
+//    int resValue {-1};
 
 
-    // ######## Determine resource value depending on it's type
-    switch(type) {
-    case AttributeType::MAX:
-        resValue = mb_maxResource[resName];
-        break;
-    case AttributeType::CURRENT:
-        resValue = mb_curResource[resName];
-        break;
-    case AttributeType::TOTAL:
-        assert("Invalid resource type!");
-        break;
-    }
+//    // ######## Determine resource value depending on it's type
+//    switch(type) {
+//    case AttributeType::MAX:
+//        resValue = mb_maxResource[resName];
+//        break;
+//    case AttributeType::CURRENT:
+//        resValue = mb_curResource[resName];
+//        break;
+//    case AttributeType::TOTAL:
+//        assert("Invalid resource type!");
+//        break;
+//    }
 
-    // ######## Do not allow to change value of incative resource
-    if (resValue < 0) {
-        std::cout << "Resourse has a negative value - that means it is inactive and it is not make sense to change it. Abort."
-                  << std::endl;
-        return;
-    }
-    // ######## Set new resource value depending on it's type
-    else {
-        int newResValue {resValue + value};
-        switch(type) {
-        case AttributeType::MAX:
-            if (newResValue < 0) {
-                mb_maxResource[resName] = 0;            // Perhaps it's better to limit min-value of max-resource with value that > 0
-            }
-            else {
-                mb_maxResource[resName] = newResValue;
-            }
-            break;
-        case AttributeType::CURRENT:
-            if (newResValue > mb_maxResource[resName]) {
-                mb_curResource[resName] = mb_maxResource[resName];
-            }
-            else if (newResValue < 0) {
-                mb_curResource[resName] = 0;
-            }
-            else {
-                mb_curResource[resName] = newResValue;
-            }
-            break;
-        case AttributeType::TOTAL:
-            assert("Invalid resource type!");
-            break;
-        }
-    }
-}
+//    // ######## Do not allow to change value of incative resource
+//    if (resValue < 0) {
+//        std::cout << "Resourse has a negative value - that means it is inactive and it is not make sense to change it. Abort."
+//                  << std::endl;
+//        return;
+//    }
+//    // ######## Set new resource value depending on it's type
+//    else {
+//        int newResValue {resValue + value};
+//        switch(type) {
+//        case AttributeType::MAX:
+//            if (newResValue < 0) {
+//                mb_maxResource[resName] = 0;            // Perhaps it's better to limit min-value of max-resource with value that > 0
+//            }
+//            else {
+//                mb_maxResource[resName] = newResValue;
+//            }
+//            break;
+//        case AttributeType::CURRENT:
+//            if (newResValue > mb_maxResource[resName]) {
+//                mb_curResource[resName] = mb_maxResource[resName];
+//            }
+//            else if (newResValue < 0) {
+//                mb_curResource[resName] = 0;
+//            }
+//            else {
+//                mb_curResource[resName] = newResValue;
+//            }
+//            break;
+//        case AttributeType::TOTAL:
+//            assert("Invalid resource type!");
+//            break;
+//        }
+//    }
+//}
 
 
 
@@ -141,60 +216,60 @@ void Creature::changeResource(int value, Creature::AttributeType type, Creature:
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Creature::changeStrength(int value, Creature::AttributeType type, Creature::Characteristics name)
-{
-    int resName {static_cast<int>(name)};
-    int resValue {-1};
+//void Creature::changeStrength(int value, Creature::AttributeType type, Creature::Characteristics name)
+//{
+//    int resName {static_cast<int>(name)};
+//    int resValue {-1};
 
 
-    // ######## Determine resource value depending on it's type
-    switch(type) {
-    case AttributeType::MAX:
-        resValue = mb_maxCharacteristic[resName];
-        break;
-    case AttributeType::CURRENT:
-        resValue = mb_curCharacteristic[resName];
-        break;
-    case AttributeType::TOTAL:
-        assert("Invalid resource type!");
-        break;
-    }
+//    // ######## Determine resource value depending on it's type
+//    switch(type) {
+//    case AttributeType::MAX:
+//        resValue = mb_maxCharacteristic[resName];
+//        break;
+//    case AttributeType::CURRENT:
+//        resValue = mb_curCharacteristic[resName];
+//        break;
+//    case AttributeType::TOTAL:
+//        assert("Invalid resource type!");
+//        break;
+//    }
 
-    // ######## Do not allow to change value of incative resource
-    if (resValue < 0) {
-        std::cout << "Resourse has a negative value - that means it is inactive and it is not make sense to change it. Abort."
-                  << std::endl;
-        return;
-    }
-    // ######## Set new resource value depending on it's type
-    else {
-        int newResValue {resValue + value};
-        switch(type) {
-        case AttributeType::MAX:
-            if (newResValue < 0) {
-                mb_maxCharacteristic[resName] = 0;            // Perhaps it's better to limit min-value of max-resource with value that > 0
-            }
-            else {
-                mb_maxCharacteristic[resName] = newResValue;
-            }
-            break;
-        case AttributeType::CURRENT:
-            if (newResValue > mb_maxResource[resName]) {
-                mb_curCharacteristic[resName] = mb_maxCharacteristic[resName];
-            }
-            else if (newResValue < 0) {
-                mb_curCharacteristic[resName] = 0;
-            }
-            else {
-                mb_curCharacteristic[resName] = newResValue;
-            }
-            break;
-        case AttributeType::TOTAL:
-            assert("Invalid resource type!");
-            break;
-        }
-    }
-}
+//    // ######## Do not allow to change value of incative resource
+//    if (resValue < 0) {
+//        std::cout << "Resourse has a negative value - that means it is inactive and it is not make sense to change it. Abort."
+//                  << std::endl;
+//        return;
+//    }
+//    // ######## Set new resource value depending on it's type
+//    else {
+//        int newResValue {resValue + value};
+//        switch(type) {
+//        case AttributeType::MAX:
+//            if (newResValue < 0) {
+//                mb_maxCharacteristic[resName] = 0;            // Perhaps it's better to limit min-value of max-resource with value that > 0
+//            }
+//            else {
+//                mb_maxCharacteristic[resName] = newResValue;
+//            }
+//            break;
+//        case AttributeType::CURRENT:
+//            if (newResValue > mb_maxResource[resName]) {
+//                mb_curCharacteristic[resName] = mb_maxCharacteristic[resName];
+//            }
+//            else if (newResValue < 0) {
+//                mb_curCharacteristic[resName] = 0;
+//            }
+//            else {
+//                mb_curCharacteristic[resName] = newResValue;
+//            }
+//            break;
+//        case AttributeType::TOTAL:
+//            assert("Invalid resource type!");
+//            break;
+//        }
+//    }
+//}
 
 
 
@@ -299,7 +374,7 @@ void Creature::changeStrength(int value, Creature::AttributeType type, Creature:
 //==================================================================================================
 bool Creature::isDead() const
 {
-    return (mb_curResource[static_cast<int>(Resources::HEALTH)] == 0);
+    return (this->getAttribute("HEALTH", Attribute::ValueType::CURRENT) == 0);
 }
 
 
@@ -310,6 +385,13 @@ bool Creature::isDead() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Creature::commitSuicide() {
+void Creature::commitSuicide()
+{
+    int curHealth {this->getAttribute("HEALTH", Attribute::ValueType::CURRENT)};
 
+    this->changeAttribute("HEALTH", Attribute::ValueType::CURRENT, curHealth);
+    std::cout << "Creature commited suicide!" << std::endl;
 }
+
+
+

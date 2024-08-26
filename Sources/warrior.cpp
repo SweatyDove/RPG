@@ -82,7 +82,7 @@ void Warrior::cast(Spell& spell, Creature& creature)
 //==================================================================================================
 Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 {
-    int playerStamina {this->getCurrentStamina()};
+    int playerStamina {this->getAttribute("STAMINA", Attribute::ValueType::CURRENT)};
 
 
 //    // ######## Intro message title

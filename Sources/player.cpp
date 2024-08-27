@@ -25,6 +25,9 @@ Player::Player(Player::Race race, std::string name) :
     mb_race {race},
     mb_name {name}
 {
+    // ######## Add new attributes
+    mb_attribute.insert(std::end(mb_attribute), std::begin(mb_ratings), std::end(mb_ratings));
+    mb_attribute.insert(std::end(mb_attribute), std::begin(mb_skills), std::end(mb_skills));
 
 }
 
@@ -124,10 +127,10 @@ void Player::setName(std::string& name)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Player::changeHealth(int health)
-{
-    Creature::changeHealth(health);
-}
+//void Player::changeHealth(int health)
+//{
+//    Creature::changeHealth(health);
+//}
 
 
 
@@ -138,10 +141,10 @@ void Player::changeHealth(int health)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Player::changeStamina(int stamina)
-{
-    Creature::changeStamina(stamina);
-}
+//void Player::changeStamina(int stamina)
+//{
+//    Creature::changeStamina(stamina);
+//}
 
 
 
@@ -152,16 +155,25 @@ void Player::changeStamina(int stamina)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Player::changeStrength(int strength)
-{
-    Creature::changeStrength(strength);
-}
+//void Player::changeStrength(int strength)
+//{
+//    Creature::changeStrength(strength);
+//}
 
 //int Player::getDamage() const
 //{
 //    return mb_damage;
 //}
 
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 void Player::addGold(int gold)
 {
     mb_gold += gold;
@@ -176,8 +188,13 @@ void Player::addGold(int gold)
 
 
 
-// #### Handling player's leveling up.
-// #########
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 void Player::levelUp()
 {
     bool inLoop {false};
@@ -185,8 +202,8 @@ void Player::levelUp()
 
     mb_level++;
 
-    // Set the new max health and restore cur health
-    mb_curHealth = mb_maxHealth = player_default::HEALTH + mb_level * 20;
+    // ######## Set the new max health and restore current health
+    this->changeAttribute(Attribute::Name::HEALTH, Attribute::ValueType::CUR_AND_MAX, +20);
 
     std::cout << "Congratulation! You've reached " << mb_level << " level.\n";
     std::cout << "What do you want to upgrade?\n"
@@ -199,8 +216,8 @@ void Player::levelUp()
         std::cin >> choice;
         switch (choice) {
         case '1':
-            mb_maxStrength += mb_level;
-            mb_curStamina = mb_maxStamina = player_default::STAMINA + mb_level * 10;
+            this->changeAttribute(Attribute::Name::STRENGTH, Attribute::ValueType::CUR_AND_MAX, +mb_level);
+            this->changeAttribute(Attribute::Name::STAMINA, Attribute::ValueType::CUR_AND_MAX, +10);
             break;
         case '2':
 //            mb_maxIntellect += mb_level;
@@ -220,7 +237,7 @@ void Player::levelUp()
     }
 
     // Set new damage after the leveling up and changes in the player's parameters
-    this->setDamage();
+//    this->setDamage();
 
 }
 
@@ -302,22 +319,22 @@ void Player::drink(Potion& potion)
         std::cout << "You had drunk potion, but nothing happened.\n";
         break;
     case Potion::Type::HEALTH:
-        this->addHealth(potion.getEffect());
+        this->changeAttribute(Attribute::Name::HEALTH, Attribute::ValueType::CURRENT, potion.getEffect());
         std::cout << "You had drunk a " << potion.getName() << ", that restored "
                   << potion.getEffect() << " hp.\n";
         break;
     case Potion::Type::STAMINA:
-        this->addStamina(potion.getEffect());
+        this->changeAttribute(Attribute::Name::STAMINA, Attribute::ValueType::CURRENT, potion.getEffect());
         std::cout << "You had drunk a " << potion.getName() << ", that restored "
                   << potion.getEffect() << " stamina.\n";
         break;
     case Potion::Type::STRENGTH:
-        this->addStrength(potion.getEffect());
+        this->changeAttribute(Attribute::Name::STRENGTH, Attribute::ValueType::CUR_AND_MAX, potion.getEffect());
         std::cout << "You had drunk a " << potion.getName() << ", that increased your damage by "
                   << potion.getEffect() << " points.\n";
         break;
     case Potion::Type::POISON:
-        this->addHealth(-potion.getEffect());
+        this->changeAttribute(Attribute::Name::HEALTH, Attribute::ValueType::CURRENT, -potion.getEffect());
         std::cout << "You had drunk a " << potion.getName() << ". You got poisoned and lost "
                   << potion.getEffect() << " hp.\n";
         break;
@@ -371,7 +388,7 @@ void Player::fightWith(Monster& monster)
             else {} // Nothing to do;
         break;
         case FightOption::FLEE:
-            if (getRandomNumber(1, 100) <= mb_escapeChance) {
+            if (getRandomNumber(1, 100) <= this->getAttribute(Attribute::Name::ESCAPE_CHANCE, Attribute::ValueType::CURRENT)) {
                 isFled = true;
             }
             else {
@@ -483,7 +500,7 @@ void Player::fightWith(Monster& monster)
 void Player::commitSuicide()
 {
     std::cout << "\nPlayer commited suicide!" << std::endl;
-    this->mb_curHealth = 0;
+    this->changeAttribute(Attribute::Name::HEALTH, Attribute::ValueType::CURRENT, this->getAttribute(Attribute::Name::HEALTH, Attribute::ValueType::CURRENT));
 }
 
 
@@ -531,11 +548,11 @@ void Player::getPotion(int potionChance)
 //==================================================================================================
 void Player::getRest()
 {
-    this->addHealth(mb_maxHealth / 10);                     // Restore 10% hp
-    this->addStamina(mb_maxStamina / 2);                    // Restore 50% stamina points
+    this->changeAttribute(Attribute::Name::HEALTH, Attribute::ValueType::CURRENT, this->getAttribute(Attribute::Name::HEALTH, Attribute::ValueType::MAX) / 5);
+    this->changeAttribute(Attribute::Name::STAMINA, Attribute::ValueType::CURRENT, this->getAttribute(Attribute::Name::STAMINA, Attribute::ValueType::MAX) / 2);
 
-    std::cout << "Player had a rest and now he has (" << mb_curHealth << ") hp and ("
-              << mb_curStamina << ") stamina points" << std::endl;
+    std::cout << "Player had a rest and now he has (" <<  this->getAttribute(Attribute::Name::HEALTH, Attribute::ValueType::CURRENT) << ") hp and ("
+              <<  this->getAttribute(Attribute::Name::STAMINA, Attribute::ValueType::CURRENT << ") stamina points" << std::endl;
 }
 
 

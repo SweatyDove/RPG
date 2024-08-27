@@ -87,22 +87,16 @@ protected:
 public:
 
     virtual                     ~Creature();
-
     int                         getLevel() const;
+    virtual bool                isDead() const;
+    virtual void                commitSuicide() = 0;
+    virtual const std::string&  getName() const = 0;
 
 
-
-
-
-    template <typename AttributeName>
-    void changeResource(int value, AttributeType type, AttributeName name);
-
-    template <typename AttributeName>
-    int getAttribute(AttributeType type, AttributeName name);
-
-
-
-
+//    template <typename AttributeName>
+//    void changeResource(int value, AttributeType type, AttributeName name);
+//    template <typename AttributeName>
+//    int getAttribute(AttributeType type, AttributeName name);
 //    int                         getResource(AttributeType type, Resource name);
 //    int                         getCurrentHealth() const;
 //    int                         getCurrentStamina() const;
@@ -110,10 +104,6 @@ public:
 //    virtual void                changeStamina(int stamina);
 //    virtual void                changeStrength(int strength);
 
-    virtual bool                isDead() const;
-    virtual void                commitSuicide() = 0;
-
-    virtual const std::string&  getName() const = 0;
 
 };
 

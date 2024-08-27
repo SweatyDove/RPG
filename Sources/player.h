@@ -50,24 +50,39 @@ public:
 protected:
 
     // ######## RAITINGS (CHANCE TO DO SMTH)
-    enum class Ratings {
-        DODGE_CHANCE,
-        CRIT_CHANCE,
-        ESCAPE_CHANCE,
+//    enum class Ratings {
+//        DODGE_CHANCE,
+//        CRIT_CHANCE,
+//        ESCAPE_CHANCE,
 
-        TOTAL
+//        TOTAL
+//    };
+//    std::array<int, static_cast<int>(Ratings::TOTAL)> mb_rating {0, 0, player_default::ESCAPE_CHANCE};
+
+
+    std::array<Attribute, 3> mb_ratings = {
+        {"DODGE CHANCE", Attribute::Type::RATING, -1, -1},
+        {"CRIT CHANCE", Attribute::Type::RATING, -1, -1},
+        {"ESCAPE CHANCE", Attribute::Type::RATING, 66, 66}
     };
-    std::array<int, static_cast<int>(Ratings::TOTAL)> mb_rating {0, 0, player_default::ESCAPE_CHANCE};
+
+
+    std::array<Attribute, 3> mb_skills = {
+        {"ALCHEMY", Attribute::Type::SKILL, -1, -1},
+        {"CHARISMA", Attribute::Type::SKILL, -1, -1},
+        {"LUCK", Attribute::Type::SKILL, -1, -1},
+    };
+
 
     // ######## SKILLS
-    enum class Skills {
-        ALCHEMY,
-        CHARISMA,
-        LUCK,
+//    enum class Skills {
+//        ALCHEMY,
+//        CHARISMA,
+//        LUCK,
 
-        TOTAL
-    };
-    std::array<int, static_cast<int>(Skills::TOTAL)> mb_skill {0, 0, 0};
+//        TOTAL
+//    };
+//    std::array<int, static_cast<int>(Skills::TOTAL)> mb_skill {0, 0, 0};
 
 
 private:
@@ -112,8 +127,8 @@ public:
 
 
     //void              setHealth();
-    void                setStamina();
-    void                setMana();
+//    void                setStamina();
+//    void                setMana();
 
     void                setName(std::string& name);
     void                setRace(Player::Race race);
@@ -135,25 +150,23 @@ public:
 
     // ########  Public Interface  ########
     void                commitSuicide() override;
-
     void                newDay();
     void                fightWith(Monster& monster);
     void                addGold(int gold);
     void                drink(Potion& potion);
     void                getLootFrom(Monster& monster);
-    void                addStrength(int strength);
-
-
-    void                changeHealth(int health) override;
-    void                changeStamina(int stamina) override;
-    void                changeStrength(int strength) override;
-
-
     void                increaseExp(Monster& monster);
     void                levelUp();
-
     void                getPotion(int potionChance);
     void                getRest();
+
+
+//    void                addStrength(int strength);
+//    void                changeHealth(int health) override;
+//    void                changeStamina(int stamina) override;
+//    void                changeStrength(int strength) override;
+
+
 
 
 // System resources

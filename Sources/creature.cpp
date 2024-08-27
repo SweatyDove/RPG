@@ -37,7 +37,7 @@ int Creature::getLevel() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-int Creature::getAttribute(std::string name, Attribute::ValueType valueType)
+int Creature::getAttribute(Attribute::Name name, Attribute::ValueType valueType)
 {
     for (auto attr: mb_attribute) {
         if (attr.getName() == name) {
@@ -60,7 +60,7 @@ int Creature::getAttribute(std::string name, Attribute::ValueType valueType)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Creature::changeAttribute(std::string name, Attribute::ValueType valueType, int delta)
+void Creature::changeAttribute(Attribute::Name name, Attribute::ValueType valueType, int delta)
 {
     for (auto attr: mb_attribute) {
         if (attr.getName() == name) {
@@ -69,7 +69,7 @@ void Creature::changeAttribute(std::string name, Attribute::ValueType valueType,
         else {} // Nothing to do
     }
 
-    std::cout << "WARNING: there isn't attribute with name '" << name << "'. Abort." << std::endl;
+    std::cout << "WARNING: current creature doesn't have attribute '" << Attribute::getStringName(name) << "'. Abort." << std::endl;
 }
 
 

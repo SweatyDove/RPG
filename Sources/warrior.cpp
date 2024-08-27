@@ -94,15 +94,15 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 
     // ######## 1-st option
     std::cout << "\n[1] - attack monster with " << mb_baseAttack.getName() << "and deal ("
-              << mb_baseAttack.getEffect() << ") damage to the monster";
+              << mb_baseAttack.getEffect(mb_level) << ") damage to the monster";
 
     // ######## 2-nd option
     /* Maybe it is better to replace Stamina on structure (or array) of player resources. Or add function
      * to get main resources...
      */
     std::cout << "\n[2] - attack monster with " << mb_specialAttack.getName() << "and deal ("
-              << mb_specialAttack.getEffect() << ") to the monster. " << "This attack costs ("
-              << mb_specialAttack.getCost() <<") stamina points." << std::endl;
+              << mb_specialAttack.getEffect(mb_level) << ") to the monster. " << "This attack costs ("
+              << mb_specialAttack.getCost(mb_level) <<") stamina points." << std::endl;
 
     // ######## 3-rd option
     std::cout << "\n[3] - Commit suicide...";
@@ -121,7 +121,7 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 
         switch(choice) {
         case static_cast<int>(Warrior::FightOption::SUPER_ATTACK):
-            if (playerStamina >= mb_specialAttack.getCost()) {
+            if (playerStamina >= mb_specialAttack.getCost(mb_level)) {
                 choiceLoop = false;
             }
             else {

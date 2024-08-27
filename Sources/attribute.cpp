@@ -33,6 +33,18 @@ Attribute::Type Attribute::getType() const
     return mb_type;
 }
 
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+Attribute::Name Attribute::getName() const
+{
+    return mb_name;
+}
+
 
 //==================================================================================================
 //         NAME:    --------
@@ -41,9 +53,9 @@ Attribute::Type Attribute::getType() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-string_view Attribute::getName() const
+std::string_view Attribute::getStringName(name) const
 {
-    return mb_name;
+    return mb_attrName[static_cast<int>(name)];
 }
 
 
@@ -68,6 +80,9 @@ void Attribute::changeValue(ValueType valueType, int delta)
         newValue = mb_maxValue + delta;
         mb_maxValue = (newValue < 0) ? 0 : newValue;
         break;
+    case ValueType::CUR_AND_MAX:
+        newValue = mb_maxValue + delta;
+        mb_curValue = mb_maxValue = (newValue < 0) ? 0 : newValue;
     case ValueType::TOTAL:
         assert(false && "Incorrect Value Type");
         break;

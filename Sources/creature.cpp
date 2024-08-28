@@ -37,19 +37,150 @@ int Creature::getLevel() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-int Creature::getAttribute(Attribute::Name name, Attribute::ValueType valueType)
+//int Creature::getAttribute(Attribute::Name name, Attribute::ValueType valueType)
+//{
+//    for (auto attr: mb_attribute) {
+//        if (attr.getName() == name) {
+//           return attr.getValue(valueType);
+//        }
+//        else {} // Nothing to do
+//    }
+
+//    std::cout << "WARNING: there isn't attribute with name '" << name << "'." << std::endl;
+//    return -1;
+//}
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+int Creature::getCurAttr(Attr::Name name) const
 {
     for (auto attr: mb_attribute) {
         if (attr.getName() == name) {
-           return attr.getValue(valueType);
+           return attr.getValue(Attr::ValueType::CURRENT);
         }
         else {} // Nothing to do
     }
 
-    std::cout << "WARNING: there isn't attribute with name '" << name << "'." << std::endl;
+    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getStringName(name)
+              << "'." << std::endl;
     return -1;
+
 }
 
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+int Creature::getMaxAttr(Attr::Name name) const
+{
+    for (auto attr: mb_attribute) {
+        if (attr.getName() == name) {
+           return attr.getValue(Attr::ValueType::MAX);
+        }
+        else {} // Nothing to do
+    }
+
+    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getStringName(name)
+              << "'." << std::endl;
+    return -1;
+
+}
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+int Creature::getBaseAttr(Attr::Name name) const
+{
+    for (auto attr: mb_attribute) {
+        if (attr.getName() == name) {
+           return attr.getValue(Attr::ValueType::BASE);
+        }
+        else {} // Nothing to do
+    }
+
+    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getStringName(name)
+              << "'." << std::endl;
+    return -1;
+
+}
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Creature::setCurAttr(Attr::Name name, int val)
+{
+    for (auto attr: mb_attribute) {
+        if (attr.getName() == name) {
+           attr.setValue(Attr::ValueType::CURRENT, val);
+        }
+        else {} // Nothing to do
+    }
+
+    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getStringName(name)
+              << "'." << std::endl;
+}
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Creature::setMaxAttr(Attr::Name name, int val)
+{
+    for (auto attr: mb_attribute) {
+        if (attr.getName() == name) {
+           attr.setValue(Attr::ValueType::MAX, val);
+        }
+        else {} // Nothing to do
+    }
+
+    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getStringName(name)
+              << "'." << std::endl;
+}
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Creature::setBaseAttr(Attr::Name name, int val)
+{
+    for (auto attr: mb_attribute) {
+        if (attr.getName() == name) {
+           attr.setValue(Attr::ValueType::BASE, val);
+        }
+        else {} // Nothing to do
+    }
+
+    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getStringName(name)
+              << "'." << std::endl;
+}
 
 
 
@@ -60,17 +191,82 @@ int Creature::getAttribute(Attribute::Name name, Attribute::ValueType valueType)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Creature::changeAttribute(Attribute::Name name, Attribute::ValueType valueType, int delta)
+void Creature::modCurAttr(Attr::Name name, int delta)
 {
     for (auto attr: mb_attribute) {
         if (attr.getName() == name) {
-           attr.changeValue(valueType, delta);
+           attr.changeValue(Attr::ValueType::CURRENT, delta);
         }
         else {} // Nothing to do
     }
 
     std::cout << "WARNING: current creature doesn't have attribute '" << Attribute::getStringName(name) << "'. Abort." << std::endl;
+
 }
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Creature::modMaxAttr(Attr::Name name, int delta)
+{
+    for (auto attr: mb_attribute) {
+        if (attr.getName() == name) {
+           attr.changeValue(Attr::ValueType::MAX, delta);
+        }
+        else {} // Nothing to do
+    }
+
+    std::cout << "WARNING: current creature doesn't have attribute '" << Attribute::getStringName(name) << "'. Abort." << std::endl;
+
+
+}
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Creature::modBaseAttr(Attr::Name name, int delta)
+{
+    for (auto attr: mb_attribute) {
+        if (attr.getName() == name) {
+           attr.changeValue(Attr::ValueType::BASE, delta);
+        }
+        else {} // Nothing to do
+    }
+
+    std::cout << "WARNING: current creature doesn't have attribute '" << Attribute::getStringName(name) << "'. Abort." << std::endl;
+
+
+}
+
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+//void Creature::changeAttribute(Attribute::Name name, Attribute::ValueType valueType, int delta)
+//{
+//    for (auto attr: mb_attribute) {
+//        if (attr.getName() == name) {
+//           attr.changeValue(valueType, delta);
+//        }
+//        else {} // Nothing to do
+//    }
+
+//    std::cout << "WARNING: current creature doesn't have attribute '" << Attribute::getStringName(name) << "'. Abort." << std::endl;
+//}
 
 
 //==================================================================================================

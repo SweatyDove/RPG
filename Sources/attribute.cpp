@@ -11,9 +11,10 @@
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-Attribute::Attribute(std::string name, Type type, int curValue, int maxValue):
+Attribute::Attribute(std::string name, Type type, int baseValue, int curValue, int maxValue):
     mb_name {name},
     mb_type {type},
+    mb_baseValue {baseValue},
     mb_curValue {curValue},
     mb_maxValue {maxValue}
 {
@@ -53,7 +54,7 @@ Attribute::Name Attribute::getName() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-std::string_view Attribute::getStringName(name) const
+std::string_view Attribute::getStringName(Name name) const
 {
     return mb_attrName[static_cast<int>(name)];
 }
@@ -72,6 +73,10 @@ void Attribute::changeValue(ValueType valueType, int delta)
     int newValue {};
 
     switch(valueType) {
+    case ValueType::BASE:
+        newValue = mb_baseValue + delta;
+        mb_baseValue = (newValue < 0) ? 0 : newValue;
+        break;
     case ValueType::CURRENT:
         newValue = mb_curValue + delta;
         mb_curValue = (newValue > mb_maxValue) ? mb_maxValue : ((newValue > 0) ? newValue : 0);
@@ -104,6 +109,9 @@ int Attribute::getValue(ValueType valueType) const
     int value {};
 
     switch(valueType) {
+    case ValueType::BASE:
+        value = mb_baseValue;
+        break;
     case ValueType::CURRENT:
         value = mb_curValue;
         break;
@@ -118,6 +126,34 @@ int Attribute::getValue(ValueType valueType) const
     return value;
 }
 
+
+
+//==================================================================================================
+//         NAME:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Attribute::setValue(ValueType valueType, int value)
+{
+    switch(valueType) {
+    case ValueType::BASE:
+        mb_baseValue = value;
+        break;
+    case ValueType::CURRENT:
+        assert(value <= mb_maxValue && "Can't set current value higher than it's max value. Abort.");
+        mb_curValue = value;
+        break;
+    case ValueType::MAX:
+        mb_maxValue = value;
+        break;
+    case ValueType::TOTAL:
+        assert(false && "Incorrect Value Type");
+        break;
+    }
+
+}
 
 
 

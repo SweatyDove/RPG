@@ -203,7 +203,8 @@ void Player::levelUp()
     mb_level++;
 
     // ######## Set the new max health and restore current health
-    this->changeAttribute(Attribute::Name::HEALTH, Attribute::ValueType::CUR_AND_MAX, +20);
+    this->setMaxAttr(Attr::Name::HEALTH, this->getBaseAttr(Attr::Name::HEALTH) + (mb_level - 1) * 20);
+    this->setCurAttr(Attr::Name::HEALTH, this->getMaxAttr(Attr::Name::HEALTH));
 
     std::cout << "Congratulation! You've reached " << mb_level << " level.\n";
     std::cout << "What do you want to upgrade?\n"
@@ -216,8 +217,11 @@ void Player::levelUp()
         std::cin >> choice;
         switch (choice) {
         case '1':
-            this->changeAttribute(Attribute::Name::STRENGTH, Attribute::ValueType::CUR_AND_MAX, +mb_level);
-            this->changeAttribute(Attribute::Name::STAMINA, Attribute::ValueType::CUR_AND_MAX, +10);
+            this->modMaxAttr(Attr::Name::STRENGTH, +mb_level);
+            this->setCurAttr(Attr::Name::STRENGTH, this->getMaxAttr(Attr::Name::STRENGTH));
+
+            this->setMaxAttr(Attr::Name::STAMINA, this->getBaseAttr(Attr::Name::STAMINA) + (mb_level - 1) * 10);
+            this->setCurAttr(Attr::Name::STAMINA, this->getMaxAttr(Attr::Name::STAMINA));
             break;
         case '2':
 //            mb_maxIntellect += mb_level;
@@ -319,22 +323,23 @@ void Player::drink(Potion& potion)
         std::cout << "You had drunk potion, but nothing happened.\n";
         break;
     case Potion::Type::HEALTH:
-        this->changeAttribute(Attribute::Name::HEALTH, Attribute::ValueType::CURRENT, potion.getEffect());
+        this->modCurAttr(Attr::Name::HEALTH, potion.getEffect());
         std::cout << "You had drunk a " << potion.getName() << ", that restored "
                   << potion.getEffect() << " hp.\n";
         break;
     case Potion::Type::STAMINA:
-        this->changeAttribute(Attribute::Name::STAMINA, Attribute::ValueType::CURRENT, potion.getEffect());
+        this->modCurAttr(Attr::Name::STAMINA, potion.getEffect());
         std::cout << "You had drunk a " << potion.getName() << ", that restored "
                   << potion.getEffect() << " stamina.\n";
         break;
     case Potion::Type::STRENGTH:
-        this->changeAttribute(Attribute::Name::STRENGTH, Attribute::ValueType::CUR_AND_MAX, potion.getEffect());
+        this->modMaxAttr(Attr::Name::STRENGTH, +potion.getEffect());
+        this->setCurAttr(Attr::Name::STRENGTH, this->getMaxAttr(Attr::Name::STRENGTH));
         std::cout << "You had drunk a " << potion.getName() << ", that increased your damage by "
                   << potion.getEffect() << " points.\n";
         break;
     case Potion::Type::POISON:
-        this->changeAttribute(Attribute::Name::HEALTH, Attribute::ValueType::CURRENT, -potion.getEffect());
+        this->modCurAttr(Attr::Name::HEALTH, -potion.getEffect());
         std::cout << "You had drunk a " << potion.getName() << ". You got poisoned and lost "
                   << potion.getEffect() << " hp.\n";
         break;
@@ -500,7 +505,7 @@ void Player::fightWith(Monster& monster)
 void Player::commitSuicide()
 {
     std::cout << "\nPlayer commited suicide!" << std::endl;
-    this->changeAttribute(Attribute::Name::HEALTH, Attribute::ValueType::CURRENT, this->getAttribute(Attribute::Name::HEALTH, Attribute::ValueType::CURRENT));
+    this->setCurAttr(Attr::Name::HEALTH, 0);
 }
 
 
@@ -548,11 +553,11 @@ void Player::getPotion(int potionChance)
 //==================================================================================================
 void Player::getRest()
 {
-    this->changeAttribute(Attribute::Name::HEALTH, Attribute::ValueType::CURRENT, this->getAttribute(Attribute::Name::HEALTH, Attribute::ValueType::MAX) / 5);
-    this->changeAttribute(Attribute::Name::STAMINA, Attribute::ValueType::CURRENT, this->getAttribute(Attribute::Name::STAMINA, Attribute::ValueType::MAX) / 2);
+    this->modCurAttr(Attr::Name::HEALTH, this->getMaxAttr(Attr::Name::HEALTH) / 5);
+    this->modCurAttr(Attr::Name::STAMINA, this->getMaxAttr(Attr::Name::STAMINA) / 2);
 
-    std::cout << "Player had a rest and now he has (" <<  this->getAttribute(Attribute::Name::HEALTH, Attribute::ValueType::CURRENT) << ") hp and ("
-              <<  this->getAttribute(Attribute::Name::STAMINA, Attribute::ValueType::CURRENT << ") stamina points" << std::endl;
+    std::cout << "Player had a rest and now he has (" <<  this->getCurAttr(Attr::Name::HEALTH)
+              << ") hp and ("<<  this->getCurAttr(Attr::Name::STAMINA) << ") stamina points" << std::endl;
 }
 
 

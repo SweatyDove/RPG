@@ -17,18 +17,44 @@ class Warrior : public Player {
 private:
 
     // ######## BASE attack
-    inline const static std::array<float, static_cast<int>(Creature::Characteristics::TOTAL)> mb_baseAttackMultiplier {
+    inline const static std::array<float, Attr::Name::TOTAL> mb_baseAttackMultiplier {
+        0.0,    // STRENGTH
+        0.0,    // INTELLECT
+        0.0,    // AGILITY
+        0.0,    // HEALTH
+        0.0,    // STAMINA
+        0.0,    // MANA
+        0.0,    // CONCENTRATION
         2.0,    // STRENGTH
         0.0,    // INTELLECT
-        0.0     // AGILITY
+        0.0,    // AGILITY
+        0.0,    // DODGE_CHANCE
+        0.0,    // ESCAPE_CHANCE
+        0.0,    // CRIT_CHANCE
+        0.0,    // ALCHEMY
+        0.0,    // CHARISMA
+        0.0,    // LUCK
     };
-    Spell       mb_baseAttack       {"BASE STRIKE", Spell::School::PHYSICAL, 10, 0, mb_curCharacteristic, mb_baseAttackMultiplier};
+    Spell       mb_baseAttack       {"BASE STRIKE", Spell::School::PHYSICAL, 10, 0, mb_attribute, mb_baseAttackMultiplier};
 
     // ######## SPECIAL attack
-    inline const static std::array<float, static_cast<int>(Creature::Characteristics::TOTAL)> mb_specialAttackMultiplier {
+    inline const static std::array<float, Attr::Name::TOTAL> mb_specialAttackMultiplier {
+        0.0,    // STRENGTH
+        0.0,    // INTELLECT
+        0.0,    // AGILITY
+        0.0,    // HEALTH
+        0.0,    // STAMINA
+        0.0,    // MANA
+        0.0,    // CONCENTRATION
         5.0,    // STRENGTH
         0.0,    // INTELLECT
-        0.0     // AGILITY
+        0.0,    // AGILITY
+        0.0,    // DODGE_CHANCE
+        0.0,    // ESCAPE_CHANCE
+        0.0,    // CRIT_CHANCE
+        0.0,    // ALCHEMY
+        0.0,    // CHARISMA
+        0.0,    // LUCK
     };
     Spell       mb_specialAttack    {"HEAVY BLOW", Spell::School::PHYSICAL, 30, 30, mb_curCharacteristic, mb_specialAttackMultiplier};
 

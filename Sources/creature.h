@@ -26,13 +26,13 @@ public:
     };
 
     // #### CHARACTERISTICS of the creature
-    enum class Characteristic {
-        STRENGTH,
-        INTELLECT,
-        AGILITY,
+//    enum class Characteristic {
+//        STRENGTH,
+//        INTELLECT,
+//        AGILITY,
 
-        TOTAL
-    };
+//        TOTAL
+//    };
 
 private:
 
@@ -44,38 +44,56 @@ protected:
     int     mb_level {1};
 
 
-    std::array<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_curCharacteristic {-1, -1, -1};
-    std::array<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_maxCharacteristic {-1, -1, -1};
+//    std::array<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_curCharacteristic {-1, -1, -1};
+//    std::array<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_maxCharacteristic {-1, -1, -1};
 
 
-    // #### RESOURCES
-    enum class Resource {
-        HEALTH,
-        STAMINA,
-        MANA,
-        CONCENTRATION,
+//    // #### RESOURCES
+//    enum class Resource {
+//        HEALTH,
+//        STAMINA,
+//        MANA,
+//        CONCENTRATION,
 
-        TOTAL
-    };
-    std::array<int, static_cast<unsigned int>(Resource::TOTAL)> mb_curResource {100, -1, -1, -1};
-    std::array<int, static_cast<unsigned int>(Resource::TOTAL)> mb_maxResource {100, -1, -1, -1};
+//        TOTAL
+//    };
+//    std::array<int, static_cast<unsigned int>(Resource::TOTAL)> mb_curResource {100, -1, -1, -1};
+//    std::array<int, static_cast<unsigned int>(Resource::TOTAL)> mb_maxResource {100, -1, -1, -1};
 
 
     std::vector<Attribute> mb_attribute = {
-        {"HEALTH", Attribute::Type::RESOURCE, 100, 100},
-        {"STAMINA", Attribute::Type::RESOURCE, -1, -1},
-        {"MANA", Attribute::Type::RESOURCE, -1, -1},
-        {"CONCENTRATION", Attribute::Type::RESOURCE, -1, -1},
+            {{Attr::Name::HEALTH, Attr::Type::RESOURCE, 100, 100, 100}},
+            {{Attr::Name::STAMINA, Attr::Type::RESOURCE, -1, -1, -1}},
+            {{Attr::Name::MANA, Attr::Type::RESOURCE, -1, -1, -1}},
+            {{Attr::Name::CONCENTRATION, Attr::Type::RESOURCE, -1, -1, -1}},
 
-        {"STRENGTH", Attribute::Type::CHARACTERISTIC, -1, -1},
-        {"INTELLECT", Attribute::Type::CHARACTERISTIC, -1, -1},
-        {"AGILITY", Attribute::Type::CHARACTERISTIC, -1, -1},
+            {{Attr::Name::STRENGTH, Attr::Type::CHARACTERISTIC, -1, -1, -1}},
+            {{Attr::Name::INTELLECT, Attr::Type::CHARACTERISTIC, -1, -1, -1}},
+            {{Attr::Name::AGILITY, Attr::Type::CHARACTERISTIC, -1, -1, -1}},
     };
 
 
+    /***********************************************************************************************
+     * Here I have a lot of similar functions. I could join them into a single one, but in the code
+     * I need to set/get/mod attributes very often - and code becomes messy with long-universal
+     * functions.
+     **********************************************************************************************/
+    int getCurAttr(Attr::Name name) const;
+    int getMaxAttr(Attr::Name name) const;
+    int getBaseAttr(Attr::Name name) const;
 
-    int getAttribute(std::string name, Attribute::ValueType valueType) const;
-    void changeAttribute(std::string name, Attribute::ValueType valueType, int delta);
+    void setCurAttr(Attr::Name name, int val);
+    void setMaxAttr(Attr::Name name, int val);
+    void setBaseAttr(Attr::Name name, int val);
+
+
+    void modCurAttr(Attr::Name name, int delta);
+    void modMaxAttr(Attr::Name name, int delta);
+    void modBaseAttr(Attr::Name name, int delta);
+
+
+    //int getAttribute(std::string name, Attribute::ValueType valueType) const;
+    //void changeAttribute(std::string name, Attribute::ValueType valueType, int delta);
 
     /*
      * Creature constructor is protected 'cause I don't want smb to create <Creature> explicitly,

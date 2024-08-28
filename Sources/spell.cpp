@@ -9,14 +9,14 @@
 //     COMMENTS:    --------
 //==================================================================================================
 Spell::Spell(std::string name, School school, int baseEffect, int baseCost,
-             const std::array<int, static_cast<int>(Creature::Characteristics::TOTAL)>& characteristics,
-             const std::array<float, static_cast<int>(Creature::Characteristics::TOTAL)>& multiplier) :
+             const std::vector<Attribute>& attributes,
+             const std::array<float, static_cast<int>(Attr::Name::TOTAL)>& multipliers) :
     mb_name {name},
     mb_school {school},
     mb_baseEffect {baseEffect},
     mb_baseCost {baseCost},
-    mb_characteristics {characteristics},
-    mb_multiplier {multiplier}
+    mb_attributes {attributes},
+    mb_multipliers {multipliers}
 {
     // Nothing to do
 }
@@ -54,8 +54,8 @@ int Spell::getEffect(int level)
 
     // ######## 1-st step, where a spell effect is calculated via multiplication creature's
     // ######## @characteristics and spell's @multipliers
-    for (int ii {0}; ii < static_cast<int>(Creature::Characteristics::TOTAL); ++ii) {
-        effect += mb_characteristics[ii] * mb_multiplier[ii];
+    for (int ii {0}; ii < static_cast<int>(Attr::Name::TOTAL); ++ii) {
+        effect += mb_attributes[ii] * mb_multipliers[ii];
     }
 
     return effect;

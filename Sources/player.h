@@ -61,16 +61,16 @@ protected:
 
 
     std::array<Attribute, 3> mb_ratings = {
-        {"DODGE CHANCE", Attribute::Type::RATING, -1, -1},
-        {"CRIT CHANCE", Attribute::Type::RATING, -1, -1},
-        {"ESCAPE CHANCE", Attribute::Type::RATING, 66, 66}
+        {"DODGE CHANCE", Attribute::Type::RATING, -1, -1, -1},
+        {"CRIT CHANCE", Attribute::Type::RATING, -1, -1, -1},
+        {"ESCAPE CHANCE", Attribute::Type::RATING, 66, 66, 66}
     };
 
 
     std::array<Attribute, 3> mb_skills = {
-        {"ALCHEMY", Attribute::Type::SKILL, -1, -1},
-        {"CHARISMA", Attribute::Type::SKILL, -1, -1},
-        {"LUCK", Attribute::Type::SKILL, -1, -1},
+        {"ALCHEMY", Attribute::Type::SKILL, -1, -1, -1},
+        {"CHARISMA", Attribute::Type::SKILL, -1, -1, -1},
+        {"LUCK", Attribute::Type::SKILL, -1, -1, -1},
     };
 
 

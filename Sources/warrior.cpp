@@ -82,7 +82,7 @@ void Warrior::cast(Spell& spell, Creature& creature)
 //==================================================================================================
 Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 {
-    int playerStamina {this->getAttribute("STAMINA", Attribute::ValueType::CURRENT)};
+    int playerStamina {this->getCurAttr(Attr::Name::STAMINA)};
 
 
 //    // ######## Intro message title
@@ -108,8 +108,9 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
     std::cout << "\n[3] - Commit suicide...";
 
     // ######## 4-th option
-    std::cout << "\n[0] - Run away: You have (" << mb_escapeChance << ") chance to escape from monster."
-              << " If you could't, monster would deal (" << monster.getDamage() << ") damage."<< std::endl;
+    std::cout << "\n[0] - Run away: You have (" << this->getCurAttr(Attr::Name::ESCAPE_CHANCE)
+              << ") chance to escape from monster." << " If you could't, monster would deal ("
+              << monster.getDamage() << ") damage."<< std::endl;
 
 
     // ######## Choice loop

@@ -3,6 +3,7 @@
 
 #include "main.h"
 #include "creature.h"
+#include "attribute.h"
 
 
 class Spell {
@@ -26,11 +27,9 @@ private:
     int             mb_baseEffect {};
     int             mb_baseCost {};
 
-    // ######## The aray of characteristics need to be passed into <Spell> constructor
-    const std::array<int, static_cast<int>(Creature::Characteristics::TOTAL)>& mb_characteristics;
 
-    // ######## The multiplier array is hard-binded with concrete spell
-    const std::array<float, static_cast<int>(Creature::Characteristics::TOTAL)>& mb_multiplier;
+    const std::vector<Attribute>& mb_attributes;                        // The aray of characteristics need to be passed into <Spell> constructor
+    const std::array<float, static_cast<int>(Attr::Name::TOTAL)>& mb_multipliers;          // The multiplier array is hard-binded with concrete spell
 
 
 
@@ -38,8 +37,8 @@ public:
 
     //Spell() = default;
     Spell(std::string name, School school, int baseEffect, int baseCost,
-          const std::array<int,static_cast<int>(Creature::Characteristics::TOTAL)>& characteristics,
-          const std::array<float, static_cast<int>(Creature::Characteristics::TOTAL)>& multiplier);
+         const std::vector<Attribute>& attributes,
+         const std::array<float, static_cast<int>(Attr::Name::TOTAL)>& multipliers);
 
     const std::string_view getName() const;
     int getCost(int level);

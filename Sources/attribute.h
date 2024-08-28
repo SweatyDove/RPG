@@ -18,13 +18,12 @@ public:
         ESCAPE_CHANCE,
         CRIT_CHANCE,
         ALCHEMY,
-        ALCHEMY,
         CHARISMA,
         LUCK,
 
         TOTAL
     };
-    inline static const std::array<const std::string, static_cast<int>(Name)> mb_attrName = {
+    inline static const std::array<const std::string, static_cast<int>(Name::TOTAL)> mb_attrName = {
         {
             "HEALTH",
             "STAMINA",
@@ -36,7 +35,6 @@ public:
             "DODGE_CHANCE",
             "ESCAPE_CHANCE",
             "CRIT_CHANCE",
-            "ALCHEMY",
             "ALCHEMY",
             "CHARISMA",
             "LUCK",
@@ -53,7 +51,7 @@ public:
     };
 
     enum class ValueType {
-//        BASE                  // Base value of attribute - need for level up
+        BASE,                  // Base value of attribute - need for level up
 //        MIN,                  // Min value in order not to go into incredible low-values
         CURRENT,
         MAX,
@@ -67,21 +65,32 @@ private:
     Type mb_type {};
 
 //    int mb_minValue {};
+    int mb_baseValue {};
     int mb_curValue {};
     int mb_maxValue {};
 
 
 
 public:
-    Attribute();
+    Attribute(std::string name, Type type, int baseValue, int curValue, int maxValue);
 
 
     Type getType() const;
     Name getName() const;
     void changeValue(ValueType valueType, int delta);
     int getValue(ValueType valueType) const;
+    void setValue(ValueType valueType, int value);
 
-    std::string_view getStringName() const;
+//    void setCurValue();
+//    int getCurValue() const;
+//    int getMaxValue() const;
+
+
+
+    std::string_view getStringName(Name name) const;
 };
+
+
+    typedef Attribute Attr;
 
 #endif // ATTRIBUTE_H

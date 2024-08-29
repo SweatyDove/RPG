@@ -393,7 +393,7 @@ void Player::fightWith(Monster& monster)
             else {} // Nothing to do;
         break;
         case FightOption::FLEE:
-            if (getRandomNumber(1, 100) <= this->getAttribute(Attribute::Name::ESCAPE_CHANCE, Attribute::ValueType::CURRENT)) {
+            if (getRandomNumber(1, 100) <= this->getCurAttr(Attr::Name::ESCAPE_CHANCE)) {
                 isFled = true;
             }
             else {

@@ -62,14 +62,14 @@ protected:
 
 
     std::vector<Attribute> mb_attribute = {
-            {{Attr::Name::HEALTH, Attr::Type::RESOURCE, 100, 100, 100}},
-            {{Attr::Name::STAMINA, Attr::Type::RESOURCE, -1, -1, -1}},
-            {{Attr::Name::MANA, Attr::Type::RESOURCE, -1, -1, -1}},
-            {{Attr::Name::CONCENTRATION, Attr::Type::RESOURCE, -1, -1, -1}},
+            {Attr::Name::HEALTH, Attr::Type::RESOURCE, 100, 100, 100},
+            {Attr::Name::STAMINA, Attr::Type::RESOURCE, -1, -1, -1},
+            {Attr::Name::MANA, Attr::Type::RESOURCE, -1, -1, -1},
+            {Attr::Name::CONCENTRATION, Attr::Type::RESOURCE, -1, -1, -1},
 
-            {{Attr::Name::STRENGTH, Attr::Type::CHARACTERISTIC, -1, -1, -1}},
-            {{Attr::Name::INTELLECT, Attr::Type::CHARACTERISTIC, -1, -1, -1}},
-            {{Attr::Name::AGILITY, Attr::Type::CHARACTERISTIC, -1, -1, -1}},
+            {Attr::Name::STRENGTH, Attr::Type::CHARACTERISTIC, -1, -1, -1},
+            {Attr::Name::INTELLECT, Attr::Type::CHARACTERISTIC, -1, -1, -1},
+            {Attr::Name::AGILITY, Attr::Type::CHARACTERISTIC, -1, -1, -1},
     };
 
 

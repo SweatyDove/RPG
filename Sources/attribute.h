@@ -72,7 +72,7 @@ private:
 
 
 public:
-    Attribute(std::string name, Type type, int baseValue, int curValue, int maxValue);
+    Attribute(Attribute::Name name, Type type, int baseValue, int curValue, int maxValue);
 
 
     Type getType() const;
@@ -87,7 +87,7 @@ public:
 
 
 
-    std::string_view getStringName(Name name) const;
+    static std::string_view getStringName(Name name);
 };
 
 

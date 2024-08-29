@@ -11,6 +11,14 @@
 #include "spell.h"
 
 
+
+/*
+ * 1 - Maybe create a formula of monster's health and calculate current health with its usage (I mean
+ *     specify this formula explixitly somewhere in the header)
+ *
+ * 2 - Add a function, that set baseHealth, maxHealth and current health altogether
+ */
+
 class Monster: public Creature {
 public:
     enum class Type {
@@ -19,6 +27,14 @@ public:
         GHOST,
 
         TOTAL
+    };
+
+    static constexpr std::array<int, static_cast<int>(Monster::Type::TOTAL)> mb_baseHealth {
+        {
+            10,     // SKELETON
+            30,     // ZOMBIE
+            20      // GHOST
+        }
     };
 
     std::array<std::string, static_cast<unsigned int>(Type::TOTAL)> mb_name {

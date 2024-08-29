@@ -62,12 +62,12 @@ void Warrior::cast(Spell& spell, Creature& creature)
 {
     int spellEffect {spell.getEffect(mb_level)};
 
-    creature.changeStamina(-spell.getCost(mb_level));
-    creature.changeHealth(-spellEffect);
+    this->modCurAttr(Attr::Name::STAMINA, -spell.getCost(mb_level));
+    creature.modCurAttr(Attr::Name::HEALTH, -spellEffect);
 
     SetConsoleTextAttribute(hConsole, CLR_DARK_PASTEL_GREEN);
     std::cout << "You've dealed (" << spellEffect << ") damage to the " << creature.getName()
-           << ". It had (" << creature.getCurrentHealth() << ") hp left." << std::endl;
+           << ". It had (" << creature.getCurAttr(Attr::Name::HEALTH) << ") hp left." << std::endl;
     SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
 }
@@ -269,5 +269,5 @@ void Warrior::commitSuicide()
 {
     std::cout << "\nThe warrior threw his sword into the air, spread his arms and arched his chest to the sky... "
               << "\n...and the sword pierced his chest, thereby taking his life..." << std::endl;
-    this->mb_curHealth = 0;
+    this->setCurAttr(Attr::Name::HEALTH, 0);
 }

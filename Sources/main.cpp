@@ -32,7 +32,8 @@
  *
  * 12 - Maybe need to add template for functions (changeHealth(), changeMana() and etc)
  *
- *
+ * 13 - Think about balance between versality of class's methods and their readability/convinience.
+ *      For example, if function is used a lot - better to make it shorter, split into parts
  *
  *
  * QUESTIONS:
@@ -98,7 +99,7 @@ int main()
     // #### DEBUG
     Player::Race    playerRace  {Player::Race::HUMAN};
     Player::Spec    playerSpec  {Player::Spec::WARRIOR};
-    my::String      playerName  {"Alex"};
+    std::string     playerName  {"Alex"};
 
     //Warrior* warrior {nullptr};
 

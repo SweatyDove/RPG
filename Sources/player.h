@@ -61,16 +61,20 @@ protected:
 
 
     std::array<Attribute, 3> mb_ratings = {
-        {"DODGE CHANCE", Attribute::Type::RATING, -1, -1, -1},
-        {"CRIT CHANCE", Attribute::Type::RATING, -1, -1, -1},
-        {"ESCAPE CHANCE", Attribute::Type::RATING, 66, 66, 66}
+        {
+            {Attr::Name::DODGE_CHANCE, Attribute::Type::RATING, -1, -1, -1},
+            {Attr::Name::CRIT_CHANCE, Attribute::Type::RATING, -1, -1, -1},
+            {Attr::Name::ESCAPE_CHANCE, Attribute::Type::RATING, 66, 66, 66}
+        }
     };
 
 
     std::array<Attribute, 3> mb_skills = {
-        {"ALCHEMY", Attribute::Type::SKILL, -1, -1, -1},
-        {"CHARISMA", Attribute::Type::SKILL, -1, -1, -1},
-        {"LUCK", Attribute::Type::SKILL, -1, -1, -1},
+        {
+            {Attr::Name::ALCHEMY, Attribute::Type::SKILL, -1, -1, -1},
+            {Attr::Name::CHARISMA, Attribute::Type::SKILL, -1, -1, -1},
+            {Attr::Name::LUCK, Attribute::Type::SKILL, -1, -1, -1},
+        }
     };
 
 
@@ -100,7 +104,7 @@ private:
 
 
     // ######## SKILLS
-    std::array<int, static_cast<int>(Skills::TOTAL)> mb_skillLevel;
+    //std::array<int, static_cast<int>(Skills::TOTAL)> mb_skillLevel;
 
 
 

@@ -11,7 +11,7 @@
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-Attribute::Attribute(std::string name, Type type, int baseValue, int curValue, int maxValue):
+Attribute::Attribute(Attribute::Name name, Type type, int baseValue, int curValue, int maxValue):
     mb_name {name},
     mb_type {type},
     mb_baseValue {baseValue},
@@ -54,7 +54,7 @@ Attribute::Name Attribute::getName() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-std::string_view Attribute::getStringName(Name name) const
+std::string_view Attribute::getStringName(Name name)
 {
     return mb_attrName[static_cast<int>(name)];
 }

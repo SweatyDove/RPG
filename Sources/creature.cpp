@@ -570,7 +570,7 @@ void Creature::modBaseAttr(Attr::Name name, int delta)
 //==================================================================================================
 bool Creature::isDead() const
 {
-    return (this->getAttribute("HEALTH", Attribute::ValueType::CURRENT) == 0);
+    return (this->getCurAttr(Attr::Name::HEALTH) == 0);
 }
 
 
@@ -583,9 +583,7 @@ bool Creature::isDead() const
 //==================================================================================================
 void Creature::commitSuicide()
 {
-    int curHealth {this->getAttribute("HEALTH", Attribute::ValueType::CURRENT)};
-
-    this->changeAttribute("HEALTH", Attribute::ValueType::CURRENT, curHealth);
+    this->setCurAttr(Attr::Name::HEALTH, 0);
     std::cout << "Creature commited suicide!" << std::endl;
 }
 

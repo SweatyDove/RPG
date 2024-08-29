@@ -55,7 +55,7 @@ int Spell::getEffect(int level)
     // ######## 1-st step, where a spell effect is calculated via multiplication creature's
     // ######## @characteristics and spell's @multipliers
     for (int ii {0}; ii < static_cast<int>(Attr::Name::TOTAL); ++ii) {
-        effect += mb_attributes[ii] * mb_multipliers[ii];
+        effect += mb_attributes[ii].getValue(Attr::ValueType::CURRENT) * mb_multipliers[ii];
     }
 
     return effect;

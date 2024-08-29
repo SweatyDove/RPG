@@ -168,25 +168,38 @@ int Monster::setDamage(Type type, int level) const
 
 
 //==============================================================================
-// WHAT: Public member function.
-//  WHY: It sets the [mb_health] of the monster (depending on the monster's
-//       [type] and [level])
+// WHAT:
+//  WHY:
 //==============================================================================
-int Monster::setHealth(Type type, int level) const
+//==================================================================================================
+//         TYPE:    Public member function.
+//  DESCRIPTION:    It sets the health of the monster (depending on the monster's
+//                  @type and @level)
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Monster::setHealth(Type type, int level) const
 {
-    int health {};
-
     switch (type) {
     case Type::SKELETON:
-        health = base[static_cast<std::size_t>(type)].health + level * 2;
+        // #### CurrentHealth == BaseHealth + (level - 1) * 2
+        this->setBaseAttr(Attr::Name::HEALTH, mb_baseHealth[static_cast<int>(type)]);
+        this->setMaxAttr(Attr::Name::HEALTH, this->getBaseAttr(Attr::Name::HEALTH) + (level - 1) * 2);
+        this->setCurAttr(Attr::Name::HEALTH, this->getMaxAttr(Attr::Name::HEALTH));
         break;
     case Type::ZOMBIE:
-        health = base[static_cast<std::size_t>(type)].health + level * 10 ;
+        // #### CurrentHealth == BaseHealth + (level - 1) * 10
+        this->setBaseAttr(Attr::Name::HEALTH, mb_baseHealth[static_cast<int>(type)]);
+        this->setMaxAttr(Attr::Name::HEALTH, this->getBaseAttr(Attr::Name::HEALTH) + (level - 1) * 2);
+        this->setCurAttr(Attr::Name::HEALTH, this->getMaxAttr(Attr::Name::HEALTH));
         break;
     case Type::GHOST:
-        health = base[static_cast<std::size_t>(type)].health + level * 5;
-    case Type::MAX_TYPE:
-        assert("Invalid monster");
+        this->setBaseAttr(Attr::Name::HEALTH, mb_baseHealth[static_cast<int>(type)]);
+        this->setMaxAttr(Attr::Name::HEALTH, this->getBaseAttr(Attr::Name::HEALTH) + (level - 1) * 5);
+        this->setCurAttr(Attr::Name::HEALTH, this->getMaxAttr(Attr::Name::HEALTH));
+    case Type::TOTAL:
+        assert(false && "Invalid monster's type");
         break;
     //default:
         //break;
@@ -218,11 +231,11 @@ const std::string& Monster::getName() const
 //==================================================================================================
 void Monster::attack(Player& player) const
 {
-    player.changeHealth(-mb_damage);
+    player.modCurAttr(Attr::Name::HEALTH, -mb_damage);
 
     SetConsoleTextAttribute(hConsole, CLR_FLAMINGO);
     std::cout << "The " << this->getName() << " attacked player and dealt (" << this->mb_damage
-              << ") points of damage. At now, player has (" << player.getCurrentHealth() << ") hp. "
+              << ") points of damage. At now, player has (" << player.getCurAttr(Attr::Name::HEALTH) << ") hp. "
               << std::endl;
     SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
@@ -253,8 +266,8 @@ Monster::Type Monster::getType() const
 //==================================================================================================
 void Monster::commitSuicide()
 {
-    this->reduceHealth(mb_currentHealth);
-    std::cout << "Monster was scared to death of you and commited suicide" << std::endl;
+    this->setCurAttr(Attr::Name::HEALTH, 0);
+    std::cout << "Monster was scared to death of you and died of a heart attack..." << std::endl;
 }
 
 

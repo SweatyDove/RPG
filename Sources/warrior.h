@@ -60,7 +60,7 @@ private:
             0.0,    // LUCK
         }
     };
-    Spell       mb_specialAttack    {"HEAVY BLOW", Spell::School::PHYSICAL, 30, 30, mb_curCharacteristic, mb_specialAttackMultiplier};
+    Spell       mb_specialAttack    {"HEAVY BLOW", Spell::School::PHYSICAL, 30, 30, mb_attribute, mb_specialAttackMultiplier};
 
 
 
@@ -75,14 +75,17 @@ public:
 
     void cast(Spell& spell, Creature& target);
 //    void setDamage() override;
-//    void attack(Monster& monster) override;
-//    bool superAttack(Monster& monster) override;
+
 //    int getAttackDamage() const override;
 //    int getSuperAttackDamage() const override;
 //    int getSuperAttackCost() const override;
 
     void                        commitSuicide() override;
     Player::FightOption         chooseFightOption(Monster& monster) override;
+
+
+    void                        attack(Monster& monster) override;
+    void                        superAttack(Monster& monster) override;
 
 
 

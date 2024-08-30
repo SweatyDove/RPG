@@ -191,8 +191,9 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-//void Warrior::attack(Monster& monster)
-//{
+void Warrior::attack(Monster& monster)
+{
+    this->cast(mb_baseAttack, monster);
 //    monster.reduceHealth(mb_autoAttackDamage);
 
 //    SetConsoleTextAttribute(hConsole, CLR_DARK_PASTEL_GREEN);
@@ -201,7 +202,7 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 //    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
 //    return;
-//}
+}
 
 
 
@@ -210,10 +211,23 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 //  DESCRIPTION:    Member function that realizes the warrior's special attack.
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
-//     COMMENTS:    --------
+//     COMMENTS:    At this moment I'm using only STAMINA as a resource for the super attack.
+//                  But in the future need to add an array of costs (like in <Spell> class with
+//                  spell's damage multipliers).
 //==================================================================================================
-//bool Warrior::superAttack(Monster& monster)
-//{
+void Warrior::superAttack(Monster& monster)
+{
+    int curStamina {this->getCurAttr(Attr::Name::STAMINA)};
+    int costStamina {mb_specialAttack.getCost(mb_level)};
+
+    if (curStamina > costStamina) {
+        this->cast(mb_specialAttack, monster);
+    }
+    else {
+        std::cout << "\nNot enough stamina for the super attack. " << "You have only "
+                  << curStamina << "stamina points (need " << costStamina << ")." << std::endl;
+    }
+
 //    int staminaCost {30};
 //    bool retValue {};
 
@@ -239,7 +253,7 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 //    }
 
 //    return retValue;
-//}
+}
 
 
 //==================================================================================================

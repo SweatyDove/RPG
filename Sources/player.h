@@ -5,6 +5,7 @@
 #include "main.h"
 #include "potion.h"
 #include "creature.h"
+#include "gold.h"
 
 
 // ######## Why am I defining player's default values outside of class player? I don't remember...
@@ -99,29 +100,18 @@ private:
     int             mb_nextLevelExp {1000};             // Const for now
     int             mb_timeLived    {player_default::DAY_LIVED};
 
-
-
-
-
     // ######## SKILLS
     //std::array<int, static_cast<int>(Skills::TOTAL)> mb_skillLevel;
 
-
-
     // ######## INVENTORY
     int             mb_gold         {};
-
-
-
-
-
-
 
 
 public:
 
     // ########  Constructors and Destructors  ########
     Player(Race race, std::string name);
+    virtual ~Player();
 
 
     // ########  Setters and Getters  ########
@@ -139,14 +129,14 @@ public:
 
 
     // ########  Virtual methods  #########
-    virtual int         getAttackDamage() const = 0;
+    //virtual int         getAttackDamage() const = 0;
 
 
-    virtual int         getSuperAttackDamage() const = 0;
-    virtual int         getSuperAttackCost() const = 0;
+    //virtual int         getSuperAttackDamage() const = 0;
+   // virtual int         getSuperAttackCost() const = 0;
     //virtual void        setDamage() = 0;
     virtual void        attack(Monster& monster) = 0;
-    virtual bool        superAttack(Monster& monster) = 0;
+    virtual void        superAttack(Monster& monster) = 0;
 
     virtual FightOption         chooseFightOption(Monster& monster) = 0;
 

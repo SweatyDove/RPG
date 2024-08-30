@@ -55,9 +55,12 @@ public:
         {
             {Type::SKELETON, 10, 10},
             {Type::ZOMBIE, 5, 30},
-            {Type::GHOST, 10, 20},
+            {Type::GHOST, 15, 20},
         }
     };
+
+    // ######## BASE attack multipliers
+    inline const static std::array<float, static_cast<int>(Attr::Name::TOTAL)> mb_baseAttackMultiplier {0};
 
     //Monster::Type getRandomType();
 
@@ -106,8 +109,9 @@ public:
 
     // ##########  Setters and Getters  #####################
 
-    int             setDamage(Type type, int level) const;
-    int             setHealth(Type type, int level) const;
+//    int             setDamage(Type type, int level) const;
+    void            setHealth(Type type, int level);
+
     int             getDamage() const;
 
     const std::string&     getName() const override;

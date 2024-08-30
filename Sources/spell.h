@@ -40,9 +40,14 @@ public:
          const std::vector<Attribute>& attributes,
          const std::array<float, static_cast<int>(Attr::Name::TOTAL)>& multipliers);
 
+
+    Spell& operator=(Spell&& spell) noexcept;
+
+
+
     const std::string_view getName() const;
     int getCost(int level);
-    int getEffect(int level);
+    int getEffect(int level) const;
 
 
 };

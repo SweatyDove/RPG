@@ -22,6 +22,37 @@ Spell::Spell(std::string name, School school, int baseEffect, int baseCost,
 }
 
 
+//==================================================================================================
+//         TYPE:    Move assignment operator
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    В отличии от move constructor, здесь нужно освобождать ресурс, которым владеет
+//                  левый операнд. Однако, наверное, не обязательно вызывать деструктор для правого
+//                  операнда...
+//==================================================================================================
+Spell& Spell::operator=(Spell&& spell) noexcept
+{
+
+    // ######## Если НЕ самоприсваивание, то сперва освобождаем ресурсы, которыми владеем.
+    // ######## В данном случае в явном виде ресурсами не владеем, а стандартные контейнеры сами
+    // ######## передадут то, чем владеют... наверное.
+    if (&spell != this) {
+
+        // #### Переменные ниже можно просто скопировать
+        mb_name = spell.mb_name;
+        mb_school = spell.mb_school;
+        mb_baseEffect = spell.mb_baseEffect;
+        mb_baseCost = spell.mb_baseCost;
+        mb_attributes = spell.mb_attributes;
+        mb_multipliers = spell.mb_multipliers;
+    }
+    else {} // Nothing to do
+
+   return *this;
+}
+
+
 
 
 //==================================================================================================
@@ -47,7 +78,7 @@ int Spell::getCost(int level)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-int Spell::getEffect(int level)
+int Spell::getEffect(int level) const
 {
     // ######## 0-th step
     int effect {mb_baseEffect * level};

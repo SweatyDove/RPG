@@ -57,9 +57,9 @@
 
 #include <string>
 
-Player::Race choosePlayerRace();
-Player::Spec choosePlayerSpec();
-my::String   choosePlayerName();
+//Player::Race choosePlayerRace();
+//Player::Spec choosePlayerSpec();
+//my::String   choosePlayerName();
 
 HANDLE hConsole;
 
@@ -162,8 +162,8 @@ int main()
 
     std::cout << "You died at level " << player->getLevel() << ".\n\n";
 
-    delete warrior;
-    player = warrior = nullptr;
+    delete player;
+    player = nullptr;
 
     std::cout << "########  Game Over ########\n\n" << std::endl;
 

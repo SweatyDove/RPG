@@ -73,6 +73,20 @@ protected:
     };
 
 
+
+
+
+    //int getAttribute(std::string name, Attribute::ValueType valueType) const;
+    //void changeAttribute(std::string name, Attribute::ValueType valueType, int delta);
+
+    /*
+     * Creature constructor is protected 'cause I don't want smb to create <Creature> explicitly,
+     * but at the same time this class is abstract ('cause contains pure virtual function) and can't
+     * be created explicitly in any case.
+     */
+    explicit Creature(Type type, int level = 1);
+
+public:
     /***********************************************************************************************
      * Here I have a lot of similar functions. I could join them into a single one, but in the code
      * I need to set/get/mod attributes very often - and code becomes messy with long-universal
@@ -90,19 +104,6 @@ protected:
     void modCurAttr(Attr::Name name, int delta);
     void modMaxAttr(Attr::Name name, int delta);
     void modBaseAttr(Attr::Name name, int delta);
-
-
-    //int getAttribute(std::string name, Attribute::ValueType valueType) const;
-    //void changeAttribute(std::string name, Attribute::ValueType valueType, int delta);
-
-    /*
-     * Creature constructor is protected 'cause I don't want smb to create <Creature> explicitly,
-     * but at the same time this class is abstract ('cause contains pure virtual function) and can't
-     * be created explicitly in any case.
-     */
-    explicit Creature(Type type, int level = 1);
-
-public:
 
     virtual                     ~Creature();
     int                         getLevel() const;

@@ -12,23 +12,25 @@ Monster::Monster():
     mb_type {getRandomMonsterType()}
 {
     //mb_damage = this->setDamage(mb_type, mb_level);
-    mb_curHealth = this->setHealth(mb_type, mb_level);
+    this->setHealth(mb_type, mb_level);
 
-    // ######## Set spell type depending on the monster's type
+    // ######## Set spell type depending on the monster's type. In a future just make concrete
+    // ######## monsters derived from <Monster> class
     switch(mb_type) {
     case Type::SKELETON:
-        mb_baseAttack = Spell("STRIKE", Spell::School::PHYSICAL);
+        mb_baseAttack = Spell("STRIKE", Spell::School::PHYSICAL, 10, 0, mb_attribute, mb_baseAttackMultiplier);
         break;
     case Type::ZOMBIE:
-        mb_baseAttack = Spell("INFECTED BLOW", Spell::School::PHYSICAL_NATURE);
+        mb_baseAttack = Spell("INFECTED BLOW", Spell::School::PHYSICAL_NATURE, 5, 0, mb_attribute, mb_baseAttackMultiplier);
         break;
     case Type::GHOST:
-        mb_baseAttack = Spell("SHADOW STRIKE", Spell::School::PHYSICAL_DARKNESS);
+        mb_baseAttack = Spell("SHADOW STRIKE", Spell::School::PHYSICAL_DARKNESS, 15, 0, mb_attribute, mb_baseAttackMultiplier);
         break;
     case Type::TOTAL:
         assert("Incorrect monster type!");
         break;
     }
+
 }
 
 
@@ -132,7 +134,7 @@ Monster::Type Monster::getRandomMonsterType()
 //==============================================================================
 int Monster::getDamage() const
 {
-    return mb_damage;
+    return mb_baseAttack.getEffect(mb_level);
 }
 
 
@@ -144,26 +146,26 @@ int Monster::getDamage() const
 //  WHY: It sets the [mb_damage] of the monster (depending on the monster's [type]
 //       and [level]).
 //==============================================================================
-int Monster::setDamage(Type type, int level) const
-{
-    int damage {};
+//int Monster::setDamage(Type type, int level) const
+//{
+//    int damage {};
 
-    switch (type) {
-    case Type::SKELETON:
-        damage = base[static_cast<std::size_t>(type)].damage + level;
-        break;
-    case Type::ZOMBIE:
-        damage = base[static_cast<std::size_t>(type)].damage + level * 2;
-        break;
-    case Type::GHOST:
-        damage = base[static_cast<std::size_t>(type)].damage + level * 3;
-    case Type::MAX_TYPE:
-        assert("Invalid monster");
-        break;
-    }
+//    switch (type) {
+//    case Type::SKELETON:
+//        damage = base[static_cast<std::size_t>(type)].damage + level;
+//        break;
+//    case Type::ZOMBIE:
+//        damage = base[static_cast<std::size_t>(type)].damage + level * 2;
+//        break;
+//    case Type::GHOST:
+//        damage = base[static_cast<std::size_t>(type)].damage + level * 3;
+//    case Type::TOTAL:
+//        assert("Invalid monster");
+//        break;
+//    }
 
-    return damage;
-}
+//    return damage;
+//}
 
 
 
@@ -179,25 +181,27 @@ int Monster::setDamage(Type type, int level) const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Monster::setHealth(Type type, int level) const
+void Monster::setHealth(Type type, int level)
 {
+    Attribute::Name health {Attr::Name::HEALTH};
+
     switch (type) {
     case Type::SKELETON:
         // #### CurrentHealth == BaseHealth + (level - 1) * 2
-        this->setBaseAttr(Attr::Name::HEALTH, mb_baseHealth[static_cast<int>(type)]);
-        this->setMaxAttr(Attr::Name::HEALTH, this->getBaseAttr(Attr::Name::HEALTH) + (level - 1) * 2);
-        this->setCurAttr(Attr::Name::HEALTH, this->getMaxAttr(Attr::Name::HEALTH));
+        this->setBaseAttr(health, mb_baseHealth[static_cast<int>(type)]);
+        this->setMaxAttr(health, this->getBaseAttr(health) + (level - 1) * 2);
+        this->setCurAttr(health, this->getMaxAttr(health));
         break;
     case Type::ZOMBIE:
         // #### CurrentHealth == BaseHealth + (level - 1) * 10
-        this->setBaseAttr(Attr::Name::HEALTH, mb_baseHealth[static_cast<int>(type)]);
-        this->setMaxAttr(Attr::Name::HEALTH, this->getBaseAttr(Attr::Name::HEALTH) + (level - 1) * 2);
-        this->setCurAttr(Attr::Name::HEALTH, this->getMaxAttr(Attr::Name::HEALTH));
+        this->setBaseAttr(health, mb_baseHealth[static_cast<int>(type)]);
+        this->setMaxAttr(health, this->getBaseAttr(health) + (level - 1) * 2);
+        this->setCurAttr(health, this->getMaxAttr(health));
         break;
     case Type::GHOST:
-        this->setBaseAttr(Attr::Name::HEALTH, mb_baseHealth[static_cast<int>(type)]);
-        this->setMaxAttr(Attr::Name::HEALTH, this->getBaseAttr(Attr::Name::HEALTH) + (level - 1) * 5);
-        this->setCurAttr(Attr::Name::HEALTH, this->getMaxAttr(Attr::Name::HEALTH));
+        this->setBaseAttr(health, mb_baseHealth[static_cast<int>(type)]);
+        this->setMaxAttr(health, this->getBaseAttr(health) + (level - 1) * 5);
+        this->setCurAttr(health, this->getMaxAttr(health));
     case Type::TOTAL:
         assert(false && "Invalid monster's type");
         break;
@@ -205,7 +209,6 @@ void Monster::setHealth(Type type, int level) const
         //break;
     }
 
-    return health;
 }
 
 //==================================================================================================
@@ -231,10 +234,10 @@ const std::string& Monster::getName() const
 //==================================================================================================
 void Monster::attack(Player& player) const
 {
-    player.modCurAttr(Attr::Name::HEALTH, -mb_damage);
+    player.modCurAttr(Attr::Name::HEALTH, -mb_baseAttack.getEffect(mb_level));
 
     SetConsoleTextAttribute(hConsole, CLR_FLAMINGO);
-    std::cout << "The " << this->getName() << " attacked player and dealt (" << this->mb_damage
+    std::cout << "The " << this->getName() << " attacked player and dealt (" << mb_baseAttack.getEffect(mb_level)
               << ") points of damage. At now, player has (" << player.getCurAttr(Attr::Name::HEALTH) << ") hp. "
               << std::endl;
     SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
@@ -275,7 +278,7 @@ void Monster::commitSuicide()
 //==================================================================================================
 //         TYPE:    --------
 //  DESCRIPTION:    Function generate loot, that remains after monster's death. Loot depends on the
-//                  monster @level and player's @type.
+//                  monster's @level (and player's @type in the future, maybe).
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
@@ -305,6 +308,7 @@ void Monster::generateLoot()
             }
             else {}
             break;
+        case Item::Type::TRASH:
         case Item::Type::TOTAL:
             break;
         }

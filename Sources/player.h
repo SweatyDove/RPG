@@ -136,7 +136,7 @@ public:
    // virtual int         getSuperAttackCost() const = 0;
     //virtual void        setDamage() = 0;
     virtual void        attack(Monster& monster) = 0;
-    virtual void        superAttack(Monster& monster) = 0;
+    virtual bool        superAttack(Monster& monster) = 0;
 
     virtual FightOption         chooseFightOption(Monster& monster) = 0;
 

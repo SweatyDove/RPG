@@ -210,22 +210,24 @@ void Warrior::attack(Monster& monster)
 //         NAME:    --------
 //  DESCRIPTION:    Member function that realizes the warrior's special attack.
 //   PARAMETERS:    --------
-// RETURN VALUE:    --------
+// RETURN VALUE:    true - if atack succeed; false - otherwise
 //     COMMENTS:    At this moment I'm using only STAMINA as a resource for the super attack.
 //                  But in the future need to add an array of costs (like in <Spell> class with
 //                  spell's damage multipliers).
 //==================================================================================================
-void Warrior::superAttack(Monster& monster)
+bool Warrior::superAttack(Monster& monster)
 {
     int curStamina {this->getCurAttr(Attr::Name::STAMINA)};
     int costStamina {mb_specialAttack.getCost(mb_level)};
 
     if (curStamina > costStamina) {
         this->cast(mb_specialAttack, monster);
+        return true;
     }
     else {
         std::cout << "\nNot enough stamina for the super attack. " << "You have only "
                   << curStamina << "stamina points (need " << costStamina << ")." << std::endl;
+        return false;
     }
 
 //    int staminaCost {30};

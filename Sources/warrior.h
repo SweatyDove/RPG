@@ -17,7 +17,7 @@ class Warrior : public Player {
 private:
 
     // ######## BASE attack
-    inline const static std::array<float, static_cast<int>(Attr::Name::TOTAL)> mb_baseAttackMultiplier {
+    inline static std::array<float, static_cast<int>(Attr::Name::TOTAL)> mb_baseAttackMultiplier {
         {
             0.0,    // HEALTH
             0.0,    // STAMINA
@@ -37,10 +37,10 @@ private:
             0.0,    // LUCK
         }
     };
-    Spell       mb_baseAttack       {"BASE STRIKE", Spell::School::PHYSICAL, 10, 0, mb_attribute, mb_baseAttackMultiplier};
+    Spell       mb_baseAttack       {mb_attribute, mb_baseAttackMultiplier, "BASE STRIKE", Spell::School::PHYSICAL, 10, 0};
 
     // ######## SPECIAL attack
-    inline const static std::array<float, static_cast<int>(Attr::Name::TOTAL)> mb_specialAttackMultiplier {
+    inline static std::array<float, static_cast<int>(Attr::Name::TOTAL)> mb_specialAttackMultiplier {
         {
             0.0,    // HEALTH
             0.0,    // STAMINA
@@ -60,7 +60,7 @@ private:
             0.0,    // LUCK
         }
     };
-    Spell       mb_specialAttack    {"HEAVY BLOW", Spell::School::PHYSICAL, 30, 30, mb_attribute, mb_specialAttackMultiplier};
+    Spell       mb_specialAttack    {mb_attribute, mb_specialAttackMultiplier, "HEAVY BLOW", Spell::School::PHYSICAL, 30, 30};
 
 
 
@@ -85,7 +85,7 @@ public:
 
 
     void                        attack(Monster& monster) override;
-    void                        superAttack(Monster& monster) override;
+    bool                        superAttack(Monster& monster) override;
 
 
 

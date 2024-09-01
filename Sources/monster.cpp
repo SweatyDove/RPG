@@ -9,27 +9,50 @@
 //==================================================================================================
 Monster::Monster():
     Creature {Creature::Type::MONSTER, getRandomNumber(1, 10)},
-    mb_type {getRandomMonsterType()}
+    mb_type {getRandomMonsterType()},
+    mb_baseAttack{mb_attribute, mb_baseAttackMultiplier}
 {
     //mb_damage = this->setDamage(mb_type, mb_level);
     this->setHealth(mb_type, mb_level);
 
+    std::string spellName {};
+    Spell::School spellSchool {};
+    int spellBaseEffect {};
+    int spellBaseCost {};
+
     // ######## Set spell type depending on the monster's type. In a future just make concrete
-    // ######## monsters derived from <Monster> class
+    // ######## monsters derived from <Monster>7592 class
     switch(mb_type) {
     case Type::SKELETON:
-        mb_baseAttack = Spell("STRIKE", Spell::School::PHYSICAL, 10, 0, mb_attribute, mb_baseAttackMultiplier);
+        spellName = "STRIKE";
+        spellSchool = Spell::School::PHYSICAL;
+        spellBaseEffect = 10;
+        spellBaseCost = 0;
         break;
     case Type::ZOMBIE:
-        mb_baseAttack = Spell("INFECTED BLOW", Spell::School::PHYSICAL_NATURE, 5, 0, mb_attribute, mb_baseAttackMultiplier);
+        spellName = "INFECTED BLOW";
+        spellSchool = Spell::School::PHYSICAL_NATURE;
+        spellBaseEffect = 5;
+        spellBaseCost = 0;
+        //mb_baseAttack = Spell("INFECTED BLOW", Spell::School::PHYSICAL_NATURE, 5, 0, mb_attribute, mb_baseAttackMultiplier);
         break;
     case Type::GHOST:
-        mb_baseAttack = Spell("SHADOW STRIKE", Spell::School::PHYSICAL_DARKNESS, 15, 0, mb_attribute, mb_baseAttackMultiplier);
+        spellName = "SHADOW STRIKE";
+        spellSchool = Spell::School::PHYSICAL_DARKNESS;
+        spellBaseEffect = 15;
+        spellBaseCost = 0;
+        //mb_baseAttack = Spell("SHADOW STRIKE", Spell::School::PHYSICAL_DARKNESS, 15, 0, mb_attribute, mb_baseAttackMultiplier);
         break;
     case Type::TOTAL:
         assert("Incorrect monster type!");
         break;
     }
+
+    mb_baseAttack.setName(spellName);
+    mb_baseAttack.setSchool(spellSchool);
+    mb_baseAttack.setBaseEffect(spellBaseEffect);
+    mb_baseAttack.setBaseCost(spellBaseCost);
+
 
 }
 
@@ -112,10 +135,10 @@ Monster::Type Monster::getRandomMonsterType()
 // WHAT: Getter.
 //  WHY: Function returns the level of the creature.
 //==============================================================================
-//int Monster::getLevel() const
-//{
-//    return mb_level;
-//}
+int Monster::getLevel() const
+{
+    return mb_level;
+}
 
 
 //==============================================================================

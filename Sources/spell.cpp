@@ -8,15 +8,19 @@
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-Spell::Spell(std::string name, School school, int baseEffect, int baseCost,
-             const std::vector<Attribute>& attributes,
-             const std::array<float, static_cast<int>(Attr::Name::TOTAL)>& multipliers) :
+Spell::Spell(const std::vector<Attribute>& attributes,
+             const std::array<float, static_cast<int>(Attr::Name::TOTAL)>& multipliers,
+             std::string name,
+             School school,
+             int baseEffect,
+             int baseCost
+             ):
+    mb_attributes {attributes},
+    mb_multipliers {multipliers},
     mb_name {name},
     mb_school {school},
     mb_baseEffect {baseEffect},
-    mb_baseCost {baseCost},
-    mb_attributes {attributes},
-    mb_multipliers {multipliers}
+    mb_baseCost {baseCost}
 {
     // Nothing to do
 }
@@ -31,26 +35,28 @@ Spell::Spell(std::string name, School school, int baseEffect, int baseCost,
 //                  левый операнд. Однако, наверное, не обязательно вызывать деструктор для правого
 //                  операнда...
 //==================================================================================================
-Spell& Spell::operator=(Spell&& spell) noexcept
-{
+//Spell& Spell::operator=(Spell&& spell) noexcept
+//{
+//    /*
+//     * There is an compile issue while trying to assign spell.mb_attribute to mb_attribute,
+//     * because this member variable has const qualifier. And there is several solutions:
+//     * 1 - REMOVE const qualifier (not sure that this is good idea, 'cause it breaks semantics)
+//     * 2 - DESTROY *this object and construct new object with spell's member vatiables (may cost a
+//     *     lot of system resources in a future and need to allocate memory in the heap)
+//     * 3 - Use std::move to move "unmovable" (doesn't work)
+//     */
+//    if (&spell != this) {
+//        mb_name = spell.mb_name;
+//        mb_school = spell.mb_school;
+//        mb_baseEffect = spell.mb_baseEffect;
+//        mb_baseCost = spell.mb_baseCost;
+//        mb_attributes = spell.mb_attributes;
+//        mb_multipliers = spell.mb_multipliers;
+//    }
+//    else {} // Nothing to do
 
-    // ######## Если НЕ самоприсваивание, то сперва освобождаем ресурсы, которыми владеем.
-    // ######## В данном случае в явном виде ресурсами не владеем, а стандартные контейнеры сами
-    // ######## передадут то, чем владеют... наверное.
-    if (&spell != this) {
-
-        // #### Переменные ниже можно просто скопировать
-        mb_name = spell.mb_name;
-        mb_school = spell.mb_school;
-        mb_baseEffect = spell.mb_baseEffect;
-        mb_baseCost = spell.mb_baseCost;
-        mb_attributes = spell.mb_attributes;
-        mb_multipliers = spell.mb_multipliers;
-    }
-    else {} // Nothing to do
-
-   return *this;
-}
+//   return *this;
+//}
 
 
 
@@ -103,6 +109,60 @@ int Spell::getEffect(int level) const
 const std::string_view Spell::getName() const
 {
     return mb_name;
+}
+
+//==================================================================================================
+//         TYPE:    --------
+//  DESCRIPTION:    Update array with creature's characteristics
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Spell::setName(std::string name)
+{
+    mb_name = name;
+}
+
+
+
+//==================================================================================================
+//         TYPE:    --------
+//  DESCRIPTION:    Update array with creature's characteristics
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Spell::setSchool(School school)
+{
+    mb_school = school;
+}
+
+
+
+//==================================================================================================
+//         TYPE:    --------
+//  DESCRIPTION:    Update array with creature's characteristics
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Spell::setBaseEffect(int effect)
+{
+    mb_baseEffect = effect;
+}
+
+
+
+//==================================================================================================
+//         TYPE:    --------
+//  DESCRIPTION:    Update array with creature's characteristics
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Spell::setBaseCost(int cost)
+{
+    mb_baseCost = cost;
 }
 
 

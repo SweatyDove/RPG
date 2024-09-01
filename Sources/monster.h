@@ -60,7 +60,7 @@ public:
     };
 
     // ######## BASE attack multipliers
-    inline const static std::array<float, static_cast<int>(Attr::Name::TOTAL)> mb_baseAttackMultiplier {0};
+    inline static std::array<float, static_cast<int>(Attr::Name::TOTAL)> mb_baseAttackMultiplier {0};
 
     //Monster::Type getRandomType();
 
@@ -122,7 +122,7 @@ public:
 
 
     // ##########  Other Functions  ##########################
-    bool                    isDead() const override;
+    //bool                    isDead() const override;
     void                    attack(Player& player) const;
     void                    reduceHealth(int health);
     void                    commitSuicide() override;

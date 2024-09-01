@@ -107,7 +107,7 @@ int main()
     Player* player {nullptr};
     switch (playerSpec) {
     case Player::Spec::WARRIOR:
-        player = new Warrior;
+        player = new Warrior {playerRace, playerName};
         break;
 //    case Player::Spec::MAGE:
 //        //Mage mage {player};

@@ -10,10 +10,11 @@
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-Warrior::Warrior(Player::Race race, std::string name):
-    Player {race, name}
+Warrior::Warrior(Player::Race race, Player::Spec spec, std::string name):
+    Player {race, spec, name}
 {
-
+    this->setAllAttr(Attr::Name::STAMINA, 50, 50, 50);
+    this->setAllAttr(Attr::Name::STRENGTH, 10, 10, 10);
 }
 
 
@@ -33,7 +34,7 @@ Warrior::~Warrior()
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Set settings for warriors skills. Another option is to calculate settings of one
 //                  or another skill in place.
 //   PARAMETERS:    --------
@@ -52,7 +53,7 @@ Warrior::~Warrior()
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -74,7 +75,7 @@ void Warrior::cast(Spell& spell, Creature& creature)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -93,19 +94,19 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 //    std::cout << "What are you going to do? Press an appropriate button:\n";
 
     // ######## 1-st option
-    std::cout << "\n[1] - attack monster with " << mb_baseAttack.getName() << "and deal ("
+    std::cout << "\n[1] - attack monster with " << mb_baseAttack.getName() << " and deal ("
               << mb_baseAttack.getEffect(mb_level) << ") damage to the monster";
 
     // ######## 2-nd option
     /* Maybe it is better to replace Stamina on structure (or array) of player resources. Or add function
      * to get main resources...
      */
-    std::cout << "\n[2] - attack monster with " << mb_specialAttack.getName() << "and deal ("
+    std::cout << "\n[2] - attack monster with " << mb_specialAttack.getName() << " and deal ("
               << mb_specialAttack.getEffect(mb_level) << ") to the monster. " << "This attack costs ("
               << mb_specialAttack.getCost(mb_level) <<") stamina points." << std::endl;
 
     // ######## 3-rd option
-    std::cout << "\n[3] - Commit suicide...";
+    std::cout << "[3] - Commit suicide...";
 
     // ######## 4-th option
     std::cout << "\n[0] - Run away: You have (" << this->getCurAttr(Attr::Name::ESCAPE_CHANCE)
@@ -157,7 +158,7 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -171,7 +172,7 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -185,7 +186,7 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Member function that realizes the warrior's base attack.
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -206,8 +207,28 @@ void Warrior::attack(Monster& monster)
 
 
 
+
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    STAND HERE! Need to write function that displayed all player's active (!= -1)
+//                  attributes
+//==================================================================================================
+void Player::printAttr() const override
+{
+    for (const auto& attr: mb_attribute) {
+        if (attr.getValue( ))
+    }
+
+}
+
+
+
+
+//==================================================================================================
+//         TYPE:    --------
 //  DESCRIPTION:    Member function that realizes the warrior's special attack.
 //   PARAMETERS:    --------
 // RETURN VALUE:    true - if atack succeed; false - otherwise
@@ -259,7 +280,7 @@ bool Warrior::superAttack(Monster& monster)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -275,7 +296,7 @@ bool Warrior::superAttack(Monster& monster)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------

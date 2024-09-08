@@ -99,6 +99,7 @@ public:
     void setCurAttr(Attr::Name name, int val);
     void setMaxAttr(Attr::Name name, int val);
     void setBaseAttr(Attr::Name name, int val);
+    void setAllAttr(Attr::Name name, int baseVal, int maxVal, int curVal);
 
 
     void modCurAttr(Attr::Name name, int delta);
@@ -110,6 +111,8 @@ public:
     virtual bool                isDead() const;
     virtual void                commitSuicide() = 0;
     virtual const std::string&  getName() const = 0;
+
+    virtual void printAttr() const = 0;
 
 
 //    template <typename AttributeName>

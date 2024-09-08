@@ -54,7 +54,7 @@ my::Log::~Log()
 
 
 //==========================================================================
-// NAME:
+// TYPE:
 // GOAL: Write one record to the file.
 //==========================================================================
 void my::Log::writeRecordToFile()
@@ -71,7 +71,7 @@ void my::Log::writeRecordToFile()
 
 
 //==============================================================================
-// NAME:
+// TYPE:
 // GOAL: Write available log records to the file. There is an opportunity,
 //       that not all records will be written, if the last log record is
 //       being handled at the same time, when main-thread is pushing a new one.
@@ -109,7 +109,7 @@ void my::Log::writeLogToFile()
 
 
 //==============================================================================
-// NAME: Friend function
+// TYPE: Friend function
 // GOAL: It finishes the current record and makes preparations for the new one.
 //==============================================================================
 void my::endRecord(my::Log& log)

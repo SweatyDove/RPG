@@ -2,7 +2,7 @@
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Create specified creature
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -16,7 +16,7 @@ Creature::Creature(Creature::Type type, int level) :
 
 
 //==================================================================================================
-//         NAME:    Destructor
+//         TYPE:    Destructor
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -30,7 +30,7 @@ Creature::~Creature()
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -45,7 +45,7 @@ int Creature::getLevel() const
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -66,7 +66,7 @@ int Creature::getLevel() const
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -74,7 +74,7 @@ int Creature::getLevel() const
 //==================================================================================================
 int Creature::getCurAttr(Attr::Name name) const
 {
-    for (auto attr: mb_attribute) {
+    for (const auto& attr: mb_attribute) {
         if (attr.getName() == name) {
            return attr.getValue(Attr::ValueType::CURRENT);
         }
@@ -89,7 +89,7 @@ int Creature::getCurAttr(Attr::Name name) const
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -97,7 +97,7 @@ int Creature::getCurAttr(Attr::Name name) const
 //==================================================================================================
 int Creature::getMaxAttr(Attr::Name name) const
 {
-    for (auto attr: mb_attribute) {
+    for (const auto& attr: mb_attribute) {
         if (attr.getName() == name) {
            return attr.getValue(Attr::ValueType::MAX);
         }
@@ -112,7 +112,7 @@ int Creature::getMaxAttr(Attr::Name name) const
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -120,7 +120,7 @@ int Creature::getMaxAttr(Attr::Name name) const
 //==================================================================================================
 int Creature::getBaseAttr(Attr::Name name) const
 {
-    for (auto attr: mb_attribute) {
+    for (const auto& attr: mb_attribute) {
         if (attr.getName() == name) {
            return attr.getValue(Attr::ValueType::BASE);
         }
@@ -135,7 +135,7 @@ int Creature::getBaseAttr(Attr::Name name) const
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -143,9 +143,10 @@ int Creature::getBaseAttr(Attr::Name name) const
 //==================================================================================================
 void Creature::setCurAttr(Attr::Name name, int val)
 {
-    for (auto attr: mb_attribute) {
+    for (auto& attr: mb_attribute) {
         if (attr.getName() == name) {
            attr.setValue(Attr::ValueType::CURRENT, val);
+           return;
         }
         else {} // Nothing to do
     }
@@ -156,7 +157,7 @@ void Creature::setCurAttr(Attr::Name name, int val)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -164,9 +165,10 @@ void Creature::setCurAttr(Attr::Name name, int val)
 //==================================================================================================
 void Creature::setMaxAttr(Attr::Name name, int val)
 {
-    for (auto attr: mb_attribute) {
+    for (auto& attr: mb_attribute) {
         if (attr.getName() == name) {
            attr.setValue(Attr::ValueType::MAX, val);
+           return;
         }
         else {} // Nothing to do
     }
@@ -177,7 +179,7 @@ void Creature::setMaxAttr(Attr::Name name, int val)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -185,9 +187,10 @@ void Creature::setMaxAttr(Attr::Name name, int val)
 //==================================================================================================
 void Creature::setBaseAttr(Attr::Name name, int val)
 {
-    for (auto attr: mb_attribute) {
+    for (auto& attr: mb_attribute) {
         if (attr.getName() == name) {
            attr.setValue(Attr::ValueType::BASE, val);
+           return;
         }
         else {} // Nothing to do
     }
@@ -199,7 +202,22 @@ void Creature::setBaseAttr(Attr::Name name, int val)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//  DESCRIPTION:    Just a 3in1 function for setting attribute
+//     COMMENTS:    --------
+//==================================================================================================
+void Creature::setAllAttr(Attr::Name name, int baseVal, int maxVal, int curVal)
+{
+    this->setBaseAttr(name, baseVal);
+    this->setMaxAttr(name, maxVal);
+    this->setCurAttr(name, curVal);
+}
+
+
+//==================================================================================================
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -207,9 +225,10 @@ void Creature::setBaseAttr(Attr::Name name, int val)
 //==================================================================================================
 void Creature::modCurAttr(Attr::Name name, int delta)
 {
-    for (auto attr: mb_attribute) {
+    for (auto& attr: mb_attribute) {
         if (attr.getName() == name) {
            attr.changeValue(Attr::ValueType::CURRENT, delta);
+           return;
         }
         else {} // Nothing to do
     }
@@ -220,7 +239,7 @@ void Creature::modCurAttr(Attr::Name name, int delta)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -228,9 +247,10 @@ void Creature::modCurAttr(Attr::Name name, int delta)
 //==================================================================================================
 void Creature::modMaxAttr(Attr::Name name, int delta)
 {
-    for (auto attr: mb_attribute) {
+    for (auto& attr: mb_attribute) {
         if (attr.getName() == name) {
            attr.changeValue(Attr::ValueType::MAX, delta);
+           return;
         }
         else {} // Nothing to do
     }
@@ -241,7 +261,7 @@ void Creature::modMaxAttr(Attr::Name name, int delta)
 }
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -249,9 +269,10 @@ void Creature::modMaxAttr(Attr::Name name, int delta)
 //==================================================================================================
 void Creature::modBaseAttr(Attr::Name name, int delta)
 {
-    for (auto attr: mb_attribute) {
+    for (auto& attr: mb_attribute) {
         if (attr.getName() == name) {
            attr.changeValue(Attr::ValueType::BASE, delta);
+           return;
         }
         else {} // Nothing to do
     }
@@ -264,7 +285,7 @@ void Creature::modBaseAttr(Attr::Name name, int delta)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -284,7 +305,7 @@ void Creature::modBaseAttr(Attr::Name name, int delta)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -307,7 +328,7 @@ void Creature::modBaseAttr(Attr::Name name, int delta)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Function returns attribute value (resource/characteristic and etc)
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -353,7 +374,7 @@ void Creature::modBaseAttr(Attr::Name name, int delta)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    This function changes resource in dependence on sign and magnitude of @value
 //                  (increaseor or decrease), @type of resource (current or max) and it's @name
 //                  (HEALTH, STAMINA, MANA, CONCENTRATION)
@@ -420,7 +441,7 @@ void Creature::modBaseAttr(Attr::Name name, int delta)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -487,7 +508,7 @@ void Creature::modBaseAttr(Attr::Name name, int delta)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -500,7 +521,7 @@ void Creature::modBaseAttr(Attr::Name name, int delta)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -513,7 +534,7 @@ void Creature::modBaseAttr(Attr::Name name, int delta)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Function changes health of creature by specified value @health. This value can
 //                  be negative!
 //   PARAMETERS:    --------
@@ -539,7 +560,7 @@ void Creature::modBaseAttr(Attr::Name name, int delta)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Function changes stamina of creature by specified value @stamina. If creature's
 //                  @mb_curStamina == -1, it means that this characteristic is inactive for
 //                  instance of the class, derived from <Creature>
@@ -576,7 +597,7 @@ void Creature::modBaseAttr(Attr::Name name, int delta)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -589,7 +610,7 @@ bool Creature::isDead() const
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------

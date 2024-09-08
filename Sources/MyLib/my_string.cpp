@@ -4,7 +4,7 @@
 
 
 //==========================================================================
-// NAME: Constructor from <const char*> type.
+// TYPE: Constructor from <const char*> type.
 // GOAL: Didn't mark it is as explicit, because it is often used for the
 //       implicit conversions (like [std::string] from <const char*>).
 //==========================================================================
@@ -38,7 +38,7 @@ my::String::String(const char* bufferOfChars)
 
 
 //===============================================================================
-// NAME: Copy constructor
+// TYPE: Copy constructor
 // GOAL: CREATING a new object (in case of assignment - new object already EXISTS)
 //       and copy input @string into created (@this) string.
 //===============================================================================
@@ -60,7 +60,7 @@ my::String::String(const my::String& string)
 
 
 //==============================================================================
-// NAME: Destructor
+// TYPE: Destructor
 // GOAL: Destruct @this object with the deallocation of memory.
 //==============================================================================
 my::String::~String()
@@ -73,7 +73,7 @@ my::String::~String()
 
 
 //==============================================================================
-// NAME: Friend binary [operator+] for <my::String> and <my::String>
+// TYPE: Friend binary [operator+] for <my::String> and <my::String>
 // GOAL: Create new <my::String> object via concatenation its arguments.
 //==============================================================================
 my::String& my::operator+(const my::String& leftString, const my::String& rightString)
@@ -87,7 +87,7 @@ my::String& my::operator+(const my::String& leftString, const my::String& rightS
 }
 
 //==============================================================================
-// NAME: Member function
+// TYPE: Member function
 // GOAL: Clear the <my::String> object without deallocation memory.
 //       Just write '\0' in each significant symbol.
 //==============================================================================
@@ -105,7 +105,7 @@ void my::String::clear()
 
 
 //==============================================================================
-// NAME: Overloaded [operator<<] for <int> type.
+// TYPE: Overloaded [operator<<] for <int> type.
 // GOAL: Writing integer @intNumber as char data into the my::String object.
 //==============================================================================
 my::String& my::operator<<(my::String& string, int intNumber)
@@ -159,7 +159,7 @@ my::String& my::operator<<(my::String& string, int intNumber)
 
 
 //==============================================================================
-// NAME: Overloaded [operator<<] for <const char*> type.
+// TYPE: Overloaded [operator<<] for <const char*> type.
 // GOAL: Writing buffer of <char> into the my::String object.
 //==============================================================================
 my::String& my::operator<<(my::String& string, const char* charDataBuffer)
@@ -195,7 +195,7 @@ my::String& my::operator<<(my::String& string, const char* charDataBuffer)
 
 
 //==============================================================================
-// NAME: Friend function.
+// TYPE: Friend function.
 //       Overloaded [operator<<] for <const char> type.
 // GOAL: Writing single <char> into the my::String object.
 //==============================================================================
@@ -224,7 +224,7 @@ my::String& my::operator<<(my::String& string, const char symbol)
 
 
 //==============================================================================
-// NAME: Overloaded [operator<<] for <const my::String&> type.
+// TYPE: Overloaded [operator<<] for <const my::String&> type.
 // GOAL:
 //==============================================================================
 my::String& my::operator<<(my::String& string, const my::String& inputString)
@@ -237,7 +237,7 @@ my::String& my::operator<<(my::String& string, const my::String& inputString)
 
 
 //==============================================================================
-// NAME: Copy assignment via overloaded [operator=].
+// TYPE: Copy assignment via overloaded [operator=].
 // GOAL: We don't need to create a new object. Just assign to the existing one
 //       doing a deep copy.
 //==============================================================================
@@ -275,7 +275,7 @@ my::String& my::String::operator=(const my::String& string)
 
 
 //==============================================================================
-// NAME: Move assignment via overloaded [operator=].
+// TYPE: Move assignment via overloaded [operator=].
 // GOAL: Transfer ownership from
 //==============================================================================
 my::String& my::String::operator=(my::String&& rString) noexcept
@@ -301,7 +301,7 @@ my::String& my::String::operator=(my::String&& rString) noexcept
 
 
 //==============================================================================
-// NAME: Assignment overloaded [operator=] for <const char*> type.
+// TYPE: Assignment overloaded [operator=] for <const char*> type.
 // GOAL:
 //==============================================================================
 my::String& my::String::operator=(const char* stringLiteral)
@@ -320,7 +320,7 @@ my::String& my::String::operator=(const char* stringLiteral)
 
 
 //==============================================================================
-// NAME: Friend function;
+// TYPE: Friend function;
 //       Overloaded [operator>>]
 //==============================================================================
 std::istream& my::operator>>(std::istream& in, my::String& string)
@@ -489,7 +489,7 @@ void my::String::setAllocationDataChunk(int bytes)
 }
 
 //==============================================================================
-// NAME:
+// TYPE:
 // GOAL:
 //==============================================================================
 const char* my::String::getFirstElementAdress() const

@@ -10,18 +10,19 @@
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-Player::Player(Player::Race race, std::string name) :
+Player::Player(Race race, Spec spec, std::string name) :
     Creature {Creature::Type::PLAYER, 1},
     mb_race {race},
+    mb_spec {spec},
     mb_name {name}
 {
-    // ######## Add new attributes
+    // ######## Add new attributes (RATINGS ans SKILLS)
     mb_attribute.insert(std::end(mb_attribute), std::begin(mb_ratings), std::end(mb_ratings));
     mb_attribute.insert(std::end(mb_attribute), std::begin(mb_skills), std::end(mb_skills));
 
@@ -30,7 +31,7 @@ Player::Player(Player::Race race, std::string name) :
 
 
 //==================================================================================================
-//         NAME:    Virtual Destructor
+//         TYPE:    Virtual Destructor
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -43,7 +44,7 @@ Player::~Player()
 }
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -57,7 +58,7 @@ void Player::setRace(Player::Race race)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -71,7 +72,7 @@ Player::Spec Player::getSpec() const
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -85,7 +86,7 @@ int Player::getTimeLived() const
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -101,7 +102,7 @@ void Player::newDay()
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -115,7 +116,7 @@ const std::string& Player::getName() const
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -130,7 +131,7 @@ void Player::setName(std::string& name)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -144,7 +145,7 @@ void Player::setName(std::string& name)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -158,7 +159,7 @@ void Player::setName(std::string& name)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -177,7 +178,7 @@ void Player::setName(std::string& name)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -198,7 +199,7 @@ void Player::addGold(int gold)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -278,7 +279,7 @@ void Player::increaseExp(Monster& monster)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Function handles the player's looting monster's corpse.
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -311,6 +312,9 @@ void Player::getLootFrom(Monster& monster)
                 delete potion;
                 break;
             }
+            case Item::Type::TRASH:
+            case Item::Type::TOTAL:
+                break;
             }
         }
         else {} // Nothing to do
@@ -361,7 +365,7 @@ void Player::drink(Potion& potion)
 
 
 //==================================================================================================
-//         NAME:    fightWith
+//         TYPE:    fightWith
 //  DESCRIPTION:    Member function, that realize player's fight with specified @monster
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -437,7 +441,7 @@ void Player::fightWith(Monster& monster)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Function displays player's option while fighting with monster.
 //   PARAMETERS:    --------
 // RETURN VALUE:    Returns player's choice.
@@ -505,7 +509,7 @@ void Player::fightWith(Monster& monster)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -519,7 +523,7 @@ void Player::commitSuicide()
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Get potion
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -554,7 +558,7 @@ void Player::getPotion(int potionChance)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Player getting a rest and restores some part of his characteristics during this
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------

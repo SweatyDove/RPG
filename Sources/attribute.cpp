@@ -5,7 +5,7 @@
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -23,7 +23,7 @@ Attribute::Attribute(Attribute::Name name, Type type, int baseValue, int curValu
 }
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -35,7 +35,7 @@ Attribute::Type Attribute::getType() const
 }
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -48,7 +48,7 @@ Attribute::Name Attribute::getName() const
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -62,7 +62,7 @@ std::string_view Attribute::getStringName(Name name)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -98,7 +98,7 @@ void Attribute::changeValue(ValueType valueType, int delta)
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -129,7 +129,7 @@ int Attribute::getValue(ValueType valueType) const
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------

@@ -53,11 +53,23 @@ Monster::Monster():
     mb_baseAttack.setBaseEffect(spellBaseEffect);
     mb_baseAttack.setBaseCost(spellBaseCost);
 
+    this->generateLoot();
+
 
 }
 
+//==================================================================================================
+//         TYPE:    Destructor
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+Monster::~Monster()
+{
+    std::cout << "[DEBUG]: monster object has been destroyed." << std::endl;
 
-
+}
 
 
 //==============================================================================
@@ -225,6 +237,7 @@ void Monster::setHealth(Type type, int level)
         this->setBaseAttr(health, mb_baseHealth[static_cast<int>(type)]);
         this->setMaxAttr(health, this->getBaseAttr(health) + (level - 1) * 5);
         this->setCurAttr(health, this->getMaxAttr(health));
+        break;
     case Type::TOTAL:
         assert(false && "Invalid monster's type");
         break;
@@ -261,9 +274,9 @@ void Monster::attack(Player& player) const
 
     SetConsoleTextAttribute(hConsole, CLR_FLAMINGO);
     std::cout << "The " << this->getName() << " attacked player and dealt (" << mb_baseAttack.getEffect(mb_level)
-              << ") points of damage. At now, player has (" << player.getCurAttr(Attr::Name::HEALTH) << ") hp. "
-              << std::endl;
+              << ") points of damage.";
     SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+    std::cout << " At now, player has (" << player.getCurAttr(Attr::Name::HEALTH) << ") hp. " << std::endl;
 
     return;
 }

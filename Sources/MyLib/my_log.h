@@ -47,13 +47,13 @@ private:
 
 public:
     //==========================================================================
-    // NAME: Constructor
+    // TYPE: Constructor
     //==========================================================================
     explicit Log(const char* fileName = "log_file.txt",
                  std::ios_base::openmode fileMode = std::ios_base::out);
 
     //==========================================================================
-    // NAME: Destructor
+    // TYPE: Destructor
     //==========================================================================
     ~Log();
 
@@ -63,7 +63,7 @@ public:
      ***************************************/
 
     //==========================================================================
-    // NAME: Friend overloaded [operator<<] for <char>, <const char*>, <int>.
+    // TYPE: Friend overloaded [operator<<] for <char>, <const char*>, <int>.
     // GOAL: Write [inputValue] of specified type in the log record.
     //==========================================================================
     template<typename InputType>
@@ -75,7 +75,7 @@ public:
     }
 
     //==========================================================================
-    // NAME: Friend overloaded [operator<<] for functions.
+    // TYPE: Friend overloaded [operator<<] for functions.
     // GOAL: Call the specified function with @log parameter.
     //==========================================================================
     friend my::Log& operator<<(my::Log& log, void (*functionPointer)(my::Log&))
@@ -112,7 +112,7 @@ public:
 
 
     //==========================================================================
-    // NAME: Friend function
+    // TYPE: Friend function
     // GOAL: It finishes the current record and makes preparations for the new one.
     //==========================================================================
     friend void endRecord(my::Log& log);

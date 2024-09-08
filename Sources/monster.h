@@ -98,6 +98,7 @@ public:
 
     // ######## Create random monster
     Monster();
+    ~Monster() override;
 
 
 
@@ -127,6 +128,9 @@ public:
     void                    reduceHealth(int health);
     void                    commitSuicide() override;
     void                    generateLoot();
+
+    void                    printAttr() const override = delete;
+
 
     static int getRandomMonsterLevel();
     static Type getRandomMonsterType();

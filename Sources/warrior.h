@@ -62,36 +62,23 @@ private:
     };
     Spell       mb_specialAttack    {mb_attribute, mb_specialAttackMultiplier, "HEAVY BLOW", Spell::School::PHYSICAL, 30, 30};
 
-
-
 public:
     // #############  Constructors and Destructors  ##############
-    Warrior(Player::Race race, std::string name);
+    Warrior(Player::Race race, Player::Spec spec, std::string name);
     ~Warrior() override;
-
-
-    // ##############  Setters and Getters  ################
-
-
-    void cast(Spell& spell, Creature& target);
-//    void setDamage() override;
-
-//    int getAttackDamage() const override;
-//    int getSuperAttackDamage() const override;
-//    int getSuperAttackCost() const override;
 
     void                        commitSuicide() override;
     Player::FightOption         chooseFightOption(Monster& monster) override;
-
-
     void                        attack(Monster& monster) override;
     bool                        superAttack(Monster& monster) override;
+    void                        cast(Spell& spell, Creature& target);
+
+    void                        printAttr() const override;
 
 
-
-
-
-    // ##############  Other functions  ####################
-
+//    void setDamage() override;
+//    int getAttackDamage() const override;
+//    int getSuperAttackDamage() const override;
+//    int getSuperAttackCost() const override;
 
 };

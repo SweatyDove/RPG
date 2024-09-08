@@ -5,7 +5,7 @@
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Generate RANDOM potion according to @level
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -18,7 +18,7 @@ Potion::Potion(int level) :
 }
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Generate with the given @type and @effect
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
@@ -54,7 +54,7 @@ my::String Potion::getName() const
 
 
 //==================================================================================================
-//         NAME:    --------
+//         TYPE:    --------
 //  DESCRIPTION:    Generate random potion
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------

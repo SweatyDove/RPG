@@ -91,7 +91,7 @@ int Spell::getEffect(int level) const
 
     // ######## 1-st step, where a spell effect is calculated via multiplication creature's
     // ######## @characteristics and spell's @multipliers
-    for (int ii {0}; ii < static_cast<int>(Attr::Name::TOTAL); ++ii) {
+    for (int ii {0}; ii < mb_attributes.size(); ++ii) {
         effect += mb_attributes[ii].getValue(Attr::ValueType::CURRENT) * mb_multipliers[ii];
     }
 

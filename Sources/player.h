@@ -93,9 +93,9 @@ protected:
 private:
     // ######## GENERAL
     Race            mb_race         {Player::Race::ORC};
+    Spec            mb_spec         {Player::Spec::WARRIOR};                // Temporary
     std::string     mb_name         {player_default::NAME};
 
-    Spec            mb_spec         {Player::Spec::WARRIOR};
     int             mb_curExp       {0};
     int             mb_nextLevelExp {1000};             // Const for now
     int             mb_timeLived    {player_default::DAY_LIVED};
@@ -110,59 +110,47 @@ private:
 public:
 
     // ########  Constructors and Destructors  ########
-    Player(Race race, std::string name);
+    Player(Race race, Spec spec, std::string name);
     virtual ~Player();
 
 
-    // ########  Setters and Getters  ########
-    const std::string&  getName() const override;
-    Spec                getSpec() const;
-    int                 getTimeLived() const;
+    const std::string&      getName() const override;
+    Spec                    getSpec() const;
+    int                     getTimeLived() const;
+
+    void                    setName(std::string& name);
+    void                    setRace(Player::Race race);
+    virtual void            attack(Monster& monster) = 0;
+    virtual bool            superAttack(Monster& monster) = 0;
+
+    virtual FightOption     chooseFightOption(Monster& monster) = 0;
+
+    void                    commitSuicide() override;
+    void                    newDay();
+    void                    fightWith(Monster& monster);
+    void                    addGold(int gold);
+    void                    drink(Potion& potion);
+    void                    getLootFrom(Monster& monster);
+    void                    increaseExp(Monster& monster);
+    void                    levelUp();
+    void                    getPotion(int potionChance);
+    void                    getRest();
+
+    void                    printAttr() const override = 0;
 
 
-    //void              setHealth();
+
+//    void              setHealth();
 //    void                setStamina();
 //    void                setMana();
-
-    void                setName(std::string& name);
-    void                setRace(Player::Race race);
-
-
-    // ########  Virtual methods  #########
-    //virtual int         getAttackDamage() const = 0;
-
-
-    //virtual int         getSuperAttackDamage() const = 0;
-   // virtual int         getSuperAttackCost() const = 0;
-    //virtual void        setDamage() = 0;
-    virtual void        attack(Monster& monster) = 0;
-    virtual bool        superAttack(Monster& monster) = 0;
-
-    virtual FightOption         chooseFightOption(Monster& monster) = 0;
-
-
-
-    // ########  Public Interface  ########
-    void                commitSuicide() override;
-    void                newDay();
-    void                fightWith(Monster& monster);
-    void                addGold(int gold);
-    void                drink(Potion& potion);
-    void                getLootFrom(Monster& monster);
-    void                increaseExp(Monster& monster);
-    void                levelUp();
-    void                getPotion(int potionChance);
-    void                getRest();
-
-
+//    virtual int         getAttackDamage() const = 0;
+//    virtual int         getSuperAttackDamage() const = 0;
+//    virtual int         getSuperAttackCost() const = 0;
+//    virtual void        setDamage() = 0;
 //    void                addStrength(int strength);
 //    void                changeHealth(int health) override;
 //    void                changeStamina(int stamina) override;
 //    void                changeStrength(int strength) override;
-
-
-
-
 // System resources
 //    my::Log         mb_log      {"battle_log.txt"};
 

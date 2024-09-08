@@ -35,6 +35,9 @@
  * 13 - Think about balance between versality of class's methods and their readability/convinience.
  *      For example, if function is used a lot - better to make it shorter, split into parts
  *
+ * 14 - Transfer spell's multipliers and other it's settings to <Spell> class from the <Creature>'s
+ *      derived classes (or think about to store all <Spell> instances in one file/place)
+ *
  *
  * QUESTIONS:
  *
@@ -107,7 +110,7 @@ int main()
     Player* player {nullptr};
     switch (playerSpec) {
     case Player::Spec::WARRIOR:
-        player = new Warrior {playerRace, playerName};
+        player = new Warrior {playerRace, playerSpec, playerName};
         break;
 //    case Player::Spec::MAGE:
 //        //Mage mage {player};
@@ -137,6 +140,8 @@ int main()
         std::cout << "\n\n[Day " << player->getTimeLived() << "]\n"
                   << "********************************************************************************"
                   << std::endl;
+        for (const auto& attr: player->mb_attribute)
+
         SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));       // Just a time gap for convinience
 
@@ -149,7 +154,7 @@ int main()
                   << ") level." << std::endl;
 
         player->fightWith(monster);
-        monster.commitSuicide();
+//        monster.commitSuicide();
 
         if (monster.isDead()) {
             player->getLootFrom(monster);

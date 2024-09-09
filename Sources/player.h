@@ -136,7 +136,11 @@ public:
     void                    getPotion(int potionChance);
     void                    getRest();
 
-    void                    printAttr() const override = 0;
+    int                     getExp() const;
+    int                     getNextLvlExp() const;
+    void                    printAttr() const override;
+
+
 
 
 

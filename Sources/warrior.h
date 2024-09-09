@@ -73,8 +73,6 @@ public:
     bool                        superAttack(Monster& monster) override;
     void                        cast(Spell& spell, Creature& target);
 
-    void                        printAttr() const override;
-
 
 //    void setDamage() override;
 //    int getAttackDamage() const override;

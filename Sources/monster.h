@@ -129,7 +129,8 @@ public:
     void                    commitSuicide() override;
     void                    generateLoot();
 
-    void                    printAttr() const override = delete;
+    void                    printAttr() const override;
+
 
 
     static int getRandomMonsterLevel();

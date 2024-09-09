@@ -624,3 +624,41 @@ void Creature::commitSuicide()
 
 
 
+//==================================================================================================
+//         TYPE:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+std::string_view Creature::getTypeName() const
+{
+    return TYPE_NAME[static_cast<int>(mb_type)];
+}
+
+
+
+//==================================================================================================
+//         TYPE:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Creature::printAttr() const
+{
+    for (const auto& attr: mb_attribute) {
+
+        int curValue {attr.getValue(Attr::ValueType::CURRENT)};
+        int maxValue {attr.getValue(Attr::ValueType::MAX)};
+
+        if (curValue != -1 && maxValue != -1) {
+            std::cout << std::setw(16) << attr.getStringName(attr.getName()) << ":    " << curValue << '/' << maxValue << std::endl;
+        }
+//        else if (curValue == -1 || maxValue == -1) {
+//            assert(false && "Creature can't have current or max attribute in inactive state, only both.");
+//        }
+        else {} // Nothing to do
+    }
+
+}

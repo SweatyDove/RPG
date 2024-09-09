@@ -4,6 +4,7 @@
 #include "main.h"
 #include "item.h"
 #include "attribute.h"
+#include "player.h"
 
 
 class Creature {
@@ -23,6 +24,13 @@ public:
 
         TOTAL
 
+    };
+    std::array<std::string, static_cast<int>(Type::TOTAL)> TYPE_NAME = {
+        {
+            "PLAYER",
+            "MONSTER",
+            "TRADER"
+        }
     };
 
     // #### CHARACTERISTICS of the creature
@@ -112,7 +120,10 @@ public:
     virtual void                commitSuicide() = 0;
     virtual const std::string&  getName() const = 0;
 
-    virtual void printAttr() const = 0;
+    std::string_view        getTypeName() const;
+
+    virtual void            printAttr() const;
+
 
 
 //    template <typename AttributeName>

@@ -94,8 +94,8 @@ int Player::getTimeLived() const
 //==================================================================================================
 void Player::newDay()
 {
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));       // Just a time gap for convinience
     mb_timeLived += 1;
-    return;
 }
 
 
@@ -576,9 +576,48 @@ void Player::getRest()
 
 
 
+//==================================================================================================
+//         TYPE:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//  DESCRIPTION:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+int Player::getCurExp() const
+{
+    return mb_curExp;
+}
 
 
 
+//==================================================================================================
+//         TYPE:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//  DESCRIPTION:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+int Player::getNextLvlExp() const
+{
+    return mb_nextLevelExp;
+}
+
+
+
+//==================================================================================================
+//         TYPE:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Player::printAttr() const
+{
+    std::cout << this->getTypeName() << "'s attributes:" << std::endl;
+    std::cout << std::setw(16) << "LEVEL:    " << mb_level << std::endl;
+    std::cout << std::setw(16) << "EXP:    " << mb_curExp << '/' << mb_nextLevelExp << std::endl;
+    Creature::printAttr();
+}
 
 
 

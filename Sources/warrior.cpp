@@ -208,21 +208,6 @@ void Warrior::attack(Monster& monster)
 
 
 
-//==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    STAND HERE! Need to write function that displayed all player's active (!= -1)
-//                  attributes
-//==================================================================================================
-void Player::printAttr() const override
-{
-    for (const auto& attr: mb_attribute) {
-        if (attr.getValue( ))
-    }
-
-}
 
 
 

@@ -354,6 +354,22 @@ void Monster::generateLoot()
 
 
 
+//==================================================================================================
+//         TYPE:    --------
+//  DESCRIPTION:    --------
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
+void Monster::printAttr() const
+{
+    std::cout << this->getTypeName() << "'s attributes:" << std::endl;
+//    std::cout << std::setw(16) << "LEVEL:    " << mb_level << std::endl;
+//    std::cout << std::setw(16) << "EXP:    " << mb_curExp << '/' << mb_nextLevelExp << std::endl;
+    Creature::printAttr();
+}
+
+
 
 //int getRandomLevel()
 //{

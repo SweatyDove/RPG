@@ -140,10 +140,10 @@ int main()
         std::cout << "\n\n[Day " << player->getTimeLived() << "]\n"
                   << "********************************************************************************"
                   << std::endl;
-        for (const auto& attr: player->mb_attribute)
-
+        player->printAttr();
+        std::cout << "********************************************************************************"
+                  << std::endl;
         SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
-        std::this_thread::sleep_for(std::chrono::milliseconds(2000));       // Just a time gap for convinience
 
         // ## Create random monster (or NPC)
         //Creature creature {};         - create a creature (monster/trader or smb else)

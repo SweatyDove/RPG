@@ -18,6 +18,7 @@
 #include <cassert>
 #include <memory>
 #include <type_traits>          // For std::is_same
+#include <iomanip>              // For std::setw()
 
 
 // ######## STL containers

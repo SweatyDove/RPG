@@ -38,6 +38,17 @@
  * 14 - Transfer spell's multipliers and other it's settings to <Spell> class from the <Creature>'s
  *      derived classes (or think about to store all <Spell> instances in one file/place)
  *
+ * 15 - Add a formula of monster's health depending on player's health in such way... For example,
+ *      monster's level is random number from 1-10. Its hp, accordingly, 10-100 hp (level * baseHealth for example).
+ *      Then, average monster health will be 55 (taking into account the equal probavility of occurrence
+ *      and monster's health = level * baseHealth). Then, I suppose, player's health should be about 55 hp.
+ *
+ * 16 - Pay more attention to random generation of ALL - monsters, caves, castles, trees and so on...
+ *      And give to player a goal to explore the world (and trying to find treasures!). For example,
+ *      in Skyrim there are fixed points of chests with treasure. But I want smth in the Skyrim settings,
+ *      but with cave's autogeneration (like in DRG) and treasure random generation (like in Sea Of Thieves)
+ *      and so on...
+ *
  *
  * QUESTIONS:
  *
@@ -138,11 +149,9 @@ int main()
 
         SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
         std::cout << "\n\n[Day " << player->getTimeLived() << "]\n"
-                  << "********************************************************************************"
-                  << std::endl;
+                  << "***************************************************************" << std::endl;
         player->printAttr();
-        std::cout << "********************************************************************************"
-                  << std::endl;
+        std::cout << "***************************************************************" << std::endl;
         SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
         // ## Create random monster (or NPC)
@@ -150,19 +159,25 @@ int main()
         Monster monster{};
 
         // ## What happened at this day?
-        std::cout << "You have encountered a ("<< monster.getName() << ") of ("<< monster.getLevel()
-                  << ") level." << std::endl;
+        std::cout << "You have encountered a "<< monster.getName() << " of "<< monster.getLevel()
+                  << " level." << std::endl;
+        monster.printAttr();
+        std::cout << "***************************************************************" << std::endl;
 
         player->fightWith(monster);
 //        monster.commitSuicide();
 
+        // #### If the monster was killed - player can loot its corpse.
         if (monster.isDead()) {
             player->getLootFrom(monster);
         }
         else {} // Nothing to do
 
-        // #### Player getting rest
-        player->getRest();
+        // #### If player hasn't be killed (fled of win) - he can get rest.
+//        if (!player->isDead()) {
+//            player->getRest();
+//        }
+//        else {} // Nothing to do
     }
 
     std::cout << "You died at level " << player->getLevel() << ".\n\n";

@@ -129,14 +129,14 @@ public:
     void                    newDay();
     void                    fightWith(Monster& monster);
     void                    addGold(int gold);
-    void                    drink(Potion& potion);
+    void                    drink(const Potion& potion);
     void                    getLootFrom(Monster& monster);
     void                    increaseExp(Monster& monster);
     void                    levelUp();
-    void                    getPotion(int potionChance);
+    void                    getPotion(const Potion& potion);
     void                    getRest();
 
-    int                     getExp() const;
+    int                     getCurExp() const;
     int                     getNextLvlExp() const;
     void                    printAttr() const override;
 

@@ -94,7 +94,32 @@ int Player::getTimeLived() const
 //==================================================================================================
 void Player::newDay()
 {
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000));       // Just a time gap for convinience
+    std::cout << "A new day has come! Do you want to wake up? [y/n]" << std::endl;
+
+    // ######## Choice loop
+    char choice {};
+    bool choiceLoop {true};
+    do {
+        std::cout << "Your choice: ";
+        std::cin >> choice;
+
+        switch(choice) {
+        case 'y': case 'Y':
+            choiceLoop = false;
+            break;
+        case 'n': case 'N':
+            choiceLoop = false;
+            break;
+        default:
+            std::cout << "Incorrect choice. Please, try again." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+    while (choiceLoop);
+
+
+    this->getRest();
     mb_timeLived += 1;
 }
 
@@ -307,8 +332,7 @@ void Player::getLootFrom(Monster& monster)
             }
             case Item::Type::POTION: {
                 Potion* potion = static_cast<Potion*>(itemPtr.release());
-                this->drink(*potion);
-
+                this->getPotion(*potion);
                 delete potion;
                 break;
             }
@@ -329,7 +353,7 @@ void Player::getLootFrom(Monster& monster)
 // WHAT: Member function
 //  WHY: It handles the case when player is going to drink smth.
 //==============================================================================
-void Player::drink(Potion& potion)
+void Player::drink(const Potion& potion)
 {
     switch(potion.mb_type) {
     case Potion::Type::EXHAUSTED:
@@ -419,7 +443,7 @@ void Player::fightWith(Monster& monster)
             this->commitSuicide();
             break;
         case FightOption::TOTAL:
-        break;
+            break;
         }
     }
 
@@ -529,11 +553,9 @@ void Player::commitSuicide()
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Player::getPotion(int potionChance)
+void Player::getPotion(const Potion& potion)
 {
     char            choice {};
-
-
     /*
      *  Check players knowleges in alchemy - if less then [alchemy-level] - then player couldn't define
      * potion before he drinks it.
@@ -542,14 +564,13 @@ void Player::getPotion(int potionChance)
     std::cin >> choice;
     switch(choice) {
     case 'y': case 'Y':
-        //this->drink(potion);
+        this->drink(potion);
         break;
     case 'n': case 'N':
         std::cout << "You've decided not to drink it.\n";
         break;
     default:
         break;
-
     }
 
 }
@@ -614,8 +635,8 @@ int Player::getNextLvlExp() const
 void Player::printAttr() const
 {
     std::cout << this->getTypeName() << "'s attributes:" << std::endl;
-    std::cout << std::setw(16) << "LEVEL:    " << mb_level << std::endl;
-    std::cout << std::setw(16) << "EXP:    " << mb_curExp << '/' << mb_nextLevelExp << std::endl;
+    std::cout << "           LEVEL:    " << mb_level << std::endl;
+    std::cout << "             EXP:    " << mb_curExp << '/' << mb_nextLevelExp << std::endl;
     Creature::printAttr();
 }
 

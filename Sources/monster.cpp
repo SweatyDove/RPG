@@ -67,7 +67,7 @@ Monster::Monster():
 //==================================================================================================
 Monster::~Monster()
 {
-    std::cout << "[DEBUG]: monster object has been destroyed." << std::endl;
+//    std::cout << "[DEBUG]: monster object has been destroyed." << std::endl;
 
 }
 
@@ -222,20 +222,20 @@ void Monster::setHealth(Type type, int level)
 
     switch (type) {
     case Type::SKELETON:
-        // #### CurrentHealth == BaseHealth + (level - 1) * 2
+        // #### MaxHealth == BaseHealth * level
         this->setBaseAttr(health, mb_baseHealth[static_cast<int>(type)]);
-        this->setMaxAttr(health, this->getBaseAttr(health) + (level - 1) * 2);
+        this->setMaxAttr(health, this->getBaseAttr(health) * level);
         this->setCurAttr(health, this->getMaxAttr(health));
         break;
     case Type::ZOMBIE:
-        // #### CurrentHealth == BaseHealth + (level - 1) * 10
+        // #### CurrentHealth == BaseHealth * level
         this->setBaseAttr(health, mb_baseHealth[static_cast<int>(type)]);
-        this->setMaxAttr(health, this->getBaseAttr(health) + (level - 1) * 2);
+        this->setMaxAttr(health, this->getBaseAttr(health) * level);
         this->setCurAttr(health, this->getMaxAttr(health));
         break;
     case Type::GHOST:
         this->setBaseAttr(health, mb_baseHealth[static_cast<int>(type)]);
-        this->setMaxAttr(health, this->getBaseAttr(health) + (level - 1) * 5);
+        this->setMaxAttr(health, this->getBaseAttr(health) * level);
         this->setCurAttr(health, this->getMaxAttr(health));
         break;
     case Type::TOTAL:
@@ -364,9 +364,9 @@ void Monster::generateLoot()
 void Monster::printAttr() const
 {
     std::cout << this->getTypeName() << "'s attributes:" << std::endl;
-//    std::cout << std::setw(16) << "LEVEL:    " << mb_level << std::endl;
-//    std::cout << std::setw(16) << "EXP:    " << mb_curExp << '/' << mb_nextLevelExp << std::endl;
     Creature::printAttr();
+    std::cout << "       DAMAGE:    " << mb_baseAttack.getEffect(mb_level) << std::endl;
+
 }
 
 

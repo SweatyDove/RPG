@@ -4,7 +4,6 @@
 #include "main.h"
 #include "item.h"
 #include "attribute.h"
-#include "player.h"
 
 
 class Creature {

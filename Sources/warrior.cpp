@@ -129,7 +129,7 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
             else {
                 HANDLE hConsole {GetStdHandle(STD_OUTPUT_HANDLE)};
                 SetConsoleTextAttribute(hConsole, CLR_PALE_PRIM);
-                std::cout << "Not enough stamina points!";
+                std::cout << "Not enough stamina points!" << std::endl;
                 SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
             }
             break;
@@ -289,7 +289,7 @@ bool Warrior::superAttack(Monster& monster)
 //==================================================================================================
 void Warrior::commitSuicide()
 {
-    std::cout << "\nThe warrior threw his sword into the air, spread his arms and arched his chest to the sky... "
-              << "\n...and the sword pierced his chest, thereby taking his life..." << std::endl;
+    std::cout << "\nThe warrior threw his sword into the air, spread his arms and arched his chest to the sky...\n"
+              << "And the sword pierced his chest, thereby taking his life..." << std::endl;
     this->setCurAttr(Attr::Name::HEALTH, 0);
 }

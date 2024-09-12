@@ -382,13 +382,29 @@ std::istream& my::operator>>(std::istream& in, my::String& string)
 }
 
 
-//===============================================================================
-// Overloaded [operator<<]
-//===============================================================================
+
+//==================================================================================================
+//         TYPE:    Overloaded operator<<
+//   PARAMETERS:    --------
+// RETURN VALUE:    --------
+//  DESCRIPTION:    --------
+//     COMMENTS:    With simple handling of output alignment
+//==================================================================================================
 std::ostream& my::operator<<(std::ostream& out, const my::String& string)
 {
     int     length  {string.mb_length};
     char*   thisPtr {string.mb_firstElementAdress};
+
+    // ######## Handle the case, when "std::setw()" has been used for <my::String> object
+    auto width = out.width();                       // Get required width of the output field
+    if (width > length) {
+        auto fillChar = out.fill();                 // Get the character-filler
+        out << std::setw(0);                             // Reset "old" allignment 'cause it will be applied for the 1-st << operation
+        for (int ii {0}; ii < width - length; ++ii) {
+            out << fillChar;
+        }
+    }
+    else {} // Nothing to do
 
     // Output symbols except last '\0'
     while (length-- > 0) {

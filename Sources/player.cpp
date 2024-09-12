@@ -16,7 +16,7 @@
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-Player::Player(Race race, Spec spec, std::string name) :
+Player::Player(Race race, Spec spec, StringClass name) :
     Creature {Creature::Type::PLAYER, 1},
     mb_race {race},
     mb_spec {spec},
@@ -92,7 +92,7 @@ int Player::getTimeLived() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Player::newDay()
+bool Player::metNewDay()
 {
     std::cout << "A new day has come! Do you want to wake up? [y/n]" << std::endl;
 
@@ -118,9 +118,16 @@ void Player::newDay()
     }
     while (choiceLoop);
 
-
-    this->getRest();
-    mb_timeLived += 1;
+    if (choice == 'y' || choice == 'Y') {
+        this->getRest();
+        mb_timeLived += 1;
+        return true;
+    }
+    else {
+        std::cout << "\nPlayer died in his sleep..." << std::endl;
+        this->setCurAttr(Attr::Name::HEALTH, 0);
+        return false;
+    }
 }
 
 
@@ -133,7 +140,7 @@ void Player::newDay()
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-const std::string& Player::getName() const
+const StringClass& Player::getName() const
 {
     return mb_name;
 }
@@ -147,7 +154,7 @@ const std::string& Player::getName() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Player::setName(std::string& name)
+void Player::setName(StringClass& name)
 {
     mb_name = name;
 }

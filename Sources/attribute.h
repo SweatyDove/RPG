@@ -23,7 +23,7 @@ public:
 
         TOTAL
     };
-    inline static const std::array<const std::string, static_cast<int>(Name::TOTAL)> mb_attrName = {
+    inline static const std::array<const StringClass, static_cast<int>(Name::TOTAL)> mb_attrName = {
         {
             "HEALTH",
             "STAMINA",
@@ -87,7 +87,7 @@ public:
 
 
 
-    static std::string_view getStringName(Name name);
+    static const StringClass& getStringName(Name name);
 };
 
 

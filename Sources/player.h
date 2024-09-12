@@ -11,7 +11,7 @@
 // ######## Why am I defining player's default values outside of class player? I don't remember...
 namespace player_default {
     const int           LEVEL {1};
-    const std::string   NAME {"Stranger"};
+    const StringClass   NAME {"Stranger"};
     const int           HEALTH {100};
     const int           MANA {50};
     const int           STAMINA {50};
@@ -94,7 +94,7 @@ private:
     // ######## GENERAL
     Race            mb_race         {Player::Race::ORC};
     Spec            mb_spec         {Player::Spec::WARRIOR};                // Temporary
-    std::string     mb_name         {player_default::NAME};
+    StringClass     mb_name         {player_default::NAME};
 
     int             mb_curExp       {0};
     int             mb_nextLevelExp {1000};             // Const for now
@@ -110,15 +110,15 @@ private:
 public:
 
     // ########  Constructors and Destructors  ########
-    Player(Race race, Spec spec, std::string name);
+    Player(Race race, Spec spec, StringClass name);
     virtual ~Player();
 
 
-    const std::string&      getName() const override;
+    const StringClass&      getName() const override;
     Spec                    getSpec() const;
     int                     getTimeLived() const;
 
-    void                    setName(std::string& name);
+    void                    setName(StringClass& name);
     void                    setRace(Player::Race race);
     virtual void            attack(Monster& monster) = 0;
     virtual bool            superAttack(Monster& monster) = 0;
@@ -126,7 +126,7 @@ public:
     virtual FightOption     chooseFightOption(Monster& monster) = 0;
 
     void                    commitSuicide() override;
-    void                    newDay();
+    bool                    metNewDay();
     void                    fightWith(Monster& monster);
     void                    addGold(int gold);
     void                    drink(const Potion& potion);

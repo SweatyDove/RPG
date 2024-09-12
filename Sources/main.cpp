@@ -75,10 +75,23 @@
 //Player::Spec choosePlayerSpec();
 //my::String   choosePlayerName();
 
+#include <string>
 HANDLE hConsole;
 
 int main()
 {
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  TEST SECTION  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+//    my::String test {"HELLO"};
+//    std::string standart_test {"HELLO"};
+
+//    std::cout << std::setw(10) << test << std::endl;
+//    std::cout << std::setw(10) << standart_test << std::endl;
+
+//    return 0;
+    //==============================================================================================
+
+
 
     //    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     //    // you can loop k higher to see more color choices
@@ -113,7 +126,7 @@ int main()
     // #### DEBUG
     Player::Race    playerRace  {Player::Race::HUMAN};
     Player::Spec    playerSpec  {Player::Spec::WARRIOR};
-    std::string     playerName  {"Alex"};
+    StringClass     playerName  {"Alex"};
 
     //Warrior* warrior {nullptr};
 
@@ -144,8 +157,7 @@ int main()
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     // #### Main cycle
-    while (!player->isDead()) {
-        player->newDay();
+    while (player->metNewDay()) {
 
         SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
         std::cout << "\n\n[Day " << player->getTimeLived() << "]\n"
@@ -171,13 +183,11 @@ int main()
         if (monster.isDead()) {
             player->getLootFrom(monster);
         }
-        else {} // Nothing to do
+        else if (player->isDead()){
+            break;
+        }
+        else {}// Nothing to do
 
-        // #### If player hasn't be killed (fled of win) - he can get rest.
-//        if (!player->isDead()) {
-//            player->getRest();
-//        }
-//        else {} // Nothing to do
     }
 
     std::cout << "You died at level " << player->getLevel() << ".\n\n";

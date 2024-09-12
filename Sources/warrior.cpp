@@ -10,7 +10,7 @@
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-Warrior::Warrior(Player::Race race, Player::Spec spec, std::string name):
+Warrior::Warrior(Player::Race race, Player::Spec spec, StringClass name):
     Player {race, spec, name}
 {
     this->setAllAttr(Attr::Name::STAMINA, 50, 50, 50);

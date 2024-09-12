@@ -15,7 +15,7 @@ Monster::Monster():
     //mb_damage = this->setDamage(mb_type, mb_level);
     this->setHealth(mb_type, mb_level);
 
-    std::string spellName {};
+    StringClass spellName {};
     Spell::School spellSchool {};
     int spellBaseEffect {};
     int spellBaseCost {};
@@ -254,7 +254,7 @@ void Monster::setHealth(Type type, int level)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-const std::string& Monster::getName() const
+const StringClass& Monster::getName() const
 {
     return mb_name[static_cast<unsigned int>(mb_type)];
 }

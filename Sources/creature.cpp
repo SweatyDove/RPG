@@ -631,7 +631,7 @@ void Creature::commitSuicide()
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-std::string_view Creature::getTypeName() const
+const StringClass& Creature::getTypeName() const
 {
     return TYPE_NAME[static_cast<int>(mb_type)];
 }

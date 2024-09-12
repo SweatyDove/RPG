@@ -54,7 +54,7 @@ Attribute::Name Attribute::getName() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-std::string_view Attribute::getStringName(Name name)
+const StringClass& Attribute::getStringName(Name name)
 {
     return mb_attrName[static_cast<int>(name)];
 }

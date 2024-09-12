@@ -24,7 +24,7 @@ public:
         TOTAL
 
     };
-    std::array<std::string, static_cast<int>(Type::TOTAL)> TYPE_NAME = {
+    std::array<StringClass, static_cast<int>(Type::TOTAL)> TYPE_NAME = {
         {
             "PLAYER",
             "MONSTER",
@@ -83,8 +83,8 @@ protected:
 
 
 
-    //int getAttribute(std::string name, Attribute::ValueType valueType) const;
-    //void changeAttribute(std::string name, Attribute::ValueType valueType, int delta);
+    //int getAttribute(StringClass name, Attribute::ValueType valueType) const;
+    //void changeAttribute(StringClass name, Attribute::ValueType valueType, int delta);
 
     /*
      * Creature constructor is protected 'cause I don't want smb to create <Creature> explicitly,
@@ -117,9 +117,9 @@ public:
     int                         getLevel() const;
     virtual bool                isDead() const;
     virtual void                commitSuicide() = 0;
-    virtual const std::string&  getName() const = 0;
+    virtual const StringClass&  getName() const = 0;
 
-    std::string_view        getTypeName() const;
+    const StringClass&        getTypeName() const;
 
     virtual void            printAttr() const;
 

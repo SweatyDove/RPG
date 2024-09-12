@@ -10,7 +10,7 @@
 //==================================================================================================
 Spell::Spell(const std::vector<Attribute>& attributes,
              const std::array<float, static_cast<int>(Attr::Name::TOTAL)>& multipliers,
-             std::string name,
+             StringClass name,
              School school,
              int baseEffect,
              int baseCost
@@ -106,7 +106,7 @@ int Spell::getEffect(int level) const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-const std::string_view Spell::getName() const
+const StringClass& Spell::getName() const
 {
     return mb_name;
 }
@@ -118,7 +118,7 @@ const std::string_view Spell::getName() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Spell::setName(std::string name)
+void Spell::setName(StringClass name)
 {
     mb_name = name;
 }

@@ -11,6 +11,28 @@
 #endif
 
 
+
+#define MY_LIBRARY
+//#define STANDART_LIBRARY
+
+
+#if defined(MY_LIBRARY)
+    #include "my_string.h"
+
+    using StringClass = my::String;
+
+#elif defined(STANDART_LIBRARY)
+//    #include<array>
+//    #include<vector>
+    #include <string>
+
+    using StringClass = std::string;
+//    using VectorClass = std::vector;
+//    using ArrayClass = std::array;
+
+#endif
+
+
 #include <cstdlib>              // For std::rand(), std::srand()
 #include <iostream>
 #include <ctime>                // For std::time()
@@ -24,12 +46,12 @@
 // ######## STL containers
 #include <array>
 #include <vector>
-#include <string>
+//#include <string>
 #include <string_view>
 
 
 // ######## My library
-#include "my_string.h"
+//#include "my_string.h"
 #include "my_log.h"
 #include "my_utilities.h"
 #include "my_queue.hpp"

@@ -64,7 +64,7 @@ private:
 
 public:
     // #############  Constructors and Destructors  ##############
-    Warrior(Player::Race race, Player::Spec spec, std::string name);
+    Warrior(Player::Race race, Player::Spec spec, StringClass name);
     ~Warrior() override;
 
     void                        commitSuicide() override;

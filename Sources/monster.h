@@ -37,7 +37,7 @@ public:
         }
     };
 
-    std::array<std::string, static_cast<unsigned int>(Type::TOTAL)> mb_name {
+    std::array<StringClass, static_cast<unsigned int>(Type::TOTAL)> mb_name {
         {
             {"SKELETON"},
             {"ZOMBIE"},
@@ -115,7 +115,7 @@ public:
 
     int             getDamage() const;
 
-    const std::string&     getName() const override;
+    const StringClass&     getName() const override;
 
     int             getLevel() const;
     Type            getType() const;

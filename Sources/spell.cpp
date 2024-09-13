@@ -9,7 +9,7 @@
 //     COMMENTS:    --------
 //==================================================================================================
 Spell::Spell(const std::vector<Attribute>& attributes,
-             const std::array<float, static_cast<int>(Attr::Name::TOTAL)>& multipliers,
+             const ArrayClass<float, static_cast<int>(Attr::Name::TOTAL)>& multipliers,
              StringClass name,
              School school,
              int baseEffect,
@@ -174,7 +174,7 @@ void Spell::setBaseCost(int cost)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-//void Spell::setCharacteristics(const std::array<int, Param::TOTAL>& newCharacteristics)
+//void Spell::setCharacteristics(const ArrayClass<int, Param::TOTAL>& newCharacteristics)
 //{
 //    mb_characteristics = newCharacteristics;
 //}

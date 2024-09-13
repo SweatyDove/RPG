@@ -29,7 +29,7 @@ private:
 
 
     const std::vector<Attribute>&                                     mb_attributes;           // The aray of characteristics need to be passed into <Spell> constructor
-    const std::array<float, static_cast<int>(Attr::Name::TOTAL)>&     mb_multipliers;          // The multiplier array is hard-binded with concrete spell
+    const ArrayClass<float, static_cast<int>(Attr::Name::TOTAL)>&     mb_multipliers;          // The multiplier array is hard-binded with concrete spell
 
 
 
@@ -42,7 +42,7 @@ public:
     //Spell() = default;
 
     Spell(const std::vector<Attribute>& attributes,
-          const std::array<float, static_cast<int>(Attr::Name::TOTAL)>& multipliers,
+          const ArrayClass<float, static_cast<int>(Attr::Name::TOTAL)>& multipliers,
           StringClass name = "",
           School school = School::UNDEF,
           int baseEffect = 0,

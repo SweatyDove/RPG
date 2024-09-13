@@ -58,10 +58,10 @@ protected:
 
 //        TOTAL
 //    };
-//    std::array<int, static_cast<int>(Ratings::TOTAL)> mb_rating {0, 0, player_default::ESCAPE_CHANCE};
+//    ArrayClass<int, static_cast<int>(Ratings::TOTAL)> mb_rating {0, 0, player_default::ESCAPE_CHANCE};
 
 
-    std::array<Attribute, 3> mb_ratings = {
+    ArrayClass<Attribute, 3> mb_ratings = {
         {
             {Attr::Name::DODGE_CHANCE, Attribute::Type::RATING, -1, -1, -1},
             {Attr::Name::CRIT_CHANCE, Attribute::Type::RATING, -1, -1, -1},
@@ -70,7 +70,7 @@ protected:
     };
 
 
-    std::array<Attribute, 3> mb_skills = {
+    ArrayClass<Attribute, 3> mb_skills = {
         {
             {Attr::Name::ALCHEMY, Attribute::Type::SKILL, -1, -1, -1},
             {Attr::Name::CHARISMA, Attribute::Type::SKILL, -1, -1, -1},
@@ -87,7 +87,7 @@ protected:
 
 //        TOTAL
 //    };
-//    std::array<int, static_cast<int>(Skills::TOTAL)> mb_skill {0, 0, 0};
+//    ArrayClass<int, static_cast<int>(Skills::TOTAL)> mb_skill {0, 0, 0};
 
 
 private:
@@ -101,7 +101,7 @@ private:
     int             mb_timeLived    {player_default::DAY_LIVED};
 
     // ######## SKILLS
-    //std::array<int, static_cast<int>(Skills::TOTAL)> mb_skillLevel;
+    //ArrayClass<int, static_cast<int>(Skills::TOTAL)> mb_skillLevel;
 
     // ######## INVENTORY
     int             mb_gold         {};

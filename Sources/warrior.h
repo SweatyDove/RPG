@@ -17,7 +17,7 @@ class Warrior : public Player {
 private:
 
     // ######## BASE attack
-    inline static std::array<float, static_cast<int>(Attr::Name::TOTAL)> mb_baseAttackMultiplier {
+    inline static ArrayClass<float, static_cast<int>(Attr::Name::TOTAL)> mb_baseAttackMultiplier {
         {
             0.0,    // HEALTH
             0.0,    // STAMINA
@@ -40,7 +40,7 @@ private:
     Spell       mb_baseAttack       {mb_attribute, mb_baseAttackMultiplier, "BASE STRIKE", Spell::School::PHYSICAL, 10, 0};
 
     // ######## SPECIAL attack
-    inline static std::array<float, static_cast<int>(Attr::Name::TOTAL)> mb_specialAttackMultiplier {
+    inline static ArrayClass<float, static_cast<int>(Attr::Name::TOTAL)> mb_specialAttackMultiplier {
         {
             0.0,    // HEALTH
             0.0,    // STAMINA

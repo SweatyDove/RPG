@@ -29,7 +29,7 @@ public:
         TOTAL
     };
 
-    static constexpr std::array<int, static_cast<int>(Monster::Type::TOTAL)> mb_baseHealth {
+    static constexpr ArrayClass<int, static_cast<int>(Monster::Type::TOTAL)> mb_baseHealth {
         {
             10,     // SKELETON
             30,     // ZOMBIE
@@ -37,7 +37,7 @@ public:
         }
     };
 
-    std::array<StringClass, static_cast<unsigned int>(Type::TOTAL)> mb_name {
+    ArrayClass<StringClass, static_cast<unsigned int>(Type::TOTAL)> mb_name {
         {
             {"SKELETON"},
             {"ZOMBIE"},
@@ -51,7 +51,7 @@ public:
         int     damage;
     };
 
-    static constexpr std::array<MonsterBase, static_cast<std::size_t>(Type::TOTAL)> base {
+    static constexpr ArrayClass<MonsterBase, static_cast<std::size_t>(Type::TOTAL)> base {
         {
             {Type::SKELETON, 10, 10},
             {Type::ZOMBIE, 5, 30},
@@ -60,7 +60,7 @@ public:
     };
 
     // ######## BASE attack multipliers
-    inline static std::array<float, static_cast<int>(Attr::Name::TOTAL)> mb_baseAttackMultiplier {0};
+    inline static ArrayClass<float, static_cast<int>(Attr::Name::TOTAL)> mb_baseAttackMultiplier {0};
 
     //Monster::Type getRandomType();
 
@@ -189,7 +189,7 @@ public:
 //    {
 
 //        // #### Array of default monsters (with their stats)
-//        static const std::array<Monster, static_cast<std::size_t>(Type::MAX_TYPE)> defaultMonster {
+//        static const ArrayClass<Monster, static_cast<std::size_t>(Type::MAX_TYPE)> defaultMonster {
 //            {
 //                      { Type::SKELETON, SKELETON_BASE_HEALTH, SKELETON_BASE_DAMAGE},
 //                      { Type::ZOMBIE, ZOMBIE_BASE_HEALTH, ZOMBIE_BASE_DAMAGE},

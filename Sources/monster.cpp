@@ -365,11 +365,9 @@ void Monster::printAttr() const
 {
     std::cout << this->getTypeName() << "'s attributes:" << std::endl;
     Creature::printAttr();
-    std::cout << "       DAMAGE:    " << mb_baseAttack.getEffect(mb_level) << std::endl;
+    std::cout << "          DAMAGE:    " << mb_baseAttack.getEffect(mb_level) << std::endl;
 
 }
-
-
 
 //int getRandomLevel()
 //{

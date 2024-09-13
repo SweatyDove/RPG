@@ -12,23 +12,31 @@
 
 
 
-#define MY_LIBRARY
-//#define STANDART_LIBRARY
+//#define MY_LIBRARY
+#define STANDART_LIBRARY
 
 
 #if defined(MY_LIBRARY)
     #include "my_string.h"
+    #include "my_array.h"
 
     using StringClass = my::String;
 
+    template <typename SomeType, int size>
+    using ArrayClass = my::Array<SomeType, size>;
+//    using VectorClass = my::DynArray;
+//    using UniquePtrClass = my::UniquePtr;
+
+
 #elif defined(STANDART_LIBRARY)
-//    #include<array>
 //    #include<vector>
     #include <string>
+    #include <array>
 
     using StringClass = std::string;
 //    using VectorClass = std::vector;
-//    using ArrayClass = std::array;
+    template <typename SomeType, std::size_t size>
+    using ArrayClass = std::array<SomeType, size>;
 
 #endif
 
@@ -44,7 +52,7 @@
 
 
 // ######## STL containers
-#include <array>
+//#include <array>
 #include <vector>
 //#include <string>
 #include <string_view>

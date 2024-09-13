@@ -24,7 +24,7 @@ public:
         TOTAL
 
     };
-    std::array<StringClass, static_cast<int>(Type::TOTAL)> TYPE_NAME = {
+    ArrayClass<StringClass, static_cast<int>(Type::TOTAL)> TYPE_NAME = {
         {
             "PLAYER",
             "MONSTER",
@@ -51,8 +51,8 @@ protected:
     int     mb_level {1};
 
 
-//    std::array<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_curCharacteristic {-1, -1, -1};
-//    std::array<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_maxCharacteristic {-1, -1, -1};
+//    ArrayClass<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_curCharacteristic {-1, -1, -1};
+//    ArrayClass<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_maxCharacteristic {-1, -1, -1};
 
 
 //    // #### RESOURCES
@@ -64,8 +64,8 @@ protected:
 
 //        TOTAL
 //    };
-//    std::array<int, static_cast<unsigned int>(Resource::TOTAL)> mb_curResource {100, -1, -1, -1};
-//    std::array<int, static_cast<unsigned int>(Resource::TOTAL)> mb_maxResource {100, -1, -1, -1};
+//    ArrayClass<int, static_cast<unsigned int>(Resource::TOTAL)> mb_curResource {100, -1, -1, -1};
+//    ArrayClass<int, static_cast<unsigned int>(Resource::TOTAL)> mb_maxResource {100, -1, -1, -1};
 
 
     std::vector<Attribute> mb_attribute = {

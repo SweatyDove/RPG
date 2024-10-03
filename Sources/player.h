@@ -65,7 +65,7 @@ protected:
         {
             {Attr::Name::DODGE_CHANCE, Attribute::Type::RATING, -1, -1, -1},
             {Attr::Name::CRIT_CHANCE, Attribute::Type::RATING, -1, -1, -1},
-            {Attr::Name::ESCAPE_CHANCE, Attribute::Type::RATING, 66, 66, 66}
+            {Attr::Name::ESCAPE_CHANCE, Attribute::Type::RATING, 66, 66, 66},
         }
     };
 

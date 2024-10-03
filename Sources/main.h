@@ -12,18 +12,18 @@
 
 
 
-//#define MY_LIBRARY
-#define STANDART_LIBRARY
+#define MY_LIBRARY
+//#define STANDART_LIBRARY
 
 
 #if defined(MY_LIBRARY)
     #include "my_string.h"
-    #include "my_array.h"
+    #include "my_array.hpp"
 
     using StringClass = my::String;
 
-    template <typename SomeType, int size>
-    using ArrayClass = my::Array<SomeType, size>;
+    template <typename Type, unsigned int size>
+    using ArrayClass = my::Array<Type, size>;
 //    using VectorClass = my::DynArray;
 //    using UniquePtrClass = my::UniquePtr;
 

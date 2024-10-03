@@ -54,9 +54,9 @@ Attribute::Name Attribute::getName() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-const StringClass& Attribute::getStringName(Name name)
+const StringClass& Attribute::getStringName(Attribute::Name name)
 {
-    return mb_attrName[static_cast<int>(name)];
+    return mb_attrName[static_cast<unsigned int>(name)];
 }
 
 

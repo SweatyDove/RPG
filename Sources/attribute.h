@@ -6,6 +6,7 @@
 class Attribute {
 public:
 
+
     enum class Name {
         HEALTH,
         STAMINA,
@@ -23,7 +24,8 @@ public:
 
         TOTAL
     };
-    inline static const ArrayClass<const StringClass, static_cast<int>(Name::TOTAL)> mb_attrName = {
+
+    inline static const ArrayClass<StringClass, static_cast<unsigned int>(Name::TOTAL)> mb_attrName = {
         {
             "HEALTH",
             "STAMINA",
@@ -72,6 +74,7 @@ private:
 
 
 public:
+//    Attribute() = default;
     Attribute(Attribute::Name name, Type type, int baseValue, int curValue, int maxValue);
 
 
@@ -86,8 +89,8 @@ public:
 //    int getMaxValue() const;
 
 
-
     static const StringClass& getStringName(Name name);
+
 };
 
 

@@ -653,7 +653,7 @@ void Creature::printAttr() const
         int maxValue {attr.getValue(Attr::ValueType::MAX)};
 
         if (curValue != -1 && maxValue != -1) {
-            std::cout << std::setw(16) << attr.getStringName(attr.getName()) << ":    " << curValue << '/' << maxValue << std::endl;
+            std::cout << std::setw(16) << attr.Attribute::getStringName(attr.getName()) << ":    " << curValue << '/' << maxValue << std::endl;
         }
 //        else if (curValue == -1 || maxValue == -1) {
 //            assert(false && "Creature can't have current or max attribute in inactive state, only both.");

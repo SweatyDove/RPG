@@ -29,12 +29,12 @@ public:
         TOTAL
     };
 
-    static constexpr ArrayClass<int, static_cast<int>(Monster::Type::TOTAL)> mb_baseHealth {
-        {
+    ArrayClass<int, static_cast<int>(Monster::Type::TOTAL)> mb_baseHealth {
+
             10,     // SKELETON
             30,     // ZOMBIE
             20      // GHOST
-        }
+
     };
 
     ArrayClass<StringClass, static_cast<unsigned int>(Type::TOTAL)> mb_name {
@@ -51,7 +51,7 @@ public:
         int     damage;
     };
 
-    static constexpr ArrayClass<MonsterBase, static_cast<std::size_t>(Type::TOTAL)> base {
+    ArrayClass<MonsterBase, static_cast<std::size_t>(Type::TOTAL)> base {
         {
             {Type::SKELETON, 10, 10},
             {Type::ZOMBIE, 5, 30},

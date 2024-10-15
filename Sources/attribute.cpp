@@ -85,13 +85,15 @@ void Attribute::changeValue(ValueType valueType, int delta)
         newValue = mb_maxValue + delta;
         mb_maxValue = (newValue < 0) ? 0 : newValue;
         break;
-    case ValueType::CUR_AND_MAX:
-        newValue = mb_maxValue + delta;
-        mb_curValue = mb_maxValue = (newValue < 0) ? 0 : newValue;
+//    case ValueType::CUR_AND_MAX:
+//        newValue = mb_maxValue + delta;
+//        mb_curValue = mb_maxValue = (newValue < 0) ? 0 : newValue;
+//        break;
     case ValueType::TOTAL:
         assert(false && "Incorrect Value Type");
         break;
     }
+
 
 }
 

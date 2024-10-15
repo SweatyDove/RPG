@@ -6,6 +6,7 @@
 #include "potion.h"
 #include "creature.h"
 #include "gold.h"
+#include "monster.h"
 
 
 // ######## Why am I defining player's default values outside of class player? I don't remember...
@@ -63,9 +64,9 @@ protected:
 
     ArrayClass<Attribute, 3> mb_ratings = {
         {
-            {Attr::Name::DODGE_CHANCE, Attribute::Type::RATING, -1, -1, -1},
-            {Attr::Name::CRIT_CHANCE, Attribute::Type::RATING, -1, -1, -1},
-            {Attr::Name::ESCAPE_CHANCE, Attribute::Type::RATING, 66, 66, 66},
+            Attribute(Attr::Name::DODGE_CHANCE, Attribute::Type::RATING, -1, -1, -1),
+            Attribute(Attr::Name::CRIT_CHANCE, Attribute::Type::RATING, -1, -1, -1),
+            Attribute(Attr::Name::ESCAPE_CHANCE, Attribute::Type::RATING, 66, 66, 66),
         }
     };
 

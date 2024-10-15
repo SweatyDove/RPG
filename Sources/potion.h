@@ -6,6 +6,7 @@
 #include "item.h"
 
 
+
 class Potion : public Item {
 public:
     enum class Type {
@@ -37,7 +38,7 @@ public:
 
     ~Potion() = default;
 
-    my::String      getName() const;
+    StringClass      getName() const;
     int             getEffect() const;
 
     // ## Create random potion

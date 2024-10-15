@@ -1,47 +1,42 @@
 TEMPLATE = app
-CONFIG += c++17
+CONFIG += console c++17
 CONFIG -= app_bundle
 CONFIG -= qt
 
-INCLUDEPATH += $$PWD/Headers
-
-
-
+INCLUDEPATH += ../MyLibrary
 
 
 SOURCES += \
-        Sources/cls_gold.cpp \
-        Sources/cls_item.cpp \
-        Sources/cls_monster.cpp \
-        Sources/cls_player.cpp \
-        Sources/cls_potion.cpp \
-		Sources/cls_warrior.cpp \
-		Sources/excluded_code_snippets.cpp \
-		Sources/linux_nonblock_input.cpp \
+        ../MyLibrary/my_dynamicarray.cpp \
+        ../MyLibrary/my_string.cpp \
+        ../MyLibrary/my_utilities.cpp \
+        ../MyLibrary/my_array.cpp \
+        Sources/attribute.cpp \
+        Sources/creature.cpp \
+        Sources/gold.cpp \
+        Sources/item.cpp \
         Sources/main.cpp \
-		Sources/my_log.cpp \
-        Sources/my_string.cpp \
-		Sources/my_utilities.cpp \
-		Sources/player_general.cpp \
+        Sources/monster.cpp \
+        Sources/player.cpp \
+        Sources/potion.cpp \
+        Sources/spell.cpp \
+        Sources/trader.cpp \
         Sources/utilities.cpp \
+        Sources/warrior.cpp
 
 HEADERS += \
-	Headers/header.h \
-	Headers/cls_gold.h \
-	Headers/cls_item.h \
-	Headers/cls_monster.h \
-	Headers/cls_player.h \
-	Headers/cls_potion.h \
-	Headers/cls_warrior.h \
-	Headers/my_log.h \
-	Headers/my_queue.hpp \
-	Headers/my_string.h \ \
-	Headers/my_utilities.h
-
-DISTFILES +=
-
-QMAKE_CXXFLAGS += -std=c++0x -pthread
-LIBS += -pthread
-
-
-
+    ../MyLibrary/my_dynamicarray.h \
+    ../MyLibrary/my_string.h \
+    ../MyLibrary/my_utilities.h \
+    ../MyLibrary/my_array.h \
+    Sources/attribute.h \
+    Sources/creature.h \
+    Sources/gold.h \
+    Sources/item.h \
+    Sources/main.h \
+    Sources/monster.h \
+    Sources/player.h \
+    Sources/potion.h \
+    Sources/spell.h \
+    Sources/trader.h \
+    Sources/warrior.h

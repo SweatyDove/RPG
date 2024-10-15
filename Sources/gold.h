@@ -3,6 +3,7 @@
 #define GOLD_H
 
 #include "main.h"
+#include "item.h"
 
 class Gold : public Item {
 public:

@@ -69,26 +69,49 @@
 #include "potion.h"
 
 
-#include <string>
-
 //Player::Race choosePlayerRace();
 //Player::Spec choosePlayerSpec();
-//my::String   choosePlayerName();
+//StringClass   choosePlayerName();
 
-#include <string>
 HANDLE hConsole;
+
+#include "my_dynamicarray.hpp"
+
+class Base {
+private:
+    int mb_a {};
+    int mb_b {};
+
+public:
+    Base(int a, int b) :
+        mb_a {a},
+        mb_b {b}
+    {
+        // Nothing to do
+    }
+
+};
+
 
 int main()
 {
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  TEST SECTION  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-//    my::String test {"HELLO"};
-//    std::string standart_test {"HELLO"};
+    my::DynamicArray<Base> baseDynArray {
+        {1, 1},
+        {2, 2}
+    };
 
-//    std::cout << std::setw(10) << test << std::endl;
-//    std::cout << std::setw(10) << standart_test << std::endl;
 
-//    return 0;
+
+
+
+
+
+
+
+
+    return 0;
     //==============================================================================================
 
 
@@ -121,7 +144,7 @@ int main()
 
 //    Player::Race    playerRace  {choosePlayerRace()};
 //    Player::Spec    playerSpec  {choosePlayerSpec()};
-//    my::String      playerName  {choosePlayerName()};
+//    StringClass      playerName  {choosePlayerName()};
 
     // #### DEBUG
     Player::Race    playerRace  {Player::Race::HUMAN};

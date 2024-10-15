@@ -57,7 +57,7 @@ public:
 //        MIN,                  // Min value in order not to go into incredible low-values
         CURRENT,
         MAX,
-        CUR_AND_MAX,                  // Current and max?
+//        CUR_AND_MAX,                  // Current and max?
 
         TOTAL
     };
@@ -74,8 +74,8 @@ private:
 
 
 public:
-//    Attribute() = default;
-    Attribute(Attribute::Name name, Type type, int baseValue, int curValue, int maxValue);
+    Attribute() = default;
+    Attribute(Name name, Type type, int baseValue, int curValue, int maxValue);
 
 
     Type getType() const;

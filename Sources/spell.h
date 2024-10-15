@@ -22,14 +22,16 @@ public:
 
 private:
 
-            StringClass                                                 mb_name {};
-            School                                                      mb_school {School::UNDEF};
-            int                                                         mb_baseEffect {};
-            int                                                         mb_baseCost {};
-
-
     const std::vector<Attribute>&                                     mb_attributes;           // The aray of characteristics need to be passed into <Spell> constructor
     const ArrayClass<float, static_cast<int>(Attr::Name::TOTAL)>&     mb_multipliers;          // The multiplier array is hard-binded with concrete spell
+
+    StringClass                                                 mb_name {};
+    School                                                      mb_school {School::UNDEF};
+    int                                                         mb_baseEffect {};
+    int                                                         mb_baseCost {};
+
+
+
 
 
 

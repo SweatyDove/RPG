@@ -1,5 +1,4 @@
 
-#include "main.h"
 #include "item.h"
 
 
@@ -25,9 +24,9 @@ Item::Type Item::getType() const        { return mb_type; }
 
 // #### Function returns type of the item
 // #############
-my::String Item::getTypeName() const
+StringClass Item::getTypeName() const
 {
-    my::String retString {};
+    StringClass retString {};
 
     switch(mb_type) {
     case Item::Type::TRASH:

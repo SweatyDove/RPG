@@ -6,6 +6,7 @@
 #define ITEM_H
 
 #include "main.h"
+#include "item.h"
 
 
 class Item {
@@ -43,7 +44,7 @@ public:
     int getWeight() const;
 
     Type        getType() const;
-    my::String  getTypeName() const;
+    StringClass  getTypeName() const;
 
 
 };

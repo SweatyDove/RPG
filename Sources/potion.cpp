@@ -1,5 +1,4 @@
 
-#include "main.h"
 #include "potion.h"
 
 
@@ -33,9 +32,9 @@ Potion::Potion(Potion::Type type, int effect) :
 }
 
 
-my::String Potion::getName() const
+StringClass Potion::getName() const
 {
-    my::String retString {""};
+    StringClass retString {""};
 
     switch(mb_type) {
     case Type::EXHAUSTED:   return "exhausted potion";

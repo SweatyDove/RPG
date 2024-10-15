@@ -1,6 +1,5 @@
 
-#include "main.h"
-#include "item.h"
+
 #include "gold.h"
 
 

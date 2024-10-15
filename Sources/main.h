@@ -1,3 +1,6 @@
+#ifndef MAIN_H
+#define MAIN_H
+
 
 /*******************************************************************************
  ********  Defining the platform
@@ -20,9 +23,13 @@
     #include "my_string.h"
     #include "my_array.hpp"
 
-    using StringClass = my::String;
 
-    template <typename Type, unsigned int size>
+
+    using StringClass = my::String;
+//    using StringClass = std::string;
+
+
+    template <typename Type, int size>
     using ArrayClass = my::Array<Type, size>;
 //    using VectorClass = my::DynArray;
 //    using UniquePtrClass = my::UniquePtr;
@@ -60,9 +67,9 @@
 
 // ######## My library
 //#include "my_string.h"
-#include "my_log.h"
+//#include "my_log.h"
 #include "my_utilities.h"
-#include "my_queue.hpp"
+//#include "my_queue.hpp"
 
 
 
@@ -140,4 +147,4 @@ void moveCursor(int relativeLine, unsigned int column);
 
 
 
-
+#endif

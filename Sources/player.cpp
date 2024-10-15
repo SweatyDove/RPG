@@ -1,7 +1,5 @@
-#include "main.h"
 #include "player.h"
-#include "monster.h"
-#include "potion.h"
+
 
 //class Monster;
 
@@ -239,14 +237,13 @@ void Player::addGold(int gold)
 //==================================================================================================
 void Player::levelUp()
 {
-    bool inLoop {false};
-    char choice {'\0'};
 
     mb_level++;
 
     // ######## Set the new max health and restore current health
     this->setMaxAttr(Attr::Name::HEALTH, this->getBaseAttr(Attr::Name::HEALTH) + (mb_level - 1) * 20);
     this->setCurAttr(Attr::Name::HEALTH, this->getMaxAttr(Attr::Name::HEALTH));
+
 
     std::cout << "Congratulation! You've reached " << mb_level << " level.\n";
     std::cout << "What do you want to upgrade?\n"
@@ -255,6 +252,9 @@ void Player::levelUp()
               << "[3] - Agility (+" << mb_level << ")\n"
               << "\nYour choice: "
               << std::flush;
+
+    bool inLoop {true};
+    char choice {'\0'};
     while (inLoop) {
         std::cin >> choice;
         switch (choice) {
@@ -264,23 +264,25 @@ void Player::levelUp()
 
             this->setMaxAttr(Attr::Name::STAMINA, this->getBaseAttr(Attr::Name::STAMINA) + (mb_level - 1) * 10);
             this->setCurAttr(Attr::Name::STAMINA, this->getMaxAttr(Attr::Name::STAMINA));
+            inLoop = false;
             break;
         case '2':
 //            mb_maxIntellect += mb_level;
 //            mb_curMana = mb_maxMana = player_default::MANA + mb_level * 10;
-//            break;
+            inLoop = false;
+            break;
         case '3':
 //            mb_agility++;
 //            mb_dodgeChance += 1;
 //            mb_critChance += 1;
-//            break;
+            inLoop = false;
+            break;
         default:
-            inLoop = true;
             std::cout << "Incorrect choice, please - try again:"
                       << "\nYour choice: " << std::endl;
             break;
-        }
-    }
+        } // switch
+    } // while
 
     // Set new damage after the leveling up and changes in the player's parameters
 //    this->setDamage();
@@ -292,17 +294,23 @@ void Player::levelUp()
 //  WHY: Increase the player's experience (and level up) depending on
 //       the monster, that was killed by player.
 //==============================================================================
+//==================================================================================================
+//         TYPE:    --------
+//   PARAMETERS:    --------
+//  DESCRIPTION:    --------
+// RETURN VALUE:    --------
+//     COMMENTS:    --------
+//==================================================================================================
 void Player::increaseExp(Monster& monster)
 {
-    int exp {monster.getLevel() * 100};
+    int receivedExp {monster.getLevel() * 100};
+    int totalExp {mb_curExp + receivedExp};
 
-    if (mb_curExp + exp >= mb_nextLevelExp) {
+    while (totalExp >= mb_nextLevelExp) {
         this->levelUp();
-        mb_curExp = mb_curExp + exp - mb_nextLevelExp;
+        totalExp -= mb_nextLevelExp;
     }
-    else {
-        mb_curExp += exp;
-    }
+    mb_curExp = totalExp;
 
     return;
 }

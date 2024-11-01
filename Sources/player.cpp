@@ -647,7 +647,7 @@ int Player::getNextLvlExp() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Player::printAttr() const
+void Player::printAttr()
 {
     std::cout << this->getTypeName() << "'s attributes:" << std::endl;
     std::cout << "           LEVEL:    " << mb_level << std::endl;

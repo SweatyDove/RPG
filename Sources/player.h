@@ -139,7 +139,7 @@ public:
 
     int                     getCurExp() const;
     int                     getNextLvlExp() const;
-    void                    printAttr() const override;
+    void                    printAttr() override;
 
 
 

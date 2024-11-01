@@ -75,44 +75,32 @@
 
 HANDLE hConsole;
 
-#include "my_dynamicarray.hpp"
 
-class Base {
-private:
-    int mb_a {};
-    int mb_b {};
+//class Base {
+//private:
 
-public:
-    Base(int a, int b) :
-        mb_a {a},
-        mb_b {b}
-    {
-        // Nothing to do
-    }
+//public:
+//    int mb_a {};
+//    int mb_b {};
+//    Base(int a, int b) :
+//        mb_a {a},
+//        mb_b {b}
+//    {
+//        // Nothing to do
+//    }
 
-};
+//};
+
+//std::ostream& operator<<(std::ostream& out, const Base& base)
+//{
+//    out << '(' << base.mb_a << ", " << base.mb_b << ") " << std::endl;
+//}
 
 
 int main()
 {
 
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  TEST SECTION  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    my::DynamicArray<Base> baseDynArray {
-        {1, 1},
-        {2, 2}
-    };
-
-
-
-
-
-
-
-
-
-
-    return 0;
-    //==============================================================================================
+     //==============================================================================================
 
 
 

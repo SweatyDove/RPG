@@ -8,7 +8,7 @@
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-Spell::Spell(const std::vector<Attribute>& attributes,
+Spell::Spell(const VectorClass<Attribute>& attributes,
              const ArrayClass<float, static_cast<int>(Attr::Name::TOTAL)>& multipliers,
              StringClass name,
              School school,

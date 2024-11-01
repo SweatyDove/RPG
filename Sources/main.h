@@ -16,32 +16,34 @@
 
 
 #define MY_LIBRARY
-//#define STANDART_LIBRARY
 
 
 #if defined(MY_LIBRARY)
     #include "my_string.h"
     #include "my_array.hpp"
-
+    #include "my_dynamicarray.hpp"
 
 
     using StringClass = my::String;
-//    using StringClass = std::string;
-
 
     template <typename Type, int size>
     using ArrayClass = my::Array<Type, size>;
-//    using VectorClass = my::DynArray;
+
+    template <typename Type>
+    using VectorClass = my::DynamicArray<Type>;
 //    using UniquePtrClass = my::UniquePtr;
+//  my::PrettyPrint()
 
-
-#elif defined(STANDART_LIBRARY)
-//    #include<vector>
+#else
+    #include <vector>
     #include <string>
     #include <array>
 
     using StringClass = std::string;
-//    using VectorClass = std::vector;
+
+    template <typename Type>
+    using VectorClass = std::vector<Type>;
+
     template <typename SomeType, std::size_t size>
     using ArrayClass = std::array<SomeType, size>;
 

@@ -43,7 +43,7 @@ public:
 
 private:
 
-    std::vector<std::unique_ptr<Item>> mb_inventory;
+    VectorClass<std::unique_ptr<Item>> mb_inventory;
 
 protected:
     // ######## GENERAL
@@ -68,7 +68,7 @@ protected:
 //    ArrayClass<int, static_cast<unsigned int>(Resource::TOTAL)> mb_maxResource {100, -1, -1, -1};
 
 
-    std::vector<Attribute> mb_attribute = {
+    VectorClass<Attribute> mb_attribute = {
             {Attr::Name::HEALTH, Attr::Type::RESOURCE, 100, 100, 100},
             {Attr::Name::STAMINA, Attr::Type::RESOURCE, -1, -1, -1},
             {Attr::Name::MANA, Attr::Type::RESOURCE, -1, -1, -1},
@@ -99,9 +99,9 @@ public:
      * I need to set/get/mod attributes very often - and code becomes messy with long-universal
      * functions.
      **********************************************************************************************/
-    int getCurAttr(Attr::Name name) const;
-    int getMaxAttr(Attr::Name name) const;
-    int getBaseAttr(Attr::Name name) const;
+    int getCurAttr(Attr::Name name);
+    int getMaxAttr(Attr::Name name);
+    int getBaseAttr(Attr::Name name);
 
     void setCurAttr(Attr::Name name, int val);
     void setMaxAttr(Attr::Name name, int val);
@@ -115,13 +115,13 @@ public:
 
     virtual                     ~Creature();
     int                         getLevel() const;
-    virtual bool                isDead() const;
+    virtual bool                isDead();
     virtual void                commitSuicide() = 0;
     virtual const StringClass&  getName() const = 0;
 
     const StringClass&        getTypeName() const;
 
-    virtual void            printAttr() const;
+    virtual void            printAttr();
 
 
 

@@ -92,7 +92,7 @@ private:
 public:
     // I generate several things of different types, but all things have the same BASE type..
     // Can't use reference 'casue componets of std::vector (and other containers) must be ASSIGNABLE
-    std::vector<std::unique_ptr<Item>>     mb_loot;
+    VectorClass<std::unique_ptr<Item>>     mb_loot;
 
     // #########  Constructors and Destructors  #############
 
@@ -129,7 +129,7 @@ public:
     void                    commitSuicide() override;
     void                    generateLoot();
 
-    void                    printAttr() const override;
+    void                    printAttr() override;
 
 
 

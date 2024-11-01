@@ -72,9 +72,9 @@ int Creature::getLevel() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-int Creature::getCurAttr(Attr::Name name) const
+int Creature::getCurAttr(Attr::Name name)
 {
-    for (const auto& attr: mb_attribute) {
+    for (auto& attr: mb_attribute) {
         if (attr.getName() == name) {
            return attr.getValue(Attr::ValueType::CURRENT);
         }
@@ -95,9 +95,9 @@ int Creature::getCurAttr(Attr::Name name) const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-int Creature::getMaxAttr(Attr::Name name) const
+int Creature::getMaxAttr(Attr::Name name)
 {
-    for (const auto& attr: mb_attribute) {
+    for (auto& attr: mb_attribute) {
         if (attr.getName() == name) {
            return attr.getValue(Attr::ValueType::MAX);
         }
@@ -118,9 +118,9 @@ int Creature::getMaxAttr(Attr::Name name) const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-int Creature::getBaseAttr(Attr::Name name) const
+int Creature::getBaseAttr(Attr::Name name)
 {
-    for (const auto& attr: mb_attribute) {
+    for (auto& attr: mb_attribute) {
         if (attr.getName() == name) {
            return attr.getValue(Attr::ValueType::BASE);
         }
@@ -603,7 +603,7 @@ void Creature::modBaseAttr(Attr::Name name, int delta)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-bool Creature::isDead() const
+bool Creature::isDead()
 {
     return (this->getCurAttr(Attr::Name::HEALTH) == 0);
 }
@@ -645,9 +645,9 @@ const StringClass& Creature::getTypeName() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Creature::printAttr() const
+void Creature::printAttr()
 {
-    for (const auto& attr: mb_attribute) {
+    for (auto& attr: mb_attribute) {
 
         int curValue {attr.getValue(Attr::ValueType::CURRENT)};
         int maxValue {attr.getValue(Attr::ValueType::MAX)};

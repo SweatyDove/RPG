@@ -361,7 +361,7 @@ void Monster::generateLoot()
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Monster::printAttr() const
+void Monster::printAttr()
 {
     std::cout << this->getTypeName() << "'s attributes:" << std::endl;
     Creature::printAttr();

@@ -43,7 +43,7 @@ public:
 
 private:
 
-    VectorClass<std::unique_ptr<Item>> mb_inventory;
+    VectorClass<UniquePtrClass<Item>> mb_inventory;
 
 protected:
     // ######## GENERAL

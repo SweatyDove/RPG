@@ -333,13 +333,13 @@ void Monster::generateLoot()
             // Can't create Gold object in stack, 'cause it will be destroyed after exiting current
             // function - that's why should use dynamic allocated memory (in such case GOLD - is
             // resource and therewhy it is a good idea to use smart poiner for it)
-            std::unique_ptr<Item> gold {new Gold(getRandomNumber(0, mb_level * 10))};
+            UniquePtrClass<Item> gold {new Gold(getRandomNumber(0, mb_level * 10))};
             mb_loot.push_back(std::move(gold));
         }
             break;
         case Item::Type::POTION:
             if (getRandomNumber(0, 100) <= Potion::mb_defaultPotionChance) {
-                std::unique_ptr<Item> potion {new Potion(mb_level)};
+                UniquePtrClass<Item> potion {new Potion(mb_level)};
                 mb_loot.push_back(std::move(potion));
             }
             else {}

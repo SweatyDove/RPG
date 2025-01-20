@@ -22,6 +22,7 @@
     #include "my_string.h"
     #include "my_array.hpp"
     #include "my_dynamicarray.hpp"
+    #include "my_smartptr.hpp"
 
 
     using StringClass = my::String;
@@ -31,13 +32,16 @@
 
     template <typename Type>
     using VectorClass = my::DynamicArray<Type>;
-//    using UniquePtrClass = my::UniquePtr;
+
+    template <typename Type>
+    using UniquePtrClass = my::SmartPtr<Type>;
 //  my::PrettyPrint()
 
 #else
     #include <vector>
     #include <string>
     #include <array>
+    #include <memory>
 
     using StringClass = std::string;
 
@@ -47,6 +51,9 @@
     template <typename SomeType, std::size_t size>
     using ArrayClass = std::array<SomeType, size>;
 
+    template <typename Type>
+    using UniquePtrClass = std::unique_ptr<Type>;
+
 #endif
 
 
@@ -55,14 +62,14 @@
 #include <ctime>                // For std::time()
 #include <utility>              // For std::move
 #include <cassert>
-#include <memory>
+//#include <memory>
 #include <type_traits>          // For std::is_same
 #include <iomanip>              // For std::setw()
 
 
 // ######## STL containers
 //#include <array>
-#include <vector>
+//#include <vector>
 //#include <string>
 #include <string_view>
 

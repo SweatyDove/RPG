@@ -11,6 +11,7 @@ SOURCES += \
         ../MyLibrary/my_string.cpp \
         ../MyLibrary/my_utilities.cpp \
         ../MyLibrary/my_array.cpp \
+        ../MyLibrary/my_smartptr.cpp \
         Sources/attribute.cpp \
         Sources/creature.cpp \
         Sources/gold.cpp \
@@ -29,6 +30,8 @@ HEADERS += \
     ../MyLibrary/my_string.h \
     ../MyLibrary/my_utilities.h \
     ../MyLibrary/my_array.h \
+    ../MyLibrary/my_smartptr.h \
+#    ../MyLibrary/my_smartptr.hpp \
     Sources/attribute.h \
     Sources/creature.h \
     Sources/gold.h \

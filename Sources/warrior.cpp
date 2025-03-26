@@ -66,10 +66,10 @@ void Warrior::cast(Spell& spell, Creature& creature)
     this->modCurAttr(Attr::Name::STAMINA, -spell.getCost(mb_level));
     creature.modCurAttr(Attr::Name::HEALTH, -spellEffect);
 
-    SetConsoleTextAttribute(hConsole, CLR_DARK_PASTEL_GREEN);
+//    SetConsoleTextAttribute(hConsole, CLR_DARK_PASTEL_GREEN);
     std::cout << "You've dealed (" << spellEffect << ") damage to the " << creature.getName()
            << ". It had (" << creature.getCurAttr(Attr::Name::HEALTH) << ") hp left." << std::endl;
-    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+//    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
 }
 
@@ -127,10 +127,10 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
                 choiceLoop = false;
             }
             else {
-                HANDLE hConsole {GetStdHandle(STD_OUTPUT_HANDLE)};
-                SetConsoleTextAttribute(hConsole, CLR_PALE_PRIM);
+//                HANDLE hConsole {GetStdHandle(STD_OUTPUT_HANDLE)};
+//                SetConsoleTextAttribute(hConsole, CLR_PALE_PRIM);
                 std::cout << "Not enough stamina points!" << std::endl;
-                SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+//                SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
             }
             break;
         case static_cast<int>(Warrior::FightOption::FLEE):

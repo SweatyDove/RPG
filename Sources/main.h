@@ -16,8 +16,6 @@
 
 
 #define MY_LIBRARY
-
-
 #if defined(MY_LIBRARY)
     #include "my_string.h"
     #include "my_array.hpp"

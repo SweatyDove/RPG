@@ -73,7 +73,9 @@
 //Player::Spec choosePlayerSpec();
 //StringClass   choosePlayerName();
 
-HANDLE hConsole;
+#if defined(PREDEF_PLATFORM_WINDOWS)
+    HANDLE hConsole;
+#endif
 
 
 //class Base {
@@ -100,9 +102,17 @@ HANDLE hConsole;
 int main()
 {
 
-     //==============================================================================================
+    //==============================================================================================
+    //=============================>  START OF DEBUG SECTION  <=====================================
+    //==============================================================================================
 
 
+
+
+
+    //==============================================================================================
+    //===============================>  END OF DEBUG SECTION  <=====================================
+    //==============================================================================================
 
     //    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     //    // you can loop k higher to see more color choices
@@ -127,7 +137,7 @@ int main()
               << "\n################################################################################"
               << std::endl;
 
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+//    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 
 //    Player::Race    playerRace  {choosePlayerRace()};
@@ -170,12 +180,12 @@ int main()
     // #### Main cycle
     while (player->metNewDay()) {
 
-        SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
+//        SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
         std::cout << "\n\n[Day " << player->getTimeLived() << "]\n"
                   << "***************************************************************" << std::endl;
         player->printAttr();
         std::cout << "***************************************************************" << std::endl;
-        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+//        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
         // ## Create random monster (or NPC)
         //Creature creature {};         - create a creature (monster/trader or smb else)

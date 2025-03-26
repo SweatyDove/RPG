@@ -272,10 +272,10 @@ void Monster::attack(Player& player) const
 {
     player.modCurAttr(Attr::Name::HEALTH, -mb_baseAttack.getEffect(mb_level));
 
-    SetConsoleTextAttribute(hConsole, CLR_FLAMINGO);
+//    SetConsoleTextAttribute(hConsole, CLR_FLAMINGO);
     std::cout << "The " << this->getName() << " attacked player and dealt (" << mb_baseAttack.getEffect(mb_level)
               << ") points of damage.";
-    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+//    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
     std::cout << " At now, player has (" << player.getCurAttr(Attr::Name::HEALTH) << ") hp. " << std::endl;
 
     return;

@@ -419,9 +419,9 @@ void Player::fightWith(Monster& monster)
     // ########
     while (!(this->isDead()) && !(monster.isDead()) && !isFled) {
 
-        SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
+//        SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
         std::cout << "\n\n[Turn " << turn++ << "]:" << std::endl;
-        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+//        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
         FightOption fightOption {chooseFightOption(monster)};
 

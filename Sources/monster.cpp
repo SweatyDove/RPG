@@ -334,6 +334,10 @@ void Monster::generateLoot()
             // function - that's why should use dynamic allocated memory (in such case GOLD - is
             // resource and therewhy it is a good idea to use smart poiner for it)
             UniquePtrClass<Item> gold {new Gold(getRandomNumber(0, mb_level * 10))};
+
+            // # Проблема в том, что в my::DynamicArray::pushBack происходит два копирования элементов
+            // # (при реаллокации и при непосредственном копировании аргумента в массив). Но почему
+            // # копирование, когда я задал move-семантику?
             mb_loot.push_back(std::move(gold));
         }
             break;

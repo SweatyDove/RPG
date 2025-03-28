@@ -12,6 +12,7 @@ SOURCES += \
         ../MyLibrary/my_utilities.cpp \
         ../MyLibrary/my_array.cpp \
         ../MyLibrary/my_smartptr.cpp \
+        ../MyLibrary/my_prettyprint.cpp \
         Sources/attribute.cpp \
         Sources/creature.cpp \
         Sources/gold.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
     ../MyLibrary/my_utilities.h \
     ../MyLibrary/my_array.h \
     ../MyLibrary/my_smartptr.h \
+    ../MyLibrary/my_prettyprint.h \
 #    ../MyLibrary/my_smartptr.hpp \
     Sources/attribute.h \
     Sources/creature.h \

@@ -20,7 +20,7 @@ Player::Player(Race race, Spec spec, StringClass name) :
     mb_spec {spec},
     mb_name {name}
 {
-    // ######## Add new attributes (RATINGS ans SKILLS)
+    // # Add new attributes (RATINGS ans SKILLS)
     mb_attribute.insert(std::end(mb_attribute), std::begin(mb_ratings), std::end(mb_ratings));
     mb_attribute.insert(std::end(mb_attribute), std::begin(mb_skills), std::end(mb_skills));
 

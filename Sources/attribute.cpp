@@ -5,11 +5,11 @@
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    Constructor
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Attribute::Attribute(Attribute::Name name, Type type, int baseValue, int curValue, int maxValue):
     mb_name {name},
@@ -23,11 +23,11 @@ Attribute::Attribute(Attribute::Name name, Type type, int baseValue, int curValu
 }
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    Getter
+//  DESCRIPTION:    Returns the <Type> of the @this attribute
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Attribute::Type Attribute::getType() const
 {
@@ -35,15 +35,15 @@ Attribute::Type Attribute::getType() const
 }
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    Getter
+//  DESCRIPTION:    Returns the name of the attribute as a string.
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
-Attribute::Name Attribute::getName() const
+const StringClass& Attribute::getName() const
 {
-    return mb_name;
+    return mb_attrName[static_cast<unsigned int>(mb_nameId)];
 }
 
 

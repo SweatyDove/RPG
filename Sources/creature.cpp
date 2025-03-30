@@ -625,6 +625,29 @@ void Creature::commitSuicide()
 
 
 //==================================================================================================
+//          TYPE:    ........
+//   DESCRIPTION:    Check if the @this creature has a specified attribute.
+//    PARAMETERS:    ........
+//  RETURN VALUE:    ........
+// COMMENTS/BUGS:    ........
+//==================================================================================================
+bool Creature::hasAttr(const StringClass& attrName) const
+{
+    bool retVal {false};
+
+    int size {mb_attribute.size()};
+    for (int ii {0}; ii < size; ++ii) {
+        if (mb_attribute[ii].)
+    }
+
+    return retVal;
+
+}
+
+
+
+
+//==================================================================================================
 //         TYPE:    --------
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------

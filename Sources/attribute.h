@@ -3,21 +3,40 @@
 
 #include "main.h"
 
+
+//==================================================================================================
+//         TYPE:    Class
+//  DESCRIPTION:    Describes creature's attribute.
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
 class Attribute {
 public:
 
 
-    enum class Name {
+    // # Enumeration of all various attributes for their convenient usage in arrays
+    enum class NameId {
+
+        // ## Base
         HEALTH,
+
+        // ## Resources
         STAMINA,
         MANA,
         CONCENTRATION,
+
+        // ## Characteristics
         STRENGTH,
         INTELLECT,
         AGILITY,
+
+        // ## Ratings
         DODGE_CHANCE,
         ESCAPE_CHANCE,
         CRIT_CHANCE,
+
+        // ## Skills
         ALCHEMY,
         CHARISMA,
         LUCK,
@@ -25,24 +44,7 @@ public:
         TOTAL
     };
 
-    inline static const ArrayClass<StringClass, static_cast<unsigned int>(Name::TOTAL)> mb_attrName = {
-        {
-            "HEALTH",
-            "STAMINA",
-            "MANA",
-            "CONCENTRATION",
-            "STRENGTH",
-            "INTELLECT",
-            "AGILITY",
-            "DODGE_CHANCE",
-            "ESCAPE_CHANCE",
-            "CRIT_CHANCE",
-            "ALCHEMY",
-            "CHARISMA",
-            "LUCK",
-        }
-    };
-
+    // # Types of attributes
     enum class Type {
         RESOURCE,
         CHARACTERISTIC,
@@ -52,21 +54,50 @@ public:
         TOTAL
     };
 
+    // # Types of values of attributes
     enum class ValueType {
-        BASE,                  // Base value of attribute - need for level up
-//        MIN,                  // Min value in order not to go into incredible low-values
-        CURRENT,
-        MAX,
-//        CUR_AND_MAX,                  // Current and max?
+        BASE,                   // Base value - need for level up
+        CURRENT,                // Current value of attribute - 'current HEALTH' for example
+        MAX,                    // Max value of attribute - 'max HEALTH' for example
 
         TOTAL
     };
 
-private:
-    Name mb_name {};
-    Type mb_type {};
 
-//    int mb_minValue {};
+private:
+
+    // # Names of all attributes presented as strings to use them while printing
+    inline static const ArrayClass<StringClass, static_cast<unsigned int>(NameId::TOTAL)> mb_attrName = {
+        {
+            // # Base
+            "HEALTH",
+
+            // # Resources
+            "STAMINA",
+            "MANA",
+            "CONCENTRATION",
+
+            // # Characteristics
+            "STRENGTH",
+            "INTELLECT",
+            "AGILITY",
+
+            // # Ratings
+            "DODGE_CHANCE",
+            "ESCAPE_CHANCE",
+            "CRIT_CHANCE",
+
+            // # Skills
+            "ALCHEMY",
+            "CHARISMA",
+            "LUCK",
+        }
+    };
+
+
+    NameId mb_nameId {};                // Name (identifier) of the attribute
+    Type mb_type {};                    // Attribute type (or class)
+
     int mb_baseValue {};
     int mb_curValue {};
     int mb_maxValue {};
@@ -74,26 +105,27 @@ private:
 
 
 public:
+    // # Constructors and destructors
     Attribute() = default;
-    Attribute(Name name, Type type, int baseValue, int curValue, int maxValue);
+    Attribute(NameId nameId, Type type, int baseValue, int curValue, int maxValue);
+
+    // # Overloaded operators
 
 
-    Type getType() const;
-    Name getName() const;
-    void changeValue(ValueType valueType, int delta);
-    int getValue(ValueType valueType) const;
-    void setValue(ValueType valueType, int value);
 
-//    void setCurValue();
-//    int getCurValue() const;
-//    int getMaxValue() const;
+    // # Interface
+    Type                        getType() const;
+    void                        changeValue(ValueType valueType, int delta);
+    int                         getValue(ValueType valueType) const;
+    void                        setValue(ValueType valueType, int value);
 
+    const StringClass&  getName() const;
+//    static const StringClass&   getStringName(Name name);         // why static?
 
-    static const StringClass& getStringName(Name name);
 
 };
 
-
-    typedef Attribute Attr;
+    // # Alias for the convenient usage
+    using Attr = Attribute;
 
 #endif // ATTRIBUTE_H

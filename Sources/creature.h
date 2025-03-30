@@ -96,7 +96,7 @@ protected:
 public:
     /***********************************************************************************************
      * Here I have a lot of similar functions. I could join them into a single one, but in the code
-     * I need to set/get/mod attributes very often - and code becomes messy with long-universal
+     * I need to set/get/mod attributes very often - and code becomes messy with long and universal
      * functions.
      **********************************************************************************************/
     int getCurAttr(Attr::Name name);
@@ -119,9 +119,14 @@ public:
     virtual void                commitSuicide() = 0;
     virtual const StringClass&  getName() const = 0;
 
+    bool hasAttr(const StringClass& attrName) const;
+
     const StringClass&        getTypeName() const;
 
     virtual void            printAttr();
+
+
+    friend void printAttrTable(const Creature& firstCreature, const Creature& secondCreature);
 
 
 
@@ -137,6 +142,44 @@ public:
 //    virtual void                changeStrength(int strength);
 
 
-};
+}; // <Creature>
+
+
+//==================================================================================================
+//          TYPE:    ........
+//   DESCRIPTION:    Function prints table of attributes of @firstCreature and @secondCreature
+//    PARAMETERS:    ........
+//  RETURN VALUE:    ........
+// COMMENTS/BUGS:    ........
+//==================================================================================================
+void printAttrTable(const Creature& firstCreature, const Creature& secondCreature)
+{
+    // # Прохожу по списку возможных аттрибутов. ПРоверяю, имеется ли он у 1-ого или 2-ого существа.
+    // # Если имеется хотя бы у одного, вывожу его параметры.
+    int size {static_cast<int>(Attribute::Name::TOTAL)};
+    for (int ii {0}; ii < size; ++ii) {
+        StringClass name {Attribute::getStringName(static_cast<Attribute::Name>(ii))};
+
+        if (firstCreature.hasAttr(name) || secondCreature.hasAttr(name)) {
+
+        }
+    }
+
+
+    for (auto& attr: mb_attribute) {
+
+        int curValue {attr.getValue(Attr::ValueType::CURRENT)};
+        int maxValue {attr.getValue(Attr::ValueType::MAX)};
+
+        if (curValue != -1 && maxValue != -1) {
+            std::cout << std::setw(16) << attr.Attribute::getStringName(attr.getName()) << ":    " << curValue << '/' << maxValue << std::endl;
+        }
+        //        else if (curValue == -1 || maxValue == -1) {
+        //            assert(false && "Creature can't have current or max attribute in inactive state, only both.");
+        //        }
+        else {} // Nothing to do
+    }
+
+}
 
 #endif // CREATURE_H

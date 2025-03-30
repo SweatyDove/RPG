@@ -177,25 +177,26 @@ int main()
     std::cout << "Hello " << player->getName() << "! Welcome to the game...\n";
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-    // #### Main cycle
+    // # Main cycle
     while (player->metNewDay()) {
 
 //        SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
-        std::cout << "\n\n[Day " << player->getTimeLived() << "]\n"
-                  << "***************************************************************" << std::endl;
-        player->printAttr();
-        std::cout << "***************************************************************" << std::endl;
-//        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
-
-        // ## Create random monster (or NPC)
-        //Creature creature {};         - create a creature (monster/trader or smb else)
-        Monster monster{};
 
         // ## What happened at this day?
-        std::cout << "You have encountered a "<< monster.getName() << " of "<< monster.getLevel()
-                  << " level." << std::endl;
+        // ## Create random monster (or NPC)
+        Monster monster{};
+        //Creature creature {};         - create a creature (monster/trader or smb else)
+        std::cout << "\n\n[Day " << player->getTimeLived() << "]: You have encountered a "
+                  << monster.getName() << " of " << monster.getLevel() << " level."
+                  << "********************************************************************************"
+                  << std::endl;
+//        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+
+        printAttrTable(player, monster);
+        player->printAttr();
         monster.printAttr();
-        std::cout << "***************************************************************" << std::endl;
+        std::cout << "********************************************************************************"
+                  << std::endl;
 
         player->fightWith(monster);
 //        monster.commitSuicide();

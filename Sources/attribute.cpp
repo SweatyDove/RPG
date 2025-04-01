@@ -11,7 +11,7 @@
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-Attribute::Attribute(Attribute::Name name, Type type, int baseValue, int curValue, int maxValue):
+Attribute::Attribute(Attribute::NameId name, Type type, int baseValue, int curValue, int maxValue):
     mb_name {name},
     mb_type {type},
     mb_baseValue {baseValue},
@@ -47,26 +47,30 @@ const StringClass& Attribute::getName() const
 }
 
 
+
+
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    Getter
+//  DESCRIPTION:    Returns the identifier of the attribute
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
-const StringClass& Attribute::getStringName(Attribute::Name name)
+Attribute::NameId Attribute::getNameId() const
 {
-    return mb_attrName[static_cast<unsigned int>(name)];
+    return mb_nameId;
 }
 
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    Change the attribute's value depending on the value's type.
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    BASE value can be 0 or higher;
+//                  CURRENT value lies in the range from 0 to MAX value;
+//                  MAX value can be 0 or higher;
 //==================================================================================================
 void Attribute::changeValue(ValueType valueType, int delta)
 {
@@ -85,10 +89,6 @@ void Attribute::changeValue(ValueType valueType, int delta)
         newValue = mb_maxValue + delta;
         mb_maxValue = (newValue < 0) ? 0 : newValue;
         break;
-//    case ValueType::CUR_AND_MAX:
-//        newValue = mb_maxValue + delta;
-//        mb_curValue = mb_maxValue = (newValue < 0) ? 0 : newValue;
-//        break;
     case ValueType::TOTAL:
         assert(false && "Incorrect Value Type");
         break;
@@ -100,11 +100,11 @@ void Attribute::changeValue(ValueType valueType, int delta)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    Return attribute's value depending on the value's type.
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Attribute::getValue(ValueType valueType) const
 {
@@ -131,11 +131,11 @@ int Attribute::getValue(ValueType valueType) const
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    Set the value depending on its type.
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Attribute::setValue(ValueType valueType, int value)
 {

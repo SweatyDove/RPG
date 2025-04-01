@@ -13,8 +13,8 @@
 Warrior::Warrior(Player::Race race, Player::Spec spec, StringClass name):
     Player {race, spec, name}
 {
-    this->setAllAttr(Attr::Name::STAMINA, 50, 50, 50);
-    this->setAllAttr(Attr::Name::STRENGTH, 10, 10, 10);
+    this->setAllAttr(Attr::NameId::STAMINA, 50, 50, 50);
+    this->setAllAttr(Attr::NameId::STRENGTH, 10, 10, 10);
 }
 
 
@@ -63,12 +63,12 @@ void Warrior::cast(Spell& spell, Creature& creature)
 {
     int spellEffect {spell.getEffect(mb_level)};
 
-    this->modCurAttr(Attr::Name::STAMINA, -spell.getCost(mb_level));
-    creature.modCurAttr(Attr::Name::HEALTH, -spellEffect);
+    this->modCurAttr(Attr::NameId::STAMINA, -spell.getCost(mb_level));
+    creature.modCurAttr(Attr::NameId::HEALTH, -spellEffect);
 
 //    SetConsoleTextAttribute(hConsole, CLR_DARK_PASTEL_GREEN);
     std::cout << "You've dealed (" << spellEffect << ") damage to the " << creature.getName()
-           << ". It had (" << creature.getCurAttr(Attr::Name::HEALTH) << ") hp left." << std::endl;
+           << ". It had (" << creature.getCurAttr(Attr::NameId::HEALTH) << ") hp left." << std::endl;
 //    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
 }
@@ -83,7 +83,7 @@ void Warrior::cast(Spell& spell, Creature& creature)
 //==================================================================================================
 Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 {
-    int playerStamina {this->getCurAttr(Attr::Name::STAMINA)};
+    int playerStamina {this->getCurAttr(Attr::NameId::STAMINA)};
 
 
 //    // ######## Intro message title
@@ -109,7 +109,7 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
     std::cout << "[3] - Commit suicide...";
 
     // ######## 4-th option
-    std::cout << "\n[0] - Run away: You have (" << this->getCurAttr(Attr::Name::ESCAPE_CHANCE)
+    std::cout << "\n[0] - Run away: You have (" << this->getCurAttr(Attr::NameId::ESCAPE_CHANCE)
               << ") chance to escape from monster." << " If you could't, monster would deal ("
               << monster.getDamage() << ") damage."<< std::endl;
 
@@ -223,7 +223,7 @@ void Warrior::attack(Monster& monster)
 //==================================================================================================
 bool Warrior::superAttack(Monster& monster)
 {
-    int curStamina {this->getCurAttr(Attr::Name::STAMINA)};
+    int curStamina {this->getCurAttr(Attr::NameId::STAMINA)};
     int costStamina {mb_specialAttack.getCost(mb_level)};
 
     if (curStamina > costStamina) {
@@ -291,5 +291,5 @@ void Warrior::commitSuicide()
 {
     std::cout << "\nThe warrior threw his sword into the air, spread his arms and arched his chest to the sky...\n"
               << "And the sword pierced his chest, thereby taking his life..." << std::endl;
-    this->setCurAttr(Attr::Name::HEALTH, 0);
+    this->setCurAttr(Attr::NameId::HEALTH, 0);
 }

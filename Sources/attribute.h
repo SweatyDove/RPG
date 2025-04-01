@@ -43,31 +43,8 @@ public:
 
         TOTAL
     };
-
-    // # Types of attributes
-    enum class Type {
-        RESOURCE,
-        CHARACTERISTIC,
-        RATING,
-        SKILL,
-
-        TOTAL
-    };
-
-    // # Types of values of attributes
-    enum class ValueType {
-        BASE,                   // Base value - need for level up
-        CURRENT,                // Current value of attribute - 'current HEALTH' for example
-        MAX,                    // Max value of attribute - 'max HEALTH' for example
-
-        TOTAL
-    };
-
-
-private:
-
     // # Names of all attributes presented as strings to use them while printing
-    inline static const ArrayClass<StringClass, static_cast<unsigned int>(NameId::TOTAL)> mb_attrName = {
+    inline static const ArrayClass<const StringClass, static_cast<unsigned int>(NameId::TOTAL)> mb_attrName = {
         {
             // # Base
             "HEALTH",
@@ -94,6 +71,28 @@ private:
         }
     };
 
+    // # Types of attributes
+    enum class Type {
+        RESOURCE,
+        CHARACTERISTIC,
+        RATING,
+        SKILL,
+
+        TOTAL
+    };
+
+    // # Types of values of attributes
+    enum class ValueType {
+        BASE,                   // Base value - need for level up
+        CURRENT,                // Current value of attribute - 'current HEALTH' for example
+        MAX,                    // Max value of attribute - 'max HEALTH' for example
+
+        TOTAL
+    };
+
+
+private:
+
 
     NameId mb_nameId {};                // Name (identifier) of the attribute
     Type mb_type {};                    // Attribute type (or class)
@@ -114,14 +113,14 @@ public:
 
 
     // # Interface
+    NameId                      getNameId() const;
     Type                        getType() const;
     void                        changeValue(ValueType valueType, int delta);
     int                         getValue(ValueType valueType) const;
     void                        setValue(ValueType valueType, int value);
 
-    const StringClass&  getName() const;
-//    static const StringClass&   getStringName(Name name);         // why static?
 
+    const StringClass&          getName() const;
 
 };
 

@@ -123,7 +123,7 @@ bool Player::metNewDay()
     }
     else {
         std::cout << "\nPlayer died in his sleep..." << std::endl;
-        this->setCurAttr(Attr::Name::HEALTH, 0);
+        this->setCurAttr(Attr::NameId::HEALTH, 0);
         return false;
     }
 }
@@ -241,8 +241,8 @@ void Player::levelUp()
     mb_level++;
 
     // ######## Set the new max health and restore current health
-    this->setMaxAttr(Attr::Name::HEALTH, this->getBaseAttr(Attr::Name::HEALTH) + (mb_level - 1) * 20);
-    this->setCurAttr(Attr::Name::HEALTH, this->getMaxAttr(Attr::Name::HEALTH));
+    this->setMaxAttr(Attr::NameId::HEALTH, this->getBaseAttr(Attr::NameId::HEALTH) + (mb_level - 1) * 20);
+    this->setCurAttr(Attr::NameId::HEALTH, this->getMaxAttr(Attr::NameId::HEALTH));
 
 
     std::cout << "Congratulation! You've reached " << mb_level << " level.\n";
@@ -259,11 +259,11 @@ void Player::levelUp()
         std::cin >> choice;
         switch (choice) {
         case '1':
-            this->modMaxAttr(Attr::Name::STRENGTH, +mb_level);
-            this->setCurAttr(Attr::Name::STRENGTH, this->getMaxAttr(Attr::Name::STRENGTH));
+            this->modMaxAttr(Attr::NameId::STRENGTH, +mb_level);
+            this->setCurAttr(Attr::NameId::STRENGTH, this->getMaxAttr(Attr::NameId::STRENGTH));
 
-            this->setMaxAttr(Attr::Name::STAMINA, this->getBaseAttr(Attr::Name::STAMINA) + (mb_level - 1) * 10);
-            this->setCurAttr(Attr::Name::STAMINA, this->getMaxAttr(Attr::Name::STAMINA));
+            this->setMaxAttr(Attr::NameId::STAMINA, this->getBaseAttr(Attr::NameId::STAMINA) + (mb_level - 1) * 10);
+            this->setCurAttr(Attr::NameId::STAMINA, this->getMaxAttr(Attr::NameId::STAMINA));
             inLoop = false;
             break;
         case '2':
@@ -375,23 +375,23 @@ void Player::drink(const Potion& potion)
         std::cout << "You had drunk potion, but nothing happened.\n";
         break;
     case Potion::Type::HEALTH:
-        this->modCurAttr(Attr::Name::HEALTH, potion.getEffect());
+        this->modCurAttr(Attr::NameId::HEALTH, potion.getEffect());
         std::cout << "You had drunk a " << potion.getName() << ", that restored "
                   << potion.getEffect() << " hp.\n";
         break;
     case Potion::Type::STAMINA:
-        this->modCurAttr(Attr::Name::STAMINA, potion.getEffect());
+        this->modCurAttr(Attr::NameId::STAMINA, potion.getEffect());
         std::cout << "You had drunk a " << potion.getName() << ", that restored "
                   << potion.getEffect() << " stamina.\n";
         break;
     case Potion::Type::STRENGTH:
-        this->modMaxAttr(Attr::Name::STRENGTH, +potion.getEffect());
-        this->setCurAttr(Attr::Name::STRENGTH, this->getMaxAttr(Attr::Name::STRENGTH));
+        this->modMaxAttr(Attr::NameId::STRENGTH, +potion.getEffect());
+        this->setCurAttr(Attr::NameId::STRENGTH, this->getMaxAttr(Attr::NameId::STRENGTH));
         std::cout << "You had drunk a " << potion.getName() << ", that increased your damage by "
                   << potion.getEffect() << " points.\n";
         break;
     case Potion::Type::POISON:
-        this->modCurAttr(Attr::Name::HEALTH, -potion.getEffect());
+        this->modCurAttr(Attr::NameId::HEALTH, -potion.getEffect());
         std::cout << "You had drunk a " << potion.getName() << ". You got poisoned and lost "
                   << potion.getEffect() << " hp.\n";
         break;
@@ -445,7 +445,7 @@ void Player::fightWith(Monster& monster)
             else {} // Nothing to do;
         break;
         case FightOption::FLEE:
-            if (getRandomNumber(1, 100) <= this->getCurAttr(Attr::Name::ESCAPE_CHANCE)) {
+            if (getRandomNumber(1, 100) <= this->getCurAttr(Attr::NameId::ESCAPE_CHANCE)) {
                 isFled = true;
             }
             else {
@@ -557,7 +557,7 @@ void Player::fightWith(Monster& monster)
 void Player::commitSuicide()
 {
     std::cout << "\nPlayer commited suicide!" << std::endl;
-    this->setCurAttr(Attr::Name::HEALTH, 0);
+    this->setCurAttr(Attr::NameId::HEALTH, 0);
 }
 
 
@@ -602,11 +602,11 @@ void Player::getPotion(const Potion& potion)
 //==================================================================================================
 void Player::getRest()
 {
-    this->modCurAttr(Attr::Name::HEALTH, this->getMaxAttr(Attr::Name::HEALTH) / 5);
-    this->modCurAttr(Attr::Name::STAMINA, this->getMaxAttr(Attr::Name::STAMINA) / 2);
+    this->modCurAttr(Attr::NameId::HEALTH, this->getMaxAttr(Attr::NameId::HEALTH) / 5);
+    this->modCurAttr(Attr::NameId::STAMINA, this->getMaxAttr(Attr::NameId::STAMINA) / 2);
 
-    std::cout << "Player had a rest and now he has (" <<  this->getCurAttr(Attr::Name::HEALTH)
-              << ") hp and ("<<  this->getCurAttr(Attr::Name::STAMINA) << ") stamina points" << std::endl;
+    std::cout << "Player had a rest and now he has (" <<  this->getCurAttr(Attr::NameId::HEALTH)
+              << ") hp and ("<<  this->getCurAttr(Attr::NameId::STAMINA) << ") stamina points" << std::endl;
 }
 
 

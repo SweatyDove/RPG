@@ -60,7 +60,7 @@ public:
     };
 
     // ######## BASE attack multipliers
-    inline static ArrayClass<float, static_cast<int>(Attr::Name::TOTAL)> mb_baseAttackMultiplier {0};
+    inline static ArrayClass<float, static_cast<int>(Attr::NameId::TOTAL)> mb_baseAttackMultiplier {0};
 
     //Monster::Type getRandomType();
 

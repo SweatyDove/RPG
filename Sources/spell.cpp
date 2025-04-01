@@ -9,7 +9,7 @@
 //     COMMENTS:    --------
 //==================================================================================================
 Spell::Spell(const VectorClass<Attribute>& attributes,
-             const ArrayClass<float, static_cast<int>(Attr::Name::TOTAL)>& multipliers,
+             const ArrayClass<float, static_cast<int>(Attr::NameId::TOTAL)>& multipliers,
              StringClass name,
              School school,
              int baseEffect,

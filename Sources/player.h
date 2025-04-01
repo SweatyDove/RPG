@@ -64,18 +64,18 @@ protected:
 
     ArrayClass<Attribute, 3> mb_ratings = {
         {
-            Attribute(Attr::Name::DODGE_CHANCE, Attribute::Type::RATING, -1, -1, -1),
-            Attribute(Attr::Name::CRIT_CHANCE, Attribute::Type::RATING, -1, -1, -1),
-            Attribute(Attr::Name::ESCAPE_CHANCE, Attribute::Type::RATING, 66, 66, 66),
+            Attribute(Attr::NameId::DODGE_CHANCE, Attribute::Type::RATING, -1, -1, -1),
+            Attribute(Attr::NameId::CRIT_CHANCE, Attribute::Type::RATING, -1, -1, -1),
+            Attribute(Attr::NameId::ESCAPE_CHANCE, Attribute::Type::RATING, 66, 66, 66),
         }
     };
 
 
     ArrayClass<Attribute, 3> mb_skills = {
         {
-            {Attr::Name::ALCHEMY, Attribute::Type::SKILL, -1, -1, -1},
-            {Attr::Name::CHARISMA, Attribute::Type::SKILL, -1, -1, -1},
-            {Attr::Name::LUCK, Attribute::Type::SKILL, -1, -1, -1},
+            {Attr::NameId::ALCHEMY, Attribute::Type::SKILL, -1, -1, -1},
+            {Attr::NameId::CHARISMA, Attribute::Type::SKILL, -1, -1, -1},
+            {Attr::NameId::LUCK, Attribute::Type::SKILL, -1, -1, -1},
         }
     };
 

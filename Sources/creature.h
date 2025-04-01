@@ -69,14 +69,14 @@ protected:
 
 
     VectorClass<Attribute> mb_attribute = {
-            {Attr::Name::HEALTH, Attr::Type::RESOURCE, 100, 100, 100},
-            {Attr::Name::STAMINA, Attr::Type::RESOURCE, -1, -1, -1},
-            {Attr::Name::MANA, Attr::Type::RESOURCE, -1, -1, -1},
-            {Attr::Name::CONCENTRATION, Attr::Type::RESOURCE, -1, -1, -1},
+            {Attr::NameId::HEALTH, Attr::Type::RESOURCE, 100, 100, 100},
+            {Attr::NameId::STAMINA, Attr::Type::RESOURCE, -1, -1, -1},
+            {Attr::NameId::MANA, Attr::Type::RESOURCE, -1, -1, -1},
+            {Attr::NameId::CONCENTRATION, Attr::Type::RESOURCE, -1, -1, -1},
 
-            {Attr::Name::STRENGTH, Attr::Type::CHARACTERISTIC, -1, -1, -1},
-            {Attr::Name::INTELLECT, Attr::Type::CHARACTERISTIC, -1, -1, -1},
-            {Attr::Name::AGILITY, Attr::Type::CHARACTERISTIC, -1, -1, -1},
+            {Attr::NameId::STRENGTH, Attr::Type::CHARACTERISTIC, -1, -1, -1},
+            {Attr::NameId::INTELLECT, Attr::Type::CHARACTERISTIC, -1, -1, -1},
+            {Attr::NameId::AGILITY, Attr::Type::CHARACTERISTIC, -1, -1, -1},
     };
 
 
@@ -99,19 +99,19 @@ public:
      * I need to set/get/mod attributes very often - and code becomes messy with long and universal
      * functions.
      **********************************************************************************************/
-    int getCurAttr(Attr::Name name);
-    int getMaxAttr(Attr::Name name);
-    int getBaseAttr(Attr::Name name);
+    int getCurAttr(Attr::NameId name);
+    int getMaxAttr(Attr::NameId name);
+    int getBaseAttr(Attr::NameId name);
 
-    void setCurAttr(Attr::Name name, int val);
-    void setMaxAttr(Attr::Name name, int val);
-    void setBaseAttr(Attr::Name name, int val);
-    void setAllAttr(Attr::Name name, int baseVal, int maxVal, int curVal);
+    void setCurAttr(Attr::NameId name, int val);
+    void setMaxAttr(Attr::NameId name, int val);
+    void setBaseAttr(Attr::NameId name, int val);
+    void setAllAttr(Attr::NameId name, int baseVal, int maxVal, int curVal);
 
 
-    void modCurAttr(Attr::Name name, int delta);
-    void modMaxAttr(Attr::Name name, int delta);
-    void modBaseAttr(Attr::Name name, int delta);
+    void modCurAttr(Attr::NameId name, int delta);
+    void modMaxAttr(Attr::NameId name, int delta);
+    void modBaseAttr(Attr::NameId name, int delta);
 
     virtual                     ~Creature();
     int                         getLevel() const;
@@ -156,11 +156,15 @@ void printAttrTable(const Creature& firstCreature, const Creature& secondCreatur
 {
     // # Прохожу по списку возможных аттрибутов. ПРоверяю, имеется ли он у 1-ого или 2-ого существа.
     // # Если имеется хотя бы у одного, вывожу его параметры.
-    int size {static_cast<int>(Attribute::Name::TOTAL)};
-    for (int ii {0}; ii < size; ++ii) {
-        StringClass name {Attribute::getStringName(static_cast<Attribute::Name>(ii))};
+    for (int ii {0}; ii < static_cast<int>(Attr::NameId::TOTAL); ++ii) {
+        const StringClass& attrName {Attr::mb_attrName[ii]};
+        if (firstCreature.hasAttr(attrName) || secondCreature.hasAttr(attrName)) {
+            int firstCurVal {firstCreature.getCurAttr(ii)};
+            int firstMaxVal {firstCreature.getMaxAttr(ii)};
+            int SecondCurVal {secondCreature.getCurAttr(ii)};
+            int SecondMaxVal {secondCreature.getMaxAttr(ii)};
 
-        if (firstCreature.hasAttr(name) || secondCreature.hasAttr(name)) {
+            // Дальше вывод либо значения атрибута, либо "--------"
 
         }
     }
@@ -172,7 +176,7 @@ void printAttrTable(const Creature& firstCreature, const Creature& secondCreatur
         int maxValue {attr.getValue(Attr::ValueType::MAX)};
 
         if (curValue != -1 && maxValue != -1) {
-            std::cout << std::setw(16) << attr.Attribute::getStringName(attr.getName()) << ":    " << curValue << '/' << maxValue << std::endl;
+            std::cout << std::setw(16) << attr.Attribute::getStringName(attr.getNameId()) << ":    " << curValue << '/' << maxValue << std::endl;
         }
         //        else if (curValue == -1 || maxValue == -1) {
         //            assert(false && "Creature can't have current or max attribute in inactive state, only both.");

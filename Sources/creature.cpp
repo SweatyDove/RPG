@@ -51,10 +51,10 @@ int Creature::getLevel() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-//int Creature::getAttribute(Attribute::Name name, Attribute::ValueType valueType)
+//int Creature::getAttribute(Attribute::NameId name, Attribute::ValueType valueType)
 //{
 //    for (auto attr: mb_attribute) {
-//        if (attr.getName() == name) {
+//        if (attr.getNameId() == name) {
 //           return attr.getValue(valueType);
 //        }
 //        else {} // Nothing to do
@@ -72,10 +72,10 @@ int Creature::getLevel() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-int Creature::getCurAttr(Attr::Name name)
+int Creature::getCurAttr(Attr::NameId name)
 {
     for (auto& attr: mb_attribute) {
-        if (attr.getName() == name) {
+        if (attr.getNameId() == name) {
            return attr.getValue(Attr::ValueType::CURRENT);
         }
         else {} // Nothing to do
@@ -95,10 +95,10 @@ int Creature::getCurAttr(Attr::Name name)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-int Creature::getMaxAttr(Attr::Name name)
+int Creature::getMaxAttr(Attr::NameId name)
 {
     for (auto& attr: mb_attribute) {
-        if (attr.getName() == name) {
+        if (attr.getNameId() == name) {
            return attr.getValue(Attr::ValueType::MAX);
         }
         else {} // Nothing to do
@@ -118,10 +118,10 @@ int Creature::getMaxAttr(Attr::Name name)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-int Creature::getBaseAttr(Attr::Name name)
+int Creature::getBaseAttr(Attr::NameId name)
 {
     for (auto& attr: mb_attribute) {
-        if (attr.getName() == name) {
+        if (attr.getNameId() == name) {
            return attr.getValue(Attr::ValueType::BASE);
         }
         else {} // Nothing to do
@@ -141,10 +141,10 @@ int Creature::getBaseAttr(Attr::Name name)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Creature::setCurAttr(Attr::Name name, int val)
+void Creature::setCurAttr(Attr::NameId name, int val)
 {
     for (auto& attr: mb_attribute) {
-        if (attr.getName() == name) {
+        if (attr.getNameId() == name) {
            attr.setValue(Attr::ValueType::CURRENT, val);
            return;
         }
@@ -163,10 +163,10 @@ void Creature::setCurAttr(Attr::Name name, int val)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Creature::setMaxAttr(Attr::Name name, int val)
+void Creature::setMaxAttr(Attr::NameId name, int val)
 {
     for (auto& attr: mb_attribute) {
-        if (attr.getName() == name) {
+        if (attr.getNameId() == name) {
            attr.setValue(Attr::ValueType::MAX, val);
            return;
         }
@@ -185,10 +185,10 @@ void Creature::setMaxAttr(Attr::Name name, int val)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Creature::setBaseAttr(Attr::Name name, int val)
+void Creature::setBaseAttr(Attr::NameId name, int val)
 {
     for (auto& attr: mb_attribute) {
-        if (attr.getName() == name) {
+        if (attr.getNameId() == name) {
            attr.setValue(Attr::ValueType::BASE, val);
            return;
         }
@@ -208,7 +208,7 @@ void Creature::setBaseAttr(Attr::Name name, int val)
 //  DESCRIPTION:    Just a 3in1 function for setting attribute
 //     COMMENTS:    --------
 //==================================================================================================
-void Creature::setAllAttr(Attr::Name name, int baseVal, int maxVal, int curVal)
+void Creature::setAllAttr(Attr::NameId name, int baseVal, int maxVal, int curVal)
 {
     this->setBaseAttr(name, baseVal);
     this->setMaxAttr(name, maxVal);
@@ -223,10 +223,10 @@ void Creature::setAllAttr(Attr::Name name, int baseVal, int maxVal, int curVal)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Creature::modCurAttr(Attr::Name name, int delta)
+void Creature::modCurAttr(Attr::NameId name, int delta)
 {
     for (auto& attr: mb_attribute) {
-        if (attr.getName() == name) {
+        if (attr.getNameId() == name) {
            attr.changeValue(Attr::ValueType::CURRENT, delta);
            return;
         }
@@ -245,10 +245,10 @@ void Creature::modCurAttr(Attr::Name name, int delta)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Creature::modMaxAttr(Attr::Name name, int delta)
+void Creature::modMaxAttr(Attr::NameId name, int delta)
 {
     for (auto& attr: mb_attribute) {
-        if (attr.getName() == name) {
+        if (attr.getNameId() == name) {
            attr.changeValue(Attr::ValueType::MAX, delta);
            return;
         }
@@ -267,10 +267,10 @@ void Creature::modMaxAttr(Attr::Name name, int delta)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-void Creature::modBaseAttr(Attr::Name name, int delta)
+void Creature::modBaseAttr(Attr::NameId name, int delta)
 {
     for (auto& attr: mb_attribute) {
-        if (attr.getName() == name) {
+        if (attr.getNameId() == name) {
            attr.changeValue(Attr::ValueType::BASE, delta);
            return;
         }
@@ -291,10 +291,10 @@ void Creature::modBaseAttr(Attr::Name name, int delta)
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-//void Creature::changeAttribute(Attribute::Name name, Attribute::ValueType valueType, int delta)
+//void Creature::changeAttribute(Attribute::NameId name, Attribute::ValueType valueType, int delta)
 //{
 //    for (auto attr: mb_attribute) {
-//        if (attr.getName() == name) {
+//        if (attr.getNameId() == name) {
 //           attr.changeValue(valueType, delta);
 //        }
 //        else {} // Nothing to do
@@ -605,7 +605,7 @@ void Creature::modBaseAttr(Attr::Name name, int delta)
 //==================================================================================================
 bool Creature::isDead()
 {
-    return (this->getCurAttr(Attr::Name::HEALTH) == 0);
+    return (this->getCurAttr(Attr::NameId::HEALTH) == 0);
 }
 
 
@@ -618,7 +618,7 @@ bool Creature::isDead()
 //==================================================================================================
 void Creature::commitSuicide()
 {
-    this->setCurAttr(Attr::Name::HEALTH, 0);
+    this->setCurAttr(Attr::NameId::HEALTH, 0);
     std::cout << "Creature commited suicide!" << std::endl;
 }
 
@@ -676,7 +676,7 @@ void Creature::printAttr()
         int maxValue {attr.getValue(Attr::ValueType::MAX)};
 
         if (curValue != -1 && maxValue != -1) {
-            std::cout << std::setw(16) << attr.Attribute::getStringName(attr.getName()) << ":    " << curValue << '/' << maxValue << std::endl;
+            std::cout << std::setw(16) << attr.Attribute::getStringName(attr.getNameId()) << ":    " << curValue << '/' << maxValue << std::endl;
         }
 //        else if (curValue == -1 || maxValue == -1) {
 //            assert(false && "Creature can't have current or max attribute in inactive state, only both.");

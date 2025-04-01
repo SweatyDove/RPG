@@ -218,7 +218,7 @@ int Monster::getDamage() const
 //==================================================================================================
 void Monster::setHealth(Type type, int level)
 {
-    Attribute::Name health {Attr::Name::HEALTH};
+    Attribute::NameId health {Attr::NameId::HEALTH};
 
     switch (type) {
     case Type::SKELETON:
@@ -270,13 +270,13 @@ const StringClass& Monster::getName() const
 //==================================================================================================
 void Monster::attack(Player& player) const
 {
-    player.modCurAttr(Attr::Name::HEALTH, -mb_baseAttack.getEffect(mb_level));
+    player.modCurAttr(Attr::NameId::HEALTH, -mb_baseAttack.getEffect(mb_level));
 
 //    SetConsoleTextAttribute(hConsole, CLR_FLAMINGO);
     std::cout << "The " << this->getName() << " attacked player and dealt (" << mb_baseAttack.getEffect(mb_level)
               << ") points of damage.";
 //    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
-    std::cout << " At now, player has (" << player.getCurAttr(Attr::Name::HEALTH) << ") hp. " << std::endl;
+    std::cout << " At now, player has (" << player.getCurAttr(Attr::NameId::HEALTH) << ") hp. " << std::endl;
 
     return;
 }
@@ -305,7 +305,7 @@ Monster::Type Monster::getType() const
 //==================================================================================================
 void Monster::commitSuicide()
 {
-    this->setCurAttr(Attr::Name::HEALTH, 0);
+    this->setCurAttr(Attr::NameId::HEALTH, 0);
     std::cout << "Monster was scared to death of you and died of a heart attack..." << std::endl;
 }
 

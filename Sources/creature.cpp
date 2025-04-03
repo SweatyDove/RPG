@@ -81,7 +81,7 @@ int Creature::getCurAttr(Attr::NameId name)
         else {} // Nothing to do
     }
 
-    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getStringName(name)
+    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getName(name)
               << "'." << std::endl;
     return -1;
 
@@ -104,7 +104,7 @@ int Creature::getMaxAttr(Attr::NameId name)
         else {} // Nothing to do
     }
 
-    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getStringName(name)
+    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getName(name)
               << "'." << std::endl;
     return -1;
 
@@ -127,7 +127,7 @@ int Creature::getBaseAttr(Attr::NameId name)
         else {} // Nothing to do
     }
 
-    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getStringName(name)
+    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getName(name)
               << "'." << std::endl;
     return -1;
 
@@ -151,7 +151,7 @@ void Creature::setCurAttr(Attr::NameId name, int val)
         else {} // Nothing to do
     }
 
-    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getStringName(name)
+    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getName(name)
               << "'." << std::endl;
 }
 
@@ -173,7 +173,7 @@ void Creature::setMaxAttr(Attr::NameId name, int val)
         else {} // Nothing to do
     }
 
-    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getStringName(name)
+    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getName(name)
               << "'." << std::endl;
 }
 
@@ -195,7 +195,7 @@ void Creature::setBaseAttr(Attr::NameId name, int val)
         else {} // Nothing to do
     }
 
-    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getStringName(name)
+    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getName(name)
               << "'." << std::endl;
 }
 
@@ -233,7 +233,7 @@ void Creature::modCurAttr(Attr::NameId name, int delta)
         else {} // Nothing to do
     }
 
-    std::cout << "WARNING: current creature doesn't have attribute '" << Attribute::getStringName(name) << "'. Abort." << std::endl;
+    std::cout << "WARNING: current creature doesn't have attribute '" << Attribute::getName(name) << "'. Abort." << std::endl;
 
 }
 
@@ -255,7 +255,7 @@ void Creature::modMaxAttr(Attr::NameId name, int delta)
         else {} // Nothing to do
     }
 
-    std::cout << "WARNING: current creature doesn't have attribute '" << Attribute::getStringName(name) << "'. Abort." << std::endl;
+    std::cout << "WARNING: current creature doesn't have attribute '" << Attribute::getName(name) << "'. Abort." << std::endl;
 
 
 }
@@ -277,7 +277,7 @@ void Creature::modBaseAttr(Attr::NameId name, int delta)
         else {} // Nothing to do
     }
 
-    std::cout << "WARNING: current creature doesn't have attribute '" << Attribute::getStringName(name) << "'. Abort." << std::endl;
+    std::cout << "WARNING: current creature doesn't have attribute '" << Attribute::getName(name) << "'. Abort." << std::endl;
 
 
 }
@@ -631,13 +631,16 @@ void Creature::commitSuicide()
 //  RETURN VALUE:    ........
 // COMMENTS/BUGS:    ........
 //==================================================================================================
-bool Creature::hasAttr(const StringClass& attrName) const
+bool Creature::hasAttr(const StringClass& attrName)
 {
     bool retVal {false};
 
-    int size {mb_attribute.size()};
-    for (int ii {0}; ii < size; ++ii) {
-        if (mb_attribute[ii].)
+    for (const Attr& attr: mb_attribute) {
+        if (attr.getName() == attrName) {
+           retVal = true;
+           break;
+        }
+        else {}
     }
 
     return retVal;
@@ -676,7 +679,7 @@ void Creature::printAttr()
         int maxValue {attr.getValue(Attr::ValueType::MAX)};
 
         if (curValue != -1 && maxValue != -1) {
-            std::cout << std::setw(16) << attr.Attribute::getStringName(attr.getNameId()) << ":    " << curValue << '/' << maxValue << std::endl;
+            std::cout << std::setw(16) << attr.Attribute::getName(attr.getNameId()) << ":    " << curValue << '/' << maxValue << std::endl;
         }
 //        else if (curValue == -1 || maxValue == -1) {
 //            assert(false && "Creature can't have current or max attribute in inactive state, only both.");

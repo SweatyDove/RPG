@@ -11,8 +11,8 @@
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-Attribute::Attribute(Attribute::NameId name, Type type, int baseValue, int curValue, int maxValue):
-    mb_name {name},
+Attribute::Attribute(Attribute::NameId nameId, Type type, int baseValue, int curValue, int maxValue):
+    mb_nameId {nameId},
     mb_type {type},
     mb_baseValue {baseValue},
     mb_curValue {curValue},
@@ -45,6 +45,22 @@ const StringClass& Attribute::getName() const
 {
     return mb_attrName[static_cast<unsigned int>(mb_nameId)];
 }
+
+
+
+//==================================================================================================
+//         TYPE:    Static function
+//  DESCRIPTION:    Returns the name of the attribute as a string, depending on attribute's @nameId
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+const StringClass& Attr::getName(NameId nameId)
+{
+    return Attr::mb_attrName[static_cast<int>(nameId)];
+
+}
+
 
 
 

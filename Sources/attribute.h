@@ -44,7 +44,7 @@ public:
         TOTAL
     };
     // # Names of all attributes presented as strings to use them while printing
-    inline static const ArrayClass<const StringClass, static_cast<unsigned int>(NameId::TOTAL)> mb_attrName = {
+    inline static const ArrayClass<StringClass, static_cast<unsigned int>(NameId::TOTAL)> mb_attrName = {
         {
             // # Base
             "HEALTH",
@@ -121,6 +121,8 @@ public:
 
 
     const StringClass&          getName() const;
+
+    static const StringClass&   getName(NameId);
 
 };
 

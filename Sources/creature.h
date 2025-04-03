@@ -119,14 +119,14 @@ public:
     virtual void                commitSuicide() = 0;
     virtual const StringClass&  getName() const = 0;
 
-    bool hasAttr(const StringClass& attrName) const;
+    bool hasAttr(const StringClass& attrName);
 
     const StringClass&        getTypeName() const;
 
     virtual void            printAttr();
 
 
-    friend void printAttrTable(const Creature& firstCreature, const Creature& secondCreature);
+    friend void printAttrTable(Creature& firstCreature, Creature& secondCreature);
 
 
 
@@ -152,37 +152,55 @@ public:
 //  RETURN VALUE:    ........
 // COMMENTS/BUGS:    ........
 //==================================================================================================
-void printAttrTable(const Creature& firstCreature, const Creature& secondCreature)
+void printAttrTable(Creature& firstCreature, Creature& secondCreature)
 {
     // # Прохожу по списку возможных аттрибутов. ПРоверяю, имеется ли он у 1-ого или 2-ого существа.
     // # Если имеется хотя бы у одного, вывожу его параметры.
     for (int ii {0}; ii < static_cast<int>(Attr::NameId::TOTAL); ++ii) {
+        Attr::NameId nameId {ii};
+
         const StringClass& attrName {Attr::mb_attrName[ii]};
+
+        // ## Check if some of the creatures has attribute with @attrName
         if (firstCreature.hasAttr(attrName) || secondCreature.hasAttr(attrName)) {
-            int firstCurVal {firstCreature.getCurAttr(ii)};
-            int firstMaxVal {firstCreature.getMaxAttr(ii)};
-            int SecondCurVal {secondCreature.getCurAttr(ii)};
-            int SecondMaxVal {secondCreature.getMaxAttr(ii)};
 
-            // Дальше вывод либо значения атрибута, либо "--------"
+            int             firstCurVal         {firstCreature.getCurAttr(nameId)};
+            int             firstMaxVal         {firstCreature.getMaxAttr(nameId)};
+            int             secondCurVal         {secondCreature.getCurAttr(nameId)};
+            int             secondMaxVal         {secondCreature.getMaxAttr(nameId)};
 
+            bool            firstAttrHasValue   {(firstCurVal != -1) && (firstMaxVal != -1)};
+            bool            secondAttrHasValue  {(secondCurVal != -1) && (secondMaxVal != -1)};
+
+            // #### If one or both creatures have enabled attribute (!= -1), then print it for both
+            if (firstAttrHasValue == true || secondAttrHasValue == true) {
+
+                StringClass     firstAttrOut        {};
+                StringClass     secondAttrOut       {};
+
+                // ######## Output for 1-st creature's attr
+                if (firstAttrHasValue) {
+                    firstAttrOut << firstCurVal << '/' << firstMaxVal;
+                }
+                else {
+                    firstAttrOut << "--/--";
+                }
+
+                // ######## Output for the 2-nd creature's attr
+                if (secondAttrHasValue) {
+                    secondAttrOut << secondCurVal << '/' << secondMaxVal;
+                }
+                else {
+                    secondAttrOut << "--/--";
+                }
+
+                std::cout << attrName << ":    " << firstAttrOut << "    |    " << secondAttrOut << std::endl;
+            }
+            else {} // Nothing to do
         }
-    }
-
-
-    for (auto& attr: mb_attribute) {
-
-        int curValue {attr.getValue(Attr::ValueType::CURRENT)};
-        int maxValue {attr.getValue(Attr::ValueType::MAX)};
-
-        if (curValue != -1 && maxValue != -1) {
-            std::cout << std::setw(16) << attr.Attribute::getStringName(attr.getNameId()) << ":    " << curValue << '/' << maxValue << std::endl;
-        }
-        //        else if (curValue == -1 || maxValue == -1) {
-        //            assert(false && "Creature can't have current or max attribute in inactive state, only both.");
-        //        }
         else {} // Nothing to do
-    }
+
+    } // for-loop
 
 }
 

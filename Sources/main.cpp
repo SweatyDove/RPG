@@ -192,7 +192,7 @@ int main()
                   << std::endl;
 //        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
-        printAttrTable(player, monster);
+        printAttrTable(*player, monster);
         player->printAttr();
         monster.printAttr();
         std::cout << "********************************************************************************"

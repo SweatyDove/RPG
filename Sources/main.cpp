@@ -99,6 +99,10 @@
 //}
 
 
+
+my::PrettyPrint output {{true, true, true, true}, true, false, true, 100};
+
+
 int main()
 {
 
@@ -187,16 +191,16 @@ int main()
         Monster monster{};
         //Creature creature {};         - create a creature (monster/trader or smb else)
         std::cout << "\n\n[Day " << player->getTimeLived() << "]: You have encountered a "
-                  << monster.getName() << " of " << monster.getLevel() << " level."
+                  << monster.getName() << " of " << monster.getLevel() << " level.\n"
                   << "********************************************************************************"
                   << std::endl;
 //        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
         printAttrTable(*player, monster);
-        player->printAttr();
-        monster.printAttr();
         std::cout << "********************************************************************************"
                   << std::endl;
+
+        return 0;
 
         player->fightWith(monster);
 //        monster.commitSuicide();

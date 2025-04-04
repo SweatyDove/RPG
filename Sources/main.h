@@ -21,6 +21,7 @@
     #include "my_array.hpp"
     #include "my_dynamicarray.hpp"
     #include "my_smartptr.hpp"
+    #include "my_prettyprint.h"
 
 
     using StringClass = my::String;
@@ -52,7 +53,7 @@
     template <typename Type>
     using UniquePtrClass = std::unique_ptr<Type>;
 
-#endif
+#endif // STL or my library
 
 
 #include <cstdlib>              // For std::rand(), std::srand()
@@ -66,7 +67,8 @@
 
 
 // ######## STL containers
-//#include <array>
+//#include <array>//        player->printAttr();
+    //        monster.printAttr();
 //#include <vector>
 //#include <string>
 #include <string_view>
@@ -131,7 +133,8 @@
     #define     CLR_PALE_PRIM           14
     #define     CLR_WHITE_SMOKE         15
 
-#endif
+#endif  // Unix or Windows
+
 
 
 
@@ -146,6 +149,8 @@ class Potion;
 class Creature;
 class Player;
 class Monster;
+
+extern my::PrettyPrint output;
 
 
 int getRandomNumber(int min, int max);

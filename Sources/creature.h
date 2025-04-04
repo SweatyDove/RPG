@@ -152,7 +152,7 @@ public:
 //  RETURN VALUE:    ........
 // COMMENTS/BUGS:    ........
 //==================================================================================================
-void printAttrTable(Creature& firstCreature, Creature& secondCreature)
+inline void printAttrTable(Creature& firstCreature, Creature& secondCreature)
 {
     // # Прохожу по списку возможных аттрибутов. ПРоверяю, имеется ли он у 1-ого или 2-ого существа.
     // # Если имеется хотя бы у одного, вывожу его параметры.

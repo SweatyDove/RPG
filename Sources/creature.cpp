@@ -81,8 +81,9 @@ int Creature::getCurAttr(Attr::NameId name)
         else {} // Nothing to do
     }
 
-    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getName(name)
-              << "'." << std::endl;
+    output.warn("There isn't attribute with name: '%s'.", Attribute::getName(name).cStyleString());
+//    std::cout << "WARNING: there isn't attribute with name '" << Attribute::getName(name)
+//              << "'." << std::endl;
     return -1;
 
 }

@@ -43,6 +43,7 @@ Attribute::Type Attribute::getType() const
 //==================================================================================================
 const StringClass& Attribute::getName() const
 {
+    const StringClass& debug = mb_attrName[static_cast<unsigned int>(mb_nameId)];
     return mb_attrName[static_cast<unsigned int>(mb_nameId)];
 }
 

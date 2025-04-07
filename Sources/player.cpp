@@ -12,7 +12,12 @@
 //  DESCRIPTION:    --------
 //   PARAMETERS:    --------
 // RETURN VALUE:    --------
-//     COMMENTS:    --------
+//     COMMENTS:    Здесь где-то ошибка, связанная с неверными указателями. Но пока я не могу её
+//                  найти. Вроде как из-за неё переписывается значение HEALTH у игрока. Попробовать
+//                  В явном виде вывести:
+//                  debugVal_1 = std::end(mb_attribute)
+//                  debugVal_2 = std::begin(mb_ratings)
+//                  debugVal_3 = std::end(mb_ratings)
 //==================================================================================================
 Player::Player(Race race, Spec spec, StringClass name) :
     Creature {Creature::Type::PLAYER, 1},
@@ -20,7 +25,8 @@ Player::Player(Race race, Spec spec, StringClass name) :
     mb_spec {spec},
     mb_name {name}
 {
-    // # Add new attributes (RATINGS ans SKILLS)
+    assert(false && "HERE the error somewhere...");
+    // # Add new attributes (RATINGS and SKILLS) to the base creature attribute set
     mb_attribute.insert(std::end(mb_attribute), std::begin(mb_ratings), std::end(mb_ratings));
     mb_attribute.insert(std::end(mb_attribute), std::begin(mb_skills), std::end(mb_skills));
 

@@ -103,15 +103,15 @@ public:
     int getMaxAttr(Attr::NameId name);
     int getBaseAttr(Attr::NameId name);
 
-    void setCurAttr(Attr::NameId name, int val);
-    void setMaxAttr(Attr::NameId name, int val);
-    void setBaseAttr(Attr::NameId name, int val);
+    int setCurAttr(Attr::NameId name, int val);
+    int setMaxAttr(Attr::NameId name, int val);
+    int setBaseAttr(Attr::NameId name, int val);
     void setAllAttr(Attr::NameId name, int baseVal, int maxVal, int curVal);
 
 
-    void modCurAttr(Attr::NameId name, int delta);
-    void modMaxAttr(Attr::NameId name, int delta);
-    void modBaseAttr(Attr::NameId name, int delta);
+    int modCurAttr(Attr::NameId name, int delta);
+    int modMaxAttr(Attr::NameId name, int delta);
+    int modBaseAttr(Attr::NameId name, int delta);
 
     virtual                     ~Creature();
     int                         getLevel() const;
@@ -156,6 +156,11 @@ inline void printAttrTable(Creature& firstCreature, Creature& secondCreature)
 {
     // # Прохожу по списку возможных аттрибутов. ПРоверяю, имеется ли он у 1-ого или 2-ого существа.
     // # Если имеется хотя бы у одного, вывожу его параметры.
+
+    std::cout << std::setw(16) << "Attribute"
+              << std::setw(16) << "Player"
+              << std::setw(16) << "Creature\n" << std::endl;
+
     for (int ii {0}; ii < static_cast<int>(Attr::NameId::TOTAL); ++ii) {
         Attr::NameId nameId {ii};
 
@@ -183,7 +188,7 @@ inline void printAttrTable(Creature& firstCreature, Creature& secondCreature)
                     firstAttrOut << firstCurVal << '/' << firstMaxVal;
                 }
                 else {
-                    firstAttrOut << "--/--";
+                    firstAttrOut << "--------";
                 }
 
                 // ######## Output for the 2-nd creature's attr
@@ -191,10 +196,12 @@ inline void printAttrTable(Creature& firstCreature, Creature& secondCreature)
                     secondAttrOut << secondCurVal << '/' << secondMaxVal;
                 }
                 else {
-                    secondAttrOut << "--/--";
+                    secondAttrOut << "--------";
                 }
 
-                std::cout << attrName << ":    " << firstAttrOut << "    |    " << secondAttrOut << std::endl;
+                std::cout << std::setw(15) << attrName << ':'
+                          << std::setw(16) << firstAttrOut
+                          << std::setw(16) << secondAttrOut << std::endl;
             }
             else {} // Nothing to do
         }

@@ -100,7 +100,8 @@
 
 
 
-my::PrettyPrint output {{true, true, true, true}, true, false, true, 100};
+my::PrettyPrint output {{false, false, false, false}, true, false, true, 100};
+
 
 
 int main()
@@ -183,6 +184,7 @@ int main()
 
     // # Main cycle
     while (player->metNewDay()) {
+//      while (true) {
 
 //        SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
 
@@ -199,8 +201,6 @@ int main()
         printAttrTable(*player, monster);
         std::cout << "********************************************************************************"
                   << std::endl;
-
-        return 0;
 
         player->fightWith(monster);
 //        monster.commitSuicide();

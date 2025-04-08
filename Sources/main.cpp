@@ -182,16 +182,15 @@ int main()
     std::cout << "Hello " << player->getName() << "! Welcome to the game...\n";
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-    // # Main cycle
+    // # What would happen at this day?
     while (player->metNewDay()) {
-//      while (true) {
 
 //        SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
 
-        // ## What happened at this day?
         // ## Create random monster (or NPC)
         Monster monster{};
         //Creature creature {};         - create a creature (monster/trader or smb else)
+
         std::cout << "\n\n[Day " << player->getTimeLived() << "]: You have encountered a "
                   << monster.getName() << " of " << monster.getLevel() << " level.\n"
                   << "********************************************************************************"

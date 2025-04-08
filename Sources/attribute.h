@@ -9,7 +9,8 @@
 //  DESCRIPTION:    Describes creature's attribute.
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
-//     COMMENTS:    ........
+//     COMMENTS:    1) Add an 'empty' NameID/Name to fill different arrays with if it is needed, 'cause
+//                  the usage of HEALTH as filler confuses a little.
 //==================================================================================================
 class Attribute {
 public:
@@ -126,7 +127,11 @@ public:
 
 };
 
-    // # Alias for the convenient usage
-    using Attr = Attribute;
+std::ostream& operator<<(std::ostream& out, Attribute& attr);
+std::ostream& operator<<(std::ostream& out, const Attribute& attr);
+
+
+// # Alias for the convenient usage
+using Attr = Attribute;
 
 #endif // ATTRIBUTE_H

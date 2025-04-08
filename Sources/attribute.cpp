@@ -43,7 +43,7 @@ Attribute::Type Attribute::getType() const
 //==================================================================================================
 const StringClass& Attribute::getName() const
 {
-    const StringClass& debug = mb_attrName[static_cast<unsigned int>(mb_nameId)];
+//    const StringClass& debug = mb_attrName[static_cast<unsigned int>(mb_nameId)];
     return mb_attrName[static_cast<unsigned int>(mb_nameId)];
 }
 
@@ -123,11 +123,11 @@ void Attribute::changeValue(ValueType valueType, int delta)
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-int Attribute::getValue(ValueType valueType) const
+int Attribute::getValue(ValueType type) const
 {
     int value {};
 
-    switch(valueType) {
+    switch(type) {
     case ValueType::BASE:
         value = mb_baseValue;
         break;
@@ -175,7 +175,39 @@ void Attribute::setValue(ValueType valueType, int value)
 }
 
 
+//==================================================================================================
+//         TYPE:    Overloaded operator
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+std::ostream& operator<<(std::ostream& out, Attribute& attr)
+{
+//    {Attr::NameId::HEALTH, Attr::Type::RESOURCE, 100, 100, 100},
+
+    out << '{' << attr.getName() << ": " << attr.getValue(Attr::ValueType::BASE) << ", "
+        << attr.getValue(Attr::ValueType::CURRENT) << ", "
+        << attr.getValue(Attr::ValueType::MAX) << '}';
+
+    return out;
+}
 
 
+//==================================================================================================
+//         TYPE:    Overloaded operator
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+std::ostream& operator<<(std::ostream& out, const Attribute& attr)
+{
+    out << '{' << attr.getName() << ": " << attr.getValue(Attr::ValueType::BASE) << ", "
+        << attr.getValue(Attr::ValueType::CURRENT) << ", "
+        << attr.getValue(Attr::ValueType::MAX) << '}';
+
+    return out;
+}
 
 

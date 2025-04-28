@@ -1,5 +1,5 @@
 TEMPLATE = app
-CONFIG += console c++17
+CONFIG += console c++23
 CONFIG -= app_bundle
 CONFIG -= qt
 
@@ -23,8 +23,9 @@ SOURCES += \
         Sources/potion.cpp \
         Sources/spell.cpp \
         Sources/trader.cpp \
+        Sources/trash.cpp \
         Sources/utilities.cpp \
-        Sources/warrior.cpp
+        Sources/warrior.cpp \
 
 HEADERS += \
     ../MyLibrary/my_dynamicarray.h \
@@ -44,4 +45,5 @@ HEADERS += \
     Sources/potion.h \
     Sources/spell.h \
     Sources/trader.h \
-    Sources/warrior.h
+    Sources/trash.h \
+    Sources/warrior.h \

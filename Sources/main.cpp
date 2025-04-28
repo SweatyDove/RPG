@@ -112,6 +112,9 @@ int main()
     //==============================================================================================
 
 
+    my::DynamicArray<my::SmartPtr<int>> array {};
+    my::SmartPtr<int> intPtr {new int {374}};
+    array.pushBack(std::move(intPtr));
 
 
 

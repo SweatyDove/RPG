@@ -5,6 +5,10 @@
 
 /***************************************************************************************************
  * COMMENTS:
+ *
+ * 0 - Создать торговца
+ * 1 - Добавить инвентарь и возможность управлять им (то есть не пить зелья сразу, а класть их в мешок)
+ *
  * 1 - Add classes Mage, Warrior and Hunter, derived from player class with different
  *     attack-type and damage. And with different skillset.
  *
@@ -108,13 +112,39 @@ int main()
 {
 
     //==============================================================================================
-    //=============================>  START OF DEBUG SECTION  <=====================================
+    //======================================>  DEBUG SECTION  <=====================================
     //==============================================================================================
+//    using Type = my::SmartPtr<int>;
+
+//    Type* memoryPtr = static_cast<Type*>(operator new (sizeof(Type)));
+//    Type* objectPtr = new Type[4];
 
 
-    my::DynamicArray<my::SmartPtr<int>> array {};
-    my::SmartPtr<int> intPtr {new int {374}};
-    array.pushBack(std::move(intPtr));
+//    my::SmartPtr<int> intPtr_1 {new int {1}};
+//    my::SmartPtr<int> intPtr_2 {new int {2}};
+//    my::SmartPtr<int> intPtr_3 {new int {3}};
+//    my::SmartPtr<int> intPtr_4 {new int {4}};
+
+
+//    auto typeSize = sizeof(my::SmartPtr<int>);
+//    memoryPtr->~SmartPtr();
+
+    // # Использовать 'placement new()'?
+//    auto T = new(memoryPtr) Type(my::move(intPtr_1));
+//    Type* T = new(memoryPtr) Type();
+
+    // # В явном виде занулить всё
+//    *memoryPtr = Type(my::move(intPtr_1));
+
+
+
+//    my::SmartPtr<int> intPtr {new int {374}};
+//    my::DynamicArray<my::SmartPtr<int>> array {};
+//    array.pushBack(std::move(intPtr));
+
+
+//    return 0;
+
 
 
 
@@ -186,35 +216,13 @@ int main()
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     // # What would happen at this day?
-    while (player->metNewDay()) {
+    while (player->newDay()) {
 
 //        SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
+        Creature* cre {nullptr};
+        // # Create an EVENT of the meeting with creature
+        player->meetWith(Creature {});
 
-        // ## Create random monster (or NPC)
-        Monster monster{};
-        //Creature creature {};         - create a creature (monster/trader or smb else)
-
-        std::cout << "\n\n[Day " << player->getTimeLived() << "]: You have encountered a "
-                  << monster.getName() << " of " << monster.getLevel() << " level.\n"
-                  << "********************************************************************************"
-                  << std::endl;
-//        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
-
-        printAttrTable(*player, monster);
-        std::cout << "********************************************************************************"
-                  << std::endl;
-
-        player->fightWith(monster);
-//        monster.commitSuicide();
-
-        // #### If the monster was killed - player can loot its corpse.
-        if (monster.isDead()) {
-            player->getLootFrom(monster);
-        }
-        else if (player->isDead()){
-            break;
-        }
-        else {}// Nothing to do
 
     }
 

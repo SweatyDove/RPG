@@ -22,6 +22,7 @@
     #include "my_dynamicarray.hpp"
     #include "my_smartptr.hpp"
     #include "my_prettyprint.h"
+    #include "my_utilities.hpp"
 
 
     using StringClass = my::String;
@@ -153,7 +154,6 @@ class Monster;
 extern my::PrettyPrint output;
 
 
-int getRandomNumber(int min, int max);
 void clearWorkScreen(int lines, int columns);
 void moveCursor(int relativeLine, unsigned int column);
 

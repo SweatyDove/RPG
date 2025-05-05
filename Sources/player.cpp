@@ -91,7 +91,7 @@ int Player::getTimeLived() const
 // RETURN VALUE:    --------
 //     COMMENTS:    --------
 //==================================================================================================
-bool Player::metNewDay()
+bool Player::newDay()
 {
     std::cout << "A new day has come! Do you want to wake up? [y/n]" << std::endl;
 
@@ -290,17 +290,55 @@ void Player::levelUp()
 
 }
 
-//==============================================================================
-// WHAT: Member function
-//  WHY: Increase the player's experience (and level up) depending on
-//       the monster, that was killed by player.
-//==============================================================================
+
+
+
 //==================================================================================================
-//         TYPE:    --------
-//   PARAMETERS:    --------
-//  DESCRIPTION:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    Create an EVENT. For now - events are only meetings with creatures. In a future,
+//                  I will add some other events (and create class <Event> may be).
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+void Player::meetWith(const Creature& creature)
+{
+    if (creature)
+    Monster monster{};
+
+    std::cout << "\n\n[Day " << player->getTimeLived() << "]: You have encountered a "
+              << monster.getName() << " of " << monster.getLevel() << " level.\n"
+              << "********************************************************************************"
+              << std::endl;
+    //        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+
+    printAttrTable(*player, monster);
+    std::cout << "********************************************************************************"
+              << std::endl;
+
+    player->fightWith(monster);
+    //        monster.commitSuicide();
+
+    // #### If the monster was killed - player can loot its corpse.
+    if (monster.isDead()) {
+        player->getLootFrom(monster);
+    }
+    else if (player->isDead()){
+        break;
+    }
+    else {}// Nothing to do
+
+}
+
+
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    Increase the player's experience (and level up) depending on
+//                  the monster, that was killed by player.
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Player::increaseExp(Monster& monster)
 {

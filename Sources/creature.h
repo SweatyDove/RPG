@@ -6,6 +6,15 @@
 #include "attribute.h"
 
 
+//==================================================================================================
+//         TYPE:    Abstract class
+//  DESCRIPTION:    Class, that represents some creatures (monsters, traders, players and
+//                  etc. It is 'abstract' because has some 'pure virtual functions' and can't be
+//                  instantiated.
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
 class Creature {
 public:
 
@@ -17,6 +26,8 @@ public:
 //    };
 
     enum class Type {
+        RANDOM,                 // Always = 0
+
         PLAYER,
         MONSTER,                // Non-friendly NPC
         TRADER,                 // Friendly NPC
@@ -92,6 +103,8 @@ protected:
      * be created explicitly in any case.
      */
     explicit Creature(Type type, int level = 1);
+//    explicit Creature();                              // Delete
+
 
 public:
     /***********************************************************************************************
@@ -116,8 +129,8 @@ public:
     virtual                     ~Creature();
     int                         getLevel() const;
     virtual bool                isDead();
-    virtual void                commitSuicide() = 0;
-    virtual const StringClass&  getName() const = 0;
+    virtual void                commitSuicide() = 0;            // Pure virtual function
+    virtual const StringClass&  getName() const = 0;            // Pure virtual function
 
     bool hasAttr(const StringClass& attrName);
 

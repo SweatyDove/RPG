@@ -24,8 +24,8 @@ SOURCES += \
         Sources/spell.cpp \
         Sources/trader.cpp \
         Sources/trash.cpp \
-        Sources/utilities.cpp \
         Sources/warrior.cpp \
+    Sources/world.cpp
 
 HEADERS += \
     ../MyLibrary/my_dynamicarray.h \
@@ -47,3 +47,4 @@ HEADERS += \
     Sources/trader.h \
     Sources/trash.h \
     Sources/warrior.h \
+    Sources/world.h

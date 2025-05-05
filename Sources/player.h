@@ -126,8 +126,10 @@ public:
 
     virtual FightOption     chooseFightOption(Monster& monster) = 0;
 
+    void                    meetWith(const Creature& creature);
+
     void                    commitSuicide() override;
-    bool                    metNewDay();
+    bool                    newDay();
     void                    fightWith(Monster& monster);
     void                    addGold(int gold);
     void                    drink(const Potion& potion);

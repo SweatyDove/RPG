@@ -129,6 +129,7 @@ public:
     virtual                     ~Creature();
     int                         getLevel() const;
     virtual bool                isDead();
+    virtual bool                isAlive();
     virtual void                commitSuicide() = 0;            // Pure virtual function
     virtual const StringClass&  getName() const = 0;            // Pure virtual function
 
@@ -138,6 +139,7 @@ public:
 
     virtual void            printAttr();
 
+    Type getType() const;
 
     friend void printAttrTable(Creature& firstCreature, Creature& secondCreature);
 
@@ -169,8 +171,8 @@ inline void printAttrTable(Creature& firstCreature, Creature& secondCreature)
 {
     // # Прохожу по списку возможных аттрибутов. ПРоверяю, имеется ли он у 1-ого или 2-ого существа.
     // # Если имеется хотя бы у одного, вывожу его параметры.
-
-    std::cout << std::setw(16) << "Attribute"
+    std::cout << "********************************************************************************\n"
+              << std::setw(16) << "Attribute"
               << std::setw(16) << "Player"
               << std::setw(16) << "Creature\n" << std::endl;
 
@@ -221,6 +223,9 @@ inline void printAttrTable(Creature& firstCreature, Creature& secondCreature)
         else {} // Nothing to do
 
     } // for-loop
+
+    std::cout << "********************************************************************************"
+              << std::endl;
 
 }
 

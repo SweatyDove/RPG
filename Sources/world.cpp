@@ -19,21 +19,50 @@ World::World()
 
 
 //==================================================================================================
-//         TYPE:    ........
-//  DESCRIPTION:    ........
+//         TYPE:    Member function
+//  DESCRIPTION:    Generate random creature
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-Creature& World::generateCreature(Creature::Type type)
+Creature* World::generateCreature()
 {
-    // # Generate random type
-    if (type == Creature::Type::RANDOM) {
-        type = static_cast<Creature::Type>(getRandomNumber(1, static_cast<int>(Creature::Type::TOTAL) - 1));
+    int dice {getRandomNumber(0, 100)};
+    Creature* creature {nullptr};
+
+    if (dice < 20) {
+        creature = new Monster {};
     }
-    else {}
+    else {
+        creature = new Trader {};
+    }
+
+    return creature;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

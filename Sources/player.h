@@ -126,7 +126,7 @@ public:
 
     virtual FightOption     chooseFightOption(Monster& monster) = 0;
 
-    void                    meetWith(const Creature& creature);
+    void                    meetWith(Creature& creature);
 
     void                    commitSuicide() override;
     bool                    newDay();

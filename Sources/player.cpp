@@ -85,11 +85,11 @@ int Player::getTimeLived() const
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    Как-то объединить, наверное стоит с getRest()
 //==================================================================================================
 bool Player::newDay()
 {
@@ -301,32 +301,29 @@ void Player::levelUp()
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-void Player::meetWith(const Creature& creature)
+void Player::meetWith(Creature& creature)
 {
-    if (creature)
-    Monster monster{};
 
-    std::cout << "\n\n[Day " << player->getTimeLived() << "]: You have encountered a "
-              << monster.getName() << " of " << monster.getLevel() << " level.\n"
-              << "********************************************************************************"
-              << std::endl;
-    //        SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+    // # Meet the monster
+    if (creature.getType() == Creature::Type::MONSTER) {
 
-    printAttrTable(*player, monster);
-    std::cout << "********************************************************************************"
-              << std::endl;
+        Monster& monster {dynamic_cast<Monster&>(creature)};
 
-    player->fightWith(monster);
-    //        monster.commitSuicide();
+        std::cout << "\n\n[Day " << this->getTimeLived() << "]: You have encountered a "
+                  << monster.getName() << " of " << monster.getLevel() << " level." << std::endl;
 
-    // #### If the monster was killed - player can loot its corpse.
-    if (monster.isDead()) {
-        player->getLootFrom(monster);
+        printAttrTable(*this, monster);
+
+        this->fightWith(monster);
+
+        if (monster.isDead()) {
+            this->getLootFrom(monster);
+        }
+        else {}
     }
-    else if (player->isDead()){
-        break;
+    else {
+        std::cout << "You have met a trader." << std::endl;
     }
-    else {}// Nothing to do
 
 }
 

@@ -3,6 +3,7 @@
 
 #include "trader.h"
 #include "monster.h"
+#include "my_utilities.hpp"
 
 
 
@@ -14,9 +15,11 @@
 //     COMMENTS:    ........
 //==================================================================================================
 class World {
+private:
+
 public:
     World();
-    Creature& generateCreature(Creature::Type type = Creature::Type::RANDOM);
+    Creature* generateCreature();
 
 };
 

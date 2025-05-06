@@ -71,6 +71,7 @@
 #include "item.h"
 #include "gold.h"
 #include "potion.h"
+#include "world.h"
 
 
 //Player::Race choosePlayerRace();
@@ -114,37 +115,6 @@ int main()
     //==============================================================================================
     //======================================>  DEBUG SECTION  <=====================================
     //==============================================================================================
-//    using Type = my::SmartPtr<int>;
-
-//    Type* memoryPtr = static_cast<Type*>(operator new (sizeof(Type)));
-//    Type* objectPtr = new Type[4];
-
-
-//    my::SmartPtr<int> intPtr_1 {new int {1}};
-//    my::SmartPtr<int> intPtr_2 {new int {2}};
-//    my::SmartPtr<int> intPtr_3 {new int {3}};
-//    my::SmartPtr<int> intPtr_4 {new int {4}};
-
-
-//    auto typeSize = sizeof(my::SmartPtr<int>);
-//    memoryPtr->~SmartPtr();
-
-    // # Использовать 'placement new()'?
-//    auto T = new(memoryPtr) Type(my::move(intPtr_1));
-//    Type* T = new(memoryPtr) Type();
-
-    // # В явном виде занулить всё
-//    *memoryPtr = Type(my::move(intPtr_1));
-
-
-
-//    my::SmartPtr<int> intPtr {new int {374}};
-//    my::DynamicArray<my::SmartPtr<int>> array {};
-//    array.pushBack(std::move(intPtr));
-
-
-//    return 0;
-
 
 
 
@@ -152,17 +122,6 @@ int main()
     //===============================>  END OF DEBUG SECTION  <=====================================
     //==============================================================================================
 
-    //    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    //    // you can loop k higher to see more color choices
-    //    for(int k = 1; k < 16; k++) {
-    //        // pick the colorattribute k you want
-    //        SetConsoleTextAttribute(hConsole, k);
-    //        std::cout << k << " I want to be nice today!" << std::endl;
-    //    }
-    //    return 0;
-
-//    SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
-//    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
 
 
     // #### Set a seed for rand() and discard first value from it.
@@ -175,19 +134,18 @@ int main()
               << "\n################################################################################"
               << std::endl;
 
-//    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+
+    World world;
 
 
 //    Player::Race    playerRace  {choosePlayerRace()};
 //    Player::Spec    playerSpec  {choosePlayerSpec()};
-//    StringClass      playerName  {choosePlayerName()};
-
-    // #### DEBUG
+//    StringClass     playerName  {choosePlayerName()};
     Player::Race    playerRace  {Player::Race::HUMAN};
     Player::Spec    playerSpec  {Player::Spec::WARRIOR};
     StringClass     playerName  {"Alex"};
 
-    //Warrior* warrior {nullptr};
 
 
     Player* player {nullptr};
@@ -215,16 +173,23 @@ int main()
     std::cout << "Hello " << player->getName() << "! Welcome to the game...\n";
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-    // # What would happen at this day?
-    while (player->newDay()) {
-
-//        SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
-        Creature* cre {nullptr};
-        // # Create an EVENT of the meeting with creature
-        player->meetWith(Creature {});
 
 
+
+    // # Main cycle of the game
+    while (player->isAlive()) {
+
+        my::SmartPtr<Creature> creaturePtr {world.generateCreature()};
+
+        player->meetWith(*creaturePtr);
+
+        // ## Нет смысла в новом дне, если игрок мертв уже, надо бы как-то с условием цикла синхронизировать
+        player->newDay();
     }
+
+
+
+
 
     std::cout << "You died at level " << player->getLevel() << ".\n\n";
 
@@ -241,6 +206,20 @@ int main()
 
 
 
+
+//    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+//    // you can loop k higher to see more color choices
+//    for(int k = 1; k < 16; k++) {
+//        // pick the colorattribute k you want
+//        SetConsoleTextAttribute(hConsole, k);
+//        std::cout << k << " I want to be nice today!" << std::endl;
+//    }
+//    return 0;
+
+//    SetConsoleTextAttribute(hConsole, CLR_DARK_GOLDENROD);
+//    SetConsoleTextAttribute(hConsole, CLR_VERY_LIGHT_GREY);
+
+//    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 
 

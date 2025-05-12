@@ -37,6 +37,7 @@ public:
     };
     ArrayClass<StringClass, static_cast<int>(Type::TOTAL)> TYPE_NAME = {
         {
+            "RANDOM",
             "PLAYER",
             "MONSTER",
             "TRADER"

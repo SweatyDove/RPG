@@ -63,22 +63,22 @@ void Potion::generateRandomPotion(int lvl)
 {
 
     // ######## Generate random potion type
-    mb_type = static_cast<Type>(getRandomNumber(0, static_cast<unsigned int>(Type::TOTAL) - 1));
+    mb_type = static_cast<Type>(my::getRandomNumber(0, static_cast<unsigned int>(Type::TOTAL) - 1));
 
 
     // ######## Generate random potion effect depending on the potion type and... (monster lvl?)
     switch (mb_type) {
     case Type::HEALTH:
-        mb_effect = getRandomNumber(10, lvl * 10);
+    mb_effect = my::getRandomNumber(10, lvl * 10);
         break;
     case Type::STAMINA:
-        mb_effect = getRandomNumber(10, lvl * 10);
+        mb_effect = my::getRandomNumber(10, lvl * 10);
         break;
     case Type::STRENGTH:
-        mb_effect = getRandomNumber(1, (lvl + 1) / 2);
+        mb_effect = my::getRandomNumber(1, (lvl + 1) / 2);
         break;
     case Type::POISON:
-        mb_effect = getRandomNumber(1, lvl);
+        mb_effect = my::getRandomNumber(1, lvl);
         break;
     case Type::EXHAUSTED:
         mb_effect = 0;

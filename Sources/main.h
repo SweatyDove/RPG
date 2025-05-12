@@ -18,11 +18,11 @@
 #define MY_LIBRARY
 #if defined(MY_LIBRARY)
     #include "my_string.h"
-    #include "my_array.hpp"
-    #include "my_dynamicarray.hpp"
-    #include "my_smartptr.hpp"
+    #include "my_array.h"
+    #include "my_dynamicarray.h"
+    #include "my_smartptr.h"
     #include "my_prettyprint.h"
-    #include "my_utilities.hpp"
+    #include "my_utilities.h"
 
 
     using StringClass = my::String;
@@ -78,7 +78,7 @@
 // ######## My library
 //#include "my_string.h"
 //#include "my_log.h"
-#include "my_utilities.h"
+//#include "my_utilities.h"
 //#include "my_queue.hpp"
 
 

@@ -8,7 +8,7 @@
 //     COMMENTS:    --------
 //==================================================================================================
 Monster::Monster():
-    Creature {Creature::Type::MONSTER, getRandomNumber(1, 10)},
+    Creature {Creature::Type::MONSTER, my::getRandomNumber(1, 10)},
     mb_type {getRandomMonsterType()},
     mb_baseAttack{mb_attribute, mb_baseAttackMultiplier}
 {
@@ -93,7 +93,7 @@ Monster::Type Monster::getRandomMonsterType()
     int roll {};
     Type type {};
 
-    roll = getRandomNumber(1, 100);
+    roll = my::getRandomNumber(1, 100);
     if (roll <= 20) {
         type = Type::GHOST;
     }
@@ -333,7 +333,7 @@ void Monster::generateLoot()
             // Can't create Gold object in stack, 'cause it will be destroyed after exiting current
             // function - that's why should use dynamic allocated memory (in such case GOLD - is
             // resource and therewhy it is a good idea to use smart poiner for it)
-            UniquePtrClass<Item> gold {new Gold(getRandomNumber(0, mb_level * 10))};
+            UniquePtrClass<Item> gold {new Gold(my::getRandomNumber(0, mb_level * 10))};
 
             // # Проблема в том, что в my::DynamicArray::pushBack происходит два копирования элементов
             // # (при реаллокации и при непосредственном копировании аргумента в массив). Но почему
@@ -342,7 +342,7 @@ void Monster::generateLoot()
         }
             break;
         case Item::Type::POTION:
-            if (getRandomNumber(0, 100) <= Potion::mb_defaultPotionChance) {
+            if (my::getRandomNumber(0, 100) <= Potion::mb_defaultPotionChance) {
                 UniquePtrClass<Item> potion {new Potion(mb_level)};
                 mb_loot.push_back(std::move(potion));
             }

@@ -11,7 +11,7 @@
  *
  * 1 - Add classes Mage, Warrior and Hunter, derived from player class with different
  *     attack-type and damage. And with different skillset.
- *
+ *0
  * 2 - Add a thread to exit the game when press exit
  *
  * 3 - Add funny race/spec descriptions
@@ -199,7 +199,7 @@ int main()
     std::cout << "########  Game Over ########\n\n" << std::endl;
 
 
-    return 0;            
+    return 0;
 }
 
 

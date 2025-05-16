@@ -5,10 +5,10 @@
 
 //==================================================================================================
 //         TYPE:    Constructor
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Warrior::Warrior(Player::Race race, Player::Spec spec, StringClass name):
     Player {race, spec, name}
@@ -19,11 +19,11 @@ Warrior::Warrior(Player::Race race, Player::Spec spec, StringClass name):
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Destructor
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Warrior::~Warrior()
 {
@@ -34,12 +34,12 @@ Warrior::~Warrior()
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Set settings for warriors skills. Another option is to calculate settings of one
 //                  or another skill in place.
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 //void Warrior::setDamage()
 //{
@@ -53,11 +53,11 @@ Warrior::~Warrior()
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Warrior::cast(Spell& spell, Creature& creature)
 {
@@ -75,11 +75,11 @@ void Warrior::cast(Spell& spell, Creature& creature)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 {
@@ -158,11 +158,11 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 //int Warrior::getAttackDamage() const
 //{
@@ -172,11 +172,11 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 //int Warrior::getSuperAttackDamage() const
 //{
@@ -186,11 +186,11 @@ Warrior::FightOption Warrior::chooseFightOption(Monster& monster)
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Member function that realizes the warrior's base attack.
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Warrior::attack(Monster& monster)
 {
@@ -213,9 +213,9 @@ void Warrior::attack(Monster& monster)
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Member function that realizes the warrior's special attack.
-//   PARAMETERS:    --------
+//   PARAMETERS:    ........
 // RETURN VALUE:    true - if atack succeed; false - otherwise
 //     COMMENTS:    At this moment I'm using only STAMINA as a resource for the super attack.
 //                  But in the future need to add an array of costs (like in <Spell> class with
@@ -265,10 +265,10 @@ bool Warrior::superAttack(Monster& monster)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
 //     COMMENTS:    Return the cost of warrior's special attack in points of his main resource.
 //                  Or I can add cost in all available resources (0 in mana, 30 in stamina and 10 in
 //                  concentration, for example).
@@ -281,11 +281,11 @@ bool Warrior::superAttack(Monster& monster)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Warrior::commitSuicide()
 {

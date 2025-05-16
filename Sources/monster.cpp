@@ -3,9 +3,9 @@
 //==================================================================================================
 //         TYPE:    Constructor
 //  DESCRIPTION:    Create random monster
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Monster::Monster():
     Creature {Creature::Type::MONSTER, my::getRandomNumber(1, 10)},
@@ -60,10 +60,10 @@ Monster::Monster():
 
 //==================================================================================================
 //         TYPE:    Destructor
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Monster::~Monster()
 {
@@ -126,12 +126,12 @@ Monster::Type Monster::getRandomMonsterType()
 //  WHY:
 //==============================================================================
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Function reduce health of the current Monster by specified magnitude. If monster
 //                  has 0 hp - it generate loot on its dead body.
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 //void Monster::reduceHealth(int health)
 //{
@@ -212,9 +212,9 @@ int Monster::getDamage() const
 //         TYPE:    Public member function.
 //  DESCRIPTION:    It sets the health of the monster (depending on the monster's
 //                  @type and @level)
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Monster::setHealth(Type type, int level)
 {
@@ -250,9 +250,9 @@ void Monster::setHealth(Type type, int level)
 //==================================================================================================
 //         TYPE:    Virtual override member function.
 //  DESCRIPTION:    Returns the name of the monster depending on it's type.
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 const StringClass& Monster::getName() const
 {
@@ -264,9 +264,9 @@ const StringClass& Monster::getName() const
 //==================================================================================================
 //         TYPE:    Virtual override member function.
 //  DESCRIPTION:    It handles the case when @this monster attacks the @player.
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Monster::attack(Player& player) const
 {
@@ -283,11 +283,11 @@ void Monster::attack(Player& player) const
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Function returns type of the monster
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Monster::Type Monster::getType() const
 {
@@ -297,11 +297,11 @@ Monster::Type Monster::getType() const
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Function returns type of the monster
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Monster::commitSuicide()
 {
@@ -312,12 +312,12 @@ void Monster::commitSuicide()
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Function generate loot, that remains after monster's death. Loot depends on the
 //                  monster's @level (and player's @type in the future, maybe).
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Monster::generateLoot()
 {
@@ -359,11 +359,11 @@ void Monster::generateLoot()
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Monster::printAttr()
 {

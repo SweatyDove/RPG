@@ -4,11 +4,11 @@
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Generate RANDOM potion according to @level
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Potion::Potion(int level) :
     Item(Item::Type::POTION, 1, defaultWeight)
@@ -17,11 +17,11 @@ Potion::Potion(int level) :
 }
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Generate with the given @type and @effect
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Potion::Potion(Potion::Type type, int effect) :
     Item(Item::Type::POTION, 1, defaultWeight),
@@ -53,11 +53,11 @@ StringClass Potion::getName() const
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Generate random potion
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Potion::generateRandomPotion(int lvl)
 {

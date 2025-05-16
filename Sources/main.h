@@ -142,7 +142,7 @@
 
 
 
-
+// Why do I need declarations below?
 class Item;
 class Gold;
 class Potion;
@@ -159,4 +159,4 @@ void moveCursor(int relativeLine, unsigned int column);
 
 
 
-#endif
+#endif // MAIN_H

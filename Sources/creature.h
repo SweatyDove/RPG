@@ -204,7 +204,7 @@ inline void printAttrTable(Creature& firstCreature, Creature& secondCreature)
                     firstAttrOut << firstCurVal << '/' << firstMaxVal;
                 }
                 else {
-                    firstAttrOut << "--------";
+                    firstAttrOut << "........";
                 }
 
                 // ######## Output for the 2-nd creature's attr
@@ -212,7 +212,7 @@ inline void printAttrTable(Creature& firstCreature, Creature& secondCreature)
                     secondAttrOut << secondCurVal << '/' << secondMaxVal;
                 }
                 else {
-                    secondAttrOut << "--------";
+                    secondAttrOut << "........";
                 }
 
                 std::cout << std::setw(15) << attrName << ':'

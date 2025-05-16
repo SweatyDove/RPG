@@ -5,11 +5,11 @@
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Create specified creature
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Creature::Creature(Creature::Type type, int level) :
     mb_type {type}, mb_level {level}
@@ -20,10 +20,10 @@ Creature::Creature(Creature::Type type, int level) :
 
 //==================================================================================================
 //         TYPE:    Destructor
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Creature::~Creature()
 {
@@ -33,11 +33,11 @@ Creature::~Creature()
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Creature::getLevel() const
 {
@@ -48,11 +48,11 @@ int Creature::getLevel() const
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 //int Creature::getAttribute(Attribute::NameId name, Attribute::ValueType valueType)
 //{
@@ -72,9 +72,9 @@ int Creature::getLevel() const
 //         TYPE:    Member function
 //  DESCRIPTION:    Returns current value of the @name attribute of '-1' in the case of attribute
 //                  absence.
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Creature::getCurAttr(Attr::NameId name)
 {
@@ -92,11 +92,11 @@ int Creature::getCurAttr(Attr::NameId name)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Creature::getMaxAttr(Attr::NameId name)
 {
@@ -114,11 +114,11 @@ int Creature::getMaxAttr(Attr::NameId name)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Creature::getBaseAttr(Attr::NameId name)
 {
@@ -148,11 +148,11 @@ Creature::Type Creature::getType() const
 }
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Creature::setCurAttr(Attr::NameId name, int val)
 {
@@ -169,11 +169,11 @@ int Creature::setCurAttr(Attr::NameId name, int val)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Creature::setMaxAttr(Attr::NameId name, int val)
 {
@@ -192,11 +192,11 @@ int Creature::setMaxAttr(Attr::NameId name, int val)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Creature::setBaseAttr(Attr::NameId name, int val)
 {
@@ -216,11 +216,11 @@ int Creature::setBaseAttr(Attr::NameId name, int val)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
+//         TYPE:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
 //  DESCRIPTION:    Just a 3in1 function for setting attribute
-//     COMMENTS:    --------
+//     COMMENTS:    ........
 //==================================================================================================
 void Creature::setAllAttr(Attr::NameId name, int baseVal, int maxVal, int curVal)
 {
@@ -231,11 +231,11 @@ void Creature::setAllAttr(Attr::NameId name, int baseVal, int maxVal, int curVal
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Creature::modCurAttr(Attr::NameId name, int delta)
 {
@@ -253,11 +253,11 @@ int Creature::modCurAttr(Attr::NameId name, int delta)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Creature::modMaxAttr(Attr::NameId name, int delta)
 {
@@ -275,11 +275,11 @@ int Creature::modMaxAttr(Attr::NameId name, int delta)
 }
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Creature::modBaseAttr(Attr::NameId name, int delta)
 {
@@ -328,11 +328,11 @@ bool Creature::isAlive()
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Creature::commitSuicide()
 {
@@ -369,11 +369,11 @@ bool Creature::hasAttr(const StringClass& attrName)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 const StringClass& Creature::getTypeName() const
 {
@@ -383,11 +383,11 @@ const StringClass& Creature::getTypeName() const
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Creature::printAttr()
 {

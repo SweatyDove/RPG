@@ -13,6 +13,7 @@ SOURCES += \
     Sources/gold.cpp \
     Sources/item.cpp \
     Sources/main.cpp \
+    Sources/menu.cpp \
     Sources/monster.cpp \
     Sources/player.cpp \
     Sources/potion.cpp \
@@ -20,7 +21,7 @@ SOURCES += \
     Sources/trader.cpp \
     Sources/trash.cpp \
     Sources/warrior.cpp \
-    Sources/world.cpp
+    Sources/world.cpp \
 
 HEADERS += \
     Sources/attribute.h \
@@ -28,6 +29,7 @@ HEADERS += \
     Sources/gold.h \
     Sources/item.h \
     Sources/main.h \
+    Sources/menu.h \
     Sources/monster.h \
     Sources/player.h \
     Sources/potion.h \
@@ -35,7 +37,7 @@ HEADERS += \
     Sources/trader.h \
     Sources/trash.h \
     Sources/warrior.h \
-    Sources/world.h
+    Sources/world.h \
 
 
 # List of libraries to be linked into the project. [-L] - path to library; [-l] - library

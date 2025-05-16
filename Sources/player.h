@@ -7,6 +7,7 @@
 #include "creature.h"
 #include "gold.h"
 #include "monster.h"
+#include "trader.h"
 
 
 // ######## Why am I defining player's default values outside of class player? I don't remember...
@@ -142,6 +143,8 @@ public:
     int                     getCurExp() const;
     int                     getNextLvlExp() const;
     void                    printAttr() override;
+
+    void                    trade(Trader& trader);
 
 
 

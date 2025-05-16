@@ -1,10 +1,10 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+#include "main.h"
 #include "trader.h"
 #include "monster.h"
-#include "my_utilities.h"
-
+#include "menu.h"
 
 
 //==================================================================================================
@@ -19,7 +19,8 @@ private:
 
 public:
     World();
-    Creature* generateCreature();
+    Creature*   generateCreature();
+    void        openMenu(Menu::Type type, Creature* creature1, Creature* creature2);
 
 };
 

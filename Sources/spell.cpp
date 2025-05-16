@@ -3,10 +3,10 @@
 
 //==================================================================================================
 //         TYPE:    Constructor
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Spell::Spell(const VectorClass<Attribute>& attributes,
              const ArrayClass<float, static_cast<int>(Attr::NameId::TOTAL)>& multipliers,
@@ -28,9 +28,9 @@ Spell::Spell(const VectorClass<Attribute>& attributes,
 
 //==================================================================================================
 //         TYPE:    Move assignment operator
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
 //     COMMENTS:    В отличии от move constructor, здесь нужно освобождать ресурс, которым владеет
 //                  левый операнд. Однако, наверное, не обязательно вызывать деструктор для правого
 //                  операнда...
@@ -62,11 +62,11 @@ Spell::Spell(const VectorClass<Attribute>& attributes,
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Spell::getCost(int level)
 {
@@ -76,13 +76,13 @@ int Spell::getCost(int level)
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Calculate effect of the spell, depending on creature's characteristics and they
 //                  multipliers. Because @mb_characteristics is a const reference - no need to always
 //                  update it
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Spell::getEffect(int level) const
 {
@@ -100,11 +100,11 @@ int Spell::getEffect(int level) const
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 const StringClass& Spell::getName() const
 {
@@ -112,11 +112,11 @@ const StringClass& Spell::getName() const
 }
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Update array with creature's characteristics
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Spell::setName(StringClass name)
 {
@@ -126,11 +126,11 @@ void Spell::setName(StringClass name)
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Update array with creature's characteristics
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Spell::setSchool(School school)
 {
@@ -140,11 +140,11 @@ void Spell::setSchool(School school)
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Update array with creature's characteristics
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Spell::setBaseEffect(int effect)
 {
@@ -154,11 +154,11 @@ void Spell::setBaseEffect(int effect)
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Update array with creature's characteristics
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Spell::setBaseCost(int cost)
 {
@@ -168,11 +168,11 @@ void Spell::setBaseCost(int cost)
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Update array with creature's characteristics
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 //void Spell::setCharacteristics(const ArrayClass<int, Param::TOTAL>& newCharacteristics)
 //{

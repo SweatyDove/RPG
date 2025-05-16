@@ -43,6 +43,19 @@ Creature* World::generateCreature()
 
 
 
+//==================================================================================================
+//         TYPE:    Member function
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+void World::openMenu(Menu::Type type, Creature* creature1, Creature* creature2)
+{
+
+}
+
+
 
 
 

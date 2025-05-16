@@ -177,14 +177,12 @@ int main()
 
 
     // # Main cycle of the game
-    while (player->isAlive()) {
+    while (player->newDay()) {
 
+        // # Generate random creature
         my::SmartPtr<Creature> creaturePtr {world.generateCreature()};
-
         player->meetWith(*creaturePtr);
 
-        // ## Нет смысла в новом дне, если игрок мертв уже, надо бы как-то с условием цикла синхронизировать
-        player->newDay();
     }
 
 

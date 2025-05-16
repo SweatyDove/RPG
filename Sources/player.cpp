@@ -31,10 +31,10 @@ Player::Player(Race race, Spec spec, StringClass name) :
 
 //==================================================================================================
 //         TYPE:    Virtual Destructor
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Player::~Player()
 {
@@ -43,11 +43,11 @@ Player::~Player()
 }
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Player::setRace(Player::Race race)
 {
@@ -57,11 +57,11 @@ void Player::setRace(Player::Race race)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 Player::Spec Player::getSpec() const
 {
@@ -71,11 +71,11 @@ Player::Spec Player::getSpec() const
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Player::getTimeLived() const
 {
@@ -93,6 +93,13 @@ int Player::getTimeLived() const
 //==================================================================================================
 bool Player::newDay()
 {
+
+    // # Player already dead
+    if (this->isDead()) {
+        return false;
+    }
+    else {}
+
     std::cout << "A new day has come! Do you want to wake up? [y/n]" << std::endl;
 
     // ######## Choice loop
@@ -133,11 +140,11 @@ bool Player::newDay()
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 const StringClass& Player::getName() const
 {
@@ -147,11 +154,11 @@ const StringClass& Player::getName() const
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Player::setName(StringClass& name)
 {
@@ -162,11 +169,11 @@ void Player::setName(StringClass& name)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 //void Player::changeHealth(int health)
 //{
@@ -176,11 +183,11 @@ void Player::setName(StringClass& name)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 //void Player::changeStamina(int stamina)
 //{
@@ -190,11 +197,11 @@ void Player::setName(StringClass& name)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 //void Player::changeStrength(int strength)
 //{
@@ -209,11 +216,11 @@ void Player::setName(StringClass& name)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Player::addGold(int gold)
 {
@@ -230,11 +237,11 @@ void Player::addGold(int gold)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Player::levelUp()
 {
@@ -303,27 +310,38 @@ void Player::levelUp()
 //==================================================================================================
 void Player::meetWith(Creature& creature)
 {
+    // # For convinience
+    Player& player {*this};
+
 
     // # Meet the monster
     if (creature.getType() == Creature::Type::MONSTER) {
 
+        // # For convinience
         Monster& monster {dynamic_cast<Monster&>(creature)};
 
-        std::cout << "\n\n[Day " << this->getTimeLived() << "]: You have encountered a "
+
+        std::cout << "\n\n[Day " << player.getTimeLived() << "]: You have encountered a "
                   << monster.getName() << " of " << monster.getLevel() << " level." << std::endl;
 
-        printAttrTable(*this, monster);
+        printAttrTable(player, monster);
 
-        this->fightWith(monster);
+        player.fightWith(monster);
 
         if (monster.isDead()) {
-            this->getLootFrom(monster);
+            player.getLootFrom(monster);
         }
         else {}
     }
-    else {
-        std::cout << "You have met a trader." << std::endl;
+    // # Meet the trader
+    else if (creature.getType() == Creature::Type::TRADER) {
+
+        Trader& trader {dynamic_cast<Trader&>(creature)};
+
+        std::cout << "\n\n[Day " << player.getTimeLived() << "]: You have encountered a trader." << std::endl;
+        player.trade(trader);
     }
+    else {}
 
 }
 
@@ -355,10 +373,10 @@ void Player::increaseExp(Monster& monster)
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Function handles the player's looting monster's corpse.
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
 //     COMMENTS:    At this moment we just use items, that monster "generates" after its death.
 //                  In the future, I'll plan to transfer loot from monster's corpse to player's bag.
 //
@@ -442,9 +460,9 @@ void Player::drink(const Potion& potion)
 //==================================================================================================
 //         TYPE:    fightWith
 //  DESCRIPTION:    Member function, that realize player's fight with specified @monster
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Player::fightWith(Monster& monster)
 {
@@ -516,11 +534,11 @@ void Player::fightWith(Monster& monster)
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Function displays player's option while fighting with monster.
-//   PARAMETERS:    --------
+//   PARAMETERS:    ........
 // RETURN VALUE:    Returns player's choice.
-//     COMMENTS:    --------
+//     COMMENTS:    ........
 //==================================================================================================
 //Player::FightOption Player::chooseFightOption(Monster& monster)
 //{
@@ -584,11 +602,11 @@ void Player::fightWith(Monster& monster)
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Player::commitSuicide()
 {
@@ -598,11 +616,11 @@ void Player::commitSuicide()
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Get potion
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Player::getPotion(const Potion& potion)
 {
@@ -630,11 +648,11 @@ void Player::getPotion(const Potion& potion)
 
 
 //==================================================================================================
-//         TYPE:    --------
+//         TYPE:    ........
 //  DESCRIPTION:    Player getting a rest and restores some part of his characteristics during this
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Player::getRest()
 {
@@ -649,11 +667,11 @@ void Player::getRest()
 
 
 //==================================================================================================
-//         TYPE:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//  DESCRIPTION:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//  DESCRIPTION:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Player::getCurExp() const
 {
@@ -663,11 +681,11 @@ int Player::getCurExp() const
 
 
 //==================================================================================================
-//         TYPE:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//  DESCRIPTION:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//  DESCRIPTION:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 int Player::getNextLvlExp() const
 {
@@ -677,11 +695,11 @@ int Player::getNextLvlExp() const
 
 
 //==================================================================================================
-//         TYPE:    --------
-//  DESCRIPTION:    --------
-//   PARAMETERS:    --------
-// RETURN VALUE:    --------
-//     COMMENTS:    --------
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
 //==================================================================================================
 void Player::printAttr()
 {
@@ -690,6 +708,73 @@ void Player::printAttr()
     std::cout << "             EXP:    " << mb_curExp << '/' << mb_nextLevelExp << std::endl;
     Creature::printAttr();
 }
+
+
+
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+void Player::trade(Trader& trader)
+{
+    std::cout << "You have met a trader. What do you want?"
+              << "\n[1] - open exchange menu;"
+              << "\n[2] - quit;"
+              << std::endl;
+
+
+    // # Choice loop
+    char choice {};
+    bool choiceLoop {true};
+    do {
+        std::cout << "Your choice: ";
+        std::cin >> choice;
+
+        switch(choice) {
+        case '1':
+            this->openExchangeMenu(trader);
+            break;
+        case '2':
+            choiceLoop = false;
+            break;
+        default:
+            std::cout << "Incorrect choice. Please, try again." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+    while (choiceLoop);
+
+}
+
+
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    Will it better to delegate this menu to <World>?
+//==================================================================================================
+void Player::openExchangeMenu(Trader& trader)
+{
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

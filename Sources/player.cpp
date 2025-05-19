@@ -722,8 +722,8 @@ void Player::printAttr()
 void Player::trade(Trader& trader)
 {
     std::cout << "You have met a trader. What do you want?"
-              << "\n[1] - open exchange menu;"
-              << "\n[2] - quit;"
+              << "\n[1] - Open exchange menu;"
+              << "\n[2] - Quit;"
               << std::endl;
 
 
@@ -736,8 +736,12 @@ void Player::trade(Trader& trader)
 
         switch(choice) {
         case '1':
-            this->openExchangeMenu(trader);
-            break;
+        {
+            Menu exchangeMenu {Menu::Type::EXCHANGE, this, &trader};
+            exchangeMenu.run();
+            choiceLoop = false;
+        }
+        break;
         case '2':
             choiceLoop = false;
             break;
@@ -758,12 +762,23 @@ void Player::trade(Trader& trader)
 //  DESCRIPTION:    ........
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
-//     COMMENTS:    Will it better to delegate this menu to <World>?
+//     COMMENTS:    Will it be better to delegate this menu to <World>?
 //==================================================================================================
-void Player::openExchangeMenu(Trader& trader)
-{
+//void Player::openMenu(Menu::Type type, Creature* target = nullptr)
+//{
+//    switch(type) {
+//    case Menu::Type::EXCHANGE:
+//        std::cout << "Player inventory:" << std::endl;
+//        for (auto itemPtr: this->mb_inventory) {
+//            std::cout << itemPtr->getTypeName();
+//        }
+//        std::cout << "Target inventory:" << std::endl;
+//        for (auto itemPtr: target->mb_inventory) {
+//            std::cout << itemPtr->getTypeName();
+//        }
+//    }
 
-}
+//}
 
 
 

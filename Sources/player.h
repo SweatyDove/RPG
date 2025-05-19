@@ -145,6 +145,8 @@ public:
     void                    printAttr() override;
 
     void                    trade(Trader& trader);
+//    void                    openMenu(Menu::Type type, Creature* target = nullptr); // Delete
+
 
 
 

@@ -406,3 +406,17 @@ void Creature::printAttr()
     }
 
 }
+
+
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    Get the creature's inventory
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+VectorClass<UniquePtrClass<Item>>& Creature::getInventory()
+{
+    return mb_inventory;
+}

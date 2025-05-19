@@ -26,9 +26,10 @@ Trader::Trader(int level) :
 void Trader::generateInventory()
 {
     // # Iterate each type of <Item>
-    for (Item::Type iType {static_cast<Item::Type>(0)}; iType < Item::Type::TOTAL; ++iType) {
 
-        switch (iType) {
+    for (int iType {0}; iType < static_cast<int>(Item::Type::TOTAL); ++iType) {
+
+        switch (static_cast<Item::Type>(iType)) {
         case Item::Type::GOLD:
         {
             UniquePtrClass<Item> gold {new Gold(my::getRandomNumber(0, mb_level * 100))};
@@ -38,9 +39,10 @@ void Trader::generateInventory()
         case Item::Type::POTION:
         {
             // #### Iterate each potion's type
-            for (Potion::Type pType {static_cast<Potion::Type>(0)}; pType < Potion::Type::TOTAL; pType++) {
+            for (int pType {0}; pType < static_cast<int>(Potion::Type::TOTAL); ++pType) {
+
                 for (int potionNum {my::getRandomNumber(0, 3)}; potionNum > 0; --potionNum) {
-                    UniquePtrClass<Item> potion {new Potion(pType)};
+                    UniquePtrClass<Item> potion {new Potion(static_cast<Potion::Type>(pType))};
                     mb_inventory.pushBack(my::move(potion));
                 }
             }

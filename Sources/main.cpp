@@ -59,6 +59,9 @@
  * 1 - Do I need to use list-initialization of class member variables if I initialize them in
  * constructor?
  *
+ * 2 - Think about replacing iterations over enum classes with something more pretty:
+ *     https://stackoverflow.com/questions/69762598/what-are-commonly-used-ways-to-iterate-over-an-enum-class-in-c
+ *
  **************************************************************************************************/
 
 

@@ -4,6 +4,7 @@
 #include "main.h"
 #include "item.h"
 #include "attribute.h"
+#include "menu.h"
 
 
 //==================================================================================================
@@ -141,6 +142,8 @@ public:
     virtual void            printAttr();
 
     Type getType() const;
+//    void openMenu(Menu::Type type, Creature* target = nullptr) = 0;               // Delete
+    VectorClass<UniquePtrClass<Item>>& getInventory();
 
     friend void printAttrTable(Creature& firstCreature, Creature& secondCreature);
 

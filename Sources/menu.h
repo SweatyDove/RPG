@@ -14,11 +14,47 @@
 class Menu {
 public:
     enum class Type {
+        UNDEF,
         EXCHANGE,
         TOTAL
     };
 
+private:
+
+    Type        mb_type     {Type::UNDEF};
+    Creature*   mb_subject  {nullptr};
+    Creature*   mb_object   {nullptr};                  // Can be an <Item> as well
+
+
+
+
+
+public:
     Menu(Type type, Creature* creature1, Creature* creature2 = nullptr);
+
+    void run();
+
 };
 
+
+
+
+
+
+
+
+
+
+
 #endif // MENU_H
+
+
+
+
+
+
+
+
+
+
+

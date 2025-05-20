@@ -27,14 +27,14 @@ World::World()
 //==================================================================================================
 Creature* World::generateCreature()
 {
-    int dice {my::getRandomNumber(0, 100)};
     Creature* creature {nullptr};
 
+    int dice {my::getRandomNumber(0, 100)};
     if (dice < 20) {
         creature = new Monster {};
     }
     else {
-        creature = new Monster {};
+        creature = new Trader {};
     }
 
     return creature;

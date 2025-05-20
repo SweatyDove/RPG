@@ -5,6 +5,7 @@
 #include "main.h"
 #include "creature.h"
 #include "item.h"
+#include "gold.h"
 #include "potion.h"
 
 
@@ -19,11 +20,16 @@
 class Trader: public Creature {
 private:
     VectorClass<UniquePtrClass<Item>> mb_inventory {};
+    StringClass mb_name {"Trader"};
 
 
     void generateInventory();
 public:
-    explicit Trader(int level);
+    Trader();
+    ~Trader() override;
+
+    void                commitSuicide() override;
+    const StringClass&  getName() const override;
 
 };
 

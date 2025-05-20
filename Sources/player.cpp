@@ -418,41 +418,44 @@ void Player::getLootFrom(Monster& monster)
 }
 
 
-//==============================================================================
-// WHAT: Member function
-//  WHY: It handles the case when player is going to drink smth.
-//==============================================================================
+//==================================================================================================
+//         TYPE:    Member function
+//  DESCRIPTION:    Handles the case when player drank potion.
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
 void Player::drink(const Potion& potion)
 {
     switch(potion.mb_type) {
-    case Potion::Type::EXHAUSTED:
-        std::cout << "You had drunk potion, but nothing happened.\n";
-        break;
+
+    // # Base attribute
     case Potion::Type::HEALTH:
         this->modCurAttr(Attr::NameId::HEALTH, potion.getEffect());
-        std::cout << "You had drunk a " << potion.getName() << ", that restored "
-                  << potion.getEffect() << " hp.\n";
+        std::cout << "You had drunk a " << potion.getName() << ". It changed your's HEALTH on "
+                  << potion.getEffect() << " hp."
+                  << std::endl;
         break;
+
+    // # Resource attributes
     case Potion::Type::STAMINA:
         this->modCurAttr(Attr::NameId::STAMINA, potion.getEffect());
-        std::cout << "You had drunk a " << potion.getName() << ", that restored "
-                  << potion.getEffect() << " stamina.\n";
+        std::cout << "You had drunk a " << potion.getName() << ". It changed your's STAMINA on "
+                  << potion.getEffect() << " stamina points."
+                  << std::endl;
         break;
+
+    // # Characteristic attributes
     case Potion::Type::STRENGTH:
-        this->modMaxAttr(Attr::NameId::STRENGTH, +potion.getEffect());
+        this->modMaxAttr(Attr::NameId::STRENGTH, potion.getEffect());
         this->setCurAttr(Attr::NameId::STRENGTH, this->getMaxAttr(Attr::NameId::STRENGTH));
-        std::cout << "You had drunk a " << potion.getName() << ", that increased your damage by "
-                  << potion.getEffect() << " points.\n";
-        break;
-    case Potion::Type::POISON:
-        this->modCurAttr(Attr::NameId::HEALTH, -potion.getEffect());
-        std::cout << "You had drunk a " << potion.getName() << ". You got poisoned and lost "
-                  << potion.getEffect() << " hp.\n";
+        std::cout << "You had drunk a " << potion.getName() << ". It increased your damage by "
+                  << potion.getEffect() << " points."
+                  << std::endl;
         break;
     case Potion::Type::TOTAL:
+        assert(false && "Incorrect potion type! Abort.");
         break;
-    //default:
-        //break;
     }
 }
 

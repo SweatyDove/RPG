@@ -17,6 +17,7 @@ SOURCES += \
     Sources/monster.cpp \
     Sources/player.cpp \
     Sources/potion.cpp \
+    Sources/scroll.cpp \
     Sources/spell.cpp \
     Sources/trader.cpp \
     Sources/trash.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     Sources/monster.h \
     Sources/player.h \
     Sources/potion.h \
+    Sources/scroll.h \
     Sources/spell.h \
     Sources/trader.h \
     Sources/trash.h \

@@ -83,6 +83,7 @@ protected:
 
     VectorClass<Attribute> mb_attribute = {
             {Attr::NameId::HEALTH, Attr::Type::RESOURCE, 100, 100, 100},
+
             {Attr::NameId::STAMINA, Attr::Type::RESOURCE, -1, -1, -1},
             {Attr::NameId::MANA, Attr::Type::RESOURCE, -1, -1, -1},
             {Attr::NameId::CONCENTRATION, Attr::Type::RESOURCE, -1, -1, -1},

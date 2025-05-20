@@ -340,7 +340,7 @@ void Monster::generateLoot()
             // # копирование, когда я задал move-семантику?
             mb_loot.push_back(std::move(gold));
         }
-            break;
+        break;
         case Item::Type::POTION:
             if (my::getRandomNumber(0, 100) <= Potion::mb_defaultPotionChance) {
                 UniquePtrClass<Item> potion {new Potion(mb_level)};

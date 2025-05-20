@@ -8,8 +8,8 @@
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-Trader::Trader(int level) :
-    Creature(Creature::Type::TRADER, level)
+Trader::Trader() :
+    Creature(Creature::Type::TRADER, my::getRandomNumber(1, 10))
 {
     this->generateInventory();
 }
@@ -42,7 +42,7 @@ void Trader::generateInventory()
             for (int pType {0}; pType < static_cast<int>(Potion::Type::TOTAL); ++pType) {
 
                 for (int potionNum {my::getRandomNumber(0, 3)}; potionNum > 0; --potionNum) {
-                    UniquePtrClass<Item> potion {new Potion(static_cast<Potion::Type>(pType))};
+                    UniquePtrClass<Item> potion {new Potion(static_cast<Potion::Type>(pType), Potion::generateRandomEffect(static_cast<Potion::Type>(pType), this->mb_level))};
                     mb_inventory.pushBack(my::move(potion));
                 }
             }
@@ -57,8 +57,32 @@ void Trader::generateInventory()
 }
 
 
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+void Trader::commitSuicide()
+{
+    this->setCurAttr(Attr::NameId::HEALTH, 0);
+    std::cout << "Trader was scared to death of you and died of a heart attack..." << std::endl;
+}
 
 
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+const StringClass&  Trader::getName() const
+{
+    return mb_name;
+}
 
 
 

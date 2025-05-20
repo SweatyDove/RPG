@@ -2,23 +2,9 @@
 #include "potion.h"
 
 
-
 //==================================================================================================
 //         TYPE:    ........
-//  DESCRIPTION:    Generate RANDOM potion according to @level
-//   PARAMETERS:    ........
-// RETURN VALUE:    ........
-//     COMMENTS:    ........
-//==================================================================================================
-Potion::Potion(int level) :
-    Item(Item::Type::POTION, 1, defaultWeight)
-{
-    this->generateRandomPotion(level);
-}
-
-//==================================================================================================
-//         TYPE:    ........
-//  DESCRIPTION:    Generate with the given @type and @effect
+//  DESCRIPTION:    Generate potion with the given @type and @effect
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
@@ -32,68 +18,133 @@ Potion::Potion(Potion::Type type, int effect) :
 }
 
 
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    Generate RANDOM potion according to @level
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+Potion::Potion(int level) :
+    Item(Item::Type::POTION, 1, defaultWeight),
+    mb_type {this->generateRandomType()},
+    mb_effect {this->generateRandomEffect(mb_type, level)}
+{
+    // Nothing to do
+}
+
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    Get name of the potion as a string
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
 StringClass Potion::getName() const
 {
     StringClass retString {""};
 
-    switch(mb_type) {
-    case Type::EXHAUSTED:   return "exhausted potion";
-    case Type::HEALTH:      return "health potion";
-    case Type::STAMINA:     return "stamina potion";
-    case Type::STRENGTH:    return "strength potion";
-    case Type::POISON:      return "poison";
-
-    case Type::TOTAL:    return "";
-    //default:
-        //break;
+    // # Add effect type
+    if (mb_effect < 0) {
+        retString << "poisoned ";
     }
-    return "";
+    else if (mb_effect == 0) {
+        retString << "exhausted ";
+    }
+    else {}
+
+
+    switch(mb_type) {
+    case Type::HEALTH:
+        retString << "health potion";
+        break;
+    case Type::STAMINA:
+        retString << "stamina potion";
+        break;
+    case Type::STRENGTH:
+        retString << "strength potion";
+        break;
+    case Type::TOTAL:
+        assert(false && "Incorrect potion type. Abort.");
+        break;
+    }
+
+
+    return retString;
 }
 
 
 
 //==================================================================================================
 //         TYPE:    ........
-//  DESCRIPTION:    Generate random potion
+//  DESCRIPTION:    Generate random potion with @mb_effect, that depends on the @lvl
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
 void Potion::generateRandomPotion(int lvl)
 {
-
-    // ######## Generate random potion type
-    mb_type = static_cast<Type>(my::getRandomNumber(0, static_cast<unsigned int>(Type::TOTAL) - 1));
-
-
-    // ######## Generate random potion effect depending on the potion type and... (monster lvl?)
-    switch (mb_type) {
-    case Type::HEALTH:
-    mb_effect = my::getRandomNumber(10, lvl * 10);
-        break;
-    case Type::STAMINA:
-        mb_effect = my::getRandomNumber(10, lvl * 10);
-        break;
-    case Type::STRENGTH:
-        mb_effect = my::getRandomNumber(1, (lvl + 1) / 2);
-        break;
-    case Type::POISON:
-        mb_effect = my::getRandomNumber(1, lvl);
-        break;
-    case Type::EXHAUSTED:
-        mb_effect = 0;
-        break;
-    case Type::TOTAL:
-        mb_effect = 0;
-        break;
-    //default:
-        //break;
-    }
-
-    return;
+    mb_type = this->generateRandomType();
+    mb_effect = this->generateRandomEffect(mb_type, lvl);
 }
 
 
+
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    Generate random potion effect, that depends on @lvl
+//   PARAMETERS:    @lvl - level of creature (player/monster/trader/etc)
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+int Potion::generateRandomEffect(Potion::Type pType, int lvl)
+{
+    int effect {0};
+
+    switch (pType) {
+    case Type::HEALTH:
+        effect = my::getRandomNumber(lvl * (-10), lvl * 10);
+        break;
+    case Type::STAMINA:
+        effect = my::getRandomNumber(lvl * (-10), lvl * 10);
+        break;
+    case Type::STRENGTH:
+        effect = my::getRandomNumber(0, (lvl + 1) / 2);
+        break;
+    case Type::TOTAL:
+        assert(false && "Incorrect potion type. Abort.");
+        break;
+    }
+
+    return effect;
+}
+
+
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    Generate random potion type.
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+Potion::Type Potion::generateRandomType()
+{
+    return (static_cast<Type>(my::getRandomNumber(0, static_cast<unsigned int>(Type::TOTAL) - 1)));
+}
+
+
+
+//==================================================================================================
+//         TYPE:    Member function (getter)
+//  DESCRIPTION:    Get value of the potion's effect
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
 int Potion::getEffect() const
 {
     return mb_effect;

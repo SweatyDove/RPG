@@ -31,6 +31,9 @@ private:
 public:
     Trash(Type type, int count, int weight);
 
+    const StringClass getName() const override;
+
+
     void setDescription();
     const my::String& getDescription() const;
 };

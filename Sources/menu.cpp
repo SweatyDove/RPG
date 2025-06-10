@@ -30,28 +30,31 @@ void Menu::run()
 {
     bool mainLoop {true};
 
+
     while (mainLoop) {
-        std::cout << "\n[1] - Display yours inventory;"
-                  << "\n[2] - Display target inventory;"
-                  << "\n[0] - Quit;"
+        std::cout << "\n[1] - Sell"
+                  << "\n[2] - Buy"
+                  << "\n[0] - Quit"
                   << std::endl;
 
-        char choice {};
+        enum Choice {
+            QUIT,
+            SELL,
+            BUY
+        };
+
+        int choice {};
         std::cout << "Your choice: ";
         std::cin >> choice;
 
         switch(choice) {
-        case '1':
-            for (auto& itemPtr: mb_subject->getInventory()) {
-                std::cout << itemPtr->getTypeName() << "    " << itemPtr->getCount() << std::endl;
-            }
+        case Choice::SELL:
+            mb_subject->displayInventory();
             break;
-        case '2':
-            for (auto& itemPtr: mb_object->getInventory()) {
-                std::cout << itemPtr->getTypeName() << "    " << itemPtr->getCount() << std::endl;
-            }
+        case Choice::BUY:
+            mb_object->displayInventory();
             break;
-        case '0':
+        case Choice::QUIT:
             mainLoop = false;
             break;
         default:

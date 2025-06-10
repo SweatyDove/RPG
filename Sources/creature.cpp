@@ -420,3 +420,36 @@ VectorClass<UniquePtrClass<Item>>& Creature::getInventory()
 {
     return mb_inventory;
 }
+
+
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    Display creature's inventory
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+void Creature::displayInventory()
+{
+    StringClass titleId     {"ID"};
+    StringClass titleName   {"NAME"};
+    StringClass titleCount  {"COUNT"};
+
+    std::cout << this->getName() << " inventory:"
+              << "\n-------------------------------------------------------------------------------\n"
+              << std::setw(2)   << titleId      << " | "
+              << std::setw(32)  << titleName    << " | "
+              << std::setw(8)   << titleCount
+              << "\n-------------------------------------------------------------------------------\n"
+              << std::endl;
+
+    for (int ii {0}; ii < mb_inventory.size(); ++ii) {
+        std::cout << std::setw(2)   << ii               << " | "
+                  << std::setw(32)  << mb_inventory[ii]->getName()  << " | "
+                  << std::setw(8)   << mb_inventory[ii]->getCount() << std::endl;
+    }
+
+    std::cout << "-------------------------------------------------------------------------------" << std::endl;
+
+}

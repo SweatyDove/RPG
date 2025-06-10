@@ -40,11 +40,12 @@ public:
     // ##########################  Setters/Getters  ####################################
     // #################################################################################
 
-    int getCount() const;
-    int getWeight() const;
+    int             getCount() const;
+    int             getWeight() const;
+    Type            getType() const;
 
-    Type        getType() const;
-    StringClass  getTypeName() const;
+
+    virtual const StringClass getName() const = 0;
 
 
 };

@@ -724,8 +724,7 @@ void Player::printAttr()
 //==================================================================================================
 void Player::trade(Trader& trader)
 {
-    std::cout << "You have met a trader. What do you want?"
-              << "\n[1] - Open exchange menu;"
+    std::cout << "\n[1] - Open exchange menu;"
               << "\n[2] - Quit;"
               << std::endl;
 

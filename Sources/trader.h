@@ -19,7 +19,7 @@
 //==================================================================================================
 class Trader: public Creature {
 private:
-    VectorClass<UniquePtrClass<Item>> mb_inventory {};
+//    VectorClass<UniquePtrClass<Item>> mb_inventory {};
     StringClass mb_name {"Trader"};
 
 

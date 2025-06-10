@@ -1,4 +1,3 @@
-
 #ifndef GOLD_H
 #define GOLD_H
 
@@ -10,6 +9,9 @@ public:
     Gold(int count);
 
     ~Gold() = default;
+
+    const StringClass getName() const override;
+
 };
 
 #endif

@@ -56,12 +56,16 @@ public:
 
 private:
 
-    VectorClass<UniquePtrClass<Item>> mb_inventory;
+
+
 
 protected:
     // ######## GENERAL
     Type    mb_type {};
     int     mb_level {1};
+
+
+    VectorClass<UniquePtrClass<Item>> mb_inventory;
 
 
 //    ArrayClass<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_curCharacteristic {-1, -1, -1};
@@ -110,41 +114,45 @@ protected:
 
 
 public:
+
     /***********************************************************************************************
      * Here I have a lot of similar functions. I could join them into a single one, but in the code
      * I need to set/get/mod attributes very often - and code becomes messy with long and universal
      * functions.
      **********************************************************************************************/
-    int getCurAttr(Attr::NameId name);
-    int getMaxAttr(Attr::NameId name);
-    int getBaseAttr(Attr::NameId name);
+    int     getCurAttr(Attr::NameId name);
+    int     getMaxAttr(Attr::NameId name);
+    int     getBaseAttr(Attr::NameId name);
 
-    int setCurAttr(Attr::NameId name, int val);
-    int setMaxAttr(Attr::NameId name, int val);
-    int setBaseAttr(Attr::NameId name, int val);
-    void setAllAttr(Attr::NameId name, int baseVal, int maxVal, int curVal);
+    int     setCurAttr(Attr::NameId name, int val);
+    int     setMaxAttr(Attr::NameId name, int val);
+    int     setBaseAttr(Attr::NameId name, int val);
+    void    setAllAttr(Attr::NameId name, int baseVal, int maxVal, int curVal);
+
+    int     modCurAttr(Attr::NameId name, int delta);
+    int     modMaxAttr(Attr::NameId name, int delta);
+    int     modBaseAttr(Attr::NameId name, int delta);
+
+    bool    hasAttr(const StringClass& attrName);
 
 
-    int modCurAttr(Attr::NameId name, int delta);
-    int modMaxAttr(Attr::NameId name, int delta);
-    int modBaseAttr(Attr::NameId name, int delta);
+    int                                     getLevel() const;
+    const StringClass&                      getTypeName() const;
+    Type                                    getType() const;
+
+
+    VectorClass<UniquePtrClass<Item>>&      getInventory();
+    void                                    displayInventory();
+
 
     virtual                     ~Creature();
-    int                         getLevel() const;
     virtual bool                isDead();
     virtual bool                isAlive();
     virtual void                commitSuicide() = 0;            // Pure virtual function
     virtual const StringClass&  getName() const = 0;            // Pure virtual function
+    virtual void                printAttr();
 
-    bool hasAttr(const StringClass& attrName);
 
-    const StringClass&        getTypeName() const;
-
-    virtual void            printAttr();
-
-    Type getType() const;
-//    void openMenu(Menu::Type type, Creature* target = nullptr) = 0;               // Delete
-    VectorClass<UniquePtrClass<Item>>& getInventory();
 
     friend void printAttrTable(Creature& firstCreature, Creature& secondCreature);
 

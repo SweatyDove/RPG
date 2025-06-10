@@ -54,7 +54,7 @@ public:
 
 
 
-    StringClass     getName() const;
+    const StringClass     getName() const override;
     int             getEffect() const;
 
     void            generateRandomPotion(int lvl);                                                  // Generate random potion

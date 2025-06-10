@@ -42,7 +42,7 @@ Potion::Potion(int level) :
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-StringClass Potion::getName() const
+const StringClass Potion::getName() const
 {
     StringClass retString {""};
 

@@ -30,7 +30,7 @@ Creature* World::generateCreature()
     Creature* creature {nullptr};
 
     int dice {my::getRandomNumber(0, 100)};
-    if (dice < 20) {
+    if (dice < 0) {
         creature = new Monster {};
     }
     else {

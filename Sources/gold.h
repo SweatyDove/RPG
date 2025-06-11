@@ -8,9 +8,10 @@ class Gold : public Item {
 public:
     Gold(int count);
 
-    ~Gold() = default;
+    ~Gold() override = default;
 
-    const StringClass getName() const override;
+    const StringClass   getName() const override;
+//    const int           getCost() const override;
 
 };
 

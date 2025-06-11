@@ -23,19 +23,22 @@ public:
 
 
 private:
-    Type mb_type;
-    my::String mb_description {""};
+    Type            mb_type;
+    my::String      mb_description {""};
 
 
 
 public:
-    Trash(Type type, int count, int weight);
-
-    const StringClass getName() const override;
+    Trash(Type type, int count, int weight, int cost);
 
 
-    void setDescription();
-    const my::String& getDescription() const;
+
+    void                setDescription();
+    const my::String&   getDescription() const;
+
+    const StringClass   getName() const override;
+//    const int           getCost() const override;
+
 };
 
 

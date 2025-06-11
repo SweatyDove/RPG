@@ -10,8 +10,8 @@
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-Item::Item(Item::Type type = Item::Type::TRASH, int count = 1, int weight = 1) :
-    mb_type {type}, mb_count {count}, mb_weight {weight}
+Item::Item(Item::Type type, int count, int weight, int cost) :
+    mb_type {type}, mb_count {count}, mb_weight {weight}, mb_cost {cost}
 {
     // Nothing to do;
 }
@@ -56,6 +56,18 @@ Item::Type Item::getType() const
     return mb_type;
 }
 
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+int Item::getCost() const
+{
+    return mb_cost;
+}
 
 
 // #### Function returns type of the item

@@ -14,7 +14,7 @@ Potion::Potion(Potion::Type type, int effect) :
     mb_type {type},
     mb_effect {effect}
 {
-    // Nothing to do;
+    mb_cost = this->generateCost();
 }
 
 
@@ -31,7 +31,7 @@ Potion::Potion(int level) :
     mb_type {this->generateRandomType()},
     mb_effect {this->generateRandomEffect(mb_type, level)}
 {
-    // Nothing to do
+    mb_cost = this->generateCost();
 }
 
 
@@ -76,6 +76,45 @@ const StringClass Potion::getName() const
 }
 
 
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+int Potion::generateCost()
+{
+
+    int typeMult {0};                        // Cost's multiplier, that depends on potion's type
+    int effectAdd {0};                      // Cost's additive, that depends on potion's effect
+
+
+    // # Define @typeMult
+    switch (mb_type) {
+    case Potion::Type::HEALTH:
+        typeMult = 5;
+        break;
+    case Potion::Type::STAMINA:
+        typeMult = 4;
+        break;
+    case Potion::Type::STRENGTH:
+        typeMult = 3;
+        break;
+    case Potion::Type::TOTAL:
+        assert(false && "Incorrect potion type!");
+        break;
+    }
+
+
+    // # Define @effectAdd
+    effectAdd = (mb_effect >= 0) ? mb_effect : -mb_effect;
+
+    // # Formula
+    return typeMult * 10 + effectAdd;
+}
+
+
 
 //==================================================================================================
 //         TYPE:    ........
@@ -88,6 +127,7 @@ void Potion::generateRandomPotion(int lvl)
 {
     mb_type = this->generateRandomType();
     mb_effect = this->generateRandomEffect(mb_type, lvl);
+    mb_cost = this->generateCost();
 }
 
 

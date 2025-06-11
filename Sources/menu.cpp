@@ -28,20 +28,48 @@ Menu::Menu(Type type, Creature* creature1, Creature* creature2) :
 //==================================================================================================
 void Menu::run()
 {
+    switch(mb_type) {
+    case Type::EXCHANGE:
+        this->exchange();
+        break;
+    case Type::UNDEF:
+    case Type::TOTAL:
+        assert(false && "Incorrect MENU's type! Abort.");
+        break;
+    }
+
+}
+
+
+
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+void Menu::exchange()
+{
     bool mainLoop {true};
+    enum Choice {
+        QUIT,
+        SELL,
+        BUY,
+
+        TOTAL
+    };
 
 
     while (mainLoop) {
-        std::cout << "\n[1] - Sell"
+        std::cout << "\nEXCHANGE MENU"
+                  << "\n-------------"
+                  << "\n[1] - Sell"
                   << "\n[2] - Buy"
                   << "\n[0] - Quit"
                   << std::endl;
 
-        enum Choice {
-            QUIT,
-            SELL,
-            BUY
-        };
 
         int choice {};
         std::cout << "Your choice: ";
@@ -49,10 +77,10 @@ void Menu::run()
 
         switch(choice) {
         case Choice::SELL:
-            mb_subject->displayInventory();
+            this->sell();
             break;
         case Choice::BUY:
-            mb_object->displayInventory();
+            this->buy();
             break;
         case Choice::QUIT:
             mainLoop = false;
@@ -69,13 +97,30 @@ void Menu::run()
 
 
 
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+void Menu::buy()
+{
+    mb_object->displayInventory();
+
+}
 
 
 
-
-
-
-
-
-
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+void Menu::sell()
+{
+    mb_subject->displayInventory();
+}
 

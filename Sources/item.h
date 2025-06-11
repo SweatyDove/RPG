@@ -24,9 +24,10 @@ private:
 protected:
     int     mb_count;
     int     mb_weight;
+    int     mb_cost;
 
     // ######## Made it protected 'cause I don't want smb to explicitly construct <Item> object.
-    Item(Type type, int count, int weight);
+    Item(Type type = Type::TRASH, int count = 1, int weight = 0, int cost = 0);
 
 public:
 
@@ -35,17 +36,18 @@ public:
 
     //Item(Type type, int count, int weight);
 
-    ~Item() = default;
+    virtual ~Item() = default;
 
     // ##########################  Setters/Getters  ####################################
     // #################################################################################
 
-    int             getCount() const;
-    int             getWeight() const;
-    Type            getType() const;
+    Type      getType() const;
+    int       getCount() const;
+    int       getWeight() const;
+    int       getCost() const;
 
 
-    virtual const StringClass getName() const = 0;
+    virtual const StringClass   getName() const = 0;
 
 
 };

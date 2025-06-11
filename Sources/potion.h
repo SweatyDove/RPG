@@ -38,6 +38,7 @@ public:
     };
 
     Type                mb_type {};
+//    int                 mb_level {};
     static const int    mb_defaultPotionChance {100};                                               /* Move to other class/place? */
 
 private:
@@ -54,12 +55,15 @@ public:
 
 
 
-    const StringClass     getName() const override;
-    int             getEffect() const;
+    const StringClass   getName() const override;
+
+
+    int                     getEffect() const;
 
     void            generateRandomPotion(int lvl);                                                  // Generate random potion
     static int      generateRandomEffect(Potion::Type, int lvl);
     Potion::Type    generateRandomType();
+    int             generateCost();
 
 
 };

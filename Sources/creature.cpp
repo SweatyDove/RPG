@@ -435,19 +435,22 @@ void Creature::displayInventory()
     StringClass titleId     {"ID"};
     StringClass titleName   {"NAME"};
     StringClass titleCount  {"COUNT"};
+    StringClass titleCost   {"COST"};
 
-    std::cout << this->getName() << " inventory:"
+    std::cout << "\nInventory of " << this->getName()
               << "\n-------------------------------------------------------------------------------\n"
-              << std::setw(2)   << titleId      << " | "
+              << titleId      << " | "
               << std::setw(32)  << titleName    << " | "
-              << std::setw(8)   << titleCount
+              << std::setw(8)   << titleCount   << " | "
+              << std::setw(8)   << titleCost
               << "\n-------------------------------------------------------------------------------\n"
               << std::endl;
 
     for (int ii {0}; ii < mb_inventory.size(); ++ii) {
         std::cout << std::setw(2)   << ii               << " | "
                   << std::setw(32)  << mb_inventory[ii]->getName()  << " | "
-                  << std::setw(8)   << mb_inventory[ii]->getCount() << std::endl;
+                  << std::setw(8)   << mb_inventory[ii]->getCount() << " | "
+                  << std::setw(8)   << mb_inventory[ii]->getCost() << std::endl;
     }
 
     std::cout << "-------------------------------------------------------------------------------" << std::endl;

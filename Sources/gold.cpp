@@ -9,7 +9,7 @@
 //     COMMENTS:    ........
 //==================================================================================================
 Gold::Gold(int count) :
-    Item {Item::Type::GOLD, count, 0}
+    Item {Item::Type::GOLD, count, 0, count}
 {
     // Nothing to do;
 }
@@ -26,3 +26,23 @@ const StringClass Gold::getName() const
 {
     return "gold";
 }
+
+
+
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+//const int Gold::getCost() const
+//{
+//    return mb_cost;
+//}
+
+
+
+
+

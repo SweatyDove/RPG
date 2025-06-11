@@ -16,6 +16,15 @@ public:
     enum class Type {
         UNDEF,
         EXCHANGE,
+
+        TOTAL
+    };
+
+    enum class Exchange {
+        QUIT,
+        SELL,
+        BUY,
+
         TOTAL
     };
 
@@ -26,6 +35,10 @@ private:
     Creature*   mb_object   {nullptr};                  // Can be an <Item> as well
 
 
+
+    void exchange();
+    void sell();
+    void buy();
 
 
 

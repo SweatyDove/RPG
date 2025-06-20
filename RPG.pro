@@ -9,6 +9,7 @@ CONFIG -= qt
 
 SOURCES += \
     Sources/attribute.cpp \
+    Sources/container.cpp \
     Sources/creature.cpp \
     Sources/gold.cpp \
     Sources/item.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 
 HEADERS += \
     Sources/attribute.h \
+    Sources/container.h \
     Sources/creature.h \
     Sources/gold.h \
     Sources/item.h \

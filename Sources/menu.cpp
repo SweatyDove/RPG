@@ -119,25 +119,29 @@ void Menu::buy()
 
 
     while (mainLoop) {
-        std::cout << "\nWhat item do you want to buy? Enter an number or 'Q' to quit"
-                  << "\n------------------------------------------------------------"
+        std::cout << "\nWhat items do you want to buy?"
+                     "\nEnter list of item's id, separated with commas or 'Q' to quit"
+                  << "\n-------------------------------------------------------------"
                   << std::endl;
 
+        my::DynamicArray<int> itemsToBuy {};
 
         StringClass choice {};
         std::cout << "Your choice: ";
         std::cin >> choice;
 
-        if (choice == 'Q') {
+        if (choice == "Q" || choice == "q") {
             return;
         }
         else {
-            /*
-             * Тут надо бы что-то придумать. Или добавить в динамический массив конструктор, который
-             * формирует массив <типов> из строки. Но тогда придётся включать заголовочный файл
-             * "my_string.h" - а это circular dependency. То ли отдельную функцию где-то написать.
-             */
-            my::DynamicArray<int> itemsToBuy {choice};
+            try {
+                itemsToBuy = my::DynamicArray<int> {choice.cStr()};
+            }
+            catch (const my::DynamicArrayException& exception) {
+                std::cout << exception.what() << std::endl;
+                continue;
+            }
+
             for (auto itemId: itemsToBuy) {
                 mb_subject->buy(itemId, mb_object);
             }

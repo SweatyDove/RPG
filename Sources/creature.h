@@ -144,6 +144,9 @@ public:
     VectorClass<UniquePtrClass<Item>>&      getInventory();
     void                                    displayInventory();
 
+    void    buy(int itemId, Creature& trader);
+
+
 
     virtual                     ~Creature();
     virtual bool                isDead();

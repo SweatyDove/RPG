@@ -456,3 +456,48 @@ void Creature::displayInventory()
     std::cout << "-------------------------------------------------------------------------------" << std::endl;
 
 }
+
+
+
+
+//==================================================================================================
+//         TYPE:    Member function
+//  DESCRIPTION:    Buy (exchange) item from trader
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+void Creature::buy(int itemId, Creature& trader)
+{
+    my::SmartPtr<Item> itemPtr {trader.mb_inventory[itemId]};
+
+    if (itemPtr->getCount() == 0) {
+        std::cout << trader.getName() << " has not item " << itemId << std::endl;
+        return;
+    }
+    else if (this->mb_inventory[static_cast<int>(Item::Type::GOLD)] < itemPtr->getCost()) {
+        std::cout << this->getName() << " has not enough gold to buy " << itemPtr->getName() << std::endl;
+        return;
+    }
+    else {
+        // Здесь перемещаем предмет в инвентарь игрока, а деньги - в инвентарь торговца
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

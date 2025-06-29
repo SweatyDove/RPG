@@ -458,29 +458,90 @@ void Creature::displayInventory()
 }
 
 
+//==================================================================================================
+//         TYPE:    Private member function
+//  DESCRIPTION:    ADD an item, specified by @itemPtr, TO the creature's inventory
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    Need to make all <Item>'s stackable
+//==================================================================================================
+void Creature::addToInventory(const my::SmartPtr<Item>& itemPtr, int count)
+{
+    // # Special case for 'gold' because it is stackable
+    if (itemPtr->getType() == Item::Type::GOLD) {
+        for (auto& inventoryItemPtr: this->mb_inventory) {
+            if (inventoryItemPtr->getType() == Item::Type::GOLD) {
+                inventoryItemPtr->setCount(item->getCount() + count);
+                return;
+            }
+            else {}
+        }
+        // ## Didn't find 'gold'
+        this->mb_inventory.pushBack(itemPtr);
+//        this->mb_inventory.pushBack(my::move(itemPtr));
+    }
+    // # Add item in the first free cell of @mb_inventory
+    else {
+        for (auto& inventoryItemPtr: this->mb_inventory) {
+            if (*inventoryItemPtr == nullptr) {
+                inventoryItemPtr = itemPtr;
+                return;
+            }
+            else {}
+        }
+        // ## Didn't find free cell in @mb_inventory
+        this->mb_inventory.pushBack(itemPtr);
+    }
+
+    return;
+}
+
+//==================================================================================================
+//         TYPE:    Private member function
+//  DESCRIPTION:    TAKE an item, specified by @itemPtr, FROM the creature's inventory
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+const my::SmartPtr<Item>& Creature::takeFromInventory(int itemId, int count)
+{
+
+}
+
+
 
 
 //==================================================================================================
 //         TYPE:    Member function
-//  DESCRIPTION:    Buy (exchange) item from trader
+//  DESCRIPTION:    Buy (exchange for gold) item from trader
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
 void Creature::buy(int itemId, Creature& trader)
 {
-    my::SmartPtr<Item> itemPtr {trader.mb_inventory[itemId]};
 
+
+    const my::SmartPtr<Item>& itemPtr {trader.mb_inventory[itemId]};
+    int itemCost {itemPtr->getCost()};
+    int thisGold {this->mb_inventory};
+
+
+    // # Trader has no item with @itemId
     if (itemPtr->getCount() == 0) {
-        std::cout << trader.getName() << " has not item " << itemId << std::endl;
+        std::cout << "Purchase failed: " << trader.getName() << " has not item " << itemId << std::endl;
         return;
     }
+    // # This creature has not enough money to buy item
     else if (this->mb_inventory[static_cast<int>(Item::Type::GOLD)] < itemPtr->getCost()) {
-        std::cout << this->getName() << " has not enough gold to buy " << itemPtr->getName() << std::endl;
+        std::cout << "Purchase failed: " << this->getName() << " has not enough gold to buy "
+                  << itemPtr->getName() << std::endl;
         return;
     }
     else {
-        // Здесь перемещаем предмет в инвентарь игрока, а деньги - в инвентарь торговца
+        this->addToInventory(itemPtr, count);
+        const my::SmartPtr<item>& gold {this->takeFromInventory(goldId, itemCost)};
+        trader.addToInventory(this->takeFromInventory(gold, itemCost), itemPt()r->getCost);
     }
 }
 

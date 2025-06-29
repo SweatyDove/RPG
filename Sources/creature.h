@@ -5,6 +5,7 @@
 #include "item.h"
 #include "attribute.h"
 #include "menu.h"
+#include "container.h"
 
 
 //==================================================================================================
@@ -17,6 +18,9 @@
 //     COMMENTS:    ........
 //==================================================================================================
 class Creature {
+
+// ######################################  PUBLIC variables  #######################################
+// #################################################################################################
 public:
 
 //    enum class AttributeType {
@@ -54,18 +58,15 @@ public:
 //        TOTAL
 //    };
 
-private:
 
-
-
-
+// ######################################  PROTECTED variables  ####################################
+// #################################################################################################
 protected:
-    // ######## GENERAL
     Type    mb_type {};
     int     mb_level {1};
 
 
-    VectorClass<UniquePtrClass<Item>> mb_inventory;
+    Container mb_inventory;
 
 
 //    ArrayClass<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_curCharacteristic {-1, -1, -1};
@@ -113,6 +114,13 @@ protected:
 //    explicit Creature();                              // Delete
 
 
+
+// ######################################  PRIVATE variables  ######################################
+// #################################################################################################
+private:
+
+// ###################################   PUBLIC Interface   ########################################
+// #################################################################################################
 public:
 
     /***********************************************************************************************
@@ -141,10 +149,12 @@ public:
     Type                                    getType() const;
 
 
-    VectorClass<UniquePtrClass<Item>>&      getInventory();
-    void                                    displayInventory();
+    Container&                              getInventory();
+//    void                                    displayInventory();
 
     void    buy(int itemId, Creature& trader);
+
+
 
 
 
@@ -159,7 +169,15 @@ public:
 
     friend void printAttrTable(Creature& firstCreature, Creature& secondCreature);
 
+// ###################################   PROTECTED Interface   #####################################
+// #################################################################################################
+protected:
 
+// ###################################   PRIVATE Interface   #######################################
+// #################################################################################################
+private:
+    void addToInventory(const UniquePtrClass<Item>& itemPtr, int count);
+    const UniquePtrClass<Item>& takeFromInventory(const UniquePtrClass<Item>& item, int count);
 
 //    template <typename AttributeName>
 //    void changeResource(int value, AttributeType type, AttributeName name);

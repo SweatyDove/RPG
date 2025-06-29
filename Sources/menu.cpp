@@ -77,10 +77,10 @@ void Menu::exchange()
 
         switch(choice) {
         case Choice::SELL:
-            this->sell();
+            this->sell(mb_subject->getInventory(), mb_object->getInventory());
             break;
         case Choice::BUY:
-            this->buy();
+            this->buy(mb_subject->getInventory(), mb_object->getInventory());
             break;
         case Choice::QUIT:
             mainLoop = false;
@@ -104,9 +104,9 @@ void Menu::exchange()
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-void Menu::buy()
+void Menu::buy(Container& subjectContainer, Container& objectContainer)
 {
-    mb_object->displayInventory();
+    objectContainer.display();
 
     bool mainLoop {true};
     enum Choice {
@@ -124,7 +124,7 @@ void Menu::buy()
                   << "\n-------------------------------------------------------------"
                   << std::endl;
 
-        my::DynamicArray<int> itemsToBuy {};
+        VectorClass<int> itemsToBuy {};
 
         StringClass choice {};
         std::cout << "Your choice: ";
@@ -135,7 +135,7 @@ void Menu::buy()
         }
         else {
             try {
-                itemsToBuy = my::DynamicArray<int> {choice.cStr()};
+                itemsToBuy = VectorClass<int> {choice.cStr()};      // There is not such constructor in STL...
             }
             catch (const my::DynamicArrayException& exception) {
                 std::cout << exception.what() << std::endl;
@@ -160,7 +160,7 @@ void Menu::buy()
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-void Menu::sell()
+void Menu::sell(Container& subjectContainer, Container& objectContainer)
 {
     mb_subject->displayInventory();
 }

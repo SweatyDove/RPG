@@ -6,11 +6,14 @@
 /***************************************************************************************************
  * COMMENTS:
  *
- * 0 - Создать торговца
- * 1 - Добавить инвентарь и возможность управлять им (то есть не пить зелья сразу, а класть их в мешок)
+ * 0.1 - Добавить инвентарь и возможность управлять им (то есть не пить зелья сразу, а класть их в мешок)
+ * 0.2 - Заменить инвентарь с  динамического массива на контейнер
+ * 0.3 - Возникла проблема с тем, что я стал добавлять функции из своей библиотеки, которых нет в STL.
+ *       Возможно, стоит в принципе отказаться от использования STL и взаимозаменяемости?
  *
  * 1 - Add classes Mage, Warrior and Hunter, derived from player class with different
- *     attack-type and damage. And with different skillset.
+ *     attack-type and damage. And with different skillset. More like in XCOM: EU/EW but in medieval
+ *     settings
  *
  * 2 - Add a thread to exit the game when press exit
  *
@@ -52,6 +55,7 @@
  *      in Skyrim there are fixed points of chests with treasure. But I want smth in the Skyrim settings,
  *      but with cave's autogeneration (like in DRG) and treasure random generation (like in Sea Of Thieves)
  *      and so on...
+ *
  *
  *
  * QUESTIONS:

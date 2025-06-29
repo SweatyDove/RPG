@@ -70,6 +70,20 @@ int Item::getCost() const
 }
 
 
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+void Item::setCount(int newCount)
+{
+    mb_count = newCount;
+}
+
+
+
 // #### Function returns type of the item
 // #############
 //StringClass Item::getName() const

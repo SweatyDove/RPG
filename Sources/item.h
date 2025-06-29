@@ -47,6 +47,9 @@ public:
     int       getCost() const;
 
 
+    void    setCount(int newCount);
+
+
     virtual const StringClass   getName() const = 0;
 
 

@@ -460,40 +460,42 @@ void Creature::displayInventory()
 
 //==================================================================================================
 //         TYPE:    Private member function
-//  DESCRIPTION:    ADD an item, specified by @itemPtr, TO the creature's inventory
+//  DESCRIPTION:    Put an item, specified by @itemPtr, to the inventory
 //   PARAMETERS:    ........
-// RETURN VALUE:    ........
-//     COMMENTS:    Need to make all <Item>'s stackable
+// RETURN VALUE:    0 - successfully put item to inventory
+//                  1 - not enough space for the item
+//     COMMENTS:    1) Need to make all <Item>'s stackable
+//                  2) Add size of container (or size of stack) checking
 //==================================================================================================
-void Creature::addToInventory(const my::SmartPtr<Item>& itemPtr, int count)
+int Creature::PutToInventory(const my::SmartPtr<Item>& itemPtr)
 {
-    // # Special case for 'gold' because it is stackable
-    if (itemPtr->getType() == Item::Type::GOLD) {
-        for (auto& inventoryItemPtr: this->mb_inventory) {
-            if (inventoryItemPtr->getType() == Item::Type::GOLD) {
-                inventoryItemPtr->setCount(item->getCount() + count);
-                return;
-            }
-            else {}
-        }
-        // ## Didn't find 'gold'
-        this->mb_inventory.pushBack(itemPtr);
-//        this->mb_inventory.pushBack(my::move(itemPtr));
-    }
-    // # Add item in the first free cell of @mb_inventory
-    else {
-        for (auto& inventoryItemPtr: this->mb_inventory) {
-            if (*inventoryItemPtr == nullptr) {
-                inventoryItemPtr = itemPtr;
-                return;
-            }
-            else {}
-        }
-        // ## Didn't find free cell in @mb_inventory
-        this->mb_inventory.pushBack(itemPtr);
-    }
+    return mb_inventory.putItem(itemPtr);
 
-    return;
+//        for (auto& inventoryItemPtr: this->mb_inventory) {
+//            if (inventoryItemPtr->getType() == Item::Type::GOLD) {
+//                inventoryItemPtr->setCount(item->getCount() + count);
+//                return;
+//            }
+//            else {}
+//        }
+//        // ## Didn't find 'gold'
+//        this->mb_inventory.pushBack(itemPtr);
+////        this->mb_inventory.pushBack(my::move(itemPtr));
+//    }
+//    // # Add item in the first free cell of @mb_inventory
+//    else {
+//        for (auto& inventoryItemPtr: this->mb_inventory) {
+//            if (*inventoryItemPtr == nullptr) {
+//                inventoryItemPtr = itemPtr;
+//                return;
+//            }
+//            else {}
+//        }
+//        // ## Didn't find free cell in @mb_inventory
+//        this->mb_inventory.pushBack(itemPtr);
+//    }
+
+//    return;
 }
 
 //==================================================================================================

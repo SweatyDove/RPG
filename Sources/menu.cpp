@@ -124,7 +124,7 @@ void Menu::buy(Container& subjectContainer, Container& objectContainer)
                   << "\n-------------------------------------------------------------"
                   << std::endl;
 
-        VectorClass<int> itemsToBuy {};
+        my::DynamicArray<int> itemsToBuy {};
 
         StringClass choice {};
         std::cout << "Your choice: ";
@@ -134,14 +134,16 @@ void Menu::buy(Container& subjectContainer, Container& objectContainer)
             return;
         }
         else {
+            // #### Form the list of @itemId to buy
             try {
-                itemsToBuy = VectorClass<int> {choice.cStr()};      // There is not such constructor in STL...
+                itemsToBuy = my::DynamicArray<int> {choice.cStr()};      // There is not such constructor in STL...
             }
             catch (const my::DynamicArrayException& exception) {
                 std::cout << exception.what() << std::endl;
                 continue;
             }
 
+            // #### Buy each item
             for (auto itemId: itemsToBuy) {
                 mb_subject->buy(itemId, mb_object);
             }

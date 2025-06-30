@@ -737,6 +737,7 @@ void Player::trade(Trader& trader)
         std::cin >> choice;
 
         switch(choice) {
+        // Create and run an exchange menu, that is responsible for the... exchange...
         case '1':
         {
             Menu exchangeMenu {Menu::Type::EXCHANGE, this, &trader};

@@ -11,7 +11,10 @@
 //  DESCRIPTION:    Base class for different containers (inventory, bag, chests, barrels, etc.)
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
-//     COMMENTS:    ........
+//     COMMENTS:    А нужен ли мне отдельный класс для контейнеров? Или же достаточно динамического
+//                  массива для этих целей? Вопрос в том, кто ответственен за перемещение предметов
+//                  между контейнерами? Владельцы этих контейнеров через свой интерфейс или через
+//                  интерфейс, предоставляемый контейнером? Наверное, всё-таки владельцы...
 //==================================================================================================
 class Container {
 
@@ -21,6 +24,13 @@ class Container {
 
 // ######################################  PUBLIC     ##############################################
 public:
+    enum class Type {
+        UNIVERSAL,
+        POTIONS,
+        SCROLLS,
+
+        TOTAL
+    };
 
 
 // ######################################  PROTECTED   #############################################
@@ -29,6 +39,9 @@ protected:
 
 // ######################################  PRIVATE    ##############################################
 private:
+    Type    mb_type {Type::UNIVERSAL};
+    int     mb_limit {100};
+
     VectorClass<UniquePtrClass<Item>> mb_container;
 
 
@@ -41,14 +54,15 @@ private:
 
 // ######################################  PUBLIC     ##############################################
 public:
-    Container();
+    Container(Container::Type type = Type::UNIVERSAL, int limit = 100);
 
 
 
     void sort(Item::Type type);
-    void display();
+    void display() const;
     void removeItem(int itemId, int count);
-    void addItem(const UniquePtrClass<Item>& itemPtr);
+    int putItem(const UniquePtrClass<Item>& itemPtr);
+    void extractItem(int itemId);
 
 
 

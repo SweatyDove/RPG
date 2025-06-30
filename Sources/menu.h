@@ -6,7 +6,7 @@
 
 //==================================================================================================
 //         TYPE:    Class
-//  DESCRIPTION:    Responsible for the managing of the different kinds of menu
+//  DESCRIPTION:    Responsible for the managing of the different kinds of menu (dialog windows)
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
 //     COMMENTS:    Что такое меню? Это способ взаимодейстчия между сущностями (игрок и контейнер),

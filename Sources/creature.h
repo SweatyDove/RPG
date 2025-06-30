@@ -176,8 +176,8 @@ protected:
 // ###################################   PRIVATE Interface   #######################################
 // #################################################################################################
 private:
-    void addToInventory(const UniquePtrClass<Item>& itemPtr, int count);
-    const UniquePtrClass<Item>& takeFromInventory(const UniquePtrClass<Item>& item, int count);
+    int PutToInventory(const UniquePtrClass<Item>& itemPtr, int count);
+    const UniquePtrClass<Item>& PickUpFromInventory(int itemId, int count);
 
 //    template <typename AttributeName>
 //    void changeResource(int value, AttributeType type, AttributeName name);

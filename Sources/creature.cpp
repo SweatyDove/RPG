@@ -471,31 +471,7 @@ int Creature::PutToInventory(const my::SmartPtr<Item>& itemPtr)
 {
     return mb_inventory.putItem(itemPtr);
 
-//        for (auto& inventoryItemPtr: this->mb_inventory) {
-//            if (inventoryItemPtr->getType() == Item::Type::GOLD) {
-//                inventoryItemPtr->setCount(item->getCount() + count);
-//                return;
-//            }
-//            else {}
-//        }
-//        // ## Didn't find 'gold'
-//        this->mb_inventory.pushBack(itemPtr);
-////        this->mb_inventory.pushBack(my::move(itemPtr));
-//    }
-//    // # Add item in the first free cell of @mb_inventory
-//    else {
-//        for (auto& inventoryItemPtr: this->mb_inventory) {
-//            if (*inventoryItemPtr == nullptr) {
-//                inventoryItemPtr = itemPtr;
-//                return;
-//            }
-//            else {}
-//        }
-//        // ## Didn't find free cell in @mb_inventory
-//        this->mb_inventory.pushBack(itemPtr);
-//    }
 
-//    return;
 }
 
 //==================================================================================================

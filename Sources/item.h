@@ -20,14 +20,16 @@ public:
         TOTAL
     };
 private:
-    Type    mb_type;
+    Type    mb_type {Type::TRASH};
 protected:
-    int     mb_count;
-    int     mb_weight;
-    int     mb_cost;
+    bool    mb_stackable {true};
+    int     mb_count {1};
+    int     mb_weight {1};
+    int     mb_cost {0};
 
     // ######## Made it protected 'cause I don't want smb to explicitly construct <Item> object.
-    Item(Type type = Type::TRASH, int count = 1, int weight = 0, int cost = 0);
+    Item() = default;
+    Item(Type type, bool stackable, int count, int weight, int cost);
 
 public:
 
@@ -46,8 +48,9 @@ public:
     int       getWeight() const;
     int       getCost() const;
 
+    bool      isStackable() const;
 
-    void    setCount(int newCount);
+    void    setCount(int newCount);                             // Need to make virtual
 
 
     virtual const StringClass   getName() const = 0;

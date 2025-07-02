@@ -15,8 +15,11 @@
 //                  массива для этих целей? Вопрос в том, кто ответственен за перемещение предметов
 //                  между контейнерами? Владельцы этих контейнеров через свой интерфейс или через
 //                  интерфейс, предоставляемый контейнером? Наверное, всё-таки владельцы...
+//
+//                  If I got a container - should I use array or dynamic array? Yes, I have limit,
+//                  but creation 99/100 free cells is a waste of space in stack.
 //==================================================================================================
-class Container {
+class Container final {
 
 // #################################################################################################
 // ######################################  VARIABLES  ##############################################
@@ -32,6 +35,15 @@ public:
         TOTAL
     };
 
+    enum ErrorCode {
+        OPERATION_SUCCEED,
+        REACHED_WEIGHT_LIMIT,
+        REACHED_SPACE_LIMIT,
+        INCORRECT_ITEM_TYPE,
+
+        TOTAL
+    };
+
 
 // ######################################  PROTECTED   #############################################
 protected:
@@ -39,8 +51,14 @@ protected:
 
 // ######################################  PRIVATE    ##############################################
 private:
-    Type    mb_type {Type::UNIVERSAL};
-    int     mb_limit {100};
+    Type        mb_type             {Type::UNIVERSAL};
+    StringClass mb_name             {"Container"};
+
+    int         mb_spaceOccupied    {0};
+    int         mb_spaceLimit       {100};
+
+    int         mb_weightOccupied   {0};
+    int         mb_weightLimit      {100};
 
     VectorClass<UniquePtrClass<Item>> mb_container;
 
@@ -54,14 +72,18 @@ private:
 
 // ######################################  PUBLIC     ##############################################
 public:
-    Container(Container::Type type = Type::UNIVERSAL, int limit = 100);
+    Container() = default;
+    Container(StringClass name);
+    Container(Type type, int spaceLimit, int weightLimit);
 
+
+    const StringClass& getName();
 
 
     void sort(Item::Type type);
     void display() const;
     void removeItem(int itemId, int count);
-    int putItem(const UniquePtrClass<Item>& itemPtr);
+    ErrorCode putItem(const UniquePtrClass<Item>& itemPtr);
     void extractItem(int itemId);
 
 

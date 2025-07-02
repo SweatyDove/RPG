@@ -10,8 +10,8 @@
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-Item::Item(Item::Type type, int count, int weight, int cost) :
-    mb_type {type}, mb_count {count}, mb_weight {weight}, mb_cost {cost}
+Item::Item(Item::Type type, bool stackable, int count, int weight, int cost) :
+    mb_type {type}, mb_stackable {stackable}, mb_count {count}, mb_weight {weight}, mb_cost {cost}
 {
     // Nothing to do;
 }
@@ -76,6 +76,21 @@ int Item::getCost() const
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
+//==================================================================================================
+bool Item::isStackable() const
+{
+    return mb_stackable;
+}
+
+
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    Make this function virtual, because I need firstly to check the max size of
+//                  stack (1000 for <Gold> for example, 20 for <Potion> and etc.)
 //==================================================================================================
 void Item::setCount(int newCount)
 {

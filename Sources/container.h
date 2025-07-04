@@ -40,6 +40,8 @@ public:
         REACHED_WEIGHT_LIMIT,
         REACHED_SPACE_LIMIT,
         INCORRECT_ITEM_TYPE,
+        INVALID_ITEM_POSITION,
+        CELL_IS_EMPTY,
 
         TOTAL
     };
@@ -82,9 +84,10 @@ public:
 
     void sort(Item::Type type);
     void display() const;
-    void removeItem(int itemId, int count);
+
+    ErrorCode removeItem(int itemPosition, int count);
     ErrorCode putItem(const UniquePtrClass<Item>& itemPtr);
-    void extractItem(int itemId);
+    const UniquePtrClass<Item>& extractItem(int itemPosition);
 
 
 

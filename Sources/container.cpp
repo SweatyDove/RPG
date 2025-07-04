@@ -55,9 +55,9 @@ const StringClass& Container::getName()
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
 //     COMMENTS:    What should I keep in mind
-//                  1)  If <Item> is stackable, then I can ignore situations, when occupied == limit,
-//                      otherwise I need firstly to ckeck if there are some free cells.
-//                  2)
+//                  1) There is a problem with item's weight, because I need to decide if getWeight()
+//                      returns weight of stack or item in stack.
+//                  2) Simplify logic
 //==================================================================================================
 int Container::putItem(const UniquePtrClass<Item>& itemPtr)
 {
@@ -73,14 +73,13 @@ int Container::putItem(const UniquePtrClass<Item>& itemPtr)
         std::cout << "Can't put item in the " << this->getName() << ": reached the weight limit." << std::endl;
         return ErrorCode::REACHED_WEIGHT_LIMIT;
     }
-    else if (itemPtr->isStackable() == false && mb_spaceOccupied == mb_spaceLimit) {
-        std::cout << "Can't put item in the " << this->getName() << ": reached the space limit." << std::endl;
-        return ErrorCode::REACHED_SPACE_LIMIT;
-    }
     else {}
 
 
+    // # Firstly - try to stack item if it is stackable
     if (itemPtr->isStackable()) {
+
+        Item::Type itemType {itemPtr->getType()};
 
         // # Go through each cell of the container
         for (auto& cell: this->mb_container) {
@@ -89,50 +88,88 @@ int Container::putItem(const UniquePtrClass<Item>& itemPtr)
             if (cell.isFree()) {
                 continue;
             }
-            else {}
-
-            //
-            if (inventoryItemPtr->getType() == Item::Type::GOLD) {
-                inventoryItemPtr->setCount(inventoryItemPtr->getCount() + itemPtr->getCount());
-                return 0;
+            else if (cell->getType() != itemType) {
+                continue;
             }
-            else {}
-        }
-        // ## Didn't find 'gold'
-        this->mb_inventory.pushBack(itemPtr);
-
-
-
-
-    // # Special case for <Gold>
-    if (itemPtr->getType() == Item::Type::GOLD) {
-        for (const auto& inventoryItemPtr: this->mb_container) {
-            if (inventoryItemPtr->getType() == Item::Type::GOLD) {
-                inventoryItemPtr->setCount(inventoryItemPtr->getCount() + itemPtr->getCount());
-                return 0;
+            else {
+                /*
+                 * If I can't stack item cause of stack limit: or skip this step and go further
+                 * or stack partially.
+                 */
+                cell->setCount(cell->getCount() + itemPtr->getCount());
+                return ErrorCode::OPERATION_SUCCEED;
             }
-            else {}
-        }
-        // ## Didn't find 'gold'
-        this->mb_inventory.pushBack(itemPtr);
-    //        this->mb_inventory.pushBack(my::move(itemPtr));
-
-
-
+        } // for-loop
     }
-    // # Add item in the first free cell of @mb_inventory
+    else {}
+
+
+    // # If item is NOT stackable OR couldn't find it in container - check space limit and then put
+    // # item in the first free cell
+    if (mb_spaceOccupied >= mb_spaceLimit) {
+        std::cout << "Can't put item in the " << this->getName() << ": reached the space limit." << std::endl;
+        return ErrorCode::REACHED_SPACE_LIMIT;
+    }
     else {
-        for (auto& inventoryItemPtr: this->mb_inventory) {
-            if (*inventoryItemPtr == nullptr) {
-                inventoryItemPtr = itemPtr;
-                return;
+        // # Go through each cell of the container
+        for (auto& cell: this->mb_container) {
+
+            // ## Check if there is something in the container cell
+            if (cell.isFree()) {
+                cell = itemPtr;
+//                cell = my::move(itemPtr);
+                mb_spaceOccupied += 1;
+                mb_weightOccupied += itemPtr->getWeight();
+                return ErrorCode::OPERATION_SUCCEED;
             }
             else {}
-        }
-        // ## Didn't find free cell in @mb_inventory
-        this->mb_inventory.pushBack(itemPtr);
+        } // for-loop
     }
-
-    return;
 
 }
+
+
+//==================================================================================================
+//         TYPE:    Public member function
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+const UniquePtrClass<Item>& Container::extractItem(int itemPosition)
+{
+    // # Invalid position (May be I have to use assert() here? Who is responsible for the checking
+    // # of the position validity: <Container> or caller?)
+    if (itemPosition < 0 || itemPosition >= mb_spaceLimit) {
+//        return ErrorCode::INVALID_ITEM_POSITION;
+    }
+    else {}
+
+    try {
+        UniquePtrClass<Item> cell {mb_container[itemPosition]};
+//        UniquePtrClass<Item> extractedItem {my::move(mb_container[itemPosition])};
+        if (cell.isFree()) {
+//            return ErrorCode::CELL_IS_EMPTY ;
+        }
+        else {
+            return cell;
+        }
+    }
+    // # Here catch an exception, when position is valid, but @mb_container.size() < position
+    catch (const DynamicArrayException<Item>& exception) {
+//        return ErrorCode::CELL_IS_EMPTY;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+

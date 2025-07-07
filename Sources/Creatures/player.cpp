@@ -14,7 +14,7 @@
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-Player::Player(Race race, Spec spec, StringClass name) :
+Player::Player(Race race, Spec spec, my::String name) :
     Creature {Creature::Type::PLAYER, 1},
     mb_race {race},
     mb_spec {spec},
@@ -146,7 +146,7 @@ bool Player::newDay()
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-const StringClass& Player::getName() const
+const my::String& Player::getName() const
 {
     return mb_name;
 }
@@ -160,7 +160,7 @@ const StringClass& Player::getName() const
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-void Player::setName(StringClass& name)
+void Player::setName(my::String& name)
 {
     mb_name = name;
 }

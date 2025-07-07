@@ -2,11 +2,11 @@
 #define TRADER_H
 
 
-#include "main.h"
+#include "../main.h"
 #include "creature.h"
-#include "item.h"
-#include "gold.h"
-#include "potion.h"
+#include "../Items/item.h"
+#include "../Items/gold.h"
+#include "../Items/potion.h"
 
 
 
@@ -19,8 +19,8 @@
 //==================================================================================================
 class Trader: public Creature {
 private:
-//    VectorClass<UniquePtrClass<Item>> mb_inventory {};
-    StringClass mb_name {"Trader"};
+//    my::DynamicArray<my::SmartPtr<Item>> mb_inventory {};
+    my::String mb_name {"Trader"};
 
 
     void generateInventory();
@@ -29,7 +29,7 @@ public:
     ~Trader() override;
 
     void                commitSuicide() override;
-    const StringClass&  getName() const override;
+    const my::String&  getName() const override;
 
 };
 

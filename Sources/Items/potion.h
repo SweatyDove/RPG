@@ -2,7 +2,7 @@
 #ifndef POTION_H
 #define POTION_H
 
-#include "main.h"
+#include "../main.h"
 #include "item.h"
 
 
@@ -55,7 +55,7 @@ public:
 
 
 
-    const StringClass   getName() const override;
+    const my::String   getName() const override;
 
 
     int                     getEffect() const;

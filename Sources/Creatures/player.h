@@ -2,10 +2,10 @@
 #define PLAYER_H
 
 
-#include "main.h"
-#include "potion.h"
+#include "../main.h"
+#include "../Items/potion.h"
 #include "creature.h"
-#include "gold.h"
+#include "../Items/gold.h"
 #include "monster.h"
 #include "trader.h"
 
@@ -13,7 +13,7 @@
 // ######## Why am I defining player's default values outside of class player? I don't remember...
 namespace player_default {
     const int           LEVEL {1};
-    const StringClass   NAME {"Stranger"};
+    const my::String   NAME {"Stranger"};
     const int           HEALTH {100};
     const int           MANA {50};
     const int           STAMINA {50};
@@ -60,10 +60,10 @@ protected:
 
 //        TOTAL
 //    };
-//    ArrayClass<int, static_cast<int>(Ratings::TOTAL)> mb_rating {0, 0, player_default::ESCAPE_CHANCE};
+//    my::Array<int, static_cast<int>(Ratings::TOTAL)> mb_rating {0, 0, player_default::ESCAPE_CHANCE};
 
 
-    ArrayClass<Attribute, 3> mb_ratings = {
+    my::Array<Attribute, 3> mb_ratings = {
         {
             Attribute(Attr::NameId::DODGE_CHANCE, Attribute::Type::RATING, -1, -1, -1),
             Attribute(Attr::NameId::CRIT_CHANCE, Attribute::Type::RATING, -1, -1, -1),
@@ -72,7 +72,7 @@ protected:
     };
 
 
-    ArrayClass<Attribute, 3> mb_skills = {
+    my::Array<Attribute, 3> mb_skills = {
         {
             {Attr::NameId::ALCHEMY, Attribute::Type::SKILL, -1, -1, -1},
             {Attr::NameId::CHARISMA, Attribute::Type::SKILL, -1, -1, -1},
@@ -89,21 +89,21 @@ protected:
 
 //        TOTAL
 //    };
-//    ArrayClass<int, static_cast<int>(Skills::TOTAL)> mb_skill {0, 0, 0};
+//    my::Array<int, static_cast<int>(Skills::TOTAL)> mb_skill {0, 0, 0};
 
 
 private:
     // ######## GENERAL
     Race            mb_race         {Player::Race::ORC};
     Spec            mb_spec         {Player::Spec::WARRIOR};                // Temporary
-    StringClass     mb_name         {player_default::NAME};
+    my::String     mb_name         {player_default::NAME};
 
     int             mb_curExp       {0};
     int             mb_nextLevelExp {1000};             // Const for now
     int             mb_timeLived    {player_default::DAY_LIVED};
 
     // ######## SKILLS
-    //ArrayClass<int, static_cast<int>(Skills::TOTAL)> mb_skillLevel;
+    //my::Array<int, static_cast<int>(Skills::TOTAL)> mb_skillLevel;
 
     // ######## INVENTORY
     int             mb_gold         {};
@@ -112,15 +112,15 @@ private:
 public:
 
     // ########  Constructors and Destructors  ########
-    Player(Race race, Spec spec, StringClass name);
+    Player(Race race, Spec spec, my::String name);
     virtual ~Player();
 
 
-    const StringClass&      getName() const override;
+    const my::String&      getName() const override;
     Spec                    getSpec() const;
     int                     getTimeLived() const;
 
-    void                    setName(StringClass& name);
+    void                    setName(my::String& name);
     void                    setRace(Player::Race race);
     virtual void            attack(Monster& monster) = 0;
     virtual bool            superAttack(Monster& monster) = 0;

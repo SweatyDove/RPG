@@ -41,9 +41,9 @@ Attribute::Type Attribute::getType() const
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-const StringClass& Attribute::getName() const
+const my::String& Attribute::getName() const
 {
-//    const StringClass& debug = mb_attrName[static_cast<unsigned int>(mb_nameId)];
+//    const my::String& debug = mb_attrName[static_cast<unsigned int>(mb_nameId)];
     return mb_attrName[static_cast<unsigned int>(mb_nameId)];
 }
 
@@ -56,7 +56,7 @@ const StringClass& Attribute::getName() const
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-const StringClass& Attr::getName(NameId nameId)
+const my::String& Attr::getName(NameId nameId)
 {
     return Attr::mb_attrName[static_cast<int>(nameId)];
 

@@ -8,39 +8,39 @@ CONFIG -= qt
 
 
 SOURCES += \
+    Sources/Creatures/creature.cpp \
+    Sources/Creatures/monster.cpp \
+    Sources/Creatures/player.cpp \
+    Sources/Creatures/trader.cpp \
+    Sources/Creatures/warrior.cpp \
+    Sources/Items/gold.cpp \
+    Sources/Items/item.cpp \
+    Sources/Items/potion.cpp \
+    Sources/Items/scroll.cpp \
+    Sources/Items/trash.cpp \
     Sources/attribute.cpp \
     Sources/container.cpp \
-    Sources/creature.cpp \
-    Sources/gold.cpp \
-    Sources/item.cpp \
     Sources/main.cpp \
     Sources/menu.cpp \
-    Sources/monster.cpp \
-    Sources/player.cpp \
-    Sources/potion.cpp \
-    Sources/scroll.cpp \
     Sources/spell.cpp \
-    Sources/trader.cpp \
-    Sources/trash.cpp \
-    Sources/warrior.cpp \
     Sources/world.cpp \
 
 HEADERS += \
+    Sources/Creatures/creature.h \
+    Sources/Creatures/monster.h \
+    Sources/Creatures/player.h \
+    Sources/Creatures/trader.h \
+    Sources/Creatures/warrior.h \
+    Sources/Items/gold.h \
+    Sources/Items/item.h \
+    Sources/Items/potion.h \
+    Sources/Items/scroll.h \
+    Sources/Items/trash.h \
     Sources/attribute.h \
     Sources/container.h \
-    Sources/creature.h \
-    Sources/gold.h \
-    Sources/item.h \
     Sources/main.h \
     Sources/menu.h \
-    Sources/monster.h \
-    Sources/player.h \
-    Sources/potion.h \
-    Sources/scroll.h \
     Sources/spell.h \
-    Sources/trader.h \
-    Sources/trash.h \
-    Sources/warrior.h \
     Sources/world.h \
 
 

@@ -70,19 +70,19 @@
 
 
 #include "main.h"
-#include "monster.h"
-#include "player.h"
-#include "warrior.h"
+#include "Creatures/monster.h"
+#include "Creatures/player.h"
+#include "Creatures/warrior.h"
 
-#include "item.h"
-#include "gold.h"
-#include "potion.h"
+#include "Items/item.h"
+#include "Items/gold.h"
+#include "Items/potion.h"
 #include "world.h"
 
 
 //Player::Race choosePlayerRace();
 //Player::Spec choosePlayerSpec();
-//StringClass   choosePlayerName();
+//my::String   choosePlayerName();
 
 #if defined(PREDEF_PLATFORM_WINDOWS)
     HANDLE hConsole;
@@ -147,10 +147,10 @@ int main()
 
 //    Player::Race    playerRace  {choosePlayerRace()};
 //    Player::Spec    playerSpec  {choosePlayerSpec()};
-//    StringClass     playerName  {choosePlayerName()};
+//    my::String     playerName  {choosePlayerName()};
     Player::Race    playerRace  {Player::Race::HUMAN};
     Player::Spec    playerSpec  {Player::Spec::WARRIOR};
-    StringClass     playerName  {"Alex"};
+    my::String     playerName  {"Alex"};
 
 
 

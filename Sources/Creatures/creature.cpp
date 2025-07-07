@@ -349,7 +349,7 @@ void Creature::commitSuicide()
 //  RETURN VALUE:    ........
 // COMMENTS/BUGS:    ........
 //==================================================================================================
-bool Creature::hasAttr(const StringClass& attrName)
+bool Creature::hasAttr(const my::String& attrName)
 {
     bool retVal {false};
 
@@ -375,7 +375,7 @@ bool Creature::hasAttr(const StringClass& attrName)
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-const StringClass& Creature::getTypeName() const
+const my::String& Creature::getTypeName() const
 {
     return TYPE_NAME[static_cast<int>(mb_type)];
 }
@@ -416,7 +416,7 @@ void Creature::printAttr()
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-VectorClass<UniquePtrClass<Item>>& Creature::getInventory()
+my::DynamicArray<my::SmartPtr<Item>>& Creature::getInventory()
 {
     return mb_inventory;
 }
@@ -432,10 +432,10 @@ VectorClass<UniquePtrClass<Item>>& Creature::getInventory()
 //==================================================================================================
 void Creature::displayInventory()
 {
-    StringClass titleId     {"ID"};
-    StringClass titleName   {"NAME"};
-    StringClass titleCount  {"COUNT"};
-    StringClass titleCost   {"COST"};
+    my::String titleId     {"ID"};
+    my::String titleName   {"NAME"};
+    my::String titleCount  {"COUNT"};
+    my::String titleCost   {"COST"};
 
     std::cout << "\nInventory of " << this->getName()
               << "\n-------------------------------------------------------------------------------\n"
@@ -467,7 +467,7 @@ void Creature::displayInventory()
 //     COMMENTS:    1) Need to make all <Item>'s stackable
 //                  2) Add size of container (or size of stack) checking
 //==================================================================================================
-int Creature::PutToInventory(const my::SmartPtr<Item>& itemPtr)
+int Creature::putToInventory(const my::SmartPtr<Item>& itemPtr)
 {
     return mb_inventory.putItem(itemPtr);
 
@@ -476,13 +476,14 @@ int Creature::PutToInventory(const my::SmartPtr<Item>& itemPtr)
 
 //==================================================================================================
 //         TYPE:    Private member function
-//  DESCRIPTION:    TAKE an item, specified by @itemPtr, FROM the creature's inventory
+//  DESCRIPTION:    TAKE an item on @itemPos position FROM the creature's inventory
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-const my::SmartPtr<Item>& Creature::takeFromInventory(int itemId, int count)
+const my::SmartPtr<Item>& Creature::takeFromInventory(int itemPos)
 {
+    return mb_inventory.extractItem(itemPos);
 
 }
 
@@ -496,13 +497,23 @@ const my::SmartPtr<Item>& Creature::takeFromInventory(int itemId, int count)
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-void Creature::buy(int itemId, Creature& trader)
+void Creature::buy(int itemPos, Creature& trader)
 {
 
+    // # Take item from the trader
+    const my::SmartPtr<Item>& itemPtr {trader.takeFromInventory(itemPos)};
+    if (itemPtr == false) {
+        std::cout << "Couldn't buy item - there is not such one." << std::endl;
+        return;
+    }
+    else {}
 
-    const my::SmartPtr<Item>& itemPtr {trader.mb_inventory[itemId]};
+    // # Check if @this creature has enough money to buy the item
+    int goldPos = this->mb_inventory.findItem(Item::Type::GOLD);
+    if (goldPos != -1) {
+        int thisGold {this->mb_inventory.extractItem()};
+    }
     int itemCost {itemPtr->getCost()};
-    int thisGold {this->mb_inventory};
 
 
     // # Trader has no item with @itemId

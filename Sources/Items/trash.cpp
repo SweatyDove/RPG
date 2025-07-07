@@ -25,7 +25,7 @@ Trash::Trash(Trash::Type type, int count, int weight, int cost) :
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-const StringClass Trash::getName() const
+const my::String Trash::getName() const
 {
     return "trash";
 }

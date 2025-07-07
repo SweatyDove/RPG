@@ -15,7 +15,7 @@ Monster::Monster():
     //mb_damage = this->setDamage(mb_type, mb_level);
     this->setHealth(mb_type, mb_level);
 
-    StringClass spellName {};
+    my::String spellName {};
     Spell::School spellSchool {};
     int spellBaseEffect {};
     int spellBaseCost {};
@@ -254,7 +254,7 @@ void Monster::setHealth(Type type, int level)
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-const StringClass& Monster::getName() const
+const my::String& Monster::getName() const
 {
     return mb_name[static_cast<unsigned int>(mb_type)];
 }
@@ -333,7 +333,7 @@ void Monster::generateLoot()
             // Can't create Gold object in stack, 'cause it will be destroyed after exiting current
             // function - that's why should use dynamic allocated memory (in such case GOLD - is
             // resource and therewhy it is a good idea to use smart poiner for it)
-            UniquePtrClass<Item> gold {new Gold(my::getRandomNumber(0, mb_level * 10))};
+            my::SmartPtr<Item> gold {new Gold(my::getRandomNumber(0, mb_level * 10))};
 
             // # Проблема в том, что в my::DynamicArray::pushBack происходит два копирования элементов
             // # (при реаллокации и при непосредственном копировании аргумента в массив). Но почему
@@ -343,7 +343,7 @@ void Monster::generateLoot()
         break;
         case Item::Type::POTION:
             if (my::getRandomNumber(0, 100) <= Potion::mb_defaultPotionChance) {
-                UniquePtrClass<Item> potion {new Potion(mb_level)};
+                my::SmartPtr<Item> potion {new Potion(mb_level)};
                 mb_loot.push_back(std::move(potion));
             }
             else {}

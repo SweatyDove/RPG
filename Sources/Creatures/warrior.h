@@ -1,8 +1,8 @@
 
 
-#include "main.h"
+#include "../main.h"
 #include "player.h"
-#include "spell.h"
+#include "../spell.h"
 #include "monster.h"
 
 namespace warrior_default {
@@ -17,7 +17,7 @@ class Warrior : public Player {
 private:
 
     // ######## BASE attack
-    inline static ArrayClass<float, static_cast<int>(Attr::NameId::TOTAL)> mb_baseAttackMultiplier {
+    inline static my::Array<float, static_cast<int>(Attr::NameId::TOTAL)> mb_baseAttackMultiplier {
         {
             0.0,    // HEALTH
             0.0,    // STAMINA
@@ -40,7 +40,7 @@ private:
     Spell       mb_baseAttack       {mb_attribute, mb_baseAttackMultiplier, "BASE STRIKE", Spell::School::PHYSICAL, 10, 0};
 
     // ######## SPECIAL attack
-    inline static ArrayClass<float, static_cast<int>(Attr::NameId::TOTAL)> mb_specialAttackMultiplier {
+    inline static my::Array<float, static_cast<int>(Attr::NameId::TOTAL)> mb_specialAttackMultiplier {
         {
             0.0,    // HEALTH
             0.0,    // STAMINA
@@ -64,7 +64,7 @@ private:
 
 public:
     // #############  Constructors and Destructors  ##############
-    Warrior(Player::Race race, Player::Spec spec, StringClass name);
+    Warrior(Player::Race race, Player::Spec spec, my::String name);
     ~Warrior() override;
 
     void                        commitSuicide() override;

@@ -2,7 +2,7 @@
 #define SPELL_H
 
 #include "main.h"
-#include "creature.h"
+#include "Creatures/creature.h"
 #include "attribute.h"
 
 
@@ -22,10 +22,10 @@ public:
 
 private:
 
-    const VectorClass<Attribute>&                                     mb_attributes;           // The aray of characteristics need to be passed into <Spell> constructor
-    const ArrayClass<float, static_cast<int>(Attr::NameId::TOTAL)>&     mb_multipliers;          // The multiplier array is hard-binded with concrete spell
+    const my::DynamicArray<Attribute>&                                     mb_attributes;           // The aray of characteristics need to be passed into <Spell> constructor
+    const my::Array<float, static_cast<int>(Attr::NameId::TOTAL)>&     mb_multipliers;          // The multiplier array is hard-binded with concrete spell
 
-    StringClass                                                 mb_name {};
+    my::String                                                 mb_name {};
     School                                                      mb_school {School::UNDEF};
     int                                                         mb_baseEffect {};
     int                                                         mb_baseCost {};
@@ -43,9 +43,9 @@ public:
      */
     //Spell() = default;
 
-    Spell(const VectorClass<Attribute>& attributes,
-          const ArrayClass<float, static_cast<int>(Attr::NameId::TOTAL)>& multipliers,
-          StringClass name = "",
+    Spell(const my::DynamicArray<Attribute>& attributes,
+          const my::Array<float, static_cast<int>(Attr::NameId::TOTAL)>& multipliers,
+          my::String name = "",
           School school = School::UNDEF,
           int baseEffect = 0,
           int baseCost = 0
@@ -56,11 +56,11 @@ public:
 
 
 
-    const StringClass& getName() const;
+    const my::String& getName() const;
     int getCost(int level);
     int getEffect(int level) const;
 
-    void setName(StringClass name);
+    void setName(my::String name);
     void setSchool(School school);
     void setBaseEffect(int effect);
     void setBaseCost(int cost);

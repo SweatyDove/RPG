@@ -8,9 +8,9 @@
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-Spell::Spell(const VectorClass<Attribute>& attributes,
-             const ArrayClass<float, static_cast<int>(Attr::NameId::TOTAL)>& multipliers,
-             StringClass name,
+Spell::Spell(const my::DynamicArray<Attribute>& attributes,
+             const my::Array<float, static_cast<int>(Attr::NameId::TOTAL)>& multipliers,
+             my::String name,
              School school,
              int baseEffect,
              int baseCost
@@ -106,7 +106,7 @@ int Spell::getEffect(int level) const
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-const StringClass& Spell::getName() const
+const my::String& Spell::getName() const
 {
     return mb_name;
 }
@@ -118,7 +118,7 @@ const StringClass& Spell::getName() const
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-void Spell::setName(StringClass name)
+void Spell::setName(my::String name)
 {
     mb_name = name;
 }
@@ -174,7 +174,7 @@ void Spell::setBaseCost(int cost)
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-//void Spell::setCharacteristics(const ArrayClass<int, Param::TOTAL>& newCharacteristics)
+//void Spell::setCharacteristics(const my::Array<int, Param::TOTAL>& newCharacteristics)
 //{
 //    mb_characteristics = newCharacteristics;
 //}

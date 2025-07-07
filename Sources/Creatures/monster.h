@@ -2,13 +2,13 @@
 #ifndef MONSTER_H
 #define MONSTER_H
 
-#include "main.h"
+#include "../main.h"
 #include "player.h"
-#include "item.h"
+#include "../Items/item.h"
 //#include "potion.h"
 //#include "gold.h"
 #include "creature.h"
-#include "spell.h"
+#include "../spell.h"
 
 
 
@@ -29,7 +29,7 @@ public:
         TOTAL
     };
 
-    ArrayClass<int, static_cast<int>(Monster::Type::TOTAL)> mb_baseHealth {
+    my::Array<int, static_cast<int>(Monster::Type::TOTAL)> mb_baseHealth {
 
             10,     // SKELETON
             30,     // ZOMBIE
@@ -37,7 +37,7 @@ public:
 
     };
 
-    ArrayClass<StringClass, static_cast<unsigned int>(Type::TOTAL)> mb_name {
+    my::Array<my::String, static_cast<unsigned int>(Type::TOTAL)> mb_name {
         {
             {"SKELETON"},
             {"ZOMBIE"},
@@ -51,7 +51,7 @@ public:
         int     damage;
     };
 
-    ArrayClass<MonsterBase, static_cast<std::size_t>(Type::TOTAL)> base {
+    my::Array<MonsterBase, static_cast<std::size_t>(Type::TOTAL)> base {
         {
             {Type::SKELETON, 10, 10},
             {Type::ZOMBIE, 5, 30},
@@ -60,7 +60,7 @@ public:
     };
 
     // ######## BASE attack multipliers
-    inline static ArrayClass<float, static_cast<int>(Attr::NameId::TOTAL)> mb_baseAttackMultiplier {0};
+    inline static my::Array<float, static_cast<int>(Attr::NameId::TOTAL)> mb_baseAttackMultiplier {0};
 
     //Monster::Type getRandomType();
 
@@ -92,7 +92,7 @@ private:
 public:
     // I generate several things of different types, but all things have the same BASE type..
     // Can't use reference 'casue componets of std::vector (and other containers) must be ASSIGNABLE
-    VectorClass<UniquePtrClass<Item>>     mb_loot;
+    my::DynamicArray<my::SmartPtr<Item>>     mb_loot;
 
     // #########  Constructors and Destructors  #############
 
@@ -115,7 +115,7 @@ public:
 
     int             getDamage() const;
 
-    const StringClass&     getName() const override;
+    const my::String&     getName() const override;
 
     int             getLevel() const;
     Type            getType() const;
@@ -189,7 +189,7 @@ public:
 //    {
 
 //        // #### Array of default monsters (with their stats)
-//        static const ArrayClass<Monster, static_cast<std::size_t>(Type::MAX_TYPE)> defaultMonster {
+//        static const my::Array<Monster, static_cast<std::size_t>(Type::MAX_TYPE)> defaultMonster {
 //            {
 //                      { Type::SKELETON, SKELETON_BASE_HEALTH, SKELETON_BASE_DAMAGE},
 //                      { Type::ZOMBIE, ZOMBIE_BASE_HEALTH, ZOMBIE_BASE_DAMAGE},

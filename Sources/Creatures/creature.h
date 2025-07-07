@@ -1,11 +1,11 @@
 #ifndef CREATURE_H
 #define CREATURE_H
 
-#include "main.h"
-#include "item.h"
-#include "attribute.h"
-#include "menu.h"
-#include "container.h"
+#include "../main.h"
+#include "../Items/item.h"
+#include "../attribute.h"
+#include "../menu.h"
+#include "../container.h"
 
 
 //==================================================================================================
@@ -40,7 +40,7 @@ public:
         TOTAL
 
     };
-    ArrayClass<StringClass, static_cast<int>(Type::TOTAL)> TYPE_NAME = {
+    my::Array<my::String, static_cast<int>(Type::TOTAL)> TYPE_NAME = {
         {
             "RANDOM",
             "PLAYER",
@@ -69,8 +69,8 @@ protected:
     Container mb_inventory;
 
 
-//    ArrayClass<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_curCharacteristic {-1, -1, -1};
-//    ArrayClass<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_maxCharacteristic {-1, -1, -1};
+//    my::Array<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_curCharacteristic {-1, -1, -1};
+//    my::Array<int, static_cast<unsigned int>(Characteristic::TOTAL)> mb_maxCharacteristic {-1, -1, -1};
 
 
 //    // #### RESOURCES
@@ -82,11 +82,11 @@ protected:
 
 //        TOTAL
 //    };
-//    ArrayClass<int, static_cast<unsigned int>(Resource::TOTAL)> mb_curResource {100, -1, -1, -1};
-//    ArrayClass<int, static_cast<unsigned int>(Resource::TOTAL)> mb_maxResource {100, -1, -1, -1};
+//    my::Array<int, static_cast<unsigned int>(Resource::TOTAL)> mb_curResource {100, -1, -1, -1};
+//    my::Array<int, static_cast<unsigned int>(Resource::TOTAL)> mb_maxResource {100, -1, -1, -1};
 
 
-    VectorClass<Attribute> mb_attribute = {
+    my::DynamicArray<Attribute> mb_attribute = {
             {Attr::NameId::HEALTH, Attr::Type::RESOURCE, 100, 100, 100},
 
             {Attr::NameId::STAMINA, Attr::Type::RESOURCE, -1, -1, -1},
@@ -102,8 +102,8 @@ protected:
 
 
 
-    //int getAttribute(StringClass name, Attribute::ValueType valueType) const;
-    //void changeAttribute(StringClass name, Attribute::ValueType valueType, int delta);
+    //int getAttribute(my::String name, Attribute::ValueType valueType) const;
+    //void changeAttribute(my::String name, Attribute::ValueType valueType, int delta);
 
     /*
      * Creature constructor is protected 'cause I don't want smb to create <Creature> explicitly,
@@ -141,11 +141,11 @@ public:
     int     modMaxAttr(Attr::NameId name, int delta);
     int     modBaseAttr(Attr::NameId name, int delta);
 
-    bool    hasAttr(const StringClass& attrName);
+    bool    hasAttr(const my::String& attrName);
 
 
     int                                     getLevel() const;
-    const StringClass&                      getTypeName() const;
+    const my::String&                      getTypeName() const;
     Type                                    getType() const;
 
 
@@ -162,7 +162,7 @@ public:
     virtual bool                isDead();
     virtual bool                isAlive();
     virtual void                commitSuicide() = 0;            // Pure virtual function
-    virtual const StringClass&  getName() const = 0;            // Pure virtual function
+    virtual const my::String&  getName() const = 0;            // Pure virtual function
     virtual void                printAttr();
 
 
@@ -176,8 +176,9 @@ protected:
 // ###################################   PRIVATE Interface   #######################################
 // #################################################################################################
 private:
-    int PutToInventory(const UniquePtrClass<Item>& itemPtr, int count);
-    const UniquePtrClass<Item>& PickUpFromInventory(int itemId, int count);
+    int                         putToInventory(const my::SmartPtr<Item>& itemPtr);
+    const my::SmartPtr<Item>&   takeFromInventory(int itemPos);
+//    int                         findInInventory();
 
 //    template <typename AttributeName>
 //    void changeResource(int value, AttributeType type, AttributeName name);
@@ -213,7 +214,7 @@ inline void printAttrTable(Creature& firstCreature, Creature& secondCreature)
     for (int ii {0}; ii < static_cast<int>(Attr::NameId::TOTAL); ++ii) {
         Attr::NameId nameId {ii};
 
-        const StringClass& attrName {Attr::mb_attrName[ii]};
+        const my::String& attrName {Attr::mb_attrName[ii]};
 
         // ## Check if some of the creatures has attribute with @attrName
         if (firstCreature.hasAttr(attrName) || secondCreature.hasAttr(attrName)) {
@@ -229,8 +230,8 @@ inline void printAttrTable(Creature& firstCreature, Creature& secondCreature)
             // #### If one or both creatures have enabled attribute (!= -1), then print it for both
             if (firstAttrHasValue == true || secondAttrHasValue == true) {
 
-                StringClass     firstAttrOut        {};
-                StringClass     secondAttrOut       {};
+                my::String     firstAttrOut        {};
+                my::String     secondAttrOut       {};
 
                 // ######## Output for 1-st creature's attr
                 if (firstAttrHasValue) {

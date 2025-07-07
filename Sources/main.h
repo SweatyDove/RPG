@@ -23,18 +23,19 @@
     #include "my_smartptr.h"
     #include "my_prettyprint.h"
     #include "my_utilities.h"
+    #include "my_exception.h"
 
 
-    using StringClass = my::String;
+//    using StringClass = my::String;
 
-    template <typename Type, int size>
-    using ArrayClass = my::Array<Type, size>;
+//    template <typename Type, int size>
+//    using ArrayClass = my::Array<Type, size>;
 
-    template <typename Type>
-    using VectorClass = my::DynamicArray<Type>;
+//    template <typename Type>
+//    using VectorClass = my::DynamicArray<Type>;
 
-    template <typename Type>
-    using UniquePtrClass = my::SmartPtr<Type>;
+//    template <typename Type>
+//    using UniquePtrClass = my::SmartPtr<Type>;
 //  my::PrettyPrint()
 
 #else

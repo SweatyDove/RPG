@@ -22,7 +22,7 @@ Gold::Gold(int count) :
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-const StringClass Gold::getName() const
+const my::String Gold::getName() const
 {
     return "gold";
 }

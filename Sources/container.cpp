@@ -26,7 +26,7 @@ Container::Container(Type type, int spaceLimit, int weightLimit) :
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-Container::Container(StringClass name) :
+Container::Container(my::String name) :
     mb_name {name}
 {
     // Nothing to do
@@ -42,7 +42,7 @@ Container::Container(StringClass name) :
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-const StringClass& Container::getName()
+const my::String& Container::getName()
 {
     return mb_name;
 }
@@ -59,7 +59,7 @@ const StringClass& Container::getName()
 //                      returns weight of stack or item in stack.
 //                  2) Simplify logic
 //==================================================================================================
-int Container::putItem(const UniquePtrClass<Item>& itemPtr)
+int Container::putItem(const my::SmartPtr<Item>& itemPtr)
 {
     // # Compare item and container types
     if (mb_type != Container::Type::UNIVERSAL) {
@@ -71,7 +71,7 @@ int Container::putItem(const UniquePtrClass<Item>& itemPtr)
     // # Check weight and space limits
     if (mb_weightOccupied + itemPtr->getWeight() > mb_weightLimit) {
         std::cout << "Can't put item in the " << this->getName() << ": reached the weight limit." << std::endl;
-        return ErrorCode::REACHED_WEIGHT_LIMIT;
+        return OperationStatus::ERR_REACHED_WEIGHT_LIMIT;
     }
     else {}
 
@@ -97,7 +97,7 @@ int Container::putItem(const UniquePtrClass<Item>& itemPtr)
                  * or stack partially.
                  */
                 cell->setCount(cell->getCount() + itemPtr->getCount());
-                return ErrorCode::OPERATION_SUCCEED;
+                return OperationStatus::SUCCEED;
             }
         } // for-loop
     }
@@ -108,7 +108,7 @@ int Container::putItem(const UniquePtrClass<Item>& itemPtr)
     // # item in the first free cell
     if (mb_spaceOccupied >= mb_spaceLimit) {
         std::cout << "Can't put item in the " << this->getName() << ": reached the space limit." << std::endl;
-        return ErrorCode::REACHED_SPACE_LIMIT;
+        return OperationStatus::ERR_REACHED_SPACE_LIMIT;
     }
     else {
         // # Go through each cell of the container
@@ -120,7 +120,7 @@ int Container::putItem(const UniquePtrClass<Item>& itemPtr)
 //                cell = my::move(itemPtr);
                 mb_spaceOccupied += 1;
                 mb_weightOccupied += itemPtr->getWeight();
-                return ErrorCode::OPERATION_SUCCEED;
+                return OperationStatus::SUCCEED;
             }
             else {}
         } // for-loop
@@ -134,36 +134,63 @@ int Container::putItem(const UniquePtrClass<Item>& itemPtr)
 //  DESCRIPTION:    ........
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
-//     COMMENTS:    ........
+//     COMMENTS:    I'm not sure, that returning nullptr is correct...
 //==================================================================================================
-const UniquePtrClass<Item>& Container::extractItem(int itemPosition)
+const my::SmartPtr<Item>& Container::extractItem(int itemPosition)
 {
+
     // # Invalid position (May be I have to use assert() here? Who is responsible for the checking
     // # of the position validity: <Container> or caller?)
     if (itemPosition < 0 || itemPosition >= mb_spaceLimit) {
-//        return ErrorCode::INVALID_ITEM_POSITION;
+        std::cout << "Invalid item position!" << std::endl;
+        return nullptr;
+//        throw my::Exception("Container: invalid item position!");
     }
     else {}
 
+
     try {
-        UniquePtrClass<Item> cell {mb_container[itemPosition]};
-//        UniquePtrClass<Item> extractedItem {my::move(mb_container[itemPosition])};
+        my::SmartPtr<Item> cell {mb_container[itemPosition]};
+        //my::SmartPtr<Item> extractedItem {my::move(mb_container[itemPosition])};
         if (cell.isFree()) {
-//            return ErrorCode::CELL_IS_EMPTY ;
+            std::cout << "Cell is empty" << std::endl;
+            return nullptr;
+//            throw my::Exception("Container: cell is empty!");
         }
         else {
             return cell;
         }
     }
     // # Here catch an exception, when position is valid, but @mb_container.size() < position
-    catch (const DynamicArrayException<Item>& exception) {
-//        return ErrorCode::CELL_IS_EMPTY;
+    catch (const my::DynamicArrayException<Item>& exception) {
+        std::cout << "Cell is empty" << std::endl;
+        return nullptr;
     }
 
 }
 
 
+//==================================================================================================
+//         TYPE:    Public member function
+//  DESCRIPTION:    Find item in container
+//   PARAMETERS:    ........
+// RETURN VALUE:    Item position, if it was found. Otherwise returns '-1'.
+//     COMMENTS:    What to do with multiple instances of items?
+//==================================================================================================
+int Container::findItem(Item::Type type)
+{
+    for (int ii {0}; ii < mb_container.size(); ++ii) {
 
+        const my::SmartPtr<Item>& cell = mb_container[ii];
+
+        if (cell->getType() == type) {
+            return ii;
+        }
+        else {}
+    }
+
+    return -1;
+}
 
 
 

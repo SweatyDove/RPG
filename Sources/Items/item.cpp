@@ -101,9 +101,9 @@ void Item::setCount(int newCount)
 
 // #### Function returns type of the item
 // #############
-//StringClass Item::getName() const
+//my::String Item::getName() const
 //{
-//    StringClass retString {};
+//    my::String retString {};
 
 //    switch(mb_type) {
 //    case Item::Type::TRASH:

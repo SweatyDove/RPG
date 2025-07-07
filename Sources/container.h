@@ -3,7 +3,7 @@
 
 #include "main.h"
 
-#include "item.h"
+#include "Items/item.h"
 
 
 //==================================================================================================
@@ -35,13 +35,13 @@ public:
         TOTAL
     };
 
-    enum ErrorCode {
-        OPERATION_SUCCEED,
-        REACHED_WEIGHT_LIMIT,
-        REACHED_SPACE_LIMIT,
-        INCORRECT_ITEM_TYPE,
-        INVALID_ITEM_POSITION,
-        CELL_IS_EMPTY,
+    enum OperationStatus {
+        SUCCEED,
+        ERR_REACHED_WEIGHT_LIMIT,
+        ERR_REACHED_SPACE_LIMIT,
+        ERR_INCORRECT_ITEM_TYPE,
+        ERR_INVALID_ITEM_POSITION,
+        ERR_CELL_IS_EMPTY,
 
         TOTAL
     };
@@ -54,7 +54,7 @@ protected:
 // ######################################  PRIVATE    ##############################################
 private:
     Type        mb_type             {Type::UNIVERSAL};
-    StringClass mb_name             {"Container"};
+    my::String mb_name             {"Container"};
 
     int         mb_spaceOccupied    {0};
     int         mb_spaceLimit       {100};
@@ -62,7 +62,7 @@ private:
     int         mb_weightOccupied   {0};
     int         mb_weightLimit      {100};
 
-    VectorClass<UniquePtrClass<Item>> mb_container;
+    my::DynamicArray<my::SmartPtr<Item>> mb_container;
 
 
 
@@ -75,19 +75,21 @@ private:
 // ######################################  PUBLIC     ##############################################
 public:
     Container() = default;
-    Container(StringClass name);
+    Container(my::String name);
     Container(Type type, int spaceLimit, int weightLimit);
 
 
-    const StringClass& getName();
+    const my::String& getName();
 
 
     void sort(Item::Type type);
     void display() const;
 
-    ErrorCode removeItem(int itemPosition, int count);
-    ErrorCode putItem(const UniquePtrClass<Item>& itemPtr);
-    const UniquePtrClass<Item>& extractItem(int itemPosition);
+    OperationStatus             removeItem(int itemPosition, int count);
+    OperationStatus             putItem(const my::SmartPtr<Item>& itemPtr);
+    const my::SmartPtr<Item>&   extractItem(int itemPosition);
+    int                         findItem(Item::Type type);
+//    int                         countItem(Item::Type type);
 
 
 

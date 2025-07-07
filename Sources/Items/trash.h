@@ -1,7 +1,7 @@
 #ifndef TRASH_H
 #define TRASH_H
 
-#include "main.h"
+#include "../main.h"
 #include "item.h"
 #include "my_string.h"
 
@@ -36,7 +36,7 @@ public:
     void                setDescription();
     const my::String&   getDescription() const;
 
-    const StringClass   getName() const override;
+    const my::String   getName() const override;
 //    const int           getCost() const override;
 
 };

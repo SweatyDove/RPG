@@ -46,7 +46,7 @@ void Trader::generateInventory()
         switch (static_cast<Item::Type>(iType)) {
         case Item::Type::GOLD:
         {
-            UniquePtrClass<Item> gold {new Gold(my::getRandomNumber(0, mb_level * 100))};
+            my::SmartPtr<Item> gold {new Gold(my::getRandomNumber(0, mb_level * 100))};
             mb_inventory.push_back(my::move(gold));
         }
         break;
@@ -56,7 +56,7 @@ void Trader::generateInventory()
             for (int pType {0}; pType < static_cast<int>(Potion::Type::TOTAL); ++pType) {
 
                 for (int potionNum {my::getRandomNumber(0, 3)}; potionNum > 0; --potionNum) {
-                    UniquePtrClass<Item> potion {new Potion(static_cast<Potion::Type>(pType), Potion::generateRandomEffect(static_cast<Potion::Type>(pType), this->mb_level))};
+                    my::SmartPtr<Item> potion {new Potion(static_cast<Potion::Type>(pType), Potion::generateRandomEffect(static_cast<Potion::Type>(pType), this->mb_level))};
                     mb_inventory.pushBack(my::move(potion));
                 }
             }
@@ -93,7 +93,7 @@ void Trader::commitSuicide()
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-const StringClass&  Trader::getName() const
+const my::String&  Trader::getName() const
 {
     return mb_name;
 }

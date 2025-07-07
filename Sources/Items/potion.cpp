@@ -42,9 +42,9 @@ Potion::Potion(int level) :
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-const StringClass Potion::getName() const
+const my::String Potion::getName() const
 {
-    StringClass retString {""};
+    my::String retString {""};
 
     // # Add effect type
     if (mb_effect < 0) {

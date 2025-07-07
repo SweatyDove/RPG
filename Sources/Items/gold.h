@@ -1,7 +1,7 @@
 #ifndef GOLD_H
 #define GOLD_H
 
-#include "main.h"
+#include "../main.h"
 #include "item.h"
 
 class Gold : public Item {
@@ -10,7 +10,7 @@ public:
 
     ~Gold() override = default;
 
-    const StringClass   getName() const override;
+    const my::String   getName() const override;
 //    const int           getCost() const override;
 
 };

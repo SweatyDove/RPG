@@ -5,7 +5,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include "main.h"
+#include "../main.h"
 #include "item.h"
 
 //
@@ -53,7 +53,7 @@ public:
     void    setCount(int newCount);                             // Need to make virtual
 
 
-    virtual const StringClass   getName() const = 0;
+    virtual const my::String   getName() const = 0;
 
 
 };

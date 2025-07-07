@@ -2,8 +2,8 @@
 #define WORLD_H
 
 #include "main.h"
-#include "trader.h"
-#include "monster.h"
+#include "Creatures/trader.h"
+#include "Creatures/monster.h"
 #include "menu.h"
 
 

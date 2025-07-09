@@ -9,7 +9,7 @@
 //     COMMENTS:    ........
 //==================================================================================================
 Gold::Gold(int count) :
-    Item {Item::Type::GOLD, count, 0, count}
+    Item {Item::Type::GOLD, true, count, 0, count * 1}
 {
     // Nothing to do;
 }

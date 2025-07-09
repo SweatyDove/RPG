@@ -47,7 +47,7 @@ void Trader::generateInventory()
         case Item::Type::GOLD:
         {
             my::SmartPtr<Item> gold {new Gold(my::getRandomNumber(0, mb_level * 100))};
-            mb_inventory.push_back(my::move(gold));
+            mb_inventory.putItem(my::move(gold));
         }
         break;
         case Item::Type::POTION:
@@ -57,7 +57,7 @@ void Trader::generateInventory()
 
                 for (int potionNum {my::getRandomNumber(0, 3)}; potionNum > 0; --potionNum) {
                     my::SmartPtr<Item> potion {new Potion(static_cast<Potion::Type>(pType), Potion::generateRandomEffect(static_cast<Potion::Type>(pType), this->mb_level))};
-                    mb_inventory.pushBack(my::move(potion));
+                    mb_inventory.putItem(my::move(potion));
                 }
             }
         }

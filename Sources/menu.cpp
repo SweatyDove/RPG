@@ -104,9 +104,9 @@ void Menu::exchange()
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-void Menu::buy(Container& subjectContainer, Container& objectContainer)
+void Menu::buy()
 {
-    objectContainer.display();
+    mb_object->getInventory().display();
 
     bool mainLoop {true};
     enum Choice {
@@ -162,7 +162,7 @@ void Menu::buy(Container& subjectContainer, Container& objectContainer)
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-void Menu::sell(Container& subjectContainer, Container& objectContainer)
+void Menu::sell()
 {
     mb_subject->displayInventory();
 }

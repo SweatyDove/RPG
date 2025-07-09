@@ -416,46 +416,14 @@ void Creature::printAttr()
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-my::DynamicArray<my::SmartPtr<Item>>& Creature::getInventory()
+Container& Creature::getInventory()
 {
     return mb_inventory;
 }
 
 
 
-//==================================================================================================
-//         TYPE:    ........
-//  DESCRIPTION:    Display creature's inventory
-//   PARAMETERS:    ........
-// RETURN VALUE:    ........
-//     COMMENTS:    ........
-//==================================================================================================
-void Creature::displayInventory()
-{
-    my::String titleId     {"ID"};
-    my::String titleName   {"NAME"};
-    my::String titleCount  {"COUNT"};
-    my::String titleCost   {"COST"};
 
-    std::cout << "\nInventory of " << this->getName()
-              << "\n-------------------------------------------------------------------------------\n"
-              << titleId      << " | "
-              << std::setw(32)  << titleName    << " | "
-              << std::setw(8)   << titleCount   << " | "
-              << std::setw(8)   << titleCost
-              << "\n-------------------------------------------------------------------------------\n"
-              << std::endl;
-
-    for (int ii {0}; ii < mb_inventory.size(); ++ii) {
-        std::cout << std::setw(2)   << ii               << " | "
-                  << std::setw(32)  << mb_inventory[ii]->getName()  << " | "
-                  << std::setw(8)   << mb_inventory[ii]->getCount() << " | "
-                  << std::setw(8)   << mb_inventory[ii]->getCost() << std::endl;
-    }
-
-    std::cout << "-------------------------------------------------------------------------------" << std::endl;
-
-}
 
 
 //==================================================================================================
@@ -510,28 +478,35 @@ void Creature::buy(int itemPos, Creature& trader)
 
     // # Check if @this creature has enough money to buy the item
     int goldPos = this->mb_inventory.findItem(Item::Type::GOLD);
-    if (goldPos != -1) {
-        int thisGold {this->mb_inventory.extractItem()};
-    }
-    int itemCost {itemPtr->getCost()};
-
-
-    // # Trader has no item with @itemId
-    if (itemPtr->getCount() == 0) {
-        std::cout << "Purchase failed: " << trader.getName() << " has not item " << itemId << std::endl;
-        return;
-    }
-    // # This creature has not enough money to buy item
-    else if (this->mb_inventory[static_cast<int>(Item::Type::GOLD)] < itemPtr->getCost()) {
-        std::cout << "Purchase failed: " << this->getName() << " has not enough gold to buy "
-                  << itemPtr->getName() << std::endl;
+    if (goldPos == -1) {
+        std::cout << "Couldn't buy item - " << this->getName() << " hasn't gold." << std::endl;
         return;
     }
     else {
-        this->addToInventory(itemPtr, count);
-        const my::SmartPtr<item>& gold {this->takeFromInventory(goldId, itemCost)};
-        trader.addToInventory(this->takeFromInventory(gold, itemCost), itemPt()r->getCost);
+        /*******************************************************************************************
+         * HERE: What should I do, if I want to return const object as non-const? Add non-const function?
+         *       Or use casting somehow?
+         ******************************************************************************************/
+        my::SmartPtr<Item>& goldPtr {this->mb_inventory.extractItem(goldPos)};
+
+        int goldCount {goldPtr->getCount()};
+        int itemCost {itemPtr->getCost()};
+
+        if (goldCount < itemCost) {
+            std::cout << "Couldn't buy item - " << this->getName() << " hasn't gold." << std::endl;
+            return;
+        }
+        else {
+            trader.putToInventory(my::SmartPtr<Item> {new Gold(itemCost)});
+
+            this->putToInventory(itemPtr);
+            if (itemCost - goldCount > 0) {
+                goldPtr->setCount(itemCost - goldCount);
+                this->putToInventory(goldPtr);
+            }
+        }
     }
+
 }
 
 

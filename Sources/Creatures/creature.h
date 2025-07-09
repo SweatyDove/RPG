@@ -150,7 +150,6 @@ public:
 
 
     Container&                              getInventory();
-//    void                                    displayInventory();
 
     void    buy(int itemId, Creature& trader);
 

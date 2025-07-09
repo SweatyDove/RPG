@@ -41,11 +41,8 @@ private:
 
 
     void exchange();
-
-    // # Может я могу объединить в одну обе функции в будущем (т.к. покупка/продажа - это просто
-    // # обмен на золото)
-    void sell(Container& subjectContainer, Container& objectContainer);
-    void buy(Container& subjectContainer, Container& objectContainer);
+    void sell();
+    void buy();
 
 
 

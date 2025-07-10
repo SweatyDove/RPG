@@ -435,7 +435,7 @@ Container& Creature::getInventory()
 //     COMMENTS:    1) Need to make all <Item>'s stackable
 //                  2) Add size of container (or size of stack) checking
 //==================================================================================================
-int Creature::putToInventory(my::SmartPtr<Item>& itemPtr)
+int Creature::putToInventory(const my::SmartPtr<Item>& itemPtr)
 {
     return mb_inventory.putItem(itemPtr);
 
@@ -498,8 +498,6 @@ void Creature::buy(int itemPos, Creature& trader)
         }
         else {
             trader.putToInventory(my::SmartPtr<Item> {new Gold(itemCost)});
-//            my::SmartPtr<Item> gold {new Gold(my::getRandomNumber(0, mb_level * 10))};
-
 
             this->putToInventory(itemPtr);
             if (itemCost - goldCount > 0) {

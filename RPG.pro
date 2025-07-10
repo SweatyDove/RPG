@@ -8,40 +8,40 @@ CONFIG -= qt
 
 
 SOURCES += \
-    Sources/Creatures/creature.cpp \
-    Sources/Creatures/monster.cpp \
-    Sources/Creatures/player.cpp \
-    Sources/Creatures/trader.cpp \
-    Sources/Creatures/warrior.cpp \
-    Sources/Items/gold.cpp \
-    Sources/Items/item.cpp \
-    Sources/Items/potion.cpp \
-    Sources/Items/scroll.cpp \
-    Sources/Items/trash.cpp \
-    Sources/attribute.cpp \
-    Sources/container.cpp \
-    Sources/main.cpp \
-    Sources/menu.cpp \
-    Sources/spell.cpp \
-    Sources/world.cpp \
+    Tests/test_container.cpp \
+#    Core/Creatures/creature.cpp \
+#    Core/Creatures/monster.cpp \
+#    Core/Creatures/player.cpp \
+#    Core/Creatures/trader.cpp \
+#    Core/Creatures/warrior.cpp \
+    Core/Items/gold.cpp \
+    Core/Items/item.cpp \
+    Core/Items/potion.cpp \
+#    Core/Items/scroll.cpp \
+#    Core/Items/trash.cpp \
+#    Core/attribute.cpp \
+    Core/container.cpp \
+#    Core/menu.cpp \
+#    Core/spell.cpp \
+#    Core/world.cpp \
 
 HEADERS += \
-    Sources/Creatures/creature.h \
-    Sources/Creatures/monster.h \
-    Sources/Creatures/player.h \
-    Sources/Creatures/trader.h \
-    Sources/Creatures/warrior.h \
-    Sources/Items/gold.h \
-    Sources/Items/item.h \
-    Sources/Items/potion.h \
-    Sources/Items/scroll.h \
-    Sources/Items/trash.h \
-    Sources/attribute.h \
-    Sources/container.h \
-    Sources/main.h \
-    Sources/menu.h \
-    Sources/spell.h \
-    Sources/world.h \
+    Core/main.h \
+#    Core/Creatures/creature.h \
+#    Core/Creatures/monster.h \
+#    Core/Creatures/player.h \
+#    Core/Creatures/trader.h \
+#    Core/Creatures/warrior.h \
+    Core/Items/gold.h \
+    Core/Items/item.h \
+    Core/Items/potion.h \
+#    Core/Items/scroll.h \
+#    Core/Items/trash.h \
+#    Core/attribute.h \
+    Core/container.h \
+#    Core/menu.h \
+#    Core/spell.h \
+#    Core/world.h \
 
 
 # List of libraries to be linked into the project. [-L] - path to library; [-l] - library

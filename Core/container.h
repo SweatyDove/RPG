@@ -86,7 +86,7 @@ public:
     void display() const;
 
     int                         removeItem(int itemPosition, int count);
-    int                         putItem(const my::SmartPtr<Item>& itemPtr);
+    int                         putItem(my::SmartPtr<Item>& itemPtr);
     my::SmartPtr<Item>&         extractItem(int itemPosition);
     int                         findItem(Item::Type type);
 //    int                         countItem(Item::Type type);

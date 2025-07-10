@@ -3,6 +3,7 @@
 
 #include "../main.h"
 #include "../Items/item.h"
+#include "../Items/gold.h"              // Need to include it also, 'cause create <Gold> object explicit in some places
 #include "../attribute.h"
 #include "../menu.h"
 #include "../container.h"

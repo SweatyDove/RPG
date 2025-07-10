@@ -59,7 +59,7 @@ const my::String& Container::getName() const
 //                      returns weight of stack or item in stack.
 //                  2) Simplify logic
 //==================================================================================================
-int Container::putItem(const my::SmartPtr<Item>& itemPtr)
+int Container::putItem(my::SmartPtr<Item>& itemPtr)
 {
     // # Compare item and container types
     if (mb_type != Container::Type::UNIVERSAL) {
@@ -112,7 +112,14 @@ int Container::putItem(const my::SmartPtr<Item>& itemPtr)
     }
     else {
         // # Go through each cell of the container
-        for (auto& cell: this->mb_container) {
+        for (int ii {0}; ii < mb_spaceLimit; ++ii) {
+
+            // Остановился здесь! Тут проблема: что если я попытаюсь получить доступ к элементу в контейнере,
+            // который находится ЗА пределами динамического массива, отведенного под это дело. То есть
+            // размер контейнера может и 100 элементов, но размер динамического массива по умолчанию 4
+            // элемента. И дойдя до 5го элемента - мне нужно чтобы динамический массив, отведенный
+            // под содержимое контейнера не ошибку выдавал, а просто разросся на ещё 4 пустых элемента.
+            // Ну или не париться и использовать статический массив.
 
             // ## Check if there is something in the container cell
             if (cell.isFree()) {
@@ -135,39 +142,39 @@ int Container::putItem(const my::SmartPtr<Item>& itemPtr)
 // RETURN VALUE:    ........
 //     COMMENTS:    I'm not sure, that returning nullptr is correct...
 //==================================================================================================
-my::SmartPtr<Item>& Container::extractItem(int itemPosition)
-{
+//my::SmartPtr<Item>& Container::extractItem(int itemPosition)
+//{
 
-    // # Invalid position (May be I have to use assert() here? Who is responsible for the checking
-    // # of the position validity: <Container> or caller?)
-    if (itemPosition < 0 || itemPosition >= mb_spaceLimit) {
-        throw my::Exception("Container: invalid item position!");
-    }
-    else {}
+//    // # Invalid position (May be I have to use assert() here? Who is responsible for the checking
+//    // # of the position validity: <Container> or caller?)
+//    if (itemPosition < 0 || itemPosition >= mb_spaceLimit) {
+//        throw my::Exception("Container: invalid item position!");
+//    }
+//    else {}
 
 
-    try {
-//        my::SmartPtr<Item> cell {mb_container[itemPosition]};
-        /*
-         * 1) У меня есть контейнер с умными указателями (то есть с ресурсами, выделенными в дин. памяти)
-         * 2) Я хочу забрать ресурс. Для этого вызываю move-семантику, иначе my::SmartPtr не даст этого
-         * сделать, так как он запрещает копирование - только перемещение можно.
-         * 3) Однако, просто l-reference нельзя инициализировать с помощью r-ref, поэтому нужен const l-ref
-         */
-        my::SmartPtr<Item>&& cell {my::move(mb_container[itemPosition])};
-        if (cell.isFree()) {
-            throw my::Exception("Container: cell is empty!");
-        }
-        else {
-            return cell;
-        }
-    }
-    // # Here catch an exception, when position is valid, but @mb_container.size() < position
-    catch (const my::DynamicArrayException& exception) {
-        throw my::Exception("Container: cell is empty!");
-    }
+//    try {
+////        my::SmartPtr<Item> cell {mb_container[itemPosition]};
+//        /*
+//         * 1) У меня есть контейнер с умными указателями (то есть с ресурсами, выделенными в дин. памяти)
+//         * 2) Я хочу забрать ресурс. Для этого вызываю move-семантику, иначе my::SmartPtr не даст этого
+//         * сделать, так как он запрещает копирование - только перемещение можно.
+//         * 3) Однако, просто l-reference нельзя инициализировать с помощью r-ref, поэтому нужен const l-ref
+//         */
+//        my::SmartPtr<Item>&& cell {my::move(mb_container[itemPosition])};
+//        if (cell.isFree()) {
+//            throw my::Exception("Container: cell is empty!");
+//        }
+//        else {
+//            return cell;
+//        }
+//    }
+//    // # Here catch an exception, when position is valid, but @mb_container.size() < position
+//    catch (const my::DynamicArrayException& exception) {
+//        throw my::Exception("Container: cell is empty!");
+//    }
 
-}
+//}
 
 
 //==================================================================================================

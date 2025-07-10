@@ -435,7 +435,7 @@ Container& Creature::getInventory()
 //     COMMENTS:    1) Need to make all <Item>'s stackable
 //                  2) Add size of container (or size of stack) checking
 //==================================================================================================
-int Creature::putToInventory(const my::SmartPtr<Item>& itemPtr)
+int Creature::putToInventory(my::SmartPtr<Item>& itemPtr)
 {
     return mb_inventory.putItem(itemPtr);
 
@@ -449,7 +449,7 @@ int Creature::putToInventory(const my::SmartPtr<Item>& itemPtr)
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-const my::SmartPtr<Item>& Creature::takeFromInventory(int itemPos)
+my::SmartPtr<Item>& Creature::takeFromInventory(int itemPos)
 {
     return mb_inventory.extractItem(itemPos);
 
@@ -469,7 +469,7 @@ void Creature::buy(int itemPos, Creature& trader)
 {
 
     // # Take item from the trader
-    const my::SmartPtr<Item>& itemPtr {trader.takeFromInventory(itemPos)};
+    my::SmartPtr<Item>& itemPtr {trader.takeFromInventory(itemPos)};
     if (itemPtr == false) {
         std::cout << "Couldn't buy item - there is not such one." << std::endl;
         return;
@@ -498,6 +498,8 @@ void Creature::buy(int itemPos, Creature& trader)
         }
         else {
             trader.putToInventory(my::SmartPtr<Item> {new Gold(itemCost)});
+//            my::SmartPtr<Item> gold {new Gold(my::getRandomNumber(0, mb_level * 10))};
+
 
             this->putToInventory(itemPtr);
             if (itemCost - goldCount > 0) {

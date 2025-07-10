@@ -22,14 +22,14 @@ public:
 private:
     Type    mb_type {Type::TRASH};
 protected:
-    bool    mb_stackable {true};
+    bool    mb_stackable {false};
     int     mb_count {1};
     int     mb_weight {1};
     int     mb_cost {0};
 
     // ######## Made it protected 'cause I don't want smb to explicitly construct <Item> object.
     Item() = default;
-    Item(Type type, bool stackable, int count, int weight, int cost);
+    explicit Item(Type type, bool stackable = false, int count = 1, int weight = 0, int cost = 0);
 
 public:
 

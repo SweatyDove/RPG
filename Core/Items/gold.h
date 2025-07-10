@@ -6,7 +6,7 @@
 
 class Gold : public Item {
 public:
-    Gold(int count);
+    explicit Gold(int count);
 
     ~Gold() override = default;
 

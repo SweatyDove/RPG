@@ -175,8 +175,8 @@ protected:
 // ###################################   PRIVATE Interface   #######################################
 // #################################################################################################
 private:
-    int                         putToInventory(const my::SmartPtr<Item>& itemPtr);
-    const my::SmartPtr<Item>&   takeFromInventory(int itemPos);
+    int                         putToInventory(my::SmartPtr<Item>& itemPtr);
+    my::SmartPtr<Item>&         takeFromInventory(int itemPos);
 //    int                         findInInventory();
 
 //    template <typename AttributeName>

@@ -42,7 +42,7 @@ Container::Container(my::String name) :
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-const my::String& Container::getName()
+const my::String& Container::getName() const
 {
     return mb_name;
 }
@@ -116,8 +116,7 @@ int Container::putItem(const my::SmartPtr<Item>& itemPtr)
 
             // ## Check if there is something in the container cell
             if (cell.isFree()) {
-                cell = itemPtr;
-//                cell = my::move(itemPtr);
+                cell = my::move(itemPtr);
                 mb_spaceOccupied += 1;
                 mb_weightOccupied += itemPtr->getWeight();
                 return OperationStatus::SUCCEED;
@@ -136,35 +135,36 @@ int Container::putItem(const my::SmartPtr<Item>& itemPtr)
 // RETURN VALUE:    ........
 //     COMMENTS:    I'm not sure, that returning nullptr is correct...
 //==================================================================================================
-const my::SmartPtr<Item>& Container::extractItem(int itemPosition)
+my::SmartPtr<Item>& Container::extractItem(int itemPosition)
 {
 
     // # Invalid position (May be I have to use assert() here? Who is responsible for the checking
     // # of the position validity: <Container> or caller?)
     if (itemPosition < 0 || itemPosition >= mb_spaceLimit) {
-        std::cout << "Invalid item position!" << std::endl;
-        return nullptr;
-//        throw my::Exception("Container: invalid item position!");
+        throw my::Exception("Container: invalid item position!");
     }
     else {}
 
 
     try {
-        my::SmartPtr<Item> cell {mb_container[itemPosition]};
-        //my::SmartPtr<Item> extractedItem {my::move(mb_container[itemPosition])};
+//        my::SmartPtr<Item> cell {mb_container[itemPosition]};
+        /*
+         * 1) У меня есть контейнер с умными указателями (то есть с ресурсами, выделенными в дин. памяти)
+         * 2) Я хочу забрать ресурс. Для этого вызываю move-семантику, иначе my::SmartPtr не даст этого
+         * сделать, так как он запрещает копирование - только перемещение можно.
+         * 3) Однако, просто l-reference нельзя инициализировать с помощью r-ref, поэтому нужен const l-ref
+         */
+        my::SmartPtr<Item>&& cell {my::move(mb_container[itemPosition])};
         if (cell.isFree()) {
-            std::cout << "Cell is empty" << std::endl;
-            return nullptr;
-//            throw my::Exception("Container: cell is empty!");
+            throw my::Exception("Container: cell is empty!");
         }
         else {
             return cell;
         }
     }
     // # Here catch an exception, when position is valid, but @mb_container.size() < position
-    catch (const my::DynamicArrayException<Item>& exception) {
-        std::cout << "Cell is empty" << std::endl;
-        return nullptr;
+    catch (const my::DynamicArrayException& exception) {
+        throw my::Exception("Container: cell is empty!");
     }
 
 }
@@ -201,7 +201,7 @@ int Container::findItem(Item::Type type)
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-void Container::display()
+void Container::display() const
 {
     my::String titleId     {"ID"};
     my::String titleName   {"NAME"};
@@ -217,11 +217,18 @@ void Container::display()
               << "\n-------------------------------------------------------------------------------\n"
               << std::endl;
 
-    for (int ii {0}; ii < mb_inventory.size(); ++ii) {
-        std::cout << std::setw(2)   << ii               << " | "
-                  << std::setw(32)  << mb_inventory[ii]->getName()  << " | "
-                  << std::setw(8)   << mb_inventory[ii]->getCount() << " | "
-                  << std::setw(8)   << mb_inventory[ii]->getCost() << std::endl;
+    for (int ii {0}; ii < mb_container.size(); ++ii) {
+
+        const my::SmartPtr<Item>& item {mb_container[ii]};
+        if (item == false) {
+            continue;
+        }
+        else {
+            std::cout << std::setw(2)   << ii               << " | "
+                      << std::setw(32)  << item->getName()  << " | "
+                      << std::setw(8)   << item->getCount() << " | "
+                      << std::setw(8)   << item->getCost() << std::endl;
+        }
     }
 
     std::cout << "-------------------------------------------------------------------------------" << std::endl;

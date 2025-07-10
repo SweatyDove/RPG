@@ -9,9 +9,9 @@
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-Potion::Potion(Potion::Type type, int effect) :
-    Item(Item::Type::POTION, 1, defaultWeight),
-    mb_type {type},
+Potion::Potion(Potion::Type potionType, int effect) :
+    Item(Item::Type::POTION, false, 1, defaultWeight),
+    mb_type {potionType},
     mb_effect {effect}
 {
     mb_cost = this->generateCost();

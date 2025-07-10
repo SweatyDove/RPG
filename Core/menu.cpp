@@ -77,10 +77,10 @@ void Menu::exchange()
 
         switch(choice) {
         case Choice::SELL:
-            this->sell(mb_subject->getInventory(), mb_object->getInventory());
+            this->sell();
             break;
         case Choice::BUY:
-            this->buy(mb_subject->getInventory(), mb_object->getInventory());
+            this->buy();
             break;
         case Choice::QUIT:
             mainLoop = false;
@@ -145,7 +145,7 @@ void Menu::buy()
 
             // #### Buy each item
             for (auto itemId: itemsToBuy) {
-                mb_subject->buy(itemId, mb_object);
+                mb_subject->buy(itemId, *mb_object);
             }
         }
 
@@ -164,6 +164,6 @@ void Menu::buy()
 //==================================================================================================
 void Menu::sell()
 {
-    mb_subject->displayInventory();
+    mb_subject->getInventory().display();
 }
 

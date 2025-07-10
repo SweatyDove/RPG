@@ -79,15 +79,15 @@ public:
     Container(Type type, int spaceLimit, int weightLimit);
 
 
-    const my::String& getName();
+    const my::String& getName() const;
 
 
     void sort(Item::Type type);
     void display() const;
 
-    OperationStatus             removeItem(int itemPosition, int count);
-    OperationStatus             putItem(const my::SmartPtr<Item>& itemPtr);
-    const my::SmartPtr<Item>&   extractItem(int itemPosition);
+    int                         removeItem(int itemPosition, int count);
+    int                         putItem(const my::SmartPtr<Item>& itemPtr);
+    my::SmartPtr<Item>&         extractItem(int itemPosition);
     int                         findItem(Item::Type type);
 //    int                         countItem(Item::Type type);
 

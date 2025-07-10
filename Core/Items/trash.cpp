@@ -8,9 +8,9 @@
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-Trash::Trash(Trash::Type type, int count, int weight, int cost) :
-    Item(Item::Type::TRASH, count, weight, cost),
-    mb_type {type}
+Trash::Trash(Trash::Type trashType, int count, int weight, int cost) :
+    Item(Item::Type::TRASH, false, count, weight, cost),
+    mb_type {trashType}
 {
 //    this->setDescription();
 

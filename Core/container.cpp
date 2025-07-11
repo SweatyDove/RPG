@@ -1,6 +1,21 @@
 #include "container.h"
 
 
+
+
+
+//==================================================================================================
+//         TYPE:    Default constructor
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+Container::Container()
+{
+    mb_container.resize(mb_container.getCapacity());
+}
+
 //==================================================================================================
 //         TYPE:    Constructor
 //  DESCRIPTION:    ........
@@ -104,15 +119,30 @@ int Container::putItem(my::SmartPtr<Item>& itemPtr)
     else {}
 
 
-    // # If item is NOT stackable OR couldn't find it in container - check space limit and then put
+    // # If item is NOT stackable OR couldn't find it in the container - check space limit and then put
     // # item in the first free cell
     if (mb_spaceOccupied >= mb_spaceLimit) {
         std::cout << "Can't put item in the " << this->getName() << ": reached the space limit." << std::endl;
         return OperationStatus::ERR_REACHED_SPACE_LIMIT;
     }
     else {
-        // # Go through each cell of the container
+
+        // # If amount of cells, allocated in the heap, is equal to the number of items, placed in
+        // # these cells (@mb_spaceOccupied) - then need to allocate more cells (but no more than @mb_spaceLimit)
+        if (mb_container.size() == mb_spaceOccupied) {
+            mb_container.reallocate(mb_container.ge);
+        }
+
+        // # Go through each cell of the container to find first free cell
         for (int ii {0}; ii < mb_spaceLimit; ++ii) {
+
+            try {
+                my::SmartPtr<Item>& cell {mb_container[ii]};
+            }
+            catch (my::DynamicArrayException& exception) {
+                std::cout << exception.what();
+                if (mb_container.size())
+            }
 
             // Остановился здесь! Тут проблема: что если я попытаюсь получить доступ к элементу в контейнере,
             // который находится ЗА пределами динамического массива, отведенного под это дело. То есть

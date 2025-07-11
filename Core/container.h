@@ -11,13 +11,16 @@
 //  DESCRIPTION:    Base class for different containers (inventory, bag, chests, barrels, etc.)
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
-//     COMMENTS:    А нужен ли мне отдельный класс для контейнеров? Или же достаточно динамического
+//     COMMENTS:    1) А нужен ли мне отдельный класс для контейнеров? Или же достаточно динамического
 //                  массива для этих целей? Вопрос в том, кто ответственен за перемещение предметов
 //                  между контейнерами? Владельцы этих контейнеров через свой интерфейс или через
 //                  интерфейс, предоставляемый контейнером? Наверное, всё-таки владельцы...
 //
-//                  If I got a container - should I use array or dynamic array? Yes, I have limit,
+//                  2) If I got a container - should I use array or dynamic array? Yes, I have limit,
 //                  but creation 99/100 free cells is a waste of space in stack.
+//                  On the other hand - smb says, that dynamic allocated space will cause a lot of
+//                  delays, when there are a lot of containers and each of them take space, smeared
+//                  on heap.
 //==================================================================================================
 class Container final {
 
@@ -62,6 +65,10 @@ private:
     int         mb_weightOccupied   {0};
     int         mb_weightLimit      {100};
 
+    /*
+     * In the context of the container - mb_container.size() is amount of CELLS, allocated in the
+     * dynamic memory, not items, placed in that container/cells.
+     */
     my::DynamicArray<my::SmartPtr<Item>> mb_container;
 
 

@@ -56,6 +56,8 @@ protected:
 
 // ######################################  PRIVATE    ##############################################
 private:
+    static constexpr int st_defaultCellIncrement {10};
+
     Type        mb_type             {Type::UNIVERSAL};
     my::String mb_name             {"Container"};
 
@@ -81,7 +83,7 @@ private:
 
 // ######################################  PUBLIC     ##############################################
 public:
-    Container() = default;
+    Container();
     Container(my::String name);
     Container(Type type, int spaceLimit, int weightLimit);
 
@@ -93,12 +95,12 @@ public:
     void display() const;
 
     int                         removeItem(int itemPosition, int count);
-    int                         putItem(my::SmartPtr<Item>& itemPtr);
-    my::SmartPtr<Item>&         extractItem(int itemPosition);
     int                         findItem(Item::Type type);
 //    int                         countItem(Item::Type type);
 
 
+    [[deprecated("[REASON]: Draft version")]] const my::SmartPtr<Item>&   extractItem(int itemPosition);
+    [[deprecated("[REASON]: Draft version")]] int                   putItem(my::SmartPtr<Item>& itemPtr);
 
 // ######################################  PROTECTED   #############################################
 protected:

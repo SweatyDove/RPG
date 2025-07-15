@@ -11,9 +11,10 @@
 // RETURN VALUE:    ........
 //     COMMENTS:    ........
 //==================================================================================================
-Container::Container()
+Container::Container() :
+    mb_container(st_defaultCellIncrement)                // Direct-initialization
 {
-    mb_container.resize(mb_container.getCapacity());
+    // Nothing to do
 }
 
 //==================================================================================================
@@ -26,7 +27,8 @@ Container::Container()
 Container::Container(Type type, int spaceLimit, int weightLimit) :
     mb_type {type},
     mb_spaceLimit {spaceLimit},
-    mb_weightLimit {weightLimit}
+    mb_weightLimit {weightLimit},
+    mb_container(st_defaultCellIncrement)                        // Direct-initialization
 {
     // Nothing to do
 }
@@ -42,7 +44,8 @@ Container::Container(Type type, int spaceLimit, int weightLimit) :
 //     COMMENTS:    ........
 //==================================================================================================
 Container::Container(my::String name) :
-    mb_name {name}
+    mb_name {name},
+    mb_container(st_defaultCellIncrement)                        // Direct-initialization
 {
     // Nothing to do
 }
@@ -65,7 +68,7 @@ const my::String& Container::getName() const
 
 
 //==================================================================================================
-//         TYPE:    Public member function
+//         TYPE:    [Draft] Public member function
 //  DESCRIPTION:    ........
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
@@ -119,92 +122,92 @@ int Container::putItem(my::SmartPtr<Item>& itemPtr)
     else {}
 
 
+
+
     // # If item is NOT stackable OR couldn't find it in the container - check space limit and then put
     // # item in the first free cell
-    if (mb_spaceOccupied >= mb_spaceLimit) {
+    assert(mb_spaceOccupied <= mb_spaceLimit && "This condition should always be true!");
+
+    if (mb_spaceOccupied == mb_spaceLimit) {
         std::cout << "Can't put item in the " << this->getName() << ": reached the space limit." << std::endl;
         return OperationStatus::ERR_REACHED_SPACE_LIMIT;
     }
-    else {
+    // # If amount of cells, allocated in the container (heap), is equal to the number of items, placed in
+    // # these cells (@mb_spaceOccupied) - then need to allocate more cells (but no more than @mb_spaceLimit)
+    else if (mb_spaceOccupied == mb_container.size()) {
 
-        // # If amount of cells, allocated in the heap, is equal to the number of items, placed in
-        // # these cells (@mb_spaceOccupied) - then need to allocate more cells (but no more than @mb_spaceLimit)
-        if (mb_container.size() == mb_spaceOccupied) {
-            mb_container.reallocate(mb_container.ge);
-        }
-
-        // # Go through each cell of the container to find first free cell
-        for (int ii {0}; ii < mb_spaceLimit; ++ii) {
-
-            try {
-                my::SmartPtr<Item>& cell {mb_container[ii]};
-            }
-            catch (my::DynamicArrayException& exception) {
-                std::cout << exception.what();
-                if (mb_container.size())
-            }
-
-            // Остановился здесь! Тут проблема: что если я попытаюсь получить доступ к элементу в контейнере,
-            // который находится ЗА пределами динамического массива, отведенного под это дело. То есть
-            // размер контейнера может и 100 элементов, но размер динамического массива по умолчанию 4
-            // элемента. И дойдя до 5го элемента - мне нужно чтобы динамический массив, отведенный
-            // под содержимое контейнера не ошибку выдавал, а просто разросся на ещё 4 пустых элемента.
-            // Ну или не париться и использовать статический массив.
-
-            // ## Check if there is something in the container cell
-            if (cell.isFree()) {
-                cell = my::move(itemPtr);
-                mb_spaceOccupied += 1;
-                mb_weightOccupied += itemPtr->getWeight();
-                return OperationStatus::SUCCEED;
-            }
-            else {}
-        } // for-loop
+            int moreCells {mb_container.size() + st_defaultCellIncrement};
+            moreCells = (moreCells > mb_spaceLimit) ? mb_spaceLimit : moreCells;
+            mb_container.resize(moreCells);
     }
+    else {}
+
+
+    // # Go through each cell of the container to find the first free cell
+//    for (int ii {0}; ii < mb_container.size(); ++ii) {
+    for (auto& cell: mb_container) {
+
+        // ## Check if there is something in the container cell
+        if (cell.isFree()) {
+            cell = my::move(itemPtr);
+            mb_spaceOccupied += 1;
+            mb_weightOccupied += cell->getWeight();
+            return OperationStatus::SUCCEED;
+        }
+        else {}
+
+    } // for-loop
+
+    assert(false && "Shouldn't reach that point.");
 
 }
 
 
 //==================================================================================================
 //         TYPE:    Public member function
-//  DESCRIPTION:    ........
+//  DESCRIPTION:    Extract item on @itemPosition from the container
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
 //     COMMENTS:    I'm not sure, that returning nullptr is correct...
 //==================================================================================================
-//my::SmartPtr<Item>& Container::extractItem(int itemPosition)
-//{
+const my::SmartPtr<Item>& Container::extractItem(int itemPosition)
+{
 
-//    // # Invalid position (May be I have to use assert() here? Who is responsible for the checking
-//    // # of the position validity: <Container> or caller?)
-//    if (itemPosition < 0 || itemPosition >= mb_spaceLimit) {
-//        throw my::Exception("Container: invalid item position!");
-//    }
-//    else {}
+    // # Invalid position (May be I have to use assert() here? Who is responsible for the checking
+    // # of the position validity: <Container> or caller?)
+    if (itemPosition < 0 || itemPosition >= mb_spaceLimit) {
+        throw my::Exception("Container: invalid item position!");
+    }
+    else if (itemPosition > mb_container.size()) {
+        throw my::Exception("Container: cell is empty!");
+    }
 
 
-//    try {
-////        my::SmartPtr<Item> cell {mb_container[itemPosition]};
-//        /*
-//         * 1) У меня есть контейнер с умными указателями (то есть с ресурсами, выделенными в дин. памяти)
-//         * 2) Я хочу забрать ресурс. Для этого вызываю move-семантику, иначе my::SmartPtr не даст этого
-//         * сделать, так как он запрещает копирование - только перемещение можно.
-//         * 3) Однако, просто l-reference нельзя инициализировать с помощью r-ref, поэтому нужен const l-ref
-//         */
-//        my::SmartPtr<Item>&& cell {my::move(mb_container[itemPosition])};
-//        if (cell.isFree()) {
-//            throw my::Exception("Container: cell is empty!");
-//        }
-//        else {
-//            return cell;
-//        }
-//    }
-//    // # Here catch an exception, when position is valid, but @mb_container.size() < position
-//    catch (const my::DynamicArrayException& exception) {
-//        throw my::Exception("Container: cell is empty!");
-//    }
+    //  my::SmartPtr<Item> cell {mb_container[itemPosition]};
+    /*
+     * 1) У меня есть контейнер с умными указателями (то есть с ресурсами, выделенными в дин. памяти)
+     * 2) Я хочу забрать ресурс. Для этого вызываю move-семантику, иначе my::SmartPtr не даст этого
+     * сделать, так как он запрещает копирование - только перемещение можно.
+     * 3) Однако, просто l-reference нельзя инициализировать с помощью r-ref, поэтому нужен const l-ref
+     */
+    const my::SmartPtr<Item>& cell {my::move(mb_container[itemPosition])};
 
-//}
+    /*
+     * Во-вторых, если cell - l-value-reference, то после того, как данная функция отработает и попробует
+     * вернуть cell, она вернёт локальную копию - то есть получим dangling-reference. В таком случае надо возвращать
+     * по значению
+     */
+
+
+    if (cell.isFree()) {
+        throw my::Exception("Container: cell is empty!");
+    }
+    else {
+        return cell;
+    }
+
+
+}
 
 
 //==================================================================================================
@@ -245,7 +248,7 @@ void Container::display() const
     my::String titleCount  {"COUNT"};
     my::String titleCost   {"COST"};
 
-    std::cout << "\nInventory of " << this->getName()
+    std::cout << "\nContent of (" << this->getName() << ")"
               << "\n-------------------------------------------------------------------------------\n"
               << titleId      << " | "
               << std::setw(32)  << titleName    << " | "

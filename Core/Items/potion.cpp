@@ -27,7 +27,7 @@ Potion::Potion(Potion::Type potionType, int effect) :
 //     COMMENTS:    ........
 //==================================================================================================
 Potion::Potion(int level) :
-    Item(Item::Type::POTION, 1, defaultWeight),
+    Item(Item::Type::POTION, false, 1, defaultWeight),
     mb_type {this->generateRandomType()},
     mb_effect {this->generateRandomEffect(mb_type, level)}
 {

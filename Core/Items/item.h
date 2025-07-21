@@ -1,14 +1,18 @@
-
-// #### Item is a base class for any item in the game (e.g. gold, armor, weapon, potion and etc.)
-// #########
-
 #ifndef ITEM_H
 #define ITEM_H
 
 #include "../main.h"
 #include "item.h"
 
-//
+
+
+//==================================================================================================
+//         TYPE:    Class
+//  DESCRIPTION:    Base class for different items
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
 class Item {
 public:
     enum class Type {
@@ -19,6 +23,17 @@ public:
 
         TOTAL
     };
+
+    // # Item's properties, which are used in container's sort() function
+    enum class Property {
+        TYPE,
+        NAME,
+        COUNT,
+        COST,
+
+        TOTAL
+    };
+
 private:
     Type    mb_type {Type::TRASH};
 protected:

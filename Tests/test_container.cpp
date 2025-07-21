@@ -13,11 +13,14 @@ int main()
 
     my::SmartPtr<Item> gold {new Gold {100}};
     box.putItem(gold);
+    my::SmartPtr<Item> potion {new Potion {3}};
+    box.putItem(potion);
     box.display();
 
-    const my::SmartPtr<Item>& item {box.extractItem(0)};
+    my::SmartPtr<Item> item {box.extractItem(0)};
     box.display();
-
+    box.removeItem(1);
+    box.display();
 
 //    my::SmartPtr<Item> potion {new Potion {1}};
 //    box.putItem(potion);

@@ -58,6 +58,9 @@
  * 17 - Think about the moving all things, connected with the choosing an option to the <Menu> class
  *      (for example, fight dialog).
  *
+ * 18 - Add a constructor with single argument (int level) for each class, derived from <Item> in order to fill different
+ *      containers only via creature's level.
+ *
  *
  *
  * QUESTIONS:

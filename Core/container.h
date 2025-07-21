@@ -91,15 +91,15 @@ public:
     const my::String& getName() const;
 
 
-    void sort(Item::Type type);
     void display() const;
 
-    int                         removeItem(int itemPosition, int count);
     int                         findItem(Item::Type type);
 //    int                         countItem(Item::Type type);
 
 
-    [[deprecated("[REASON]: Draft version")]] const my::SmartPtr<Item>&   extractItem(int itemPosition);
+    [[deprecated("[REASON]: Draft version")]] void                  sort(Item::Property property);
+    [[deprecated("[REASON]: Draft version")]] int                   removeItem(int itemPosition);
+    [[deprecated("[REASON]: Draft version")]] my::SmartPtr<Item>&&  extractItem(int itemPosition);
     [[deprecated("[REASON]: Draft version")]] int                   putItem(my::SmartPtr<Item>& itemPtr);
 
 // ######################################  PROTECTED   #############################################

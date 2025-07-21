@@ -165,12 +165,17 @@ int Container::putItem(my::SmartPtr<Item>& itemPtr)
 
 //==================================================================================================
 //         TYPE:    Public member function
-//  DESCRIPTION:    Extract item on @itemPosition from the container
+//  DESCRIPTION:    Extract item on @itemPosition from the container.
 //   PARAMETERS:    ........
 // RETURN VALUE:    ........
-//     COMMENTS:    I'm not sure, that returning nullptr is correct...
+//     COMMENTS:    А должен ли я возвращать r-value reference? По смыслу, extractItem() означает
+//                  ИЗВЛЕЧЕНИЕ предмета из контейнера. Возможно, мне не стоит здесь играть с
+//                  референсами особо. Иначе, если я возвращаю r-value-reference на содержимое
+//                  контейнера, то, по сути, я ничего и не извлёк. А мне НУЖНО извлечь объект. Хотя,
+//                  за то, что я хочу сделать - отвечает caller, просто присвой возвращаемое значение
+//                  объекту, а не очередному референсу.
 //==================================================================================================
-const my::SmartPtr<Item>& Container::extractItem(int itemPosition)
+my::SmartPtr<Item>&& Container::extractItem(int itemPosition)
 {
 
     // # Invalid position (May be I have to use assert() here? Who is responsible for the checking
@@ -190,24 +195,99 @@ const my::SmartPtr<Item>& Container::extractItem(int itemPosition)
      * сделать, так как он запрещает копирование - только перемещение можно.
      * 3) Однако, просто l-reference нельзя инициализировать с помощью r-ref, поэтому нужен const l-ref
      */
-    const my::SmartPtr<Item>& cell {my::move(mb_container[itemPosition])};
 
-    /*
-     * Во-вторых, если cell - l-value-reference, то после того, как данная функция отработает и попробует
-     * вернуть cell, она вернёт локальную копию - то есть получим dangling-reference. В таком случае надо возвращать
-     * по значению
-     */
+    /***********************************************************************************************
+     * Что происходит:
+     * 1) Выполняется функция mb_container.operator[](itemPosition), которая возвращает
+     *    non-const lvalue-референс: my::SmartPtr<Item>&
+     *
+     * 2) Затем происходит кастинг в r-value референс. Здесь - это просто инструкция компилятору,
+     * помогающая определить, какую 'перегрузку' осуществлять далее, а именно:
+     *  a) Нам нужно скопировать (или переместить) содержимое в фигурных скобках в переменную @cell
+     *  b) Для этих целей есть два конструктора у класса my::SmartPtr (или два оператора присваивания,
+     *     если бы стоял знак '='). Нужно выбрать (выполнить overload resolution)
+     *  c) Компилятор видит, что мы хотим вызвать НЕ конструктор копирования, а конструктор ПЕРЕМЕЩЕНИЯ
+     *  d) Если бы мы убрали my::move(), то была бы попытка вызвать конструктор копирования - а он
+     *     помечен как deleted.
+     *
+     * 3) Итак, мы КОНСТРУИРУЕМ объект cell. Почему нельзя использовать не полноценный объект, а референс?
+     *  a) non-const-lvalue:
+     *     Проблема в том, что non-const lvalue-референсы МОГУТ инициализироваться только с помощью
+     *     non-const lvalue и если бы мы могли их инициализировать с помощью r-value, то мы могли
+     *     бы менять такие r-value, т.е., например, int& a {5}; a += 1; - ошибка компиляции, т.к.
+     *     по сути мы пытаемся изменить литерал (константный объект в памяти), который УЖЕ не существует.
+     *
+     *  b) Хорошо, давай использовать const l-value-reference, но тогда и возвращать из функции
+     *     придётся const-объект, а я хочу иметь возможность модифицировать объект после извлечения -
+     *     не подходит.
+     *
+     *  c) non-const rvalue-reference: почему бы и ДА?
+     *
+     *  d) const-rvalue-reference - проблема, аналогичная пункту (b)
+     *
+     *  e) Создать локальную переменную под это дело. Из минусов - лишнее (перемещение), т.е.
+     *     придётся инициализировать переменную @cell данными, перемещаемыми из контейнера. А потом
+     *     снова копировать/перемещать (через возвращаемое значение).
+     *
+     *
+     *
+     *
+     **********************************************************************************************/
+    my::SmartPtr<Item>&& cell {my::move(mb_container[itemPosition])};
+
 
 
     if (cell.isFree()) {
         throw my::Exception("Container: cell is empty!");
     }
     else {
-        return cell;
+        /*
+         * Если бы @cell была l-value-reference на локальный объект, то после того, как данная
+         * функция отработает и попробует вернуть @cell, она вернёт локальную копию - то есть
+         * получим dangling-reference. В таком случае надо возвращать или по значению
+         * или СНОВА использовать move-семантику.
+         */
+        return my::move(cell);
+//        return cell;
     }
 
+}
+
+
+
+
+
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    ........
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+int Container::removeItem(int itemPosition)
+{
+    // # Invalid position (May be I have to use assert() here? Who is responsible for the checking
+    // # of the position validity: <Container> or caller?)
+    if (itemPosition < 0 || itemPosition >= mb_spaceLimit) {
+        throw my::Exception("Container: invalid item position!");
+    }
+    else if (itemPosition > mb_container.size()) {
+        throw my::Exception("Container: cell is empty!");
+    }
+
+    // # Extract item
+    my::SmartPtr<Item> item {my::move(mb_container[itemPosition])};
+    if (item == false) {
+        throw my::Exception("Container: cell is empty!");
+    }
+    else {}
+
+    // # Remove item via implicit destruction of @item object
+    return OperationStatus::SUCCEED;
 
 }
+
+
 
 
 //==================================================================================================
@@ -243,14 +323,14 @@ int Container::findItem(Item::Type type)
 //==================================================================================================
 void Container::display() const
 {
-    my::String titleId     {"ID"};
-    my::String titleName   {"NAME"};
-    my::String titleCount  {"COUNT"};
-    my::String titleCost   {"COST"};
+    my::String titlePos     {"POSITION"};
+    my::String titleName    {"NAME"};
+    my::String titleCount   {"COUNT"};
+    my::String titleCost    {"COST"};
 
     std::cout << "\nContent of (" << this->getName() << ")"
               << "\n-------------------------------------------------------------------------------\n"
-              << titleId      << " | "
+              <<                   titlePos     << " | "
               << std::setw(32)  << titleName    << " | "
               << std::setw(8)   << titleCount   << " | "
               << std::setw(8)   << titleCost
@@ -261,10 +341,13 @@ void Container::display() const
 
         const my::SmartPtr<Item>& item {mb_container[ii]};
         if (item == false) {
-            continue;
+            std::cout << std::setw(8)   << ii               << " | "
+                      << std::setw(32)  << "--------"       << " | "
+                      << std::setw(8)   << "--------"       << " | "
+                      << std::setw(8)   << "--------"       << std::endl;
         }
         else {
-            std::cout << std::setw(2)   << ii               << " | "
+            std::cout << std::setw(8)   << ii               << " | "
                       << std::setw(32)  << item->getName()  << " | "
                       << std::setw(8)   << item->getCount() << " | "
                       << std::setw(8)   << item->getCost() << std::endl;
@@ -277,7 +360,22 @@ void Container::display() const
 
 
 
+//==================================================================================================
+//         TYPE:    ........
+//  DESCRIPTION:    Sort container's items depending on specified property
+//   PARAMETERS:    ........
+// RETURN VALUE:    ........
+//     COMMENTS:    ........
+//==================================================================================================
+void Container::sort(Item::Property property)
+{
+    auto condition {
+                   []() -> bool {}
+    };
 
+    my::sort(mb_container.begin(), mb_container.end(), condition);
+
+}
 
 
 
